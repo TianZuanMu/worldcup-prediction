@@ -72,7 +72,7 @@ except ImportError:
     import sys; print('⚠️ V3.3: injury_tracker 导入失败 → 伤病维度将跳过', file=sys.stderr)
 
 PROJECT_DIR = Path(r"C:\Users\A\PyCharmMiscProject")
-TREND_FILE = PROJECT_DIR / "odds_trend_analysis_text.csv"
+# V3.4: 赔率趋势改为从XLS版本计算 (替代不可靠的API CSV)
 
 
 @dataclass
@@ -466,73 +466,56 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
 
 
 def _load_odds_trend(r: PreMatchReport, match_name: str):
-    """加载赔率趋势数据 + V2.6新信号"""
-    if not TREND_FILE.exists():
-        return
-
-    home_team = _extract_home(match_name)
-    away_team = _extract_away(match_name)
-
-    # 🆕 V3.4: 中文→英文映射 (CSV使用英文队名)
+    """🆕 V3.4: 从XLS历史版本计算赔率趋势 (替代不可靠的API)"""
     try:
-        from match_context import CN_TO_EN
-        home_en = CN_TO_EN.get(home_team, home_team)
-        away_en = CN_TO_EN.get(away_team, away_team)
-    except Exception:
-        home_en = home_team
-        away_en = away_team
+        from xls_reader_xlrd import read_all_xls
+        data = read_all_xls(match_name, use_latest=True)
+        if not data:
+            return
+        euro = data.get('european', {})
+        if not euro:
+            return
 
-    try:
-        with open(TREND_FILE, 'r', encoding='utf-8-sig') as f:
-            reader = csv.DictReader(f)
-            h2h = {}
-            home_changes = []  # 每家博彩公司的主胜变化
-            draw_changes_all = []
-            for row in reader:
-                row_home = row['主队']
-                row_away = row['客队']
-                # 同时匹配中文和英文名
-                if (row_home in (home_team, home_en) and
-                    row_away in (away_team, away_en)):
-                    if row['市场类型'] == 'h2h':
-                        outcome = row['选项']
-                        chg = float(row['变化百分比'])
-                        if outcome not in h2h:
-                            h2h[outcome] = []
-                        h2h[outcome].append(chg)
+        stats = euro.get('stats', {})
+        summary = euro.get('summary', {})
+        bookmakers = euro.get('bookmakers', [])
 
-            # 🆕 V3.4: 同时匹配中英文队名 (CSV选项使用英文)
-            home_key = home_en if home_en in h2h else (home_team if home_team in h2h else None)
-            away_key = away_en if away_en in h2h else (away_team if away_team in h2h else None)
-            if home_key:
-                r.odds_home_chg = sum(h2h[home_key]) / len(h2h[home_key])
-                home_changes = h2h[home_key]
-            if 'Draw' in h2h:
-                r.odds_draw_chg = sum(h2h['Draw']) / len(h2h['Draw'])
-                draw_changes_all = h2h['Draw']
-            if away_key:
-                r.odds_away_chg = sum(h2h[away_key]) / len(h2h[away_key])
+        # 1. 赔率变化 (XLS自带统计·58家博彩公司)
+        r.odds_home_chg = round(stats.get('win_avg_change', 0), 2)
+        r.odds_draw_chg = round(stats.get('draw_avg_change', 0), 2)
+        r.odds_away_chg = round(stats.get('lose_avg_change', 0), 2)
 
-            # V2.6 新信号
-            r.unanimity = unanimity_signal(home_changes)
-            r.draw_collapse = draw_collapse_signal(draw_changes_all)
+        # 2. 全票通过信号 (从bookmaker级别计算)
+        home_changes = []
+        draw_changes = []
+        for bm in bookmakers:
+            wc = float(bm.get('win_change', 0) or 0)
+            dc = float(bm.get('draw_change', 0) or 0)
+            lc = float(bm.get('lose_change', 0) or 0)
+            home_changes.append(wc)
+            draw_changes.append(dc)
 
-            # 传统信号
-            if r.odds_home_chg > 2:
-                r.odds_signals.append(f"主胜赔率上升{r.odds_home_chg:+.1f}%")
-            if r.odds_draw_chg < -2:
-                r.odds_signals.append(f"平赔下降{r.odds_draw_chg:+.1f}%·平局预警")
-            if r.odds_away_chg > 2:
-                r.odds_signals.append(f"客胜赔率上升{r.odds_away_chg:+.1f}%")
+        r.unanimity = unanimity_signal(home_changes)
+        r.draw_collapse = draw_collapse_signal(draw_changes)
 
-            # 新信号描述
-            if r.unanimity.get('triggered'):
-                r.odds_signals.append(f"🔴 全票通过: {r.unanimity['ratio']:.0%}博彩公司同向·{r.unanimity['strength']}")
-            if r.draw_collapse.get('triggered'):
-                r.odds_signals.append(f"🔴🔴 平赔暴跌: {r.draw_collapse['avg_change']:.1f}% ({r.draw_collapse['down_count']}家)·{r.draw_collapse['severity']}")
+        # 3. 信号描述
+        if abs(r.odds_home_chg) > 2:
+            r.odds_signals.append(f"主胜赔率{'上升' if r.odds_home_chg>0 else '下降'}{r.odds_home_chg:+.1f}%")
+        if r.odds_draw_chg < -2:
+            r.odds_signals.append(f"平赔下降{r.odds_draw_chg:+.1f}%·平局预警")
+        if abs(r.odds_away_chg) > 2:
+            r.odds_signals.append(f"客胜赔率{'上升' if r.odds_away_chg>0 else '下降'}{r.odds_away_chg:+.1f}%")
+
+        if r.unanimity.get('triggered'):
+            r.odds_signals.append(f"🔴 全票通过: {r.unanimity['ratio']:.0%}博彩公司同向·{r.unanimity['strength']}")
+        if r.draw_collapse.get('triggered'):
+            r.odds_signals.append(f"🔴🔴 平赔暴跌: {r.draw_collapse['avg_change']:.1f}% ({r.draw_collapse['down_count']}家)·{r.draw_collapse['severity']}")
+
+        # 4. 显示博彩公司数
+        r.xls_bookmakers = len(bookmakers) if bookmarks else r.xls_bookmakers
 
     except Exception as e:
-        r.odds_signals.append(f"趋势加载失败: {e}")
+        pass  # XLS不可用时静默跳过，保留默认值
 
 
 def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
@@ -2237,15 +2220,21 @@ def batch_report(matches: list, betfair_texts: dict = None) -> str:
         reports.append(r)
 
     # 构建对比表
-    header = f"{'比赛':20s} | {'差距':8s} | {'共识':>6s} | {'冷热':>4s} | {'全票':6s} | {'平赔暴跌':8s} | {'三条件':6s} | {'V2.6规则':26s} | {'预测':18s} | {'信':>3s} | {'比分预测':20s}"
+    header = f"{'比赛':20s} | {'差距':8s} | {'共识':>6s} | {'冷热':>4s} | {'全票':6s} | {'三条件':5s} | {'V2.6规则':24s} | {'预测':16s} | {'信':>3s} | {'大小球':10s} | {'比分预测':18s}"
     sep = "-" * len(header)
     lines = [sep, header, sep]
 
     for r in reports:
         uni = '⚠️' if r.unanimity.get('triggered') else '--'
-        dc = '🔴' if r.draw_collapse.get('triggered') else '--'
         tc = f"{r.three_conditions.get('passed','?')}/3" if r.three_conditions else 'N/A'
         pred = r.v26_prediction or '(待定)'
+        # 🆕 V3.4: 大小球预测列
+        tp = r._totals_prediction
+        totals_dir = tp.get('direction', '?') if tp else '?'
+        totals_label = {'over': '大', 'under': '小', 'neutral': '均'}.get(totals_dir, '?')
+        totals_line = f"{tp.get('line', 0):.1f}" if tp else '?'
+        totals_conf = f"{tp.get('confidence', 0):.0f}" if tp else '?'
+        totals_str = f"{totals_label}{totals_conf}%({totals_line})"
         # 🆕 V3.3 P1-5: 比分预测列
         try:
             from score_prediction import format_score_output_compact
@@ -2255,9 +2244,9 @@ def batch_report(matches: list, betfair_texts: dict = None) -> str:
 
         line = (f"{r.match_name:20s} | {r.gap_level:8s} | "
                 f"{r.xls_consensus_pct:+5.0f}% | {r.betfair_cold:+4.0f} | "
-                f"{uni:6s} | {dc:8s} | {tc:6s} | "
-                f"{r.v26_rule[:26]:26s} | {pred[:18]:18s} | {r.v26_confidence:>2}% | "
-                f"{score_str[:20]:20s}")
+                f"{uni:6s} | {tc:5s} | "
+                f"{r.v26_rule[:24]:24s} | {pred[:16]:16s} | {r.v26_confidence:>2}% | "
+                f"{totals_str:10s} | {score_str[:18]:18s}")
         lines.append(line)
 
     lines.append(sep)
