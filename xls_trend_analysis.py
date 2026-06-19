@@ -316,10 +316,16 @@ def _synthesize(result: XlsTrendResult):
             adjustment += 2  # 看多加速
         alerts += 1
 
-    # 共识反转 → 高度不确定
+    # 🆕 V3.4: 共识反转 → 方向决定信号
     if result.consensus_trend == 'reversing':
-        adjustment -= 4
-        critical += 1
+        # 从看衰转为看好热队(bearish→bullish) → 强牛信号
+        if result.consensus_first > 30 and result.consensus_last < -10:
+            adjustment += 5  # 市场倒戈热队·强牛
+        # 从看好转为看衰(bullish→bearish) → 危险信号
+        elif result.consensus_first < -30 and result.consensus_last > 10:
+            adjustment -= 5  # 市场倒戈冷门·警惕
+        else:
+            adjustment -= 2  # 一般反转·轻微不确定
 
     # 跳变 → 市场异常
     if result.has_jump:

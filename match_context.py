@@ -36,7 +36,7 @@ VENUE_DB: Dict[str, dict] = {
     },
     'BC Place': {
         'name': 'BC Place', 'city': 'Vancouver', 'country': 'Canada',
-        'altitude_m': 4, 'grass_type': 'artificial', 'indoor': True,
+        'altitude_m': 4, 'grass_type': 'natural', 'indoor': True,
         'capacity': 54500, 'timezone': 'America/Vancouver', 'utc_offset': -7,
     },
     # ═══ 美国 (11座) ═══
@@ -47,7 +47,7 @@ VENUE_DB: Dict[str, dict] = {
     },
     'AT&T Stadium': {
         'name': 'AT&T Stadium', 'city': 'Arlington (Dallas)', 'country': 'USA',
-        'altitude_m': 180, 'grass_type': 'artificial', 'indoor': True,
+        'altitude_m': 180, 'grass_type': 'natural', 'indoor': True,
         'capacity': 80000, 'timezone': 'America/Chicago', 'utc_offset': -5,
     },
     'Arrowhead Stadium': {
@@ -62,12 +62,12 @@ VENUE_DB: Dict[str, dict] = {
     },
     'Mercedes-Benz Stadium': {
         'name': 'Mercedes-Benz Stadium', 'city': 'Atlanta', 'country': 'USA',
-        'altitude_m': 320, 'grass_type': 'artificial', 'indoor': True,
+        'altitude_m': 320, 'grass_type': 'natural', 'indoor': True,
         'capacity': 71000, 'timezone': 'America/New_York', 'utc_offset': -4,
     },
     'SoFi Stadium': {
         'name': 'SoFi Stadium', 'city': 'Inglewood (LA)', 'country': 'USA',
-        'altitude_m': 30, 'grass_type': 'artificial', 'indoor': True,
+        'altitude_m': 30, 'grass_type': 'natural', 'indoor': True,
         'capacity': 70240, 'timezone': 'America/Los_Angeles', 'utc_offset': -7,
     },
     'Levi\'s Stadium': {
@@ -82,7 +82,7 @@ VENUE_DB: Dict[str, dict] = {
     },
     'Lumen Field': {
         'name': 'Lumen Field', 'city': 'Seattle', 'country': 'USA',
-        'altitude_m': 50, 'grass_type': 'artificial', 'indoor': False,
+        'altitude_m': 50, 'grass_type': 'natural', 'indoor': False,
         'capacity': 68740, 'timezone': 'America/Los_Angeles', 'utc_offset': -7,
     },
     'Gillette Stadium': {

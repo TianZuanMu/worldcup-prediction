@@ -19,6 +19,16 @@ NAME_MAP = {
     '葡萄牙国家队': '葡萄牙',
 }
 
+# 🆕 V3.4: 所有世界杯48队列表 (用于自动检测无header段落)
+ALL_TEAMS = {
+    '墨西哥', '南非', '韩国', '捷克', '加拿大', '波黑', '卡塔尔', '瑞士',
+    '巴西', '摩洛哥', '海地', '苏格兰', '美国', '巴拉圭', '澳大利亚', '土耳其',
+    '德国', '库拉索', '科特迪瓦', '厄瓜多尔', '荷兰', '日本', '瑞典', '突尼斯',
+    '比利时', '埃及', '伊朗', '新西兰', '西班牙', '佛得角', '沙特阿拉伯', '乌拉圭',
+    '法国', '塞内加尔', '伊拉克', '挪威', '阿根廷', '阿尔及利亚', '奥地利', '约旦',
+    '葡萄牙', '民主刚果', '乌兹别克斯坦', '哥伦比亚', '英格兰', '克罗地亚', '加纳', '巴拿马',
+}
+
 RESULT_MAP = {'胜': 'W', '平': 'D', '负': 'L', '击败': 'W', '战胜': 'W',
               '不敌': 'L', '惜败': 'L', '惨败': 'L', '告负': 'L',
               '逼平': 'D', '战平': 'D', '握手言和': 'D', '闷平': 'D'}
@@ -82,10 +92,9 @@ def import_all():
             i += 1
             continue
 
-        # Detect team header: "XXX国家队近5场" or "XXX队近5场"
-        team_match = re.match(r'^(.+?)(?:国家队|队)近5场', line)
+        # Detect team header: "XXX国家队近5场" / "XXX队近5场" / "XXX队近期战绩"
+        team_match = re.match(r'^(.+?)(?:国家队|队)\s*(?:近5场|近期)', line)
         if team_match:
-            # Save previous team's data
             if current_team and current_matches:
                 save_team_data(current_team, current_matches)
                 imported += len(current_matches)
@@ -96,6 +105,24 @@ def import_all():
             current_matches = []
             i += 1
             continue
+
+        # 🆕 无header时: 从匹配行推断队伍 (处理\"(北京时间)\"段)
+        if not current_team and date_match:
+            # 尝试从行中找出已知球队名
+            for known in ALL_TEAMS:
+                if known in line and len(known) >= 2:
+                    vs_match = re.search(r'(.+?)\s*(?:vs|VS)\s*(.+?)(?:\s+\d|\s*$)', line)
+                    if vs_match:
+                        left = vs_match.group(1).strip()
+                        right = vs_match.group(2).strip()
+                        for t in [left, right]:
+                            tn = normalize_team_name(NAME_MAP.get(t, t))
+                            if tn in ALL_TEAMS or len(tn) >= 2:
+                                current_team = tn
+                                current_matches = []
+                                break
+                        if current_team:
+                            break
 
         # Detect match line with date
         date_match = parse_date(line)
@@ -183,9 +210,14 @@ def save_team_data(team, matches):
 
 if __name__ == '__main__':
     import_all()
-    # Quick coverage check
+    # 🆕 V3.4: 持久化到缓存文件
     from recent_form import RECENT_RESULTS
-    print(f'\n总覆盖: {len(RECENT_RESULTS)} 队')
+    import json
+    cache_file = Path(__file__).parent / 'recent_form_cache.json'
+    with open(cache_file, 'w', encoding='utf-8') as f:
+        json.dump(RECENT_RESULTS, f, ensure_ascii=False, indent=2)
+    print(f'\n💾 已保存到 {cache_file}')
+    print(f'总覆盖: {len(RECENT_RESULTS)} 队')
     for t in sorted(RECENT_RESULTS.keys())[:10]:
         m = RECENT_RESULTS[t]
         results = ''.join([x['result'] for x in m[:5]])

@@ -119,6 +119,9 @@ class PreMatchReport:
     betfair_hot_side: str = ""
     betfair_is_real_hot: bool = False
     big_weak_overheat: bool = False      # 🆕 V3.3: BIG级别弱过热 (冷热20-29)
+    _late_surge: bool = False            # 🆕 V3.4: 冷热晚期飙升 (0→40+反向指标)
+    _late_surge_early: float = 0.0
+    _late_surge_late: float = 0.0
     betfair_pollution: bool = False
     betfair_pollution_gap: float = 0.0
     betfair_big_sell: bool = False
@@ -470,6 +473,15 @@ def _load_odds_trend(r: PreMatchReport, match_name: str):
     home_team = _extract_home(match_name)
     away_team = _extract_away(match_name)
 
+    # 🆕 V3.4: 中文→英文映射 (CSV使用英文队名)
+    try:
+        from match_context import CN_TO_EN
+        home_en = CN_TO_EN.get(home_team, home_team)
+        away_en = CN_TO_EN.get(away_team, away_team)
+    except Exception:
+        home_en = home_team
+        away_en = away_team
+
     try:
         with open(TREND_FILE, 'r', encoding='utf-8-sig') as f:
             reader = csv.DictReader(f)
@@ -477,7 +489,11 @@ def _load_odds_trend(r: PreMatchReport, match_name: str):
             home_changes = []  # 每家博彩公司的主胜变化
             draw_changes_all = []
             for row in reader:
-                if row['主队'] == home_team and row['客队'] == away_team:
+                row_home = row['主队']
+                row_away = row['客队']
+                # 同时匹配中文和英文名
+                if (row_home in (home_team, home_en) and
+                    row_away in (away_team, away_en)):
                     if row['市场类型'] == 'h2h':
                         outcome = row['选项']
                         chg = float(row['变化百分比'])
@@ -485,14 +501,17 @@ def _load_odds_trend(r: PreMatchReport, match_name: str):
                             h2h[outcome] = []
                         h2h[outcome].append(chg)
 
-            if home_team in h2h:
-                r.odds_home_chg = sum(h2h[home_team]) / len(h2h[home_team])
-                home_changes = h2h[home_team]
+            # 🆕 V3.4: 同时匹配中英文队名 (CSV选项使用英文)
+            home_key = home_en if home_en in h2h else (home_team if home_team in h2h else None)
+            away_key = away_en if away_en in h2h else (away_team if away_team in h2h else None)
+            if home_key:
+                r.odds_home_chg = sum(h2h[home_key]) / len(h2h[home_key])
+                home_changes = h2h[home_key]
             if 'Draw' in h2h:
                 r.odds_draw_chg = sum(h2h['Draw']) / len(h2h['Draw'])
                 draw_changes_all = h2h['Draw']
-            if away_team in h2h:
-                r.odds_away_chg = sum(h2h[away_team]) / len(h2h[away_team])
+            if away_key:
+                r.odds_away_chg = sum(h2h[away_key]) / len(h2h[away_key])
 
             # V2.6 新信号
             r.unanimity = unanimity_signal(home_changes)
@@ -555,6 +574,33 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                 r.betfair_big_sell_count = len(big_sells)
                 r.betfair_big_sell_volume = sum(t['volume'] for t in big_sells)
                 r._betfair_from_fallback = False  # 🆕 V3.3: JSON成功·数据可靠
+                # 🆕 V3.4: 冷热晚期飙升检测 (回测: 0→40+ 三场全错)
+                all_snaps = data.get('snapshots', [])
+                if len(all_snaps) >= 3:
+                    early_colds = []
+                    late_colds = []
+                    for s in all_snaps:
+                        b = s.get('betfair', {})
+                        ch = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
+                        if ch > 0:
+                            # 粗略分组: 前1/3为早期, 后1/3为晚期
+                            pass
+                    # 取第1个和最后2个快照的冷热
+                    first_val = 0
+                    for s in all_snaps[:1]:
+                        b = s.get('betfair', {})
+                        first_val = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
+                    last_vals = []
+                    for s in all_snaps[-2:]:
+                        b = s.get('betfair', {})
+                        ch = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
+                        last_vals.append(ch)
+                    last_avg = sum(last_vals) / 2 if last_vals else 0
+                    # 检测: 最初无热(≤5) → 最终极热(≥40)
+                    if first_val <= 5 and last_avg >= 40:
+                        r._late_surge = True
+                        r._late_surge_early = round(first_val)
+                        r._late_surge_late = round(last_avg)
                 # 🆕 V3.3: 存储原始数据供 dimension12_books 交叉验证
                 r._bf_raw_odds = {'home': bf.get('home_price', 0) or bf.get('home_odds', 0),
                                   'draw': bf.get('draw_price', 0) or bf.get('draw_odds', 0),
@@ -733,6 +779,89 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
             factors.append(venue_factor)
     except Exception:
         venue_factor = 1.0
+
+    # ── 6. 🆕 V3.4: 精英攻击力因子 ──
+    # 热门拥有多名五大联赛攻击手 → 穿盘更容易
+    try:
+        from opponent_db import opponent_quality
+        home_odds = float(getattr(r, '_home_odds', 2.0))
+        away_odds = float(getattr(r, '_away_odds', 2.0))
+        home_is_favorite = (home_odds > 0 and away_odds > 0 and home_odds < away_odds)
+
+        fav_team = home_cn if home_is_favorite else away_cn
+        fav_data = opponent_quality(fav_team)
+        fav_attackers = fav_data.get('top5_attackers', 0)
+
+        if fav_attackers >= 4:
+            elite_attack_factor = 1.20
+            notes.append(f'{fav_team}精英攻击群({fav_attackers}人)')
+        elif fav_attackers >= 3:
+            elite_attack_factor = 1.12
+            notes.append(f'{fav_team}多名攻击手({fav_attackers}人)')
+        elif fav_attackers >= 2:
+            elite_attack_factor = 1.06
+        else:
+            elite_attack_factor = 1.0
+        factors.append(elite_attack_factor)
+    except Exception:
+        elite_attack_factor = 1.0
+
+    # ── 7. 🆕 V3.4: 实力差距因子 ──
+    # BIG差距 → 强队更可能穿盘; CLOSE → 更难穿盘
+    gap = getattr(r, 'gap_level', 'moderate')
+    if gap == 'big':
+        gap_cover_factor = 1.10
+        notes.append('BIG差距·穿盘更易')
+    elif gap == 'moderate':
+        gap_cover_factor = 1.05
+    elif gap == 'close':
+        gap_cover_factor = 0.92
+        notes.append('CLOSE差距·穿盘更难')
+    else:
+        gap_cover_factor = 1.0
+    factors.append(gap_cover_factor)
+
+    # ── 8. 🆕 V3.4: 盘口深度因子 ──
+    # 小盘口(让<0.5球) → 1-0即穿盘 → 大幅提升穿盘率
+    # 大盘口(让>2.0球)  → 需大胜 → 降低穿盘率
+    # 数据来源: 亚盘.xls 即时盘口 (非让球指数)
+    try:
+        from xls_reader_xlrd import read_all_xls
+        xls_data = read_all_xls(r.match_name)
+        if xls_data:
+            asian_data = xls_data.get('asian', {})
+            inst_line_str = asian_data.get('summary', {}).get('avg', {}).get('instant_line', '')
+            if inst_line_str:
+                actual_handicap = abs(float(inst_line_str))
+                if actual_handicap < 0.25:
+                    depth_factor = 1.50
+                    notes.append(f'盘口仅{actual_handicap:.1f}球·平手盘极易穿')
+                elif actual_handicap < 0.5:
+                    depth_factor = 1.35
+                    notes.append(f'盘口{actual_handicap:.1f}球·极易穿盘')
+                elif actual_handicap < 0.75:
+                    depth_factor = 1.20
+                    notes.append(f'盘口{actual_handicap:.1f}球·较易穿盘')
+                elif actual_handicap > 2.5:
+                    depth_factor = 0.85
+                    notes.append(f'盘口{actual_handicap:.1f}球·极难穿盘')
+                elif actual_handicap > 2.0:
+                    depth_factor = 0.92
+                    notes.append(f'盘口{actual_handicap:.1f}球·较难穿盘')
+                else:
+                    depth_factor = 1.0
+                factors.append(depth_factor)
+
+                # 🆕 小盘口强制边缘: 让球<0.75时, 穿盘/不穿盘信号不可靠
+                # 回测验证: 3场小盘判定全部错误 (64% vs 88%)
+                # 原因: 1-0即穿盘·1-1即不穿·单球决定·纯随机
+                if actual_handicap < 0.75 and not getattr(r, '_cover_depth_forced', False):
+                    r._cover_depth_forced = True
+                    r.v26_warnings.append(
+                        f'🎲 小盘口({actual_handicap:.1f}球<0.75)·穿盘信号不可靠·强制边缘'
+                    )
+    except Exception:
+        pass
 
     # ── 计算调整后穿盘率 ──
     adjusted = raw
@@ -935,6 +1064,12 @@ def _apply_v26_rules(r: PreMatchReport):
                 penalty = int(max_penalty * 0.27); tier = 'I (小额)'
             adj -= penalty
             r.v26_warnings.append(f'🔴 大额卖单({tier}): {cnt}笔·共{vol:,.0f} → 置信度-{penalty}')
+        # 🆕 V3.4: 冷热晚期飙升惩罚 (回测: 0→40+ 三场全错)
+        if r._late_surge:
+            surge_penalty = 12
+            adj -= surge_penalty
+            r.v26_warnings.append(
+                f'🌊 冷热晚期飙升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·临场热钱反向指标→置信度-{surge_penalty}')
         return max(5, min(95, base_conf + adj))
 
     # ── V3.0 乘法调整链 (P1#5: 加法→乘法·防触顶) ──
@@ -1277,7 +1412,7 @@ def _apply_v26_rules(r: PreMatchReport):
                 r.v26_prediction = '热门胜'
                 base_conf = 65
                 # 穿盘率判断
-                if r.xls_cover_rate > 0 and r.xls_cover_rate < 35:
+                if r.xls_cover_rate > 0 and r.xls_cover_rate < 30:  # V3.4: 35→30
                     r.v26_prediction += '·不穿盘'
                     r.v26_warnings.append(f'穿盘率仅{r.xls_cover_rate:.0f}% → 大概率不穿盘')
                 elif r.xls_cover_rate >= 50:
@@ -1341,7 +1476,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     )
                 else:
                     r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
-                    r.v26_prediction = '热门仍赢·不穿盘 (三条件全满足)'
+                    r.v26_prediction = '热门仍赢 (三条件全满足)'
                     base_conf = 65
                     r.v26_warnings.append('三条件全满足: 唯一例外')
             else:
@@ -1638,10 +1773,48 @@ def _cross_validate_score_vs_rules(r: PreMatchReport):
                 f'🔗 交叉验证⚠️: 泊松热方胜率{poisson_hot_win:.0f}%>50%·市场强烈看好热门→V2.6逆势信号·高风险')
 
 
+def _cross_validate_cover_rate(r: PreMatchReport):
+    """
+    🆕 V3.4: 穿盘率 ↔ V2.6预测 交叉验证
+
+    检查预测方向与穿盘率是否一致:
+    - 热门胜 + 穿盘率低 → 自然一致（小胜不穿盘）
+    - 热门胜 + 穿盘率高 → 自然一致（大胜穿盘）
+    - 热门不胜 → 跳过（热队输球无所谓穿盘）
+    矛盾: 预测说热门不胜但穿盘率极高 → 信号冲突
+    """
+    cr = r.xls_cover_rate
+    if not cr or cr <= 0:
+        return
+
+    pred = r.v26_prediction or ''
+    hot_wins = any(w in pred for w in ['热门胜', '热门仍赢', '实力碾压'])
+    hot_loses = any(w in pred for w in ['热门不胜', '热门可能不胜'])
+
+    if hot_wins:
+        # 热门赢 + 小盘口强制边缘 → 正常跳过
+        if getattr(r, '_cover_depth_forced', False):
+            return
+        # 热门赢 + 穿盘率≥50% → 穿盘信号强 → 一致
+        if cr >= 50:
+            r.v26_warnings.append(
+                f'🔗 穿盘交叉✅: 热门胜+穿盘率{cr:.0f}%≥50%→一致·大胜预期')
+        # 热门赢 + 穿盘率<30% → 不穿盘信号强 → 一致（小胜）
+        elif cr < 30:
+            r.v26_warnings.append(
+                f'🔗 穿盘交叉✅: 热门胜+穿盘率{cr:.0f}%<30%→一致·小胜预期')
+    elif hot_loses:
+        # 热门不胜但穿盘率极高 → 矛盾信号
+        if cr >= 60:
+            r.v26_warnings.append(
+                f'🔗 穿盘交叉⚠️: 预测热门不胜但穿盘率{cr:.0f}%≥60%→信号冲突·注意')
+
+
 def _build_structured(r: PreMatchReport):
     """V3.0: 生成结构化的预测输出"""
     # 🆕 V3.4: 交叉验证 (必须在structured构建前执行)
     _cross_validate_score_vs_rules(r)
+    _cross_validate_cover_rate(r)
 
     # Determine winner
     winner = None
@@ -1655,9 +1828,11 @@ def _build_structured(r: PreMatchReport):
     # Cover assessment
     cover = None
     if r.xls_cover_rate > 0:
-        if r.xls_cover_rate >= 50:
+        if getattr(r, '_cover_depth_forced', False):
+            cover = 'borderline'  # 🆕 V3.4: 小盘口强制边缘 (回测88%)
+        elif r.xls_cover_rate >= 50:
             cover = 'likely_cover'
-        elif r.xls_cover_rate >= 35:
+        elif r.xls_cover_rate >= 30:  # V3.4: 35→30 收紧不穿盘阈值
             cover = 'borderline'
         else:
             cover = 'unlikely_cover'
@@ -1846,9 +2021,23 @@ def format_report(r: PreMatchReport) -> str:
         lines.append(f"  ⚠️ 低置信度({r.v26_confidence}%)·信号不足·建议回避或小额试探")
     # 🆕 穿盘率展示
     if r.xls_cover_rate > 0:
-        cover_label = '🔴 大概率不穿盘' if r.xls_cover_rate < 30 else ('🟡 可能不穿盘' if r.xls_cover_rate < 50 else '🟢 可能穿盘')
+        if getattr(r, '_cover_depth_forced', False):
+            cover_label = '🎲 小盘口·穿盘信号不可靠'
+        elif r.xls_cover_rate < 30:
+            cover_label = '🔴 大概率不穿盘'
+        elif r.xls_cover_rate < 50:
+            cover_label = '🟡 可能不穿盘'
+        else:
+            cover_label = '🟢 可能穿盘'
         adj_note = f' (原始{r.xls_cover_rate_raw:.0f}%→动态{r.xls_cover_rate:.0f}%)' if r.xls_cover_rate_raw > 0 and abs(r.xls_cover_rate_raw - r.xls_cover_rate) > 1 else ''
         lines.append(f"  穿盘率: {r.xls_cover_rate:.0f}%{adj_note} → {cover_label}")
+        # 🆕 V3.4: 小盘口V2.6方向提示
+        if getattr(r, '_cover_depth_forced', False):
+            pred = r.v26_prediction or ''
+            if any(w in pred for w in ['热门胜', '热门仍赢']):
+                lines.append(f"    ↳ 🎲 小盘口·V2.6预测热门胜→倾向穿盘(仅供参考)")
+            elif any(w in pred for w in ['热门不胜', '热门可能不胜']):
+                lines.append(f"    ↳ 🎲 小盘口·V2.6预测热门不胜→倾向不穿(仅供参考)")
 
     if r.v26_warnings:
         for w in r.v26_warnings:

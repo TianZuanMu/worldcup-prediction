@@ -81,69 +81,79 @@ def _implied_goals_from_odds(home_odds: float, draw_odds: float, away_odds: floa
     return lam_home, lam_away
 
 
-def _adjust_for_prediction_direction(lam_strong: float, lam_weak: float,
+def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
                                       prediction_text: str, gap_level: str,
+                                      hot_side: str,
                                       adjustments: List[str]) -> Tuple[float, float]:
     """
     🆕 V3.4: 根据V2.6规则预测方向调整λ
 
-    核心洞察: 当模型预测"热门不胜"时, 市场赔率仍偏向热门,
-    但真实比赛中弱方会进球——泊松模型必须反映这一点。
+    核心: 使用hot_side确定哪个队是V2.6的热门, 而非市场赔率的"强方".
+    当V2.6预测"热门胜"时, 调整热方的λ增加, 对手减少.
     """
     pred = prediction_text.lower() if prediction_text else ''
 
-    if '⚠️ 热门不胜' in prediction_text or '热门不胜' in prediction_text:
-        # 热门不胜 → 强方进球减少, 弱方进球增加
-        # 幅度取决于差距级别
-        if gap_level == 'close':
-            factor_strong = 0.80   # 强方λ -20%
-            factor_weak = 1.15     # 弱方λ +15%
-            note = '热门不胜(CLOSE)→强方-20%弱方+15%'
-        elif gap_level == 'big':
-            factor_strong = 0.75   # 强方λ -25%
-            factor_weak = 1.20     # 弱方λ +20%
-            note = '热门不胜(BIG)→强方-25%弱方+20%'
-        elif gap_level == 'moderate':
-            factor_strong = 0.78   # 强方λ -22%
-            factor_weak = 1.18     # 弱方λ +18%
-            note = '热门不胜(MOD)→强方-22%弱方+18%'
-        else:
-            factor_strong = 0.85; factor_weak = 1.10
-            note = '热门不胜→强方-15%弱方+10%'
+    # 确定热方/对手的λ (以V2.6热方为准, 非市场赔率"强方")
+    if hot_side == 'home':
+        lam_hot, lam_opp = lam_home, lam_away
+    else:
+        lam_hot, lam_opp = lam_away, lam_home
 
-        new_strong = lam_strong * factor_strong
-        new_weak = lam_weak * factor_weak
-        adjustments.append(f'🎯 {note}')
-        return new_strong, new_weak
+    # 🆕 V3.4: 所有调整基于V2.6热方 (lam_hot=热门)
+    if '⚠️ 热门不胜' in prediction_text or '热门不胜' in prediction_text:
+        # 热门不胜 → 热方进球减少, 对手进球增加
+        if gap_level == 'close':
+            f_hot, f_opp = 0.80, 1.15; note = '热门不胜(CLOSE)→热方-20%对手+15%'
+        elif gap_level == 'big':
+            f_hot, f_opp = 0.75, 1.20; note = '热门不胜(BIG)→热方-25%对手+20%'
+        elif gap_level == 'moderate':
+            f_hot, f_opp = 0.78, 1.18; note = '热门不胜(MOD)→热方-22%对手+18%'
+        else:
+            f_hot, f_opp = 0.85, 1.10; note = '热门不胜→热方-15%对手+10%'
+        new_hot = lam_hot * f_hot
+        new_opp = lam_opp * f_opp
+        if new_hot >= new_opp:
+            avg = (new_hot + new_opp) / 2
+            new_hot = avg * 0.93; new_opp = avg * 1.07
+            adjustments.append(f'🎯 {note}+逆市场修正·泊松对齐V2.6')
+        else:
+            adjustments.append(f'🎯 {note}')
 
     elif '热门仍赢' in prediction_text:
-        # 热门仍赢但可能不穿盘 → 强方略降, 弱方也可能进球
-        factor_strong = 0.92
-        factor_weak = 1.05
-        adjustments.append('🎯 热门仍赢(不穿盘)→强方-8%弱方+5%')
-        return lam_strong * factor_strong, lam_weak * factor_weak
+        new_hot = lam_hot * 0.92; new_opp = lam_opp * 1.05
+        if new_opp > new_hot:
+            avg = (new_hot + new_opp) / 2
+            new_hot = avg * 1.06; new_opp = avg * 0.94
+            adjustments.append('🎯 热门仍赢(逆市场)→泊松对齐V2.6')
+        else:
+            adjustments.append('🎯 热门仍赢(不穿盘)→热方-8%对手+5%')
 
     elif '热门胜' in prediction_text or '实力碾压' in prediction_text:
-        # 热门稳胜 → 强方加强
-        factor_strong = 1.10
-        factor_weak = 0.90
-        adjustments.append('🎯 热门胜/实力碾压→强方+10%弱方-10%')
-        return lam_strong * factor_strong, lam_weak * factor_weak
+        new_hot = lam_hot * 1.10; new_opp = lam_opp * 0.90
+        if new_opp > new_hot:
+            avg = (new_hot + new_opp) / 2
+            new_hot = avg * 1.08; new_opp = avg * 0.92
+            adjustments.append('🎯 热门胜(逆市场)→泊松对齐V2.6')
+        else:
+            adjustments.append('🎯 热门胜/实力碾压→热方+10%对手-10%')
 
     elif '客胜倾向' in prediction_text or ('客胜' in prediction_text and '⚠️' not in prediction_text):
-        # 客队强
-        factor_strong = 1.08
-        factor_weak = 0.92
-        adjustments.append('🎯 客胜倾向→客队(强方)+8%')
-        return lam_strong * factor_strong, lam_weak * factor_weak
+        new_hot = lam_hot * 1.08; new_opp = lam_opp * 0.92
+        adjustments.append('🎯 客胜倾向→客队(热方)+8%')
 
     elif '平局' in prediction_text or 'draw' in pred:
-        # 平局倾向 → 拉近两队λ
-        avg = (lam_strong + lam_weak) / 2.0
+        avg = (lam_hot + lam_opp) / 2.0
+        new_hot = avg * 1.05; new_opp = avg * 0.95
         adjustments.append('🎯 平局倾向→两队λ拉近')
-        return avg * 1.05, avg * 0.95
 
-    return lam_strong, lam_weak
+    else:
+        new_hot, new_opp = lam_hot, lam_opp
+
+    # 还原为主/客视角
+    if hot_side == 'home':
+        return new_hot, new_opp
+    else:
+        return new_opp, new_hot
 
 
 def _adjust_for_opponent_quality(lam_strong: float, lam_weak: float,
@@ -151,20 +161,36 @@ def _adjust_for_opponent_quality(lam_strong: float, lam_weak: float,
                                   underdog_has_attackers: bool,
                                   underdog_giant_killer: bool,
                                   hot_team_rank: int,
-                                  adjustments: List[str]) -> Tuple[float, float]:
+                                  adjustments: List[str],
+                                  weak_team_threat: float = 0.0) -> Tuple[float, float]:  # 🆕 V3.4
     """
-    🆕 V3.4: 对手质量调整
+    🆕 V3.4: 对手质量调整 (威胁感知)
 
-    - 三条件全满足(3/3): 弱方极弱 → 强方进球增加
+    - 三条件全满足(3/3): 弱方进攻力决定惩罚幅度
     - 三条件2/3(有五大射手): 弱方能进球 → 弱方进攻提升
     - 巨人杀手血统: 弱方进球提升
     """
     # ── 三条件 ──
     if three_conditions_met == 3:
-        # 弱方无射手+排名低+无爆冷史 → 很难进球
-        lam_strong *= 1.10
-        lam_weak *= 0.85
-        adjustments.append('🛡️ 三条件全满足→弱方进攻极弱·强方+10%弱方-15%')
+        # 🆕 V3.4: 威胁感知 — 弱方有攻击手时减轻惩罚
+        if weak_team_threat >= 1.5:
+            # 弱方有实质攻击力(如科特迪瓦迪亚洛) → 不惩罚
+            adjustments.append('🛡️ 三条件全满足·弱方有攻击手→不调整')
+        elif weak_team_threat >= 1.0:
+            # 弱方有单个前锋 → 轻度惩罚
+            lam_strong *= 1.04
+            lam_weak *= 0.93
+            adjustments.append(f'🛡️ 三条件全满足·弱方threat={weak_team_threat:.1f}→轻度-7%')
+        elif weak_team_threat >= 0.5:
+            # 弱方仅有中场威胁 → 中度惩罚
+            lam_strong *= 1.07
+            lam_weak *= 0.89
+            adjustments.append(f'🛡️ 三条件全满足·弱方threat={weak_team_threat:.1f}→中度-11%')
+        else:
+            # 弱方无任何攻击手 → 重度惩罚
+            lam_strong *= 1.10
+            lam_weak *= 0.85
+            adjustments.append('🛡️ 三条件全满足→弱方进攻极弱·强方+10%弱方-15%')
     elif three_conditions_met == 2:
         # 缺一项(通常是有五大射手) → 弱方有进球能力
         if underdog_has_attackers:
@@ -368,10 +394,12 @@ def predict_score(match_name: str,
                   away_goals_scored: float = 0, away_goals_conceded: float = 0,
                   cover_rate: float = 50,
                   prediction_direction: str = '',
+                  hot_side: str = 'home',      # 🆕 V3.4: V2.6热方 (用于泊松对齐)
                   three_conditions_met: int = 0,
                   underdog_has_attackers: bool = False,
                   underdog_giant_killer: bool = False,
-                  hot_team_rank: int = 50) -> ScorePrediction:
+                  hot_team_rank: int = 50,
+                  weak_team_threat: float = 0.0) -> ScorePrediction:  # 🆕 V3.4
     """
     🆕 V3.4 主入口: 预测比分概率 (增强版)
 
@@ -413,16 +441,22 @@ def predict_score(match_name: str,
     # 2. 实力差距调整
     lam_strong, lam_weak = _adjust_for_gap_level(lam_strong, lam_weak, gap_level, adjustments)
 
-    # 3. 🆕 预测方向接入 (最重要)
-    lam_strong, lam_weak = _adjust_for_prediction_direction(
-        lam_strong, lam_weak, prediction_direction, gap_level, adjustments
+    # 3. 🆕 预测方向接入 (最重要·V3.4: 基于V2.6热方而非市场强方)
+    lam_home, lam_away = _adjust_for_prediction_direction(
+        lam_home, lam_away, prediction_direction, gap_level,
+        hot_side, adjustments
     )
+    # 更新强/弱方映射 (调整后可能反转)
+    if home_is_strong:
+        lam_strong, lam_weak = lam_home, lam_away
+    else:
+        lam_strong, lam_weak = lam_away, lam_home
 
     # 4. 🆕 对手质量
     lam_strong, lam_weak = _adjust_for_opponent_quality(
         lam_strong, lam_weak, three_conditions_met,
         underdog_has_attackers, underdog_giant_killer,
-        hot_team_rank, adjustments
+        hot_team_rank, adjustments, weak_team_threat
     )
 
     # 5. 🆕 穿盘率四级联动 (放在预测方向之后, 进一步微调)
@@ -677,10 +711,12 @@ def predict_score_from_report(r) -> ScorePrediction:
         away_goals_scored=away_gf, away_goals_conceded=away_ga,
         cover_rate=cover_rate,
         prediction_direction=prediction_direction,
+        hot_side=r.betfair_hot_side or 'home',  # 🆕 V3.4
         three_conditions_met=three_conditions_met,
         underdog_has_attackers=underdog_has_attackers,
         underdog_giant_killer=underdog_giant_killer,
         hot_team_rank=hot_rank,
+        weak_team_threat=tc.get('threat_level', 0) if tc else 0,  # 🆕 V3.4
     )
 
     # 🆕 V3.3 P2-8: 淘汰赛进球衰减

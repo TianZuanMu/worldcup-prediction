@@ -609,11 +609,11 @@ def analyze_venue_tactic_interaction(venue, home_profile=None, away_profile=None
         team = profile.team
         style = profile.playing_style
 
-        # 规则1: 室内/人工草皮 + 传控型 → 传球精度下降
+        # 规则1: 室内场馆 + 传控型 → 节奏变化 (FIFA要求全天然草)
         if indoor and style == 'possession':
             score -= 1.0
             confidence_adj -= 2.0
-            factors.append(f'{team}传控打法受人工草皮影响·传球精度下降')
+            factors.append(f'{team}传控打法在室内场馆·节奏受影响')
 
         # 规则2: 高海拔(>1500m) + 高压逼抢 → 疲劳加速
         if altitude > 1500 and style == 'high_press':

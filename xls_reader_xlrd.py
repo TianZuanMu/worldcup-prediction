@@ -450,9 +450,10 @@ def parse_asian_handicap(sheet) -> Dict[str, Any]:
         # 检测升降标记
         il_str = str(comp.get('init_line', ''))
         cl_str = str(comp.get('instant_line', ''))
-        if '升' in cl_str or cl > il:
+        # 升/降基于绝对值: |盘口|变大=升盘(热方让更多球), |盘口|变小=降盘
+        if '升' in cl_str or abs(cl) > abs(il):
             direction_tags.append('up')
-        elif '降' in cl_str or cl < il:
+        elif '降' in cl_str or abs(cl) < abs(il):
             direction_tags.append('down')
 
     # 取众数作为盘口
@@ -463,21 +464,20 @@ def parse_asian_handicap(sheet) -> Dict[str, Any]:
     init_line_val = init_counter.most_common(1)[0][0] if init_counter else 0
     inst_line_val = inst_counter.most_common(1)[0][0] if inst_counter else 0
 
-    # 方向判定
+    # 🆕 V3.4: 方向判定 — 需足够公司支持(≥30%或≥5家)
+    total_companies = len(result['companies'])
+    min_dir_count = max(3, total_companies * 0.25)  # 至少3家或25%
     dir_counter = Counter(direction_tags)
+    most_dir = 'stable'
     if dir_counter:
-        most_dir = dir_counter.most_common(1)[0][0]
-    else:
-        most_dir = 'stable'
-
-    # 如果公司数据有明确升降方向但数值相同，以文字标记为准
-    if init_line_val == inst_line_val and most_dir in ('up', 'down'):
-        pass  # 盘口文字可能有微小变化
+        top_dir, top_count = dir_counter.most_common(1)[0]
+        if top_count >= min_dir_count:
+            most_dir = top_dir
 
     result['line_analysis'] = {
         'init_line': init_line_val,
         'instant_line': inst_line_val,
-        'change': round(inst_line_val - init_line_val, 3),
+        'change': round(abs(inst_line_val) - abs(init_line_val), 3),  # 绝对值差=盘口深度变化
         'direction': most_dir,
     }
 

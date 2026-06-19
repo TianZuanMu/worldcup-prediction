@@ -51,7 +51,10 @@ import time
 import glob
 import os
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+
+# 🆕 V3.4: 比赛时间均为北京时间(UTC+8)
+BJT = timezone(timedelta(hours=8))
 from typing import Optional, Dict, List, Tuple
 from dataclasses import dataclass, field
 
@@ -93,14 +96,14 @@ def get_upcoming_matches(hours_ahead: int = 48) -> List[str]:
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
 
-        now = datetime.now()
+        now = datetime.now(tz=BJT)
         cutoff = now + timedelta(hours=hours_ahead)
 
         matches = []
         for m in module.MATCH_SCHEDULE:
             month, day, hour, minute, home, away = m
             try:
-                ko = datetime(2026, month, day, hour, minute)
+                ko = datetime(2026, month, day, hour, minute, tzinfo=BJT)
             except ValueError:
                 continue
             if now <= ko <= cutoff:
