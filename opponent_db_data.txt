@@ -46,7 +46,6 @@ OPPONENT_DB = {
             {'name': '黄喜灿', 'value_m': 6, 'age': 30, 'intl_goals': 15, 'intl_caps': 72, 'season_goals': 10, 'season_assists': 5, 'club': '狼队', 'top5': True, 'pos': 'FW'},
             {'name': '李在城', 'value_m': 2, 'age': 33, 'club': '美因茨', 'top5': True, 'pos': 'MF'},
             {'name': '赵贤祐', 'value_m': 0.7, 'age': 34, 'club': '蔚山HD', 'top5': False, 'pos': 'GK'},
-            {'name': '李刚仁', 'value_m': 28, 'age': None, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'MF'},
         ],
     },
     '捷克': {
@@ -122,9 +121,9 @@ OPPONENT_DB = {
         'top5_attackers': 4,
         'giant_killings': [],
         'players': [
-            {'name': '维尼修斯', 'value_m': 140, 'age': 25, 'intl_goals': 8, 'intl_caps': 42, 'season_goals': 22, 'season_assists': 15, 'club': '皇家马德里', 'top5': True, 'pos': 'FW'},
+            {'name': '维尼修斯', 'value_m': 140, 'intl_goals': 8, 'intl_caps': 42, 'season_goals': 22, 'season_assists': 15, 'club': '皇家马德里', 'top5': True, 'pos': 'FW'},
             {'name': '加布里埃尔', 'value_m': 75, 'club': '阿森纳', 'top5': True, 'pos': 'CB'},
-            {'name': '拉菲尼亚', 'value_m': 80, 'age': 29, 'intl_goals': 10, 'intl_caps': 38, 'season_goals': 18, 'season_assists': 16, 'club': '巴塞罗那', 'top5': True, 'pos': 'FW'},
+            {'name': '拉菲尼亚', 'value_m': 70, 'intl_goals': 10, 'intl_caps': 38, 'season_goals': 18, 'season_assists': 16, 'club': '巴塞罗那', 'top5': True, 'pos': 'FW'},
             {'name': '吉马良斯', 'value_m': 70, 'club': '纽卡斯尔联', 'top5': True, 'pos': 'MF'},
             {'name': '内马尔', 'value_m': 8, 'age': 34, 'intl_goals': 82, 'intl_caps': 138, 'season_goals': 10, 'season_assists': 8, 'club': '桑托斯', 'top5': False, 'pos': 'FW'},
             {'name': '阿利松', 'value_m': 17, 'age': 33, 'club': '利物浦', 'top5': True, 'pos': 'GK'},
@@ -140,7 +139,7 @@ OPPONENT_DB = {
         'top5_attackers': 0,
         'giant_killings': ['2022四强·淘汰葡萄牙+西班牙'],
         'players': [
-            {'name': '阿什拉夫·哈基米', 'value_m': 80, 'age': 27, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'RB'},
+            {'name': '阿什拉夫·哈基米', 'value_m': 80, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'RB'},
             {'name': '纳耶夫·阿格尔德', 'value_m': 35, 'age': 30, 'club': '西汉姆联', 'top5': True, 'pos': 'CB'},
             {'name': '马兹拉维', 'value_m': 18, 'age': 28, 'club': '曼联', 'top5': True, 'pos': 'RB'},
         ],
@@ -179,7 +178,7 @@ OPPONENT_DB = {
         'players': [
             {'name': '克里斯蒂安·普利希奇', 'value_m': 40, 'intl_goals': 33, 'intl_caps': 86, 'season_goals': 12, 'season_assists': 10, 'club': 'AC米兰', 'top5': False, 'pos': 'FW'},
             {'name': '韦斯顿·麦肯尼', 'value_m': 30, 'intl_goals': 12, 'intl_caps': 66, 'season_goals': 9, 'season_assists': 5, 'club': '尤文图斯', 'top5': True, 'pos': 'MF'},
-            {'name': '弗拉林·巴洛贡', 'value_m': 30, 'intl_goals': 9, 'intl_caps': 27, 'season_goals': 19, 'season_assists': 5, 'club': '摩纳哥', 'top5': True, 'pos': 'FW'},
+            {'name': '弗拉林·巴洛贡', 'value_m': 40, 'intl_goals': 9, 'intl_caps': 27, 'season_goals': 19, 'season_assists': 5, 'club': '摩纳哥', 'top5': True, 'pos': 'FW'},
             {'name': '乔·雷纳', 'value_m': 4, 'age': 23, 'intl_goals': 10, 'intl_caps': 35, 'season_goals': 8, 'season_assists': 6, 'club': '门兴格拉德巴赫', 'top5': True, 'pos': 'MF'},
             {'name': '泰勒·亚当斯', 'value_m': 25, 'age': 27, 'intl_goals': 3, 'intl_caps': 52, 'season_goals': 3, 'season_assists': 4, 'club': '伯恩茅斯', 'top5': True, 'pos': 'MF'},
         ],
@@ -192,7 +191,7 @@ OPPONENT_DB = {
         'top5_attackers': 2,
         'giant_killings': [],
         'players': [
-            {'name': '胡利奥·恩西索', 'value_m': 25, 'age': 22, 'intl_goals': 4, 'intl_caps': 32, 'season_goals': 12, 'season_assists': 7, 'club': '斯特拉斯堡', 'top5': True, 'pos': 'FW'},
+            {'name': '胡利奥·恩西索', 'value_m': 25, 'intl_goals': 4, 'intl_caps': 32, 'season_goals': 12, 'season_assists': 7, 'club': '斯特拉斯堡', 'top5': True, 'pos': 'FW'},
             {'name': '迭戈·戈麦斯', 'value_m': 25, 'intl_goals': 3, 'intl_caps': 25, 'season_goals': 10, 'season_assists': 1, 'club': '布莱顿', 'top5': True, 'pos': 'MF'},
             {'name': '米格尔·阿尔米隆', 'value_m': 9, 'intl_goals': 9, 'intl_caps': 75, 'season_goals': 6, 'season_assists': 10, 'club': '亚特兰大联', 'top5': False, 'pos': 'FW'},
             {'name': '奥马尔·阿尔德雷特', 'value_m': 15, 'club': '桑德兰', 'top5': True, 'pos': 'CB'},
@@ -219,7 +218,7 @@ OPPONENT_DB = {
         'top5_attackers': 3,
         'giant_killings': [],
         'players': [
-            {'name': '阿尔达·居莱尔', 'value_m': 90, 'age': 21, 'intl_goals': 6, 'intl_caps': 30, 'season_goals': 7, 'season_assists': 18, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
+            {'name': '阿尔达·居莱尔', 'value_m': 90, 'intl_goals': 6, 'intl_caps': 30, 'season_goals': 7, 'season_assists': 18, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
             {'name': '哈坎·恰尔汗奥卢', 'value_m': 16, 'age': 32, 'intl_goals': 22, 'intl_caps': 95, 'season_goals': 8, 'season_assists': 8, 'club': '国际米兰', 'top5': True, 'pos': 'MF'},
             {'name': '凯南·伊尔迪兹', 'value_m': 75, 'age': 21, 'intl_goals': 5, 'intl_caps': 28, 'season_goals': 14, 'season_assists': 10, 'club': '尤文图斯', 'top5': True, 'pos': 'FW'},
         ],
@@ -232,8 +231,8 @@ OPPONENT_DB = {
         'top5_attackers': 4,
         'giant_killings': [],
         'players': [
-            {'name': '贾马尔·穆西亚拉', 'value_m': 100, 'age': 23, 'intl_goals': 8, 'intl_caps': 38, 'season_goals': 20, 'season_assists': 15, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'MF'},
-            {'name': '弗洛里安·维尔茨', 'value_m': 100, 'age': 23, 'intl_goals': 5, 'intl_caps': 35, 'season_goals': 15, 'season_assists': 18, 'club': '利物浦', 'top5': True, 'pos': 'MF'},
+            {'name': '贾马尔·穆西亚拉', 'value_m': 100, 'intl_goals': 8, 'intl_caps': 38, 'season_goals': 20, 'season_assists': 15, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'MF'},
+            {'name': '弗洛里安·维尔茨', 'value_m': 100, 'intl_goals': 5, 'intl_caps': 35, 'season_goals': 15, 'season_assists': 18, 'club': '利物浦', 'top5': True, 'pos': 'MF'},
             {'name': '约书亚·基米希', 'value_m': 35, 'age': 31, 'intl_goals': 8, 'intl_caps': 98, 'season_goals': 5, 'season_assists': 10, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'MF'},
             {'name': '曼努埃尔·诺伊尔', 'value_m': 4, 'age': 40, 'intl_goals': 0, 'intl_caps': 128, 'season_goals': 0, 'season_assists': 0, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'GK'},
             {'name': '凯·哈弗茨', 'value_m': 55, 'age': 27, 'intl_goals': 22, 'intl_caps': 58, 'season_goals': 18, 'season_assists': 8, 'club': '阿森纳', 'top5': True, 'pos': 'FW'},
@@ -248,8 +247,8 @@ OPPONENT_DB = {
         'top5_attackers': 1,
         'giant_killings': [],
         'players': [
-            {'name': '莫伊塞斯·凯塞多', 'value_m': 100, 'age': 24, 'intl_goals': 7, 'intl_caps': 43, 'season_goals': 5, 'season_assists': 1, 'club': '切尔西', 'top5': True, 'pos': 'MF'},
-            {'name': '威廉·帕乔', 'value_m': 80, 'age': 24, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'CB'},
+            {'name': '莫伊塞斯·凯塞多', 'value_m': 100, 'intl_goals': 7, 'intl_caps': 43, 'season_goals': 5, 'season_assists': 1, 'club': '切尔西', 'top5': True, 'pos': 'MF'},
+            {'name': '威廉·帕乔', 'value_m': 80, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'CB'},
             {'name': '因卡皮耶', 'value_m': 50, 'club': '阿森纳', 'top5': True, 'pos': 'CB'},
             {'name': '佩尔维斯·埃斯图皮南', 'value_m': 12, 'age': 28, 'club': 'AC米兰', 'top5': True, 'pos': 'LB'},
             {'name': '恩纳·瓦伦西亚', 'value_m': 1, 'age': 36, 'club': '帕丘卡', 'top5': False, 'pos': 'FW'},
@@ -285,7 +284,7 @@ OPPONENT_DB = {
         'top5_attackers': 3,
         'giant_killings': [],
         'players': [
-            {'name': '瑞安·赫拉芬贝赫', 'value_m': 90, 'age': 24, 'club': '利物浦', 'top5': True, 'pos': 'MF'},
+            {'name': '瑞安·赫拉芬贝赫', 'value_m': 80, 'club': '利物浦', 'top5': True, 'pos': 'MF'},
             {'name': '范戴克', 'value_m': 15, 'age': 34, 'club': '利物浦', 'top5': True, 'pos': 'CB'},
             {'name': '弗兰基·德容', 'value_m': 35, 'age': 29, 'intl_goals': 4, 'intl_caps': 65, 'season_goals': 6, 'season_assists': 8, 'club': '巴塞罗那', 'top5': True, 'pos': 'MF'},
             {'name': '加克波', 'value_m': 60, 'club': '利物浦', 'top5': True, 'pos': 'FW'},
@@ -316,7 +315,7 @@ OPPONENT_DB = {
         'top5_attackers': 2,
         'giant_killings': [],
         'players': [
-            {'name': '亚历山大·伊萨克', 'value_m': 85, 'age': 26, 'intl_goals': 25, 'intl_caps': 55, 'season_goals': 22, 'season_assists': 8, 'club': '纽卡斯尔联', 'top5': True, 'pos': 'FW'},
+            {'name': '亚历山大·伊萨克', 'value_m': 85, 'intl_goals': 25, 'intl_caps': 55, 'season_goals': 22, 'season_assists': 8, 'club': '纽卡斯尔联', 'top5': True, 'pos': 'FW'},
             {'name': '维克托·约克雷斯', 'value_m': 75, 'age': 28, 'intl_goals': 15, 'intl_caps': 35, 'season_goals': 28, 'season_assists': 6, 'club': '葡萄牙体育', 'top5': False, 'pos': 'FW'},
             {'name': '亚辛·阿亚里', 'value_m': 30, 'age': 22, 'intl_goals': 3, 'intl_caps': 15, 'season_goals': 5, 'season_assists': 8, 'club': '布莱顿', 'top5': True, 'pos': 'MF'},
         ],
@@ -340,9 +339,9 @@ OPPONENT_DB = {
         'top5_attackers': 4,
         'giant_killings': [],
         'players': [
-            {'name': '凯文·德布劳内', 'value_m': 10, 'age': 34, 'intl_goals': 30, 'intl_caps': 115, 'season_goals': 12, 'season_assists': 22, 'club': '曼城', 'top5': True, 'pos': 'MF'},
-            {'name': '杰里米·多库', 'value_m': 75, 'age': 24, 'intl_goals': 5, 'intl_caps': 32, 'season_goals': 8, 'season_assists': 10, 'club': '曼城', 'top5': True, 'pos': 'FW'},
-            {'name': '罗梅卢·卢卡库', 'value_m': 12, 'age': 33, 'intl_goals': 85, 'intl_caps': 128, 'season_goals': 18, 'season_assists': 5, 'club': '那不勒斯', 'top5': True, 'pos': 'FW'},
+            {'name': '凯文·德布劳内', 'value_m': 27, 'age': 34, 'intl_goals': 30, 'intl_caps': 115, 'season_goals': 12, 'season_assists': 22, 'club': '曼城', 'top5': True, 'pos': 'MF'},
+            {'name': '杰里米·多库', 'value_m': 75, 'intl_goals': 5, 'intl_caps': 32, 'season_goals': 8, 'season_assists': 10, 'club': '曼城', 'top5': True, 'pos': 'FW'},
+            {'name': '罗梅卢·卢卡库', 'value_m': 6, 'age': 33, 'intl_goals': 85, 'intl_caps': 128, 'season_goals': 18, 'season_assists': 5, 'club': '那不勒斯', 'top5': True, 'pos': 'FW'},
             {'name': '蒂博·库尔图瓦', 'value_m': 15, 'age': 34, 'club': '皇家马德里', 'top5': True, 'pos': 'GK'},
             {'name': '莱安德罗·特罗萨德', 'value_m': 18, 'age': 31, 'club': '阿森纳', 'top5': True, 'pos': 'FW'},
         ],
@@ -356,7 +355,7 @@ OPPONENT_DB = {
         'giant_killings': [],
         'players': [
             {'name': '穆罕默德·萨拉赫', 'value_m': 30, 'age': 34, 'intl_goals': 65, 'intl_caps': 112, 'season_goals': 30, 'season_assists': 15, 'club': '利物浦', 'top5': True, 'pos': 'FW'},
-            {'name': '马尔穆什', 'value_m': 60, 'intl_goals': 11, 'intl_caps': 49, 'season_goals': 8, 'season_assists': 3, 'club': '法兰克福', 'top5': True, 'pos': 'FW'},
+            {'name': '马尔穆什', 'value_m': 50, 'intl_goals': 11, 'intl_caps': 49, 'season_goals': 8, 'season_assists': 3, 'club': '法兰克福', 'top5': True, 'pos': 'FW'},
             {'name': '卢卡·齐达内', 'value_m': 1, 'age': 28, 'club': '格拉纳达', 'top5': False, 'pos': 'GK'},
         ],
     },
@@ -394,12 +393,11 @@ OPPONENT_DB = {
         'top5_attackers': 3,
         'giant_killings': [],
         'players': [
-            {'name': '拉明·亚马尔', 'value_m': 200, 'age': 18, 'intl_goals': 15, 'intl_caps': 30, 'season_goals': 18, 'season_assists': 20, 'club': '巴塞罗那', 'top5': True, 'pos': 'FW'},
-            {'name': '佩德里', 'value_m': 150, 'age': 23, 'intl_goals': 3, 'intl_caps': 32, 'season_goals': 8, 'season_assists': 12, 'club': '巴塞罗那', 'top5': True, 'pos': 'MF'},
+            {'name': '拉明·亚马尔', 'value_m': 200, 'intl_goals': 15, 'intl_caps': 30, 'season_goals': 18, 'season_assists': 20, 'club': '巴塞罗那', 'top5': True, 'pos': 'FW'},
+            {'name': '佩德里', 'value_m': 150, 'intl_goals': 3, 'intl_caps': 32, 'season_goals': 8, 'season_assists': 12, 'club': '巴塞罗那', 'top5': True, 'pos': 'MF'},
             {'name': '罗德里', 'value_m': 65, 'age': 29, 'intl_goals': 4, 'intl_caps': 62, 'season_goals': 8, 'season_assists': 5, 'club': '曼城', 'top5': True, 'pos': 'MF'},
             {'name': '乌奈·西蒙', 'value_m': 25, 'age': 29, 'club': '毕尔巴鄂竞技', 'top5': True, 'pos': 'GK'},
             {'name': '库巴西', 'value_m': 80, 'age': 19, 'club': '巴塞罗那', 'top5': True, 'pos': 'CB'},
-            {'name': '加维', 'value_m': 30, 'age': None, 'club': '巴塞罗那', 'top5': True, 'pos': 'MF'},
         ],
     },
     '乌拉圭': {
@@ -410,10 +408,10 @@ OPPONENT_DB = {
         'top5_attackers': 2,
         'giant_killings': [],
         'players': [
-            {'name': '费德里科·巴尔韦德', 'value_m': 90, 'age': 27, 'intl_goals': 10, 'intl_caps': 68, 'season_goals': 10, 'season_assists': 8, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
+            {'name': '费德里科·巴尔韦德', 'value_m': 90, 'intl_goals': 10, 'intl_caps': 68, 'season_goals': 10, 'season_assists': 8, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
             {'name': '罗纳德·阿劳霍', 'value_m': 20, 'club': '巴塞罗那', 'top5': True, 'pos': 'CB'},
             {'name': '达尔文·努涅斯', 'value_m': 25, 'age': 26, 'intl_goals': 13, 'intl_caps': 38, 'season_goals': 9, 'season_assists': 5, 'club': '利雅得新月', 'top5': False, 'pos': 'FW'},
-            {'name': '曼努埃尔·乌加特', 'value_m': 30, 'age': 25, 'intl_goals': 1, 'intl_caps': 30, 'season_goals': 0, 'season_assists': 0, 'club': '曼联', 'top5': True, 'pos': 'MF'},
+            {'name': '曼努埃尔·乌加特', 'value_m': 25, 'age': 25, 'intl_goals': 1, 'intl_caps': 30, 'season_goals': 0, 'season_assists': 0, 'club': '曼联', 'top5': True, 'pos': 'MF'},
             {'name': '何塞·马里亚·希梅内斯', 'value_m': 12, 'age': 31, 'club': '马德里竞技', 'top5': True, 'pos': 'CB'},
             {'name': '费尔南多·穆斯莱拉', 'value_m': 0.7, 'age': 40, 'intl_goals': 0, 'intl_caps': 148, 'season_goals': 0, 'season_assists': 0, 'club': '拉普拉塔大学生', 'top5': False, 'pos': 'GK'},
         ],
@@ -451,7 +449,7 @@ OPPONENT_DB = {
         'top5_attackers': 4,
         'giant_killings': [],
         'players': [
-            {'name': '基利安·姆巴佩', 'value_m': 180, 'age': 27, 'intl_goals': 58, 'intl_caps': 90, 'season_goals': 35, 'season_assists': 12, 'club': '皇家马德里', 'top5': True, 'pos': 'FW'},
+            {'name': '基利安·姆巴佩', 'value_m': 180, 'intl_goals': 58, 'intl_caps': 90, 'season_goals': 35, 'season_assists': 12, 'club': '皇家马德里', 'top5': True, 'pos': 'FW'},
             {'name': '迈克尔·奥利塞', 'value_m': 150, 'age': 24, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'MF'},
             {'name': '奥斯曼·登贝莱', 'value_m': 100, 'age': 29, 'intl_goals': 8, 'intl_caps': 55, 'season_goals': 20, 'season_assists': 15, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'FW'},
             {'name': '威廉·萨利巴', 'value_m': 100, 'age': 25, 'club': '阿森纳', 'top5': True, 'pos': 'CB'},
@@ -467,7 +465,7 @@ OPPONENT_DB = {
         'top5_attackers': 2,
         'giant_killings': [],
         'players': [
-            {'name': '埃尔林·哈兰德', 'value_m': 200, 'age': 25, 'intl_goals': 42, 'intl_caps': 45, 'season_goals': 38, 'season_assists': 8, 'club': '曼城', 'top5': True, 'pos': 'FW'},
+            {'name': '埃尔林·哈兰德', 'value_m': 200, 'intl_goals': 42, 'intl_caps': 45, 'season_goals': 38, 'season_assists': 8, 'club': '曼城', 'top5': True, 'pos': 'FW'},
             {'name': '马丁·厄德高', 'value_m': 65, 'age': 27, 'intl_goals': 8, 'intl_caps': 65, 'season_goals': 12, 'season_assists': 15, 'club': '阿森纳', 'top5': True, 'pos': 'MF'},
         ],
     },
@@ -504,10 +502,10 @@ OPPONENT_DB = {
         'giant_killings': [],
         'players': [
             {'name': '莱昂内尔·梅西', 'value_m': 15, 'intl_goals': 112, 'intl_caps': 195, 'season_goals': 22, 'season_assists': 18, 'club': '迈阿密国际', 'top5': False, 'pos': 'FW'},
-            {'name': '胡利安·阿尔瓦雷斯', 'value_m': 100, 'age': 26, 'intl_goals': 12, 'intl_caps': 45, 'season_goals': 25, 'season_assists': 10, 'club': '马德里竞技', 'top5': True, 'pos': 'FW'},
+            {'name': '胡利安·阿尔瓦雷斯', 'value_m': 100, 'intl_goals': 12, 'intl_caps': 45, 'season_goals': 25, 'season_assists': 10, 'club': '马德里竞技', 'top5': True, 'pos': 'FW'},
             {'name': '劳塔罗·马丁内斯', 'value_m': 85, 'age': 28, 'intl_goals': 28, 'intl_caps': 72, 'season_goals': 28, 'season_assists': 8, 'club': '国际米兰', 'top5': True, 'pos': 'FW'},
             {'name': '埃米利亚诺·马丁内斯', 'value_m': 15, 'age': 33, 'club': '阿斯顿维拉', 'top5': True, 'pos': 'GK'},
-            {'name': '恩佐·费尔南德斯', 'value_m': 90, 'age': 25, 'club': '切尔西', 'top5': True, 'pos': 'MF'},
+            {'name': '恩佐·费尔南德斯', 'value_m': 0, 'age': 25, 'club': '切尔西', 'top5': True, 'pos': 'MF'},
             {'name': '克里斯蒂安·罗梅罗', 'value_m': 45, 'age': 28, 'club': '热刺', 'top5': True, 'pos': 'CB'},
             {'name': '利桑德罗·马丁内斯', 'value_m': 40, 'age': 28, 'club': '曼联', 'top5': True, 'pos': 'CB'},
         ],
@@ -560,8 +558,8 @@ OPPONENT_DB = {
         'giant_killings': [],
         'players': [
             {'name': '克里斯蒂亚诺·罗纳尔多', 'value_m': 10, 'intl_goals': 138, 'intl_caps': 218, 'season_goals': 32, 'season_assists': 5, 'club': '利雅得胜利', 'top5': False, 'pos': 'FW'},
-            {'name': '维蒂尼亚', 'value_m': 140, 'age': 26, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'MF'},
-            {'name': '若昂·内维斯', 'value_m': 140, 'age': 21, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'MF'},
+            {'name': '维蒂尼亚', 'value_m': 140, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'MF'},
+            {'name': '若昂·内维斯', 'value_m': 140, 'club': '巴黎圣日耳曼', 'top5': True, 'pos': 'MF'},
             {'name': '贝尔纳多·席尔瓦', 'value_m': 22, 'age': 31, 'intl_goals': 15, 'intl_caps': 102, 'season_goals': 10, 'season_assists': 12, 'club': '曼城', 'top5': True, 'pos': 'MF'},
             {'name': '布鲁诺·费尔南德斯', 'value_m': 35, 'age': 31, 'intl_goals': 28, 'intl_caps': 82, 'season_goals': 18, 'season_assists': 15, 'club': '曼联', 'top5': True, 'pos': 'MF'},
             {'name': '迪奥戈·科斯塔', 'value_m': 40, 'club': '波尔图', 'top5': False, 'pos': 'GK'},
@@ -601,7 +599,7 @@ OPPONENT_DB = {
         'top5_attackers': 0,
         'giant_killings': [],
         'players': [
-            {'name': '阿卜杜科迪尔·胡桑诺夫', 'value_m': 50, 'age': 22, 'club': '曼城', 'top5': True, 'pos': 'CB'},
+            {'name': '阿卜杜科迪尔·胡桑诺夫', 'value_m': 50, 'club': '曼城', 'top5': True, 'pos': 'CB'},
             {'name': '肖穆罗多夫', 'value_m': 4, 'age': 30, 'club': '罗马', 'top5': True, 'pos': 'FW'},
         ],
     },
@@ -613,9 +611,9 @@ OPPONENT_DB = {
         'top5_attackers': 4,
         'giant_killings': [],
         'players': [
-            {'name': '裘德·贝林厄姆', 'value_m': 130, 'age': 22, 'intl_goals': 12, 'intl_caps': 48, 'season_goals': 25, 'season_assists': 18, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
-            {'name': '德克兰·赖斯', 'value_m': 120, 'age': 27, 'club': '阿森纳', 'top5': True, 'pos': 'MF'},
-            {'name': '布卡约·萨卡', 'value_m': 110, 'age': 24, 'intl_goals': 15, 'intl_caps': 50, 'season_goals': 20, 'season_assists': 15, 'club': '阿森纳', 'top5': True, 'pos': 'FW'},
+            {'name': '裘德·贝林厄姆', 'value_m': 130, 'intl_goals': 12, 'intl_caps': 48, 'season_goals': 25, 'season_assists': 18, 'club': '皇家马德里', 'top5': True, 'pos': 'MF'},
+            {'name': '德克兰·赖斯', 'value_m': 120, 'club': '阿森纳', 'top5': True, 'pos': 'MF'},
+            {'name': '布卡约·萨卡', 'value_m': 110, 'intl_goals': 15, 'intl_caps': 50, 'season_goals': 20, 'season_assists': 15, 'club': '阿森纳', 'top5': True, 'pos': 'FW'},
             {'name': '哈里·凯恩', 'value_m': 60, 'age': 32, 'intl_goals': 72, 'intl_caps': 108, 'season_goals': 32, 'season_assists': 10, 'club': '拜仁慕尼黑', 'top5': True, 'pos': 'FW'},
             {'name': '乔丹·皮克福德', 'value_m': 15, 'age': 32, 'club': '埃弗顿', 'top5': True, 'pos': 'GK'},
             {'name': '约翰·斯通斯', 'value_m': 15, 'age': 32, 'club': '曼城', 'top5': True, 'pos': 'CB'},
@@ -644,7 +642,7 @@ OPPONENT_DB = {
         'top5_attackers': 1,
         'giant_killings': [],
         'players': [
-            {'name': '安托万·塞门约', 'value_m': 80, 'age': 26, 'intl_goals': 3, 'intl_caps': 34, 'season_goals': 21, 'season_assists': 7, 'club': '曼城', 'top5': True, 'pos': 'FW'},
+            {'name': '安托万·塞门约', 'value_m': 65, 'age': 26, 'intl_goals': 3, 'intl_caps': 34, 'season_goals': 21, 'season_assists': 7, 'club': '曼城', 'top5': True, 'pos': 'FW'},
         ],
     },
     '巴拿马': {
@@ -662,100 +660,5 @@ OPPONENT_DB = {
     },
 }
 
-EN_MAP = {
-    'South Africa': '南非', 'Czech Republic': '捷克', 'Czech': '捷克',
-    'Bosnia & Herzegovina': '波黑', 'Bosnia': '波黑', 'Paraguay': '巴拉圭',
-    'Qatar': '卡塔尔', 'Morocco': '摩洛哥', 'Haiti': '海地', 'Turkey': '土耳其',
-    'Tunisia': '突尼斯', 'Curacao': '库拉索', 'Japan': '日本',
-    'Ecuador': '厄瓜多尔', 'Ivory Coast': '科特迪瓦',
-    'Cape Verde': '佛得角', 'Egypt': '埃及', 'Saudi Arabia': '沙特阿拉伯',
-    'Uruguay': '乌拉圭', 'New Zealand': '新西兰', 'Iran': '伊朗',
-    'Senegal': '塞内加尔', 'Iraq': '伊拉克', 'Algeria': '阿尔及利亚',
-    'Jordan': '约旦', 'DR Congo': '民主刚果', 'Congo DR': '民主刚果',
-    'Croatia': '克罗地亚', 'Ghana': '加纳', 'Panama': '巴拿马',
-    'Colombia': '哥伦比亚', 'Uzbekistan': '乌兹别克斯坦',
-    'Norway': '挪威', 'Scotland': '苏格兰', 'Austria': '奥地利',
-    'Switzerland': '瑞士', 'South Korea': '韩国', 'Korea Republic': '韩国',
-    'Australia': '澳大利亚', 'Canada': '加拿大',
-    'Portugal': '葡萄牙', 'England': '英格兰', 'France': '法国', 'Brazil': '巴西',
-    'Argentina': '阿根廷', 'Spain': '西班牙', 'Mexico': '墨西哥', 'USA': '美国',
-}
-
-
-def opponent_quality(team_name: str) -> dict:
-    def _normalize(data):
-        if 'players' in data and 'top5_players' not in data:
-            data['top5_players'] = [f"{p['name']}({p['pos']}/{p['club']})" for p in data['players']]
-        elif 'players' not in data:
-            data['players'] = []; data['top5_players'] = data.get('top5_players', [])
-            data['total_value_m'] = data.get('total_value_m', 0)
-            data['top5_attackers'] = data.get('top5_attackers', 0)
-        return data
-    if team_name in OPPONENT_DB: return _normalize(OPPONENT_DB[team_name].copy())
-    cn = EN_MAP.get(team_name, team_name)
+EN_MAP.get(team_name, team_name)
     if cn in OPPONENT_DB: return _normalize(OPPONENT_DB[cn].copy())
-    for name, data in OPPONENT_DB.items():
-        if cn in name or name in cn: return _normalize(data.copy())
-    return _normalize({'rank': 50, 'players': [], 'top5_players': [],
-        'giant_killings': [], 'pre_goals_per_game': 1.0, 'total_value_m': 0, 'top5_attackers': 0})
-
-
-def _count_attacking_threat(team_name: str) -> tuple:
-    data = opponent_quality(team_name)
-    DEFENSIVE_POS = {'CB', 'LB', 'RB', 'GK', 'DF', 'WB', 'SW'}
-    FORWARD_POS = {'FW', 'ST', 'CF', 'LW', 'RW', 'WG'}
-    fw_count = 0; mf_count = 0; ex_star_count = 0; scorers = []
-    for p in data.get('players', data.get('top5_players', [])):
-        if isinstance(p, dict):
-            pos = p.get('pos', ''); value_m = p.get('value_m', 0); top5 = p.get('top5', False)
-            if pos not in DEFENSIVE_POS and top5 and (value_m == 0 or value_m >= 5):
-                scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
-                if pos in FORWARD_POS: fw_count += 1
-                else: mf_count += 1
-            elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= 5:
-                scorers.append(f"{p['name']}({pos}/ex-5/Euro{value_m:.0f}M)")
-                ex_star_count += 1
-    threat = fw_count + mf_count * 0.5 + ex_star_count * 0.5
-    pre_goals = data.get('pre_goals_per_game', 1.0) or 1.0
-    return fw_count, mf_count, threat, scorers, pre_goals
-
-
-def check_three_conditions(team_name: str) -> dict:
-    data = opponent_quality(team_name)
-    a_pass = data['rank'] >= 50
-    fw_count, mf_count, threat_level, scorers, pre_goals = _count_attacking_threat(team_name)
-    if len(scorers) == 0: b_pass = True
-    elif threat_level < 1.0: b_pass = True
-    elif threat_level < 1.5 and pre_goals < 1.2: b_pass = True
-    else: b_pass = False
-    current_year = 2026; recent_killings = []; old_killings = []
-    for gk in data.get('giant_killings', []):
-        y = int(''.join(c for c in str(gk) if c.isdigit())[:4]) if any(c.isdigit() for c in str(gk)) else 0
-        if y > 0:
-            if y > current_year - 3: recent_killings.append(gk)
-            else: old_killings.append(gk)
-        else: old_killings.append(gk)
-    c_pass = len(recent_killings) + len(old_killings) == 0
-    passed = sum([a_pass, b_pass, c_pass])
-    fail_reasons = []
-    if not a_pass: fail_reasons.append(f"rank{data['rank']}<50")
-    if not b_pass: fail_reasons.append(f"scorers: {', '.join(scorers)}")
-    if not c_pass:
-        parts = []
-        if recent_killings: parts.append(f'2023+: {", ".join(recent_killings)}')
-        if old_killings: parts.append(f'history: {", ".join(old_killings)}')
-        fail_reasons.append(f"giant: {' | '.join(parts)}")
-    rule = 'hot_win_exception' if passed == 3 else 'default_hot_lose'
-    return {'all_pass': passed == 3, 'passed': passed, 'total': 3,
-        'conditions': {'a_rank60plus': a_pass, 'b_no_top5_scorer': b_pass, 'c_no_giant_killing': c_pass},
-        'fail_reason': ' | '.join(fail_reasons) if fail_reasons else 'all_pass',
-        'rule': rule, 'quality_score': 3 - passed, 'scorers': scorers,
-        'threat_level': threat_level, 'data': data}
-
-
-def check_moderate_opponent(team_name: str) -> dict:
-    fw, mf, threat, scorers, pre_goals = _count_attacking_threat(team_name)
-    has_threat = threat >= 1.5 and pre_goals >= 1.5
-    return {'has_goal_threat': has_threat, 'top_players': scorers,
-        'goals_per_game': pre_goals, 'threat_level': threat,
-        'rule': 'hot_lose' if has_threat else 'hot_win'}
