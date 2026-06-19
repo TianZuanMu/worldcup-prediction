@@ -1,0 +1,3301 @@
+{
+  "法国": [
+    {
+      "opponent": "塞内加尔",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 22,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "伊拉克",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 70,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "意大利",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 5,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "荷兰",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 7,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "科特迪瓦",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 42,
+      "home_away": "home",
+      "is_official": false,
+      "key_players": 8,
+      "date": "2026-05-25",
+      "_source": ""
+    },
+    {
+      "opponent": "比利时",
+      "result": "W",
+      "score": "3-2",
+      "opponent_rank": 3,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-28",
+      "_source": ""
+    }
+  ],
+  "塞内加尔": [
+    {
+      "opponent": "2026年6月17日\t法国",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "沙特阿拉伯",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t摩洛哥",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月1日\t挪威",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月31日\t美国",
+      "result": "W",
+      "score": "3-2",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "法国",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 3,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "厄瓜多尔",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 28,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "挪威",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "摩洛哥",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 6,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "佛得角",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 65,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-01",
+      "_source": ""
+    }
+  ],
+  "伊拉克": [
+    {
+      "opponent": "挪威",
+      "result": "L",
+      "score": "1-4",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月30日\t安道尔",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "玻利维亚",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "挪威",
+      "result": "L",
+      "score": "1-4",
+      "opponent_rank": 15,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "法国",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "阿联酋",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 68,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "乌兹别克斯坦",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 72,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": ""
+    },
+    {
+      "opponent": "卡塔尔",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 45,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-28",
+      "_source": ""
+    },
+    {
+      "opponent": "约旦",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 85,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 8,
+      "date": "2026-05-12",
+      "_source": ""
+    }
+  ],
+  "挪威": [
+    {
+      "opponent": "伊拉克",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 70,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "塞内加尔",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 25,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "苏格兰",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 32,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "塞尔维亚",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 22,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "瑞典",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 18,
+      "home_away": "home",
+      "is_official": false,
+      "key_players": 9,
+      "date": "2026-05-25",
+      "_source": ""
+    },
+    {
+      "opponent": "匈牙利",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 38,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-25",
+      "_source": ""
+    }
+  ],
+  "阿根廷": [
+    {
+      "opponent": "阿尔及利亚",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "奥地利",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "哥伦比亚",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 8,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "智利",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 19,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-01",
+      "_source": ""
+    },
+    {
+      "opponent": "乌拉圭",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 10,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-27",
+      "_source": ""
+    },
+    {
+      "opponent": "巴西",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 2,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-22",
+      "_source": ""
+    }
+  ],
+  "阿尔及利亚": [
+    {
+      "opponent": "阿根廷",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 1,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "约旦",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 85,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "埃及",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 28,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "加纳",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "喀麦隆",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 45,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-27",
+      "_source": ""
+    },
+    {
+      "opponent": "突尼斯",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 40,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-21",
+      "_source": ""
+    }
+  ],
+  "奥地利": [
+    {
+      "opponent": "约旦",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 85,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月3日\t威尔士",
+      "result": "L",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "突尼斯",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月23日\t墨西哥",
+      "result": "L",
+      "score": "2-0",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-23",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "韩国",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 25,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "约旦",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 85,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "阿根廷",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 1,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "瑞士",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 13,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "捷克",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 31,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "波兰",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 33,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-25",
+      "_source": ""
+    }
+  ],
+  "约旦": [
+    {
+      "opponent": "2026年6月17日\t奥地利",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月17日\t阿根廷",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 1,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月16日\t伊朗",
+      "result": "L",
+      "score": "2-2",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月11日\t阿尔及利亚",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t哥伦比亚",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 17,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "奥地利",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 22,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "阿尔及利亚",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": ""
+    },
+    {
+      "opponent": "沙特",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 55,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "韩国",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 24,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "阿联酋",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 68,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-26",
+      "_source": ""
+    }
+  ],
+  "德国": [
+    {
+      "opponent": "库拉索",
+      "result": "W",
+      "score": "7-1",
+      "opponent_rank": 178,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t美国",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "芬兰",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "加纳",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 60,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月28日\t瑞士",
+      "result": "W",
+      "score": "3-4",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "库拉索",
+      "result": "W",
+      "score": "7-1",
+      "opponent_rank": 178,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "哥斯达黎加",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 50,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "加纳",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": false,
+      "key_players": 7,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "法国",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 3,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": ""
+    },
+    {
+      "opponent": "意大利",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 5,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-22",
+      "_source": ""
+    }
+  ],
+  "荷兰": [
+    {
+      "opponent": "日本",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "乌兹别克斯坦",
+      "result": "D",
+      "score": "2-1",
+      "opponent_rank": 58,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "阿尔及利亚",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-04",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "厄瓜多尔",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 28,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "挪威",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "日本",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 18,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "厄瓜多尔",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 28,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "塞内加尔",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 25,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "卡塔尔",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 45,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "西班牙",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 1,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-28",
+      "_source": ""
+    }
+  ],
+  "日本": [
+    {
+      "opponent": "荷兰",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 8,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "科特迪瓦",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 42,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "加纳",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-03",
+      "_source": ""
+    },
+    {
+      "opponent": "韩国",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 24,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-03-27",
+      "_source": ""
+    },
+    {
+      "opponent": "沙特",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 55,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-03-22",
+      "_source": ""
+    },
+    {
+      "opponent": "澳大利亚",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 30,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-18",
+      "_source": ""
+    }
+  ],
+  "科特迪瓦": [
+    {
+      "opponent": "厄瓜多尔",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 28,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月9日\t费城联合B队",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月5日\t法国",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-05",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t苏格兰",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 30,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月28日\t韩国",
+      "result": "W",
+      "score": "0-4",
+      "opponent_rank": 25,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "厄瓜多尔",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 28,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "日本",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "喀麦隆",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 45,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "法国",
+      "result": "L",
+      "score": "0-4",
+      "opponent_rank": 3,
+      "home_away": "away",
+      "is_official": false,
+      "key_players": 8,
+      "date": "2026-05-25",
+      "_source": ""
+    },
+    {
+      "opponent": "塞内加尔",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 25,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": ""
+    }
+  ],
+  "厄瓜多尔": [
+    {
+      "opponent": "科特迪瓦",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "卡塔尔",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 60,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "荷兰",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 8,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "塞内加尔",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 22,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "巴西",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 2,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "乌拉圭",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 10,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "哥伦比亚",
+      "result": "L",
+      "score": "1-3",
+      "opponent_rank": 8,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": ""
+    },
+    {
+      "opponent": "智利",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 19,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-22",
+      "_source": ""
+    },
+    {
+      "opponent": "秘鲁",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 45,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-15",
+      "_source": ""
+    }
+  ],
+  "瑞典": [
+    {
+      "opponent": "突尼斯",
+      "result": "W",
+      "score": "5-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "希腊",
+      "result": "W",
+      "score": "2-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-05",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月2日\t挪威",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "波兰",
+      "result": "W",
+      "score": "3-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t乌克兰",
+      "result": "W",
+      "score": "1-3",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "突尼斯",
+      "result": "W",
+      "score": "5-1",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "匈牙利",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 38,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "苏格兰",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 32,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": ""
+    },
+    {
+      "opponent": "挪威",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 15,
+      "home_away": "away",
+      "is_official": false,
+      "key_players": 9,
+      "date": "2026-05-25",
+      "_source": ""
+    },
+    {
+      "opponent": "丹麦",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 16,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-26",
+      "_source": ""
+    }
+  ],
+  "突尼斯": [
+    {
+      "opponent": "2026年6月15日\t瑞典",
+      "result": "W",
+      "score": "5-1",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月6日\t比利时",
+      "result": "D",
+      "score": "5-0",
+      "opponent_rank": 5,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月2日\t奥地利",
+      "result": "D",
+      "score": "1-0",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t加拿大",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 40,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "海地",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 87,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-29",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "瑞典",
+      "result": "L",
+      "score": "1-5",
+      "opponent_rank": 22,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "阿尔及利亚",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": ""
+    },
+    {
+      "opponent": "摩洛哥",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 6,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 11,
+      "date": "2026-06-02",
+      "_source": ""
+    },
+    {
+      "opponent": "埃及",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 28,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-05-28",
+      "_source": ""
+    },
+    {
+      "opponent": "加纳",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-21",
+      "_source": ""
+    }
+  ],
+  "库拉索": [
+    {
+      "opponent": "2026年6月15日\t德国",
+      "result": "W",
+      "score": "7-1",
+      "opponent_rank": 10,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "阿鲁巴",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月30日\t苏格兰",
+      "result": "L",
+      "score": "4-1",
+      "opponent_rank": 30,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t澳大利亚",
+      "result": "L",
+      "score": "5-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t中国",
+      "result": "L",
+      "score": "2-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "德国",
+      "result": "L",
+      "score": "1-7",
+      "opponent_rank": 10,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "巴拿马",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 60,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-06-08",
+      "_source": ""
+    },
+    {
+      "opponent": "海地",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 75,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": ""
+    },
+    {
+      "opponent": "加拿大",
+      "result": "L",
+      "score": "0-4",
+      "opponent_rank": 25,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 9,
+      "date": "2026-05-25",
+      "_source": ""
+    },
+    {
+      "opponent": "牙买加",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 55,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-20",
+      "_source": ""
+    }
+  ],
+  "卡塔尔": [
+    {
+      "opponent": "萨尔瓦多",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "阿根廷",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 1,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "塞尔维亚",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-26",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "瑞士",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 15,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    },
+    {
+      "opponent": "厄瓜多尔",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 28,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "墨西哥": [
+    {
+      "opponent": "南非",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 70,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "塞尔维亚",
+      "result": "W",
+      "score": "5-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-04",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "澳大利亚",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "加纳",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 60,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-22",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "比利时",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 5,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "南非",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 70,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "南非": [
+    {
+      "opponent": "2026年6月11日\t墨西哥",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月29日\t尼加拉瓜",
+      "result": "L",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-29",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t巴拿马",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t巴拿马",
+      "result": "L",
+      "score": "1-1",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "喀麦隆",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-01-04",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "墨西哥",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 15,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "韩国": [
+    {
+      "opponent": "捷克",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 30,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "萨尔瓦多",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-04",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "特立尼达和多巴哥",
+      "result": "W",
+      "score": "5-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t奥地利",
+      "result": "L",
+      "score": "1-0",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "科特迪瓦",
+      "result": "L",
+      "score": "0-4",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "捷克",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 30,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "捷克": [
+    {
+      "opponent": "2026年6月12日\t韩国",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 25,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "危地马拉",
+      "result": "D",
+      "score": "3-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-05",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "科索沃",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "丹麦",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "爱尔兰",
+      "result": "W",
+      "score": "2-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "韩国",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 25,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "加拿大": [
+    {
+      "opponent": "波黑",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "爱尔兰",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-05",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "乌兹别克斯坦",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 58,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "波黑",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 55,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "波黑": [
+    {
+      "opponent": "2026年6月13日\t加拿大",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 40,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t巴拿马",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "北马其顿",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "意大利",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t威尔士",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "加拿大",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 40,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-12",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "美国": [
+    {
+      "opponent": "巴拉圭",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 48,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "巴拉圭": [
+    {
+      "opponent": "2026年6月13日\t美国",
+      "result": "W",
+      "score": "1-4",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "尼加拉瓜",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t摩洛哥",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t希腊",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "美国",
+      "result": "L",
+      "score": "1-4",
+      "opponent_rank": 18,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "瑞士": [
+    {
+      "opponent": "2026年6月13日\t卡塔尔",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 60,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月13日\t巴西",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月13日\t巴西",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t澳大利亚",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t巴西",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "卡塔尔",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 60,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "巴西": [
+    {
+      "opponent": "摩洛哥",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 20,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "摩洛哥": [
+    {
+      "opponent": "巴西",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 3,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-13",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "海地": [
+    {
+      "opponent": "苏格兰",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 30,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "秘鲁",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "新西兰",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 105,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "冰岛",
+      "result": "L",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "突尼斯",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "苏格兰",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 30,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "苏格兰": [
+    {
+      "opponent": "2026年6月14日\t海地",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 87,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月6日\t玻利维亚",
+      "result": "L",
+      "score": "0-4",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "库拉索",
+      "result": "W",
+      "score": "4-1",
+      "opponent_rank": 178,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t科特迪瓦",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月28日\t日本",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "海地",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 87,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "澳大利亚": [
+    {
+      "opponent": "2026年6月7日\t瑞士",
+      "result": "L",
+      "score": "1-1",
+      "opponent_rank": 15,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "库拉索",
+      "result": "W",
+      "score": "5-1",
+      "opponent_rank": 178,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "喀麦隆",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "土耳其",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 32,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "土耳其": [
+    {
+      "opponent": "2026年6月15日\t荷兰",
+      "result": "W",
+      "score": "2-2",
+      "opponent_rank": 8,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月14日\t澳大利亚",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t委内瑞拉",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t日本",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "北马其顿",
+      "result": "W",
+      "score": "4-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "澳大利亚",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 35,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-14",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "比利时": [
+    {
+      "opponent": "埃及",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 32,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月9日\t刚果(金)",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "突尼斯",
+      "result": "D",
+      "score": "5-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月3日\t克罗地亚",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 10,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月3日\t刚果(金)",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "埃及",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 32,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "埃及": [
+    {
+      "opponent": "2026年6月17日\t阿根廷",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 1,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-17",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月15日\t西班牙",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 2,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月10日\t阿根廷",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 1,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-10",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月9日\t秘鲁",
+      "result": "W",
+      "score": "1-3",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t巴西",
+      "result": "D",
+      "score": "2-1",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "比利时",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 5,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "沙特阿拉伯": [
+    {
+      "opponent": "乌拉圭",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 12,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "塞内加尔",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 22,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-10",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月6日\t波多黎各",
+      "result": "L",
+      "score": "0-3",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-06",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月31日\t厄瓜多尔",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 28,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t塞尔维亚",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "乌拉圭",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 12,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "乌拉圭": [
+    {
+      "opponent": "沙特阿拉伯",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "西班牙": [
+    {
+      "opponent": "佛得角",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 67,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "佛得角": [
+    {
+      "opponent": "2026年6月15日\t西班牙",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 2,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "百慕大群岛",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "塞尔维亚",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "芬兰",
+      "result": "L",
+      "score": "1-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t智利",
+      "result": "L",
+      "score": "4-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "西班牙",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 2,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "伊朗": [
+    {
+      "opponent": "新西兰",
+      "result": "W",
+      "score": "2-2",
+      "opponent_rank": 105,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月5日\t马里",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-05",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "冈比亚",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-29",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "哥斯达黎加",
+      "result": "W",
+      "score": "5-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "尼日利亚",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "新西兰",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 105,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "新西兰": [
+    {
+      "opponent": "伊朗",
+      "result": "D",
+      "score": "2-2",
+      "opponent_rank": 20,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-16",
+      "_source": "worldcup_backtest"
+    }
+  ],
+  "乌兹别克斯坦": [
+    {
+      "opponent": "2026年6月9日\t荷兰",
+      "result": "L",
+      "score": "2-1",
+      "opponent_rank": 8,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月2日\t加拿大",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 40,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "委内瑞拉",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-30",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "加蓬",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2025年11月19日\t伊朗",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2025-11-19",
+      "_source": "manual_import"
+    }
+  ],
+  "哥伦比亚": [
+    {
+      "opponent": "约旦",
+      "result": "L",
+      "score": "2-0",
+      "opponent_rank": 85,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "哥斯达黎加",
+      "result": "L",
+      "score": "3-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "法国",
+      "result": "W",
+      "score": "1-3",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-29",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "克罗地亚",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 10,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-26",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2025年11月19日\t澳大利亚",
+      "result": "W",
+      "score": "0-3",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2025-11-19",
+      "_source": "manual_import"
+    }
+  ],
+  "克罗地亚": [
+    {
+      "opponent": "2026年6月11日\t葡萄牙",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 7,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "斯洛文尼亚",
+      "result": "L",
+      "score": "2-1",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月7日\t葡萄牙",
+      "result": "D",
+      "score": "2-1",
+      "opponent_rank": 7,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "比利时",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 5,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-02",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t巴西",
+      "result": "W",
+      "score": "3-1",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    }
+  ],
+  "英格兰": [
+    {
+      "opponent": "哥斯达黎加",
+      "result": "L",
+      "score": "3-0",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "新西兰",
+      "result": "L",
+      "score": "1-0",
+      "opponent_rank": 105,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t日本",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月28日\t乌拉圭",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 12,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2025年11月17日\t阿尔巴尼亚",
+      "result": "W",
+      "score": "0-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2025-11-17",
+      "_source": "manual_import"
+    }
+  ],
+  "巴拿马": [
+    {
+      "opponent": "波黑",
+      "result": "W",
+      "score": "1-1",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "多米尼加共和国",
+      "result": "W",
+      "score": "4-2",
+      "opponent_rank": 50,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-04",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月1日\t巴西",
+      "result": "W",
+      "score": "2-6",
+      "opponent_rank": 3,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t南非",
+      "result": "W",
+      "score": "1-2",
+      "opponent_rank": 70,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月27日\t南非",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 70,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-27",
+      "_source": "manual_import"
+    }
+  ],
+  "厄瓜多尔队在世界杯开赛前状态极佳，保持了长达19场不败，但在小组赛首轮被科特迪瓦队绝杀，不败纪录就此终结。以下是该": [
+    {
+      "opponent": "2026年6月15日\t科特迪瓦",
+      "result": "W",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-15",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年6月8日\t厄瓜多尔",
+      "result": "W",
+      "score": "3-0",
+      "opponent_rank": 28,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-08",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年5月31日\t厄瓜多尔",
+      "result": "D",
+      "score": "2-1",
+      "opponent_rank": 28,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年4月1日\t荷兰",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 8,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "2026年3月31日\t阿尔及利亚",
+      "result": "W",
+      "score": "0-0",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    }
+  ],
+  "葡萄牙": [
+    {
+      "opponent": "尼日利亚",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-11",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "智利",
+      "result": "W",
+      "score": "2-1",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-07",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "美国",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 13,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-04-01",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "墨西哥",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 16,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-29",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "亚美尼亚",
+      "result": "W",
+      "score": "9-1",
+      "opponent_rank": 90,
+      "home_away": "home",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2025-11-16",
+      "_source": "manual_import"
+    }
+  ],
+  "民主刚果": [
+    {
+      "opponent": "智利",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 20,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-09",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "丹麦",
+      "result": "D",
+      "score": "0-0",
+      "opponent_rank": 12,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "牙买加",
+      "result": "W",
+      "score": "1-0",
+      "opponent_rank": 55,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "百慕大",
+      "result": "W",
+      "score": "2-0",
+      "opponent_rank": 160,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-25",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "阿尔及利亚",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 35,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-01-06",
+      "_source": "manual_import"
+    }
+  ],
+  "加纳": [
+    {
+      "opponent": "威尔士",
+      "result": "D",
+      "score": "1-1",
+      "opponent_rank": 18,
+      "home_away": "neutral",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-06-03",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "墨西哥",
+      "result": "L",
+      "score": "0-2",
+      "opponent_rank": 16,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-05-23",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "德国",
+      "result": "L",
+      "score": "1-2",
+      "opponent_rank": 4,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-31",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "奥地利",
+      "result": "L",
+      "score": "1-5",
+      "opponent_rank": 25,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2026-03-28",
+      "_source": "manual_import"
+    },
+    {
+      "opponent": "南非",
+      "result": "L",
+      "score": "0-1",
+      "opponent_rank": 70,
+      "home_away": "away",
+      "is_official": true,
+      "key_players": 10,
+      "date": "2025-12-16",
+      "_source": "manual_import"
+    }
+  ]
+}

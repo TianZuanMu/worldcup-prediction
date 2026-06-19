@@ -1,0 +1,22 @@
+# Virtual environment
+.venv/
+
+# Live data (auto-refreshed, 300+ files)
+betfair_data/
+snapshots/
+*.csv
+*.xls
+*.xlsx
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

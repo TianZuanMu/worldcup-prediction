@@ -1,0 +1,20 @@
+{
+  "50-60%": {
+    "count": 4,
+    "correct": 3,
+    "claimed_accuracy": 55.0,
+    "actual_accuracy": 75.0
+  },
+  "80-90%": {
+    "count": 6,
+    "correct": 6,
+    "claimed_accuracy": 85.0,
+    "actual_accuracy": 100.0
+  },
+  "90-100%": {
+    "count": 11,
+    "correct": 10,
+    "claimed_accuracy": 95.0,
+    "actual_accuracy": 90.9
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>500.com XLS 下载面板</title>
+<style>
+  body{font-family:"Microsoft YaHei",sans-serif;background:#0f1923;color:#e0e6ed;max-width:900px;margin:40px auto;padding:20px}
+  h1{color:#00d4aa;font-size:20px;margin-bottom:4px}
+  .sub{color:#8899aa;font-size:12px;margin-bottom:24px}
+  .match{margin-bottom:10px;background:#1a2634;border-radius:10px;padding:10px 16px;border:1px solid #2a3a4a}
+  .match h2{font-size:14px;margin-bottom:6px;color:#fff}
+  .btns{display:flex;gap:6px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:5px 12px;border-radius:5px;font-size:11px;text-decoration:none;border:none;transition:all .15s;background:rgba(0,212,170,.12);color:#00d4aa;border:1px solid rgba(0,212,170,.25)}
+  .btn:hover{background:rgba(0,212,170,.3)}
+  .note{font-size:11px;color:#8899aa;margin-top:20px;padding:12px;background:rgba(255,165,2,.06);border-radius:8px}
+</style></head>
+<body>
+<h1>📥 500.com XLS 下载面板</h1>
+<div class="sub">16场比赛 · 自动生成于 2026-06-14 19:20</div>
+<script>
+const matches = [
+  {name:"德国VS库拉索", id:"1359200"},
+  {name:"荷兰VS日本", id:"1359203"},
+  {name:"比利时VS埃及", id:"1359206"},
+  {name:"西班牙VS佛得角", id:"1359209"},
+  {name:"法国VS塞内加尔", id:"1359212"},
+  {name:"阿根廷VS阿尔及利亚", id:"1359215"},
+  {name:"葡萄牙VS民主刚果", id:"1359218"},
+  {name:"英格兰VS克罗地亚", id:"1359221"},
+  {name:"科特迪瓦VS厄瓜多尔", id:"1359236"},
+  {name:"瑞典VS突尼斯", id:"1359239"},
+  {name:"伊朗VS新西兰", id:"1359242"},
+  {name:"沙特VS乌拉圭", id:"1359245"},
+  {name:"伊拉克VS挪威", id:"1359248"},
+  {name:"奥地利VS约旦", id:"1359251"},
+  {name:"乌兹别克斯坦VS哥伦比亚", id:"1359254"},
+  {name:"加纳VS巴拿马", id:"1359257"},
+];
+const types=[{key:"ouzhi",label:"百欧"},{key:"yazhi",label:"亚盘"},{key:"daxiao",label:"大小"},{key:"rangqiu",label:"让球"}];
+matches.forEach(m=>{
+  document.write(`<div class="match"><h2>${m.name}</h2><div class="btns">`);
+  types.forEach(t=>{document.write(`<a class="btn" href="https://odds.500.com/fenxi/${t.key}-${m.id}.shtml" target="_blank">${t.label}</a> `);});
+  document.write(`</div></div>`);
+});
+</script>
+<div class="note">每次运行 <b>python generate_panel.py</b> 自动更新比赛列表</div>
+</body>
+</html>

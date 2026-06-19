@@ -1,0 +1,896 @@
+{
+  "卡塔尔VS瑞士": {
+    "match": "卡塔尔VS瑞士",
+    "analyzed_at": "2026-06-14 20:11:54",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:12:41",
+          "file_size": 14848
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:19:07",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:19:10",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:19:04",
+          "file_size": 27136
+        }
+      }
+    }
+  },
+  "巴西VS摩洛哥": {
+    "match": "巴西VS摩洛哥",
+    "analyzed_at": "2026-06-14 20:11:57",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:12:42",
+          "file_size": 14848
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:10:05",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:10:09",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:09:55",
+          "file_size": 28160
+        }
+      }
+    }
+  },
+  "海地VS苏格兰": {
+    "match": "海地VS苏格兰",
+    "analyzed_at": "2026-06-14 20:12:00",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:12:44",
+          "file_size": 14848
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:23:22",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:23:24",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:23:19",
+          "file_size": 28160
+        }
+      }
+    }
+  },
+  "澳大利亚VS土耳其": {
+    "match": "澳大利亚VS土耳其",
+    "analyzed_at": "2026-06-14 20:12:04",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:12:45",
+          "file_size": 14848
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:31:54",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:31:56",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 20:31:51",
+          "file_size": 27648
+        }
+      }
+    }
+  },
+  "德国VS库拉索": {
+    "match": "德国VS库拉索",
+    "analyzed_at": "2026-06-14 20:12:07",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:45:07",
+          "file_size": 56320
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:15",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:18",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:12",
+          "file_size": 13312
+        }
+      }
+    }
+  },
+  "荷兰VS日本": {
+    "match": "荷兰VS日本",
+    "analyzed_at": "2026-06-14 20:12:11",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:45:48",
+          "file_size": 60416
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:55",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:59",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:45:51",
+          "file_size": 28160
+        }
+      }
+    }
+  },
+  "比利时VS埃及": {
+    "match": "比利时VS埃及",
+    "analyzed_at": "2026-06-14 20:12:15",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:47:12",
+          "file_size": 59904
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:17",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:19",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:14",
+          "file_size": 26624
+        }
+      }
+    }
+  },
+  "西班牙VS佛得角": {
+    "match": "西班牙VS佛得角",
+    "analyzed_at": "2026-06-14 20:12:18",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:46:51",
+          "file_size": 57344
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:56",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:59",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:54",
+          "file_size": 24576
+        }
+      }
+    }
+  },
+  "瑞典VS突尼斯": {
+    "match": "瑞典VS突尼斯",
+    "analyzed_at": "2026-06-14 20:12:22",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:46:32",
+          "file_size": 56320
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:36",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:40",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:34",
+          "file_size": 27136
+        }
+      }
+    }
+  },
+  "沙特VS乌拉圭": {
+    "match": "沙特VS乌拉圭",
+    "analyzed_at": "2026-06-14 20:12:25",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:47:29",
+          "file_size": 59904
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:35",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:37",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:32",
+          "file_size": 26624
+        }
+      }
+    }
+  },
+  "法国VS塞内加尔": {
+    "match": "法国VS塞内加尔",
+    "analyzed_at": "2026-06-14 20:12:29",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:08",
+          "file_size": 58880
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:25:32",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:25:37",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:25:35",
+          "file_size": 23040
+        }
+      }
+    }
+  },
+  "伊朗VS新西兰": {
+    "match": "伊朗VS新西兰",
+    "analyzed_at": "2026-06-14 20:12:32",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:47:49",
+          "file_size": 55808
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:56",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:48:02",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:47:53",
+          "file_size": 13312
+        }
+      }
+    }
+  },
+  "葡萄牙VS民主刚果": {
+    "match": "葡萄牙VS民主刚果",
+    "analyzed_at": "2026-06-14 20:12:35",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:11",
+          "file_size": 57344
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:06",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:08",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:04",
+          "file_size": 25600
+        }
+      }
+    }
+  },
+  "奥地利VS约旦": {
+    "match": "奥地利VS约旦",
+    "analyzed_at": "2026-06-14 20:12:39",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:15",
+          "file_size": 60416
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:40",
+          "file_size": 10752
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:43",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:38",
+          "file_size": 13312
+        }
+      }
+    }
+  },
+  "阿根廷VS阿尔及利亚": {
+    "match": "阿根廷VS阿尔及利亚",
+    "analyzed_at": "2026-06-14 20:12:42",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:25",
+          "file_size": 60416
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:54",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:57",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:26:52",
+          "file_size": 26624
+        }
+      }
+    }
+  },
+  "加纳VS巴拿马": {
+    "match": "加纳VS巴拿马",
+    "analyzed_at": "2026-06-14 20:12:46",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:36",
+          "file_size": 58880
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:28:59",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:29:07",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:29:05",
+          "file_size": 25600
+        }
+      }
+    }
+  },
+  "乌兹别克斯坦VS哥伦比亚": {
+    "match": "乌兹别克斯坦VS哥伦比亚",
+    "analyzed_at": "2026-06-14 20:12:49",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:29",
+          "file_size": 58880
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:27:08",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:27:10",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-14 00:27:06",
+          "file_size": 26112
+        }
+      }
+    }
+  },
+  "科特迪瓦VS厄瓜多尔": {
+    "match": "科特迪瓦VS厄瓜多尔",
+    "analyzed_at": "2026-06-14 20:12:53",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-13 23:46:10",
+          "file_size": 60416
+        }
+      },
+      "asian": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:15",
+          "file_size": 11264
+        }
+      },
+      "totals": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:18",
+          "file_size": 11264
+        }
+      },
+      "handicap_idx": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "file_mtime": "2026-06-13 23:46:13",
+          "file_size": 28160
+        }
+      }
+    }
+  },
+  "巴拿马VS克罗地亚": {
+    "match": "巴拿马VS克罗地亚",
+    "analyzed_at": "2026-06-14 20:12:56",
+    "files": {
+      "european": {
+        "status": "ok",
+        "data": {
+          "rows": 1,
+          "companies": [],
+          "draw_signal": {
+            "init_draw": null,
+            "now_draw": null,
+            "direction": "unknown",
+            "change_pct": 0
+          },
+          "file_mtime": "2026-06-14 00:42:40",
+          "file_size": 30720
+        }
+      },
+      "asian": {
+        "status": "missing"
+      },
+      "totals": {
+        "status": "missing"
+      },
+      "handicap_idx": {
+        "status": "missing"
+      }
+    }
+  }
+}

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026世界杯 · 预测仪表盘</title>
+<style>
+  :root {
+    --bg: #0f1923; --card: #1a2634; --border: #2a3a4a;
+    --text: #e0e6ed; --muted: #8899aa; --accent: #00d4aa;
+    --win: #00d4aa; --lose: #ff4757; --draw: #ffa502;
+    --risk-low: #00d4aa; --risk-mid: #ffa502; --risk-high: #ff4757;
+    --bar-bg: #1e2d3d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, 'Segoe UI', sans-serif; line-height: 1.5; }
+
+  .header { background: linear-gradient(135deg, #0a1628, #1a2a40); border-bottom: 1px solid var(--border); padding: 20px 32px; position: sticky; top: 0; z-index: 100; }
+  .header h1 { font-size: 24px; background: linear-gradient(90deg, var(--accent), #4dc9f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header .meta { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+  .stat-card .value { font-size: 32px; font-weight: 700; color: var(--accent); }
+  .stat-card .label { color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+  .section-title { font-size: 18px; font-weight: 600; margin: 28px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--accent); display: flex; align-items: center; gap: 8px; }
+
+  .match-grid { display: grid; gap: 16px; }
+  .match-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
+  .match-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+  .match-header { padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+  .match-teams { font-size: 20px; font-weight: 700; }
+  .match-meta { text-align: right; }
+  .match-group { display: inline-block; background: rgba(0,212,170,0.15); color: var(--accent); padding: 2px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+  .match-time { color: var(--muted); font-size: 12px; margin-top: 4px; }
+  .match-venue { color: var(--muted); font-size: 11px; }
+
+  .match-body { padding: 16px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .prediction-box { display: flex; flex-direction: column; gap: 10px; }
+  .pred-main { display: flex; align-items: center; gap: 12px; }
+  .pred-winner { font-size: 22px; font-weight: 700; }
+  .pred-score { font-size: 18px; color: var(--accent); font-weight: 600; }
+  .pred-confidence { display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+  .conf-bar-outer { flex: 1; height: 8px; background: var(--bar-bg); border-radius: 4px; overflow: hidden; }
+  .conf-bar-inner { height: 100%; border-radius: 4px; transition: width 0.5s; }
+  .conf-high { background: linear-gradient(90deg, var(--accent), #4dc9f6); }
+  .conf-mid { background: linear-gradient(90deg, var(--draw), #ff6348); }
+  .conf-low { background: linear-gradient(90deg, var(--lose), #ff6348); }
+  .conf-text { font-size: 13px; font-weight: 600; min-width: 40px; text-align: right; }
+
+  .odds-table { font-size: 12px; }
+  .odds-table th { color: var(--muted); text-align: left; padding: 3px 8px; font-weight: 400; }
+  .odds-table td { padding: 3px 8px; font-variant-numeric: tabular-nums; }
+  .odds-up { color: var(--lose); }
+  .odds-down { color: var(--accent); }
+  .odds-stable { color: var(--draw); }
+
+  .score-probs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .score-tag { background: var(--bar-bg); padding: 4px 10px; border-radius: 8px; font-size: 12px; white-space: nowrap; }
+  .score-tag .prob { color: var(--accent); font-weight: 600; }
+
+  .recs { margin-top: 6px; }
+  .rec-item { display: flex; align-items: center; gap: 6px; font-size: 12px; padding: 2px 0; }
+  .stars { color: #ffa502; letter-spacing: 1px; }
+
+  .risk-tag { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; margin-top: 4px; }
+  .risk-low { background: rgba(0,212,170,0.15); color: var(--risk-low); }
+  .risk-mid { background: rgba(255,165,2,0.15); color: var(--risk-mid); }
+  .risk-high { background: rgba(255,71,87,0.15); color: var(--risk-high); }
+
+  .standings-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .standings-table th { text-align: left; padding: 10px 12px; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; }
+  .standings-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,58,74,0.5); }
+  .standings-table tr:hover td { background: rgba(0,212,170,0.05); }
+  .pos-1 { color: var(--accent); font-weight: 700; }
+  .pos-2 { color: #4dc9f6; font-weight: 600; }
+
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+  .tab { padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 500; background: var(--card); border: 1px solid var(--border); color: var(--muted); transition: all 0.15s; }
+  .tab:hover { color: var(--text); border-color: var(--accent); }
+  .tab.active { background: rgba(0,212,170,0.15); color: var(--accent); border-color: var(--accent); }
+
+  .footer { text-align: center; padding: 24px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); margin-top: 32px; }
+
+  .methodology-badges { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  .badge { padding: 3px 10px; border-radius: 12px; font-size: 11px; background: var(--bar-bg); color: var(--muted); border: 1px solid var(--border); }
+  .badge.active { background: rgba(0,212,170,0.1); color: var(--accent); border-color: rgba(0,212,170,0.3); }
+
+  @media (max-width: 900px) {
+    .match-body { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⚽ 2026 世界杯 · 预测仪表盘</h1>
+  <div class="meta">数据来源: the-odds-api.com + 中国竞彩 · 分析方法: V2.1 11维度 · 自动生成于 <span id="genTime">--</span></div>
+</div>
+
+<div class="container">
+
+  <!-- 统计卡片 -->
+  <div class="stats-row">
+    <div class="stat-card"><div class="value" id="statMatches">4</div><div class="label">6月14日预测场次</div></div>
+    <div class="stat-card"><div class="value">22</div><div class="label">赔率快照数</div></div>
+    <div class="stat-card"><div class="value">96K+</div><div class="label">原始赔率记录</div></div>
+    <div class="stat-card"><div class="value">11</div><div class="label">分析维度</div></div>
+  </div>
+
+  <!-- 方法论文档 -->
+  <div class="methodology-badges">
+    <span class="badge active">V2.1 11维度</span>
+    <span class="badge active">P0 错误归因</span>
+    <span class="badge active">P0 首发修正</span>
+    <span class="badge active">P1 天气追踪</span>
+    <span class="badge active">P2 四象限法</span>
+    <span class="badge active">P2 校准曲线</span>
+    <span class="badge active">P3 竞彩管道</span>
+    <span class="badge active">P3 仪表盘</span>
+  </div>
+
+  <!-- 标签页 -->
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('predictions')">📅 比赛预测</div>
+    <div class="tab" onclick="switchTab('standings')">📊 小组积分</div>
+    <div class="tab" onclick="switchTab('bets')">🎰 投注策略</div>
+  </div>
+
+  <!-- 预测视图 -->
+  <div id="tab-predictions">
+    <div class="section-title">📅 6月14日 · 四场比赛</div>
+    <div class="match-grid" id="matchGrid"></div>
+  </div>
+
+  <!-- 小组积分视图 -->
+  <div id="tab-standings" style="display:none;">
+    <div id="standingsGrid"></div>
+  </div>
+
+  <!-- 投注策略视图 -->
+  <div id="tab-bets" style="display:none;">
+    <div id="bettingContent"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  2026 FIFA World Cup Prediction Dashboard · Powered by 11-Dimension V2.1 Methodology · Data: the-odds-api.com + China Sports Lottery<br>
+  ⚠️ 仅供分析参考，不构成投注建议
+</div>
+
+<script src="dashboard_data.js"></script>
+<script>
+  const data = DASHBOARD_DATA;
+  document.getElementById('genTime').textContent = data.generatedAt;
+
+  // ─── 渲染比赛卡片 ───
+  function confidenceClass(conf) {
+    if (conf >= 80) return 'conf-high';
+    if (conf >= 65) return 'conf-mid';
+    return 'conf-low';
+  }
+
+  function trendClass(val) {
+    if (val > 1) return 'odds-up';
+    if (val < -1) return 'odds-down';
+    return 'odds-stable';
+  }
+
+  function trendSymbol(val) {
+    if (val > 1) return ' ↑';
+    if (val < -1) return ' ↓';
+    return ' →';
+  }
+
+  function renderStars(n) {
+    return '★'.repeat(n) + '☆'.repeat(5-n);
+  }
+
+  function renderMatchCard(m) {
+    const p = m.prediction || {};
+    const o = m.odds || {};
+    const conf = p.confidence || 0;
+    const cls = confidenceClass(conf);
+
+    let oddsHTML = '';
+    if (o.homeNow) {
+      oddsHTML += `<tr><td>${m.homeFlag} ${m.home}</td><td>${o.homeStart}</td><td>${o.homeNow}</td><td class="${trendClass(o.homeChange||0)}">${(o.homeChange||0).toFixed(1)}%${trendSymbol(o.homeChange||0)}</td></tr>`;
+    }
+    if (o.drawNow) {
+      oddsHTML += `<tr><td>平局</td><td>${o.drawStart}</td><td>${o.drawNow}</td><td class="${trendClass(o.drawChange||0)}">${(o.drawChange||0).toFixed(1)}%${trendSymbol(o.drawChange||0)}</td></tr>`;
+    }
+    if (o.awayNow) {
+      oddsHTML += `<tr><td>${m.awayFlag} ${m.away}</td><td>${o.awayStart}</td><td>${o.awayNow}</td><td class="${trendClass(o.awayChange||0)}">${(o.awayChange||0).toFixed(1)}%${trendSymbol(o.awayChange||0)}</td></tr>`;
+    }
+
+    let scoresHTML = (m.topScores||[]).map(s =>
+      `<span class="score-tag">${s.score} <span class="prob">${s.prob}%</span></span>`
+    ).join('');
+
+    let recsHTML = (m.recommendations||[]).map(r =>
+      `<div class="rec-item"><span class="stars">${renderStars(r.stars)}</span> ${r.type}</div>`
+    ).join('');
+
+    let riskCls = '';
+    if ((m.riskLevel||'').includes('低')) riskCls = 'risk-low';
+    else if ((m.riskLevel||'').includes('中')) riskCls = 'risk-mid';
+    else riskCls = 'risk-high';
+
+    let signals = [];
+    if (o.underChange !== undefined && Math.abs(o.underChange) > 5) signals.push(`Under 2.5 ${o.underChange > 0 ? '买入' : '卖出'} ${Math.abs(o.underChange).toFixed(1)}%`);
+    if (o.spreadChange !== undefined && Math.abs(o.spreadChange) > 2) signals.push(`亚盘 ${o.spreadChange > 0 ? '松懈' : '收紧'} ${Math.abs(o.spreadChange).toFixed(1)}%`);
+    if (m.snapshots && m.snapshots >= 20) signals.push(`${m.snapshots}快照·完整趋势`);
+    else if (m.snapshots && m.snapshots > 1) signals.push(`${m.snapshots}快照·有限趋势`);
+    else signals.push('仅1快照·无趋势');
+    let signalsHTML = signals.map(s => `<span class="badge active">${s}</span>`).join('');
+
+    return `
+    <div class="match-card">
+      <div class="match-header">
+        <div>
+          <div class="match-teams">${m.homeFlag} ${m.home} vs ${m.awayFlag} ${m.away}</div>
+          <div class="match-venue">📍 ${m.venue||''}</div>
+        </div>
+        <div class="match-meta">
+          <div class="match-group">${m.group||''}</div>
+          <div class="match-time">🕐 ${m.beijingTime||''} 北京</div>
+        </div>
+      </div>
+      <div class="match-body">
+        <div class="prediction-box">
+          <div class="pred-main">
+            <span class="pred-winner">${p.winner||'待预测'}</span>
+            <span class="pred-score">${p.score||''}</span>
+          </div>
+          <div class="pred-confidence">
+            <span style="font-size:12px;color:var(--muted)">置信度</span>
+            <div class="conf-bar-outer"><div class="conf-bar-inner ${cls}" style="width:${conf}%"></div></div>
+            <span class="conf-text">${conf}%</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">
+            ${p.spread ? '让球: ' + p.spread + ' · ' : ''}${p.underOver || ''}
+          </div>
+          <div class="score-probs">${scoresHTML}</div>
+          <div class="recs">${recsHTML}</div>
+          <span class="risk-tag ${riskCls}">${m.riskLevel||''}</span>
+          ${m.riskNote ? `<span style="font-size:11px;color:var(--muted);margin-left:6px">${m.riskNote}</span>` : ''}
+        </div>
+        <div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:6px">📊 市场信号</div>
+          <div class="methodology-badges" style="margin-bottom:10px">${signalsHTML}</div>
+          <table class="odds-table">
+            <thead><tr><th>选项</th><th>起始</th><th>最新</th><th>变动</th></tr></thead>
+            <tbody>${oddsHTML}</tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('matchGrid').innerHTML = (data.matches||[]).map(renderMatchCard).join('');
+  document.getElementById('statMatches').textContent = data.matches.length;
+
+  // ─── 渲染小组积分 ───
+  function renderStandings() {
+    let html = '';
+    const groups = data.standings || {};
+    for (const [group, teams] of Object.entries(groups)) {
+      html += `<div class="section-title">${group}</div>`;
+      html += `<div class="match-card" style="padding:0;overflow-x:auto"><table class="standings-table">
+        <thead><tr><th>#</th><th>球队</th><th>赛</th><th>胜</th><th>平</th><th>负</th><th>进</th><th>失</th><th>净</th><th>分</th></tr></thead>
+        <tbody>`;
+      teams.forEach(t => {
+        const posCls = t.pos === 1 ? 'pos-1' : t.pos === 2 ? 'pos-2' : '';
+        html += `<tr>
+          <td class="${posCls}">${t.pos}</td><td>${t.team}</td>
+          <td>${t.played}</td><td>${t.won}</td><td>${t.drawn}</td><td>${t.lost}</td>
+          <td>${t.gf}</td><td>${t.ga}</td><td style="font-weight:600">${t.gd}</td>
+          <td style="font-weight:700">${t.pts}</td></tr>`;
+      });
+      html += `</tbody></table></div><br>`;
+    }
+    document.getElementById('standingsGrid').innerHTML = html;
+  }
+  renderStandings();
+
+  // ─── 标签切换 ───
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('[id^="tab-"]').forEach(p => p.style.display = 'none');
+    const el = document.getElementById('tab-' + name);
+    if (el) el.style.display = 'block';
+    if (name === 'bets') renderBetting();
+    if (event && event.target) event.target.classList.add('active');
+  }
+
+  // ─── 渲染投注策略 ───
+  function renderStars(n) { return '★'.repeat(n) + '☆'.repeat(5-n); }
+
+  function renderBettingTable(strategies, showStake) {
+    return strategies.map(s => `
+      <tr>
+        <td style="padding:10px;font-weight:600">${s.rank}</td>
+        <td>${s.bet}</td>
+        <td>${s.market}${s.note ? `<br><span style="font-size:10px;color:var(--muted)">${s.note}</span>` : ''}</td>
+        <td style="text-align:right;color:var(--accent);font-weight:600">${s.odds}</td>
+        ${showStake ? `<td style="text-align:right">${s.stake||''}</td>` : ''}
+        <td style="text-align:right">${renderStars(s.stars||3)}</td>
+      </tr>
+    `).join('');
+  }
+
+  function renderBetting() {
+    const bt = (data && data.betting) || {};
+    const lot = bt.lottery || {};
+    const intl = bt.international || {};
+
+    let html = '';
+
+    // 策略类型切换
+    html += `<div class="tabs" style="margin-bottom:16px">
+      <div class="tab active" onclick="switchBetTab('lottery',event)">🇨🇳 ${lot.title||'体彩竞彩'}</div>
+      <div class="tab" onclick="switchBetTab('international',event)">🌍 ${intl.title||'国际博彩'}</div>
+    </div>`;
+
+    // 体彩竞彩
+    html += `<div id="bet-lottery">`;
+    html += `<div class="section-title">🇨🇳 ${lot.title||'体彩竞彩'} · 总预算 ${lot.totalBudget||'250元'}</div>`;
+    html += `<div class="match-card" style="padding:20px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="color:var(--muted);text-align:left"><th style="padding:10px">排位</th><th>投注项</th><th>玩法</th><th style="text-align:right">赔率</th><th style="text-align:right">金额</th><th style="text-align:right">置信度</th></tr></thead>
+        <tbody>${renderBettingTable(lot.strategies||[], true)}</tbody>
+      </table>`;
+
+    if ((lot.scenarios||[]).length > 0) {
+      html += `<div style="margin-top:16px;padding:12px;background:rgba(0,212,170,0.08);border-radius:8px;font-size:12px">💡 <b>收益情景:</b> `;
+      html += (lot.scenarios||[]).map(s =>
+        `${s.name}(<b>${s.prob}</b>→${s.ret} <span style="color:${s.pnl.startsWith('+')?'var(--accent)':'var(--lose)'}">${s.pnl}元</span>)`
+      ).join(' → ');
+      html += `</div>`;
+    }
+    html += `</div></div>`;
+
+    // 国际博彩
+    html += `<div id="bet-international" style="display:none">`;
+    html += `<div class="section-title">🌍 ${intl.title||'国际博彩'}</div>`;
+    if ((intl.exclusive||[]).length > 0) {
+      html += `<div class="methodology-badges" style="margin-bottom:12px">`;
+      html += (intl.exclusive||[]).map(e => `<span class="badge active">${e}</span>`).join('');
+      html += `<span style="font-size:11px;color:var(--muted);margin-left:8px">← 体彩不具备的独家市场</span></div>`;
+    }
+    html += `<div class="match-card" style="padding:20px">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <thead><tr style="color:var(--muted);text-align:left"><th style="padding:10px">排位</th><th>投注项</th><th>玩法</th><th style="text-align:right">赔率</th><th style="text-align:right">仓位</th><th style="text-align:right">置信度</th></tr></thead>
+        <tbody>${renderBettingTable(intl.strategies||[], true)}</tbody>
+      </table>`;
+
+    // 交易所Lay盘风险提示
+    html += `<div style="margin-top:12px;padding:10px;background:rgba(255,71,87,0.08);border-radius:8px;font-size:11px;color:var(--lose)">
+      ⚠️ <b>交易所Lay盘风险:</b> Lay冷门方潜在亏损极大(例:Lay 17.0→若爆冷亏16倍本金)。必须严格限制每笔Lay仓位≤总仓5%,设止损线。
+    </div>`;
+    html += `</div></div>`;
+
+    // 全渠道总览
+    html += `<div class="section-title" style="margin-top:20px">🏆 全渠道汇总对比</div>`;
+    html += `<div class="match-card" style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13px">
+      <div>
+        <div style="font-weight:600;color:var(--accent);margin-bottom:8px">🇨🇳 体彩最佳三注</div>
+        ${(lot.strategies||[]).slice(0,3).map(s => `<div style="padding:4px 0">${s.rank} ${s.market} <span style="color:var(--accent)">${s.odds}</span></div>`).join('')}
+      </div>
+      <div>
+        <div style="font-weight:600;color:#4dc9f6;margin-bottom:8px">🌍 国际最佳三注</div>
+        ${(intl.strategies||[]).slice(0,3).map(s => `<div style="padding:4px 0">${s.rank} ${s.market} <span style="color:var(--accent)">${s.odds}</span></div>`).join('')}
+      </div>
+    </div>`;
+
+    document.getElementById('bettingContent').innerHTML = html;
+  }
+
+  function switchBetTab(name, evt) {
+    document.getElementById('bet-lottery').style.display = name === 'lottery' ? 'block' : 'none';
+    document.getElementById('bet-international').style.display = name === 'international' ? 'block' : 'none';
+    if (evt && evt.target) {
+      evt.target.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      evt.target.classList.add('active');
+    }
+  }
+
+  // ─── 初始化 ───
+
+  console.log('✅ Dashboard loaded: ' + data.matches.length + ' matches, generated at ' + data.generatedAt);
+</script>
+</body>
+</html>
