@@ -1,24 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 
-"""
-对手质量数据库 + BIG三条件自动检查 (V3.3: 球员身价感知)
-
-用法:
-  from opponent_db import check_three_conditions, opponent_quality, get_team_value_breakdown
-  result = check_three_conditions('乌兹别克斯坦')
-  # → {'all_pass': True, ...}  # Shomurodov(€0M)不再误判为顶级射手
-
-🆕 V3.3: 48队174名球员真实身价+位置+俱乐部数据
-"""
-
-# ── 对手数据库 (V3.3: 真实球员身价) ──
-# rank: FIFA排名
-# giant_killings: 世界杯历史爆冷记录
-# pre_goals_per_game: 预选赛场均进球
-# total_value_m: 核心球员总身价(百万欧)
-# top5_attackers: 五大联赛高价值攻击手数量(身价≥€10M)
-# players: 球员列表 [{'name', 'value_m', 'club', 'top5', 'pos'}]
+"""对手质量数据库 + BIG三条件自动检查 (V3.4)"""
 
 OPPONENT_DB = {
     '墨西哥': {
@@ -676,3 +659,101 @@ OPPONENT_DB = {
         ],
     },
 }
+
+EN_MAP = {
+    'South Africa': '南非', 'Czech Republic': '捷克', 'Czech': '捷克',
+    'Bosnia & Herzegovina': '波黑', 'Bosnia': '波黑', 'Paraguay': '巴拉圭',
+    'Qatar': '卡塔尔', 'Morocco': '摩洛哥', 'Haiti': '海地', 'Turkey': '土耳其',
+    'Tunisia': '突尼斯', 'Curacao': '库拉索', 'Japan': '日本',
+    'Ecuador': '厄瓜多尔', 'Ivory Coast': '科特迪瓦',
+    'Cape Verde': '佛得角', 'Egypt': '埃及', 'Saudi Arabia': '沙特阿拉伯',
+    'Uruguay': '乌拉圭', 'New Zealand': '新西兰', 'Iran': '伊朗',
+    'Senegal': '塞内加尔', 'Iraq': '伊拉克', 'Algeria': '阿尔及利亚',
+    'Jordan': '约旦', 'DR Congo': '民主刚果', 'Congo DR': '民主刚果',
+    'Croatia': '克罗地亚', 'Ghana': '加纳', 'Panama': '巴拿马',
+    'Colombia': '哥伦比亚', 'Uzbekistan': '乌兹别克斯坦',
+    'Norway': '挪威', 'Scotland': '苏格兰', 'Austria': '奥地利',
+    'Switzerland': '瑞士', 'South Korea': '韩国', 'Korea Republic': '韩国',
+    'Australia': '澳大利亚', 'Canada': '加拿大',
+    'Portugal': '葡萄牙', 'England': '英格兰', 'France': '法国', 'Brazil': '巴西',
+    'Argentina': '阿根廷', 'Spain': '西班牙', 'Mexico': '墨西哥', 'USA': '美国',
+}
+
+
+def opponent_quality(team_name: str) -> dict:
+    def _normalize(data):
+        if 'players' in data and 'top5_players' not in data:
+            data['top5_players'] = [f"{p['name']}({p['pos']}/{p['club']})" for p in data['players']]
+        elif 'players' not in data:
+            data['players'] = []; data['top5_players'] = data.get('top5_players', [])
+            data['total_value_m'] = data.get('total_value_m', 0)
+            data['top5_attackers'] = data.get('top5_attackers', 0)
+        return data
+    if team_name in OPPONENT_DB: return _normalize(OPPONENT_DB[team_name].copy())
+    cn = EN_MAP.get(team_name, team_name)
+    if cn in OPPONENT_DB: return _normalize(OPPONENT_DB[cn].copy())
+    for name, data in OPPONENT_DB.items():
+        if cn in name or name in cn: return _normalize(data.copy())
+    return _normalize({'rank': 50, 'players': [], 'top5_players': [],
+        'giant_killings': [], 'pre_goals_per_game': 1.0, 'total_value_m': 0, 'top5_attackers': 0})
+
+
+def _count_attacking_threat(team_name: str) -> tuple:
+    data = opponent_quality(team_name)
+    DEFENSIVE_POS = {'CB', 'LB', 'RB', 'GK', 'DF', 'WB', 'SW'}
+    FORWARD_POS = {'FW', 'ST', 'CF', 'LW', 'RW', 'WG'}
+    fw_count = 0; mf_count = 0; ex_star_count = 0; scorers = []
+    for p in data.get('players', data.get('top5_players', [])):
+        if isinstance(p, dict):
+            pos = p.get('pos', ''); value_m = p.get('value_m', 0); top5 = p.get('top5', False)
+            if pos not in DEFENSIVE_POS and top5 and (value_m == 0 or value_m >= 5):
+                scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
+                if pos in FORWARD_POS: fw_count += 1
+                else: mf_count += 1
+            elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= 5:
+                scorers.append(f"{p['name']}({pos}/ex-5/Euro{value_m:.0f}M)")
+                ex_star_count += 1
+    threat = fw_count + mf_count * 0.5 + ex_star_count * 0.5
+    pre_goals = data.get('pre_goals_per_game', 1.0) or 1.0
+    return fw_count, mf_count, threat, scorers, pre_goals
+
+
+def check_three_conditions(team_name: str) -> dict:
+    data = opponent_quality(team_name)
+    a_pass = data['rank'] >= 50
+    fw_count, mf_count, threat_level, scorers, pre_goals = _count_attacking_threat(team_name)
+    if len(scorers) == 0: b_pass = True
+    elif threat_level < 1.0: b_pass = True
+    elif threat_level < 1.5 and pre_goals < 1.2: b_pass = True
+    else: b_pass = False
+    current_year = 2026; recent_killings = []; old_killings = []
+    for gk in data.get('giant_killings', []):
+        y = int(''.join(c for c in str(gk) if c.isdigit())[:4]) if any(c.isdigit() for c in str(gk)) else 0
+        if y > 0:
+            if y > current_year - 3: recent_killings.append(gk)
+            else: old_killings.append(gk)
+        else: old_killings.append(gk)
+    c_pass = len(recent_killings) + len(old_killings) == 0
+    passed = sum([a_pass, b_pass, c_pass])
+    fail_reasons = []
+    if not a_pass: fail_reasons.append(f"rank{data['rank']}<50")
+    if not b_pass: fail_reasons.append(f"scorers: {', '.join(scorers)}")
+    if not c_pass:
+        parts = []
+        if recent_killings: parts.append(f'2023+: {", ".join(recent_killings)}')
+        if old_killings: parts.append(f'history: {", ".join(old_killings)}')
+        fail_reasons.append(f"giant: {' | '.join(parts)}")
+    rule = 'hot_win_exception' if passed == 3 else 'default_hot_lose'
+    return {'all_pass': passed == 3, 'passed': passed, 'total': 3,
+        'conditions': {'a_rank60plus': a_pass, 'b_no_top5_scorer': b_pass, 'c_no_giant_killing': c_pass},
+        'fail_reason': ' | '.join(fail_reasons) if fail_reasons else 'all_pass',
+        'rule': rule, 'quality_score': 3 - passed, 'scorers': scorers,
+        'threat_level': threat_level, 'data': data}
+
+
+def check_moderate_opponent(team_name: str) -> dict:
+    fw, mf, threat, scorers, pre_goals = _count_attacking_threat(team_name)
+    has_threat = threat >= 1.5 and pre_goals >= 1.5
+    return {'has_goal_threat': has_threat, 'top_players': scorers,
+        'goals_per_game': pre_goals, 'threat_level': threat,
+        'rule': 'hot_lose' if has_threat else 'hot_win'}

@@ -1202,16 +1202,43 @@ def _apply_v26_rules(r: PreMatchReport):
             except Exception:
                 pass
 
-        # 15. 🆕 V3.0 伤病影响 (-20% to 0%)
-        if get_match_injury_impact:
-            try:
-                inj = get_match_injury_impact(home_team, away_team)
-                if inj['confidence_adj'] != 0:
-                    multiplier *= (1.0 + inj['confidence_adj'] / 100)
-                    for n in inj['notes'][:3]:
-                        r.v26_warnings.append(f'🏥 {n[:60]}')
-            except Exception:
-                pass
+        # 15. 🆕 V3.4 伤病影响 (来自opponent_db·检查关键球员缺阵)
+        try:
+            from opponent_db import opponent_quality
+            home_inj = opponent_quality(home_team)
+            away_inj = opponent_quality(away_team)
+            injury_adj = 0
+            injury_notes = []
+            for team_name, data, is_hot in [(home_team, home_inj, r.betfair_hot_side == 'home'),
+                                             (away_team, away_inj, r.betfair_hot_side == 'away')]:
+                for p in data.get('players', []):
+                    inj = p.get('injury', '')
+                    if not inj: continue
+                    pos = p.get('pos', '')
+                    # 后卫/GK缺阵 → 防线削弱 → 对手更易进球 → 热门胜概率提升
+                    if pos in ('CB', 'RB', 'LB', 'GK', 'DF'):
+                        if is_hot:
+                            injury_adj -= 4  # 热方防线削弱 → 热门不胜风险↑
+                            injury_notes.append(f'{team_name}防线{p['name']}({pos})缺阵: {inj}')
+                        else:
+                            injury_adj += 4  # 弱方防线削弱 → 热门更易胜
+                            injury_notes.append(f'{team_name}防线{p['name']}({pos})缺阵→热门利好: {inj}')
+                    # FW缺阵 → 进攻削弱
+                    elif pos in ('FW', 'ST', 'CF', 'LW', 'RW', 'WG'):
+                        if is_hot:
+                            injury_adj -= 3  # 热方进攻削弱
+                            injury_notes.append(f'{team_name}射手{p['name']}({pos})缺阵: {inj}')
+                        else:
+                            injury_adj += 3  # 弱方进攻削弱
+                            injury_notes.append(f'{team_name}射手{p['name']}({pos})缺阵: {inj}')
+            if injury_adj != 0:
+                # 转置信度: 每adj点≈1.5% (限制±15%)
+                injury_adj = max(-15, min(15, injury_adj * 1.5))
+                multiplier *= (1.0 + injury_adj / 100)
+                for n in injury_notes[:3]:
+                    r.v26_warnings.append(f'🏥 {n}')
+        except Exception:
+            pass
 
         # 16. 🆕 V3.2→V3.3 中场实力对比 (CLOSE±5%·MOD±3%·BIG±1.5%)
         if gap in ('close', 'moderate', 'big'):
