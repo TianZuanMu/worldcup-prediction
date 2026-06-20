@@ -87,13 +87,22 @@ MIDFIELD_RATING: dict = {
 
 
 def get_midfield_rating(team_name: str) -> float:
-    """获取球队中场评分 (1-10), 未收录默认5.0"""
+    """V3.11: 中场评分·静态表为主·自动计算为fallback"""
     if team_name in MIDFIELD_RATING:
         return MIDFIELD_RATING[team_name]
     from match_context import normalize_team_name
     cn = normalize_team_name(team_name)
     if cn in MIDFIELD_RATING:
         return MIDFIELD_RATING[cn]
+    # 🆕 V3.11: 自动推算 — 从球员DB的MF威胁值映射到1-10评分
+    try:
+        from opponent_db import _count_attacking_threat
+        _, mf_val, _, _, _ = _count_attacking_threat(team_name, 'moderate')
+        # MF威胁值(0-15) → 评分(2-9.5): 评分 = mf_val * 0.7
+        auto_rating = min(9.5, max(2.0, mf_val * 0.7))
+        return round(auto_rating, 1)
+    except Exception:
+        pass
     from fifa_rank_db import get_team_info
     info = get_team_info(team_name)
     if info.get('conf', 'Unknown') != 'Unknown':

@@ -1509,10 +1509,9 @@ def _apply_v26_rules(r: PreMatchReport):
                     _, _, _atk_o, _, _ = _catv39(_ot39, 'moderate')
                     _atk_gap = _atk_h - _atk_o
                     _def_gap = _defv39(_ht39) - _defv39(_ot39)
-                    if _atk_gap > 4.0 and _def_gap > 2.5 and _atk_o > 4.0:
-                        # 仅当对手也有真实攻击力(thr>4.0)时才豁免冷热惩罚
-                        # 日本thr=3.0·埃及thr=2.5 → 冷热可靠·不豁免
-                        # 瑞典thr=5.5 → 对手有反击能力·但荷兰优
+                    if _atk_gap >= 3.5 and _def_gap >= 2.0 and _atk_o >= 3.5:
+                        # V3.11: 软化阈值(>4.0→≥3.5·>2.5→≥2.0)降低边界脆弱性
+                        # 仅当对手也有真实攻击力(thr≥3.5)时才豁免冷热惩罚
                         mod_flip = True
                         r.v26_rule = 'MOD + 实力优先 → 热门仍赢 (冷热折扣减半)'
                         r.v26_prediction = '热门胜 (实力优先·过热折扣减半)'
