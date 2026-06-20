@@ -1478,12 +1478,12 @@ def _apply_v26_rules(r: PreMatchReport):
                     has_prime_fw = False
                     for p in _hot_data.get('players', []):
                         if (isinstance(p, dict) and p.get('top5') and p.get('pos') == 'FW'
-                            and p.get('value_m', 0) >= 25
+                            and p.get('value_m', 0) >= 35
                             and (p.get('age') or 99) > 22):
                             has_prime_fw = True
                             break
                     # 触发: 防线接近攻击(ratio≥0.78) + 无prime精英FW + 非极端(<1.2)
-                    def_upset = (ratio >= 0.78 and ratio < 1.2 and not has_prime_fw
+                    def_upset = (ratio >= 0.78 and ratio < 1.4 and not has_prime_fw
                                  and 2.5 <= hthreat < 5.0)
                 except Exception:
                     hthreat = 5.0; opp_def = 0; def_upset = False; ratio = 0
@@ -1586,26 +1586,33 @@ def _apply_v26_rules(r: PreMatchReport):
             elif r.three_conditions and r.three_conditions.get('all_pass'):
                 # 🆕 V3.3: 非精英热队+三条件全过 → 降级 (伊朗36>35降级·墨西哥15/苏格兰35保留)
                 if r.hot_team_fifa_rank > 35:
-                    r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热队非精英 → 降级'
-                    r.v26_prediction = '⚠️ 热门可能不胜 (三条件全过但热队非精英)'
-                    base_conf = 55
-                    r.v26_warnings.append(
-                        f'三条件全满足但热方FIFA#{r.hot_team_fifa_rank}>35非精英→降级为\"热门可能不胜\"'
-                    )
-                    # V3.5: 进一步检查攻击力
+                    # V3.6: 非精英降级前检查攻击力 (苏格兰#42·thr=3.9应保留)
                     _parts = r.match_name.split('VS')
                     _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
                     from opponent_db import _count_attacking_threat
                     hfw2, hmf2, hthreat2, _, _ = _count_attacking_threat(_hot_t, 'big')
-                    # V3.6: 东道主豁免 (加拿大rank40走非精英路径)
                     is_hot_host2 = (r.betfair_hot_side == 'home' and home_host) or \
                                    (r.betfair_hot_side == 'away' and away_host)
-                    if is_hot_host2:
-                        pass  # 东道主不触发攻击枯竭
+                    if is_hot_host2 or hthreat2 >= 3.5:
+                        # 东道主 或 攻击充分 → 不降级
+                        r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
+                        r.v26_prediction = '热门仍赢 (三条件全满足)'
+                        base_conf = 65
+                        r.v26_warnings.append(
+                            f'热方FIFA#{r.hot_team_fifa_rank}>35但攻击充分(thr={hthreat2:.1f})→不降级'
+                        )
                     elif hthreat2 < 1.5:
-                            r.v26_prediction = '⚠️ 攻击枯竭·冷门预警 (三条件全过+非精英)'
-                            base_conf = 40
-                            r.v26_warnings.append(f'热方攻击枯竭(thr={hthreat2:.1f}<1.5)·破门无望→冷门高危')
+                        r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热队非精英 → 降级'
+                        r.v26_prediction = '⚠️ 攻击枯竭·冷门预警 (三条件全过+非精英)'
+                        base_conf = 40
+                        r.v26_warnings.append(f'热方攻击枯竭(thr={hthreat2:.1f}<1.5)·破门无望→冷门高危')
+                    else:
+                        r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热队非精英 → 降级'
+                        r.v26_prediction = '⚠️ 热门可能不胜 (三条件全过但热队非精英)'
+                        base_conf = 55
+                        r.v26_warnings.append(
+                            f'三条件全满足但热方FIFA#{r.hot_team_fifa_rank}>35非精英→降级为\"热门可能不胜\"'
+                        )
                 else:
                     # V3.5: 热门攻击力检查 — 即使三条件全过，攻击太弱也无法稳赢
                     _parts = r.match_name.split('VS')
@@ -1676,6 +1683,14 @@ def _apply_v26_rules(r: PreMatchReport):
                     r.v26_warnings.append(f"三条件缺{3-cond_pass}: {r.three_conditions.get('fail_reason','')}")
         else:
             r.v26_rule = 'BIG + 无过热 → 模糊·需额外信号'
+            # V3.6: 提前计算热方攻击力(供后续判断)
+            try:
+                _mp = r.match_name.split('VS')
+                _ht = _mp[0].strip() if hot_side == 'home' else _mp[-1].strip()
+                from opponent_db import _count_attacking_threat
+                _hfw, _hmf, _hthr, _, _ = _count_attacking_threat(_ht, 'big')
+            except Exception:
+                _hthr = 0
             # 🆕 V3.2: 客队热+排名差距大→客队实力碾压
             if hot_side == 'away' and rank_gap >= CONF.big_no_overheat_rank_gap:
                 r.v26_prediction = '客胜倾向 (实力优势)'
@@ -1685,8 +1700,23 @@ def _apply_v26_rules(r: PreMatchReport):
                 r.v26_prediction = '热门胜 (全票看好)'
                 base_conf = 65
             elif r.xls_consensus_direction == 'bearish' and abs(r.xls_consensus_pct) > 50:
-                r.v26_prediction = '⚠️ 热门可能不胜 (XLS强力看衰)'
-                base_conf = 55
+                # V3.6: XLS强力看衰·但热方攻击充分且有精英FW时不受影响
+                _has_elite_fw2 = False
+                try:
+                    from opponent_db import opponent_quality as _oq2
+                    _hd2 = _oq2(_ht)
+                    for _pp in _hd2.get('players', []):
+                        if (isinstance(_pp, dict) and _pp.get('top5') and _pp.get('pos') == 'FW'
+                            and _pp.get('value_m', 0) >= 50):
+                            _has_elite_fw2 = True; break
+                except: pass
+                if _hthr > 5.0 and _has_elite_fw2:
+                    r.v26_prediction = '热门胜 (攻击碾压·无视XLS看衰)'
+                    base_conf = 60
+                    r.v26_warnings.append(f'热方攻击强(thr={_hthr:.1f}>5.0)+精英FW≥50M·XLS看衰可能误判')
+                else:
+                    r.v26_prediction = '⚠️ 热门可能不胜 (XLS强力看衰)'
+                    base_conf = 55
             else:
                 r.v26_prediction = '信号不足·偏向热门'
                 base_conf = 55

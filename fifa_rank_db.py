@@ -15,70 +15,70 @@ FIFA排名+身价数据库 — 为 pre_match_report 自动填充实力参数
 
 TEAM_DB = {
     # A组
-    '墨西哥':    {'rank': 15, 'value_m': 350, 'wc_apps': 17, 'conf': 'CONCACAF'},
-    '南非':      {'rank': 70, 'value_m': 120, 'wc_apps': 3,  'conf': 'CAF'},
+    '墨西哥':    {'rank': 14, 'value_m': 350, 'wc_apps': 17, 'conf': 'CONCACAF'},
+    '南非':      {'rank': 60, 'value_m': 120, 'wc_apps': 3,  'conf': 'CAF'},
     '韩国':      {'rank': 25, 'value_m': 280, 'wc_apps': 11, 'conf': 'AFC'},
-    '捷克':      {'rank': 30, 'value_m': 200, 'wc_apps': 9,  'conf': 'UEFA'},
+    '捷克':      {'rank': 40, 'value_m': 200, 'wc_apps': 9,  'conf': 'UEFA'},
 
     # B组
-    '加拿大':    {'rank': 40, 'value_m': 250, 'wc_apps': 3,  'conf': 'CONCACAF', 'host': 'co'},
-    '波黑':      {'rank': 55, 'value_m': 100, 'wc_apps': 2,  'conf': 'UEFA'},
-    '卡塔尔':    {'rank': 60, 'value_m': 80,  'wc_apps': 2,  'conf': 'AFC', 'host': 'co'},
-    '瑞士':      {'rank': 15, 'value_m': 300, 'wc_apps': 12, 'conf': 'UEFA'},
+    '加拿大':    {'rank': 30, 'value_m': 250, 'wc_apps': 3,  'conf': 'CONCACAF', 'host': 'co'},
+    '波黑':      {'rank': 64, 'value_m': 100, 'wc_apps': 2,  'conf': 'UEFA'},
+    '卡塔尔':    {'rank': 56, 'value_m': 80,  'wc_apps': 2,  'conf': 'AFC', 'host': 'co'},
+    '瑞士':      {'rank': 19, 'value_m': 300, 'wc_apps': 12, 'conf': 'UEFA'},
 
     # C组
-    '巴西':      {'rank': 3,  'value_m': 1200, 'wc_apps': 22, 'conf': 'CONMEBOL'},
-    '摩洛哥':    {'rank': 20, 'value_m': 350, 'wc_apps': 6,  'conf': 'CAF'},
-    '海地':      {'rank': 87, 'value_m': 25,  'wc_apps': 1,  'conf': 'CONCACAF'},
-    '苏格兰':    {'rank': 30, 'value_m': 280, 'wc_apps': 8,  'conf': 'UEFA'},
+    '巴西':      {'rank': 6,  'value_m': 1200, 'wc_apps': 22, 'conf': 'CONMEBOL'},
+    '摩洛哥':    {'rank': 7, 'value_m': 350, 'wc_apps': 6,  'conf': 'CAF'},
+    '海地':      {'rank': 83, 'value_m': 25,  'wc_apps': 1,  'conf': 'CONCACAF'},
+    '苏格兰':    {'rank': 42, 'value_m': 280, 'wc_apps': 8,  'conf': 'UEFA'},
 
     # D组
-    '美国':      {'rank': 18, 'value_m': 450, 'wc_apps': 11, 'conf': 'CONCACAF', 'host': 'co'},
-    '澳大利亚':  {'rank': 35, 'value_m': 180, 'wc_apps': 6,  'conf': 'AFC'},
-    '土耳其':    {'rank': 32, 'value_m': 250, 'wc_apps': 3,  'conf': 'UEFA'},
-    '巴拉圭':    {'rank': 48, 'value_m': 120, 'wc_apps': 8,  'conf': 'CONMEBOL'},
+    '美国':      {'rank': 17, 'value_m': 450, 'wc_apps': 11, 'conf': 'CONCACAF', 'host': 'co'},
+    '澳大利亚':  {'rank': 27, 'value_m': 180, 'wc_apps': 6,  'conf': 'AFC'},
+    '土耳其':    {'rank': 22, 'value_m': 250, 'wc_apps': 3,  'conf': 'UEFA'},
+    '巴拉圭':    {'rank': 41, 'value_m': 120, 'wc_apps': 8,  'conf': 'CONMEBOL'},
 
     # E组
     '德国':      {'rank': 10, 'value_m': 900, 'wc_apps': 20, 'conf': 'UEFA'},
-    '科特迪瓦':  {'rank': 35, 'value_m': 300, 'wc_apps': 4,  'conf': 'CAF'},
-    '厄瓜多尔':  {'rank': 28, 'value_m': 200, 'wc_apps': 5,  'conf': 'CONMEBOL'},
-    '库拉索':    {'rank': 178,'value_m': 12,  'wc_apps': 1,  'conf': 'CONCACAF'},
+    '科特迪瓦':  {'rank': 33, 'value_m': 300, 'wc_apps': 4,  'conf': 'CAF'},
+    '厄瓜多尔':  {'rank': 23, 'value_m': 200, 'wc_apps': 5,  'conf': 'CONMEBOL'},
+    '库拉索':    {'rank': 82,'value_m': 12,  'wc_apps': 1,  'conf': 'CONCACAF'},
 
     # F组
     '荷兰':      {'rank': 8,  'value_m': 800, 'wc_apps': 11, 'conf': 'UEFA'},
-    '瑞典':      {'rank': 22, 'value_m': 350, 'wc_apps': 12, 'conf': 'UEFA'},
+    '瑞典':      {'rank': 38, 'value_m': 350, 'wc_apps': 12, 'conf': 'UEFA'},
     '日本':      {'rank': 18, 'value_m': 320, 'wc_apps': 7,  'conf': 'AFC'},
-    '突尼斯':    {'rank': 35, 'value_m': 80,  'wc_apps': 6,  'conf': 'CAF'},
+    '突尼斯':    {'rank': 45, 'value_m': 80,  'wc_apps': 6,  'conf': 'CAF'},
 
     # G组
-    '比利时':    {'rank': 5,  'value_m': 600, 'wc_apps': 14, 'conf': 'UEFA'},
+    '比利时':    {'rank': 9,  'value_m': 600, 'wc_apps': 14, 'conf': 'UEFA'},
     '伊朗':      {'rank': 20, 'value_m': 100, 'wc_apps': 6,  'conf': 'AFC'},
-    '埃及':      {'rank': 32, 'value_m': 200, 'wc_apps': 4,  'conf': 'CAF'},
-    '新西兰':    {'rank': 105,'value_m': 35,  'wc_apps': 3,  'conf': 'OFC'},
+    '埃及':      {'rank': 29, 'value_m': 200, 'wc_apps': 4,  'conf': 'CAF'},
+    '新西兰':    {'rank': 85,'value_m': 35,  'wc_apps': 3,  'conf': 'OFC'},
 
     # H组
     '西班牙':    {'rank': 2,  'value_m': 1000, 'wc_apps': 16, 'conf': 'UEFA'},
-    '沙特':      {'rank': 50, 'value_m': 80,  'wc_apps': 7,  'conf': 'AFC'},
-    '乌拉圭':    {'rank': 12, 'value_m': 450, 'wc_apps': 14, 'conf': 'CONMEBOL'},
+    '沙特':      {'rank': 61, 'value_m': 80,  'wc_apps': 7,  'conf': 'AFC'},
+    '乌拉圭':    {'rank': 16, 'value_m': 450, 'wc_apps': 14, 'conf': 'CONMEBOL'},
     '佛得角':    {'rank': 67, 'value_m': 30,  'wc_apps': 1,  'conf': 'CAF'},
 
     # ── 6/17 新队 ──
     '法国':      {'rank': 3,  'value_m': 1050, 'wc_apps': 16, 'conf': 'UEFA'},
-    '塞内加尔':  {'rank': 22, 'value_m': 300, 'wc_apps': 3,  'conf': 'CAF'},
-    '伊拉克':    {'rank': 70, 'value_m': 30,  'wc_apps': 1,  'conf': 'AFC'},
-    '挪威':      {'rank': 15, 'value_m': 400, 'wc_apps': 3,  'conf': 'UEFA'},
+    '塞内加尔':  {'rank': 15, 'value_m': 300, 'wc_apps': 3,  'conf': 'CAF'},
+    '伊拉克':    {'rank': 57, 'value_m': 30,  'wc_apps': 1,  'conf': 'AFC'},
+    '挪威':      {'rank': 31, 'value_m': 400, 'wc_apps': 3,  'conf': 'UEFA'},
     '阿根廷':    {'rank': 1,  'value_m': 950, 'wc_apps': 18, 'conf': 'CONMEBOL'},
-    '阿尔及利亚':{'rank': 35, 'value_m': 180, 'wc_apps': 5,  'conf': 'CAF'},
-    '奥地利':    {'rank': 22, 'value_m': 280, 'wc_apps': 7,  'conf': 'UEFA'},
-    '约旦':      {'rank': 85, 'value_m': 10,  'wc_apps': 1,  'conf': 'AFC'},
+    '阿尔及利亚':{'rank': 28, 'value_m': 180, 'wc_apps': 5,  'conf': 'CAF'},
+    '奥地利':    {'rank': 24, 'value_m': 280, 'wc_apps': 7,  'conf': 'UEFA'},
+    '约旦':      {'rank': 63, 'value_m': 10,  'wc_apps': 1,  'conf': 'AFC'},
 
     # ── 6/18 新队 ──
-    '葡萄牙':    {'rank': 7,  'value_m': 850, 'wc_apps': 8,  'conf': 'UEFA'},
-    '民主刚果':  {'rank': 65, 'value_m': 100, 'wc_apps': 1,  'conf': 'CAF'},
+    '葡萄牙':    {'rank': 5,  'value_m': 850, 'wc_apps': 8,  'conf': 'UEFA'},
+    '民主刚果':  {'rank': 46, 'value_m': 100, 'wc_apps': 1,  'conf': 'CAF'},
     '英格兰':    {'rank': 4,  'value_m': 1310, 'wc_apps': 16, 'conf': 'UEFA'},
-    '克罗地亚':  {'rank': 10, 'value_m': 400, 'wc_apps': 6,  'conf': 'UEFA'},
-    '加纳':      {'rank': 60, 'value_m': 180, 'wc_apps': 4,  'conf': 'CAF'},
-    '巴拿马':    {'rank': 55, 'value_m': 50,  'wc_apps': 2,  'conf': 'CONCACAF'},
+    '克罗地亚':  {'rank': 11, 'value_m': 400, 'wc_apps': 6,  'conf': 'UEFA'},
+    '加纳':      {'rank': 73, 'value_m': 180, 'wc_apps': 4,  'conf': 'CAF'},
+    '巴拿马':    {'rank': 34, 'value_m': 50,  'wc_apps': 2,  'conf': 'CONCACAF'},
     '乌兹别克斯坦':{'rank': 50, 'value_m': 85, 'wc_apps': 1,  'conf': 'AFC'},
     '哥伦比亚':  {'rank': 13, 'value_m': 300, 'wc_apps': 6,  'conf': 'CONMEBOL'},
 }

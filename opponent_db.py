@@ -77,7 +77,7 @@ OPPONENT_DB = {
         ],
     },
     '伊拉克': {
-        'rank': 70,
+        'rank': 57,
         'pre_goals_per_game': 0.8,
         'total_value_m': 24,
         'top5_count': 1,
@@ -113,7 +113,7 @@ OPPONENT_DB = {
         ],
     },
     '伊朗': {
-        'rank': 36,
+        'rank': 20,
         'pre_goals_per_game': 1.2,
         'total_value_m': 33,
         'top5_count': 0,
@@ -149,7 +149,7 @@ OPPONENT_DB = {
         ],
     },
     '佛得角': {
-        'rank': 72,
+        'rank': 67,
         'pre_goals_per_game': 0.5,
         'total_value_m': 35,
         'top5_count': 2,
@@ -185,7 +185,7 @@ OPPONENT_DB = {
         ],
     },
     '克罗地亚': {
-        'rank': 12,
+        'rank': 11,
         'pre_goals_per_game': 1.5,
         'total_value_m': 362,
         'top5_count': 18,
@@ -222,7 +222,7 @@ OPPONENT_DB = {
         ],
     },
     '刚果(金)': {
-        'rank': 65,
+        'rank': 46,
         'pre_goals_per_game': 0.5,
         'total_value_m': 131,
         'top5_count': 9,
@@ -258,7 +258,7 @@ OPPONENT_DB = {
         ],
     },
     '加拿大': {
-        'rank': 40,
+        'rank': 30,
         'pre_goals_per_game': 1.5,
         'total_value_m': 204,
         'top5_count': 8,
@@ -294,7 +294,7 @@ OPPONENT_DB = {
         ],
     },
     '加纳': {
-        'rank': 45,
+        'rank': 73,
         'pre_goals_per_game': 1.3,
         'total_value_m': 200,
         'top5_count': 14,
@@ -330,7 +330,7 @@ OPPONENT_DB = {
         ],
     },
     '南非': {
-        'rank': 70,
+        'rank': 60,
         'pre_goals_per_game': 0.7,
         'total_value_m': 45,
         'top5_count': 1,
@@ -366,7 +366,7 @@ OPPONENT_DB = {
         ],
     },
     '卡塔尔': {
-        'rank': 60,
+        'rank': 56,
         'pre_goals_per_game': 1,
         'total_value_m': 20,
         'top5_count': 0,
@@ -402,7 +402,7 @@ OPPONENT_DB = {
         ],
     },
     '厄瓜多尔': {
-        'rank': 22,
+        'rank': 23,
         'pre_goals_per_game': 1.2,
         'total_value_m': 366,
         'top5_count': 6,
@@ -474,7 +474,7 @@ OPPONENT_DB = {
         ],
     },
     '土耳其': {
-        'rank': 28,
+        'rank': 22,
         'pre_goals_per_game': 1.6,
         'total_value_m': 473,
         'top5_count': 9,
@@ -510,7 +510,7 @@ OPPONENT_DB = {
         ],
     },
     '埃及': {
-        'rank': 33,
+        'rank': 29,
         'pre_goals_per_game': 1.5,
         'total_value_m': 124,
         'top5_count': 4,
@@ -546,7 +546,7 @@ OPPONENT_DB = {
         ],
     },
     '塞内加尔': {
-        'rank': 23,
+        'rank': 15,
         'pre_goals_per_game': 1.4,
         'total_value_m': 290,
         'top5_count': 19,
@@ -582,7 +582,7 @@ OPPONENT_DB = {
         ],
     },
     '墨西哥': {
-        'rank': 15,
+        'rank': 14,
         'pre_goals_per_game': 1.3,
         'total_value_m': 194,
         'top5_count': 5,
@@ -654,7 +654,7 @@ OPPONENT_DB = {
         ],
     },
     '巴拉圭': {
-        'rank': 48,
+        'rank': 41,
         'pre_goals_per_game': 1.1,
         'total_value_m': 157,
         'top5_count': 5,
@@ -690,7 +690,7 @@ OPPONENT_DB = {
         ],
     },
     '巴拿马': {
-        'rank': 58,
+        'rank': 34,
         'pre_goals_per_game': 0.7,
         'total_value_m': 26,
         'top5_count': 0,
@@ -726,7 +726,7 @@ OPPONENT_DB = {
         ],
     },
     '巴西': {
-        'rank': 2,
+        'rank': 6,
         'pre_goals_per_game': 2,
         'total_value_m': 909,
         'top5_count': 14,
@@ -762,7 +762,7 @@ OPPONENT_DB = {
         ],
     },
     '库拉索': {
-        'rank': 178,
+        'rank': 82,
         'pre_goals_per_game': 0.3,
         'total_value_m': 25,
         'top5_count': 0,
@@ -798,7 +798,7 @@ OPPONENT_DB = {
         ],
     },
     '德国': {
-        'rank': 8,
+        'rank': 10,
         'pre_goals_per_game': 2.3,
         'total_value_m': 988,
         'top5_count': 25,
@@ -834,7 +834,7 @@ OPPONENT_DB = {
         ],
     },
     '挪威': {
-        'rank': 11,
+        'rank': 31,
         'pre_goals_per_game': 1.9,
         'total_value_m': 471,
         'top5_count': 17,
@@ -870,7 +870,7 @@ OPPONENT_DB = {
         ],
     },
     '捷克': {
-        'rank': 30,
+        'rank': 40,
         'pre_goals_per_game': 1.4,
         'total_value_m': 190,
         'top5_count': 7,
@@ -906,7 +906,7 @@ OPPONENT_DB = {
         ],
     },
     '摩洛哥': {
-        'rank': 20,
+        'rank': 7,
         'pre_goals_per_game': 1.5,
         'total_value_m': 470,
         'top5_count': 15,
@@ -942,7 +942,7 @@ OPPONENT_DB = {
         ],
     },
     '新西兰': {
-        'rank': 90,
+        'rank': 85,
         'pre_goals_per_game': 0.6,
         'total_value_m': 38,
         'top5_count': 2,
@@ -978,7 +978,7 @@ OPPONENT_DB = {
         ],
     },
     '日本': {
-        'rank': 19,
+        'rank': 18,
         'pre_goals_per_game': 1.8,
         'total_value_m': 279,
         'top5_count': 12,
@@ -1014,7 +1014,7 @@ OPPONENT_DB = {
         ],
     },
     '比利时': {
-        'rank': 4,
+        'rank': 9,
         'pre_goals_per_game': 2,
         'total_value_m': 573,
         'top5_count': 20,
@@ -1050,7 +1050,7 @@ OPPONENT_DB = {
         ],
     },
     '沙特阿拉伯': {
-        'rank': 55,
+        'rank': 61,
         'pre_goals_per_game': 1.1,
         'total_value_m': 37,
         'top5_count': 1,
@@ -1086,7 +1086,7 @@ OPPONENT_DB = {
         ],
     },
     '法国': {
-        'rank': 1,
+        'rank': 3,
         'pre_goals_per_game': 2.5,
         'total_value_m': 1556,
         'top5_count': 24,
@@ -1122,7 +1122,7 @@ OPPONENT_DB = {
         ],
     },
     '波黑': {
-        'rank': 55,
+        'rank': 64,
         'pre_goals_per_game': 1.2,
         'total_value_m': 139,
         'top5_count': 8,
@@ -1158,7 +1158,7 @@ OPPONENT_DB = {
         ],
     },
     '海地': {
-        'rank': 85,
+        'rank': 83,
         'pre_goals_per_game': 0.5,
         'total_value_m': 56,
         'top5_count': 3,
@@ -1194,7 +1194,7 @@ OPPONENT_DB = {
         ],
     },
     '澳大利亚': {
-        'rank': 32,
+        'rank': 27,
         'pre_goals_per_game': 1.3,
         'total_value_m': 72,
         'top5_count': 5,
@@ -1230,7 +1230,7 @@ OPPONENT_DB = {
         ],
     },
     '瑞典': {
-        'rank': 27,
+        'rank': 38,
         'pre_goals_per_game': 1.7,
         'total_value_m': 369,
         'top5_count': 12,
@@ -1266,7 +1266,7 @@ OPPONENT_DB = {
         ],
     },
     '瑞士': {
-        'rank': 18,
+        'rank': 19,
         'pre_goals_per_game': 1.6,
         'total_value_m': 333,
         'top5_count': 20,
@@ -1302,7 +1302,7 @@ OPPONENT_DB = {
         ],
     },
     '科特迪瓦': {
-        'rank': 38,
+        'rank': 33,
         'pre_goals_per_game': 1.3,
         'total_value_m': 515,
         'top5_count': 13,
@@ -1339,7 +1339,7 @@ OPPONENT_DB = {
         ],
     },
     '突尼斯': {
-        'rank': 42,
+        'rank': 45,
         'pre_goals_per_game': 1,
         'total_value_m': 68,
         'top5_count': 8,
@@ -1375,7 +1375,7 @@ OPPONENT_DB = {
         ],
     },
     '约旦': {
-        'rank': 80,
+        'rank': 63,
         'pre_goals_per_game': 0.6,
         'total_value_m': 20,
         'top5_count': 1,
@@ -1411,7 +1411,7 @@ OPPONENT_DB = {
         ],
     },
     '美国': {
-        'rank': 14,
+        'rank': 17,
         'pre_goals_per_game': 1.7,
         'total_value_m': 372,
         'top5_count': 12,
@@ -1447,7 +1447,7 @@ OPPONENT_DB = {
         ],
     },
     '苏格兰': {
-        'rank': 35,
+        'rank': 42,
         'pre_goals_per_game': 1.4,
         'total_value_m': 208,
         'top5_count': 12,
@@ -1519,7 +1519,7 @@ OPPONENT_DB = {
         ],
     },
     '荷兰': {
-        'rank': 7,
+        'rank': 8,
         'pre_goals_per_game': 2,
         'total_value_m': 839,
         'top5_count': 20,
@@ -1555,7 +1555,7 @@ OPPONENT_DB = {
         ],
     },
     '葡萄牙': {
-        'rank': 6,
+        'rank': 5,
         'pre_goals_per_game': 2.2,
         'total_value_m': 966,
         'top5_count': 17,
@@ -1591,7 +1591,7 @@ OPPONENT_DB = {
         ],
     },
     '西班牙': {
-        'rank': 3,
+        'rank': 2,
         'pre_goals_per_game': 2.2,
         'total_value_m': 1268,
         'top5_count': 26,
@@ -1627,7 +1627,7 @@ OPPONENT_DB = {
         ],
     },
     '阿尔及利亚': {
-        'rank': 37,
+        'rank': 28,
         'pre_goals_per_game': 1.3,
         'total_value_m': 258,
         'top5_count': 11,
@@ -1663,7 +1663,7 @@ OPPONENT_DB = {
         ],
     },
     '阿根廷': {
-        'rank': 5,
+        'rank': 1,
         'pre_goals_per_game': 2,
         'total_value_m': 802,
         'top5_count': 20,
