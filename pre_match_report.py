@@ -1398,12 +1398,16 @@ def _apply_v26_rules(r: PreMatchReport):
                     hot_def_c = _count_defensive_strength(hot_tc)
                     opp_def_c = _count_defensive_strength(opp_tc)
                     def_gap_c = hot_def_c - opp_def_c
-                    if mf_gap_c > 3.0 and def_gap_c > 4.0:
+                    from opponent_db import _count_attacking_threat as _cat2
+                    _, _, atk_hot_c, _, _ = _cat2(hot_tc, 'close')
+                    _, _, atk_opp_c, _, _ = _cat2(opp_tc, 'close')
+                    atk_gap_c = atk_hot_c - atk_opp_c
+                    if (mf_gap_c > 3.0 and def_gap_c > 4.0) or (atk_gap_c > 4.0 and def_gap_c >= 3.0):
                         strength_override_close = True
                         r.v26_rule = 'CLOSE + 真过热 + 实力阈值豁免 → 热门仍赢'
                         r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
                         base_conf = 72
-                        r.v26_warnings.append(f'🏆 实力豁免: 中场差{mf_gap_c:.1f}>3.0+防线差{def_gap_c:.1f}>4.0→推翻默认热门不胜')
+                        r.v26_warnings.append(f'🏆 实力豁免: 中场{mf_gap_c:.1f}/攻击{atk_gap_c:.1f}/防线{def_gap_c:.1f}→推翻默认热门不胜')
                 except Exception:
                     pass
                 if not strength_override_close:
@@ -1692,12 +1696,16 @@ def _apply_v26_rules(r: PreMatchReport):
                     hot_def2 = _count_defensive_strength(hot_t3)
                     opp_def2 = _count_defensive_strength(opp_t3)
                     def_gap = hot_def2 - opp_def2
-                    if mf_gap > 3.0 and def_gap > 4.0:
+                    # V3.7: (中场>3+防线>4) OR (攻击>4+防线≥3)
+                    _, _, atk_thr_hot, _, _ = _count_attacking_threat(hot_t3, 'big')
+                    _, _, atk_thr_opp, _, _ = _count_attacking_threat(opp_t3, 'big')
+                    atk_gap2 = atk_thr_hot - atk_thr_opp
+                    if (mf_gap > 3.0 and def_gap > 4.0) or (atk_gap2 > 4.0 and def_gap >= 3.0):
                         strength_override = True
                         r.v26_rule = 'BIG + 真过热 + 实力阈值豁免 → 热门仍赢'
                         r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
                         base_conf = 65
-                        r.v26_warnings.append(f'🏆 实力豁免: 中场差{mf_gap:.1f}>3.0+防线差{def_gap:.1f}>4.0→推翻默认热门不胜')
+                        r.v26_warnings.append(f'🏆 实力豁免: 中场{mf_gap:.1f}/攻击{atk_gap2:.1f}/防线{def_gap:.1f}→推翻默认热门不胜')
                 except Exception as e2:
                     r.v26_warnings.append(f'[V3.7豁免异常: {e2}]')
                 if not strength_override:
