@@ -513,6 +513,22 @@ def predict_score(match_name: str,
     else:
         lam_home, lam_away = lam_weak, lam_strong
 
+    # 🆕 V3.8: 零威胁保护 — attack_threat<0.5的球队预期进球封顶0.3
+    try:
+        from opponent_db import _count_attacking_threat
+        _parts_n = match_name.split('VS')
+        _hn = _parts_n[0].strip(); _an = _parts_n[-1].strip()
+        _, _, home_thr, _, _ = _count_attacking_threat(_hn, gap_level or 'moderate')
+        _, _, away_thr, _, _ = _count_attacking_threat(_an, gap_level or 'moderate')
+        if home_thr < 0.5:
+            lam_home = min(lam_home, 0.3)
+            adjustments.append(f'🛡️ {_hn}攻击枯竭(thr={home_thr:.1f})→预期进球封顶0.3')
+        if away_thr < 0.5:
+            lam_away = min(lam_away, 0.3)
+            adjustments.append(f'🛡️ {_an}攻击枯竭(thr={away_thr:.1f})→预期进球封顶0.3')
+    except Exception:
+        pass
+
     # 边界约束
     if gap_level == 'extreme':
         lam_home, lam_away = _apply_goal_ceiling(lam_home, lam_away, 'extreme')
