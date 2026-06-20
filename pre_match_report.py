@@ -2086,9 +2086,20 @@ def _build_structured(r: PreMatchReport):
             market_imp = (1/hot_price) / total_imp * 100 if hot_price > 0 else 0
         else:
             market_imp = 0
+        # 🆕 V3.8: 市场锚定熔断 — 模型与市场背离>25点时均值回拨
+        melt_applied = False
+        if market_imp > 0 and poisson_win > 0 and r.v26_confidence > 0:
+            divergence = abs(r.v26_confidence - market_imp)
+            if divergence > 25:
+                original_conf = r.v26_confidence
+                r.v26_confidence = int((r.v26_confidence + market_imp) / 2)
+                melt_applied = True
+                r.v26_warnings.insert(0,
+                    f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
         if r.v26_confidence > 0:
+            melt_note = ' [熔断]' if melt_applied else ''
             r.v26_warnings.insert(0,
-                f'📊 三行置信: 模型信号{r.v26_confidence:.0f}% | 泊松胜率{poisson_win:.0f}% | 市场隐含{market_imp:.0f}%')
+                f'📊 三行置信: 模型信号{r.v26_confidence:.0f}%{melt_note} | 泊松胜率{poisson_win:.0f}% | 市场隐含{market_imp:.0f}%')
     except Exception:
         pass
 
