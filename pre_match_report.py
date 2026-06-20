@@ -2136,10 +2136,24 @@ def _build_structured(r: PreMatchReport):
                 melt_applied = True
                 r.v26_warnings.insert(0,
                     f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
+        # 🆕 V3.10: 泊松-市场收敛标记
+        poisson_melt = (market_imp > 0 and poisson_win > 0 and poisson_win < market_imp - 20)
         if r.v26_confidence > 0:
             melt_note = ' [熔断]' if melt_applied else ''
+            poisson_note = ' [收敛]' if poisson_melt else ''
             r.v26_warnings.insert(0,
-                f'📊 三行置信: 模型信号{r.v26_confidence:.0f}%{melt_note} | 泊松胜率{poisson_win:.0f}% | 市场隐含{market_imp:.0f}%')
+                f'📊 三行置信: 模型信号{r.v26_confidence:.0f}%{melt_note} | 泊松胜率{poisson_win:.0f}%{poisson_note} | 市场隐含{market_imp:.0f}%')
+    except Exception:
+        pass
+
+    # 🆕 V3.10: 方向-概率对齐 — 热门胜但对手不败率更高时追加警告
+    try:
+        is_hot_win = '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction
+        if is_hot_win and poisson_win > 0:
+            underdog_no_lose = 100 - poisson_win
+            if underdog_no_lose > poisson_win + 10:
+                r.v26_warnings.insert(1,
+                    f'⚠️ 方向-概率偏差: 预测热门胜但对手不败率≈{underdog_no_lose:.0f}%>{poisson_win:.0f}%·考虑热门不败')
     except Exception:
         pass
 
