@@ -1,0 +1,4553 @@
+{
+  "墨西哥": {
+    "rank": 15,
+    "pre_goals_per_game": 1.3,
+    "total_value_m": 40,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "吉列尔莫·奥乔亚",
+        "value_m": 0.3,
+        "age": 40,
+        "club": "AEL利马索尔",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "何塞·兰赫尔",
+        "value_m": 6.5,
+        "age": 25,
+        "club": "瓜达拉哈拉",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "豪尔赫·桑切斯",
+        "value_m": 2.2,
+        "age": 28,
+        "club": "塞萨洛尼基",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "伊斯雷尔·雷耶斯",
+        "value_m": 6,
+        "age": 25,
+        "club": "墨西哥美洲",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "塞萨尔·蒙特斯",
+        "value_m": 7.5,
+        "age": 29,
+        "club": "莫斯科火车头",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "约翰·巴斯克斯",
+        "value_m": 12,
+        "age": 27,
+        "club": "热那亚",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "赫苏斯·加利亚多",
+        "value_m": 2.8,
+        "age": 31,
+        "club": "托卢卡",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "马特奥·查韦斯",
+        "value_m": 4,
+        "age": 22,
+        "club": "阿尔克马尔",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "路易斯·罗莫",
+        "value_m": 3,
+        "age": 31,
+        "club": "瓜达拉哈拉",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "埃里克·利拉",
+        "value_m": 12,
+        "age": 26,
+        "club": "蓝十字",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "布里安·古铁雷斯",
+        "value_m": 8,
+        "age": 23,
+        "club": "瓜达拉哈拉",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "希尔韦托·莫拉",
+        "value_m": 10,
+        "age": 17,
+        "club": "蒂华纳",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿尔瓦罗·菲达尔戈",
+        "value_m": 10,
+        "age": 28,
+        "club": "皇家贝蒂斯",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "奥贝德·巴尔加斯",
+        "value_m": 8,
+        "age": 22,
+        "club": "马德里竞技",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "奥韦林·皮内达",
+        "value_m": 7,
+        "age": 30,
+        "club": "雅典AEK",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "埃德松·阿尔瓦雷斯",
+        "value_m": 15,
+        "age": 28,
+        "club": "费内巴切",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "路易斯·查韦斯",
+        "value_m": 6,
+        "age": 30,
+        "club": "莫斯科迪纳摩",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "塞萨尔·韦尔塔",
+        "value_m": 5,
+        "age": 25,
+        "club": "安德莱赫特",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "亚历克西斯·贝加",
+        "value_m": 8,
+        "age": 28,
+        "club": "托卢卡",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿曼多·冈萨雷斯",
+        "value_m": 15,
+        "age": 22,
+        "club": "瓜达拉哈拉",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "吉列尔莫·马丁内斯",
+        "value_m": 1.5,
+        "age": 29,
+        "club": "美洲狮",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "胡利安·基尼奥内斯",
+        "value_m": 12,
+        "age": 29,
+        "club": "胡拜尔库迪西亚",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "罗伯托·阿尔瓦拉多",
+        "value_m": 7.5,
+        "age": 27,
+        "club": "瓜达拉哈拉",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "劳尔·希门尼斯",
+        "value_m": 4,
+        "age": 35,
+        "club": "富勒姆",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "圣地亚哥·希门尼斯",
+        "value_m": 18,
+        "age": 25,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "南非": {
+    "rank": 70,
+    "pre_goals_per_game": 0.7,
+    "total_value_m": 8,
+    "top5_count": 1,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "罗恩文·威廉姆斯",
+        "value_m": 0.9,
+        "age": 33,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "里卡多·戈斯",
+        "value_m": 0.3,
+        "age": 32,
+        "club": "西韦莱莱",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "库利索·穆达乌",
+        "value_m": 1.2,
+        "age": 30,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "恩科西纳蒂·西比西",
+        "value_m": 1.6,
+        "age": 30,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "伊梅·奥孔",
+        "value_m": 2,
+        "age": 22,
+        "club": "汉诺威96",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "奥布雷·莫迪巴",
+        "value_m": 1.8,
+        "age": 30,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "姆贝凯泽利·姆博卡齐",
+        "value_m": 2.5,
+        "age": 20,
+        "club": "芝加哥火焰",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "萨穆凯洛·卡比尼",
+        "value_m": 2,
+        "age": 27,
+        "club": "莫尔德FK",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "奥尔韦图·马卡尼亚",
+        "value_m": 2,
+        "age": 28,
+        "club": "费城联合",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "泰博霍·莫库纳",
+        "value_m": 2.5,
+        "age": 29,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "塔伦特·姆巴塔",
+        "value_m": 1.6,
+        "age": 24,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "斯费费洛·西索莱",
+        "value_m": 0.6,
+        "age": 27,
+        "club": "通德拉",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "杰登·亚当斯",
+        "value_m": 1.4,
+        "age": 25,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "奥斯温·阿波利斯",
+        "value_m": 2,
+        "age": 24,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "伊克拉姆·雷纳斯",
+        "value_m": 3,
+        "age": 30,
+        "club": "马梅洛迪日落",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "切潘·莫雷米",
+        "value_m": 1,
+        "age": 24,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "埃维登斯·马科戈帕",
+        "value_m": 1.2,
+        "age": 26,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "莱尔·福斯特",
+        "value_m": 10,
+        "age": 25,
+        "club": "伯恩利",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "雷莱博希莱·莫福肯",
+        "value_m": 2,
+        "age": 21,
+        "club": "奥兰多海盗",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "塔佩洛·马塞科",
+        "value_m": 0.8,
+        "age": 24,
+        "club": "AEL利马索尔",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "韩国": {
+    "rank": 25,
+    "pre_goals_per_game": 1.8,
+    "total_value_m": 57,
+    "top5_count": 3,
+    "top5_attackers": 1,
+    "giant_killings": [
+      "2022淘汰葡萄牙"
+    ],
+    "players": [
+      {
+        "name": "金承奎",
+        "value_m": 0.6,
+        "age": 35,
+        "club": "FC东京",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "赵贤祐",
+        "value_m": 0.7,
+        "age": 34,
+        "club": "蔚山HD",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "金玟哉",
+        "value_m": 25,
+        "age": 29,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "曹侑珉",
+        "value_m": 1.8,
+        "age": 29,
+        "club": "沙迦",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "李韩汎",
+        "value_m": 1.8,
+        "age": 24,
+        "club": "中日德兰",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "李期奕",
+        "value_m": 0.6,
+        "age": 25,
+        "club": "江原FC",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "李太锡",
+        "value_m": 1.5,
+        "age": 23,
+        "club": "奥地利维也纳",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "薛英佑",
+        "value_m": 5,
+        "age": 27,
+        "club": "贝尔格莱德红星",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "延斯·卡斯特罗普",
+        "value_m": 6,
+        "age": 22,
+        "club": "门兴格拉德巴赫",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "白昇浩",
+        "value_m": 2.5,
+        "age": 29,
+        "club": "伯明翰",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "黄仁范",
+        "value_m": 8,
+        "age": 29,
+        "club": "费耶诺德",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "李东炅",
+        "value_m": 1.6,
+        "age": 28,
+        "club": "蔚山HD",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "裴峻浩",
+        "value_m": 3,
+        "age": 22,
+        "club": "斯托克城",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "黄喜灿",
+        "value_m": 8,
+        "age": 30,
+        "club": "狼队",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "李在城",
+        "value_m": 2,
+        "age": 33,
+        "club": "美因茨",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "李刚仁",
+        "value_m": 28,
+        "age": 25,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "孙兴慜",
+        "value_m": 17,
+        "age": 33,
+        "club": "洛杉矶FC",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "吴贤揆",
+        "value_m": 15,
+        "age": 25,
+        "club": "贝西克塔斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "曹圭成",
+        "value_m": 3,
+        "age": 28,
+        "club": "中日德兰",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "捷克": {
+    "rank": 30,
+    "pre_goals_per_game": 1.4,
+    "total_value_m": 32,
+    "top5_count": 2,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "卢卡什·霍尔尼切克",
+        "value_m": 18,
+        "age": 24,
+        "club": "布拉加",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "马泰·科瓦日",
+        "value_m": 8,
+        "age": 25,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "弗拉迪米尔·曹法尔",
+        "value_m": 2.5,
+        "age": 33,
+        "club": "霍芬海姆",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "大卫·道杰拉",
+        "value_m": 3.5,
+        "age": 28,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "托马斯·霍莱什",
+        "value_m": 1,
+        "age": 33,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "罗宾·赫拉纳奇",
+        "value_m": 10,
+        "age": 26,
+        "club": "霍芬海姆",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "斯捷潘·哈劳佩克",
+        "value_m": 10,
+        "age": 22,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "大卫·尤拉塞克",
+        "value_m": 5,
+        "age": 25,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "拉迪斯拉夫·克雷伊奇",
+        "value_m": 22,
+        "age": 27,
+        "club": "狼队",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "雅罗斯拉夫·泽莱尼",
+        "value_m": 0.6,
+        "age": 33,
+        "club": "布拉格斯巴达",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "大卫·齐马",
+        "value_m": 7,
+        "age": 25,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "卢卡什·切尔夫",
+        "value_m": 6,
+        "age": 25,
+        "club": "比尔森胜利",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "卢卡什·普罗沃德",
+        "value_m": 8,
+        "age": 29,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "米哈尔·萨迪莱克",
+        "value_m": 8,
+        "age": 27,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "亚历山大·索伊卡",
+        "value_m": 2.3,
+        "age": 24,
+        "club": "比尔森胜利",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "托马斯·绍切克",
+        "value_m": 12,
+        "age": 31,
+        "club": "西汉姆联",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "帕维尔·舒尔茨",
+        "value_m": 20,
+        "age": 25,
+        "club": "里昂",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "丹尼斯·维辛斯基",
+        "value_m": 3,
+        "age": 22,
+        "club": "比尔森胜利",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "亚当·赫洛热克",
+        "value_m": 10,
+        "age": 23,
+        "club": "霍芬海姆",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "托马斯·绍里",
+        "value_m": 2.7,
+        "age": 31,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "莫伊米尔·希季尔",
+        "value_m": 4,
+        "age": 27,
+        "club": "布拉格斯拉维亚",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "帕特里克·希克",
+        "value_m": 18,
+        "age": 30,
+        "club": "勒沃库森",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "扬·库赫塔",
+        "value_m": 2.7,
+        "age": 29,
+        "club": "布拉格斯巴达",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "加拿大": {
+    "rank": 40,
+    "pre_goals_per_game": 1.5,
+    "total_value_m": 95,
+    "top5_count": 3,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "达尼·圣克莱尔",
+        "value_m": 3.5,
+        "age": 28,
+        "club": "迈阿密国际",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "马克西姆·克雷波",
+        "value_m": 2,
+        "age": 32,
+        "club": "奥兰多城",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "阿方索·戴维斯",
+        "value_m": 40,
+        "age": 25,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "莫伊塞·邦比托",
+        "value_m": 8,
+        "age": 26,
+        "club": "尼斯",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "阿利斯泰·约翰斯顿",
+        "value_m": 8,
+        "age": 27,
+        "club": "凯尔特人",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "阿尔菲·琼斯",
+        "value_m": 6,
+        "age": 28,
+        "club": "米德尔斯堡",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "尼科·西古尔",
+        "value_m": 4,
+        "age": 22,
+        "club": "哈伊杜克",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "德里克·科尼利厄斯",
+        "value_m": 2.5,
+        "age": 28,
+        "club": "格拉斯哥流浪者",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "乔尔·沃特曼",
+        "value_m": 2.5,
+        "age": 30,
+        "club": "芝加哥火焰",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "里奇·拉尔贾",
+        "value_m": 1,
+        "age": 31,
+        "club": "多伦多FC",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "伊斯梅尔·科内",
+        "value_m": 25,
+        "age": 24,
+        "club": "萨索洛",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "泰琼·布坎南",
+        "value_m": 12,
+        "age": 27,
+        "club": "比利亚雷亚尔",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "斯蒂芬·欧斯塔基奥",
+        "value_m": 7,
+        "age": 29,
+        "club": "洛杉矶FC",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "内森·萨利巴",
+        "value_m": 6,
+        "age": 22,
+        "club": "安德莱赫特",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿里·艾哈迈德",
+        "value_m": 5,
+        "age": 25,
+        "club": "诺维奇",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "马塞洛·弗洛雷斯",
+        "value_m": 4.5,
+        "age": 22,
+        "club": "老虎大学",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "乔纳森·戴维",
+        "value_m": 30,
+        "age": 26,
+        "club": "尤文图斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "普罗米斯·戴维",
+        "value_m": 17,
+        "age": 24,
+        "club": "圣吉罗斯联合",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "泰肖恩·奥卢瓦塞伊",
+        "value_m": 8,
+        "age": 25,
+        "club": "比利亚雷亚尔",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "西尔·拉林",
+        "value_m": 2.5,
+        "age": 31,
+        "club": "南安普顿",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "波黑": {
+    "rank": 55,
+    "pre_goals_per_game": 1.2,
+    "total_value_m": 30,
+    "top5_count": 2,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "尼古拉·瓦西里",
+        "value_m": 1,
+        "age": 30,
+        "club": "圣保利",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "塞亚德·科拉希纳茨",
+        "value_m": 15,
+        "age": 32,
+        "club": "亚特兰大",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "阿马尔·德迪奇",
+        "value_m": 12,
+        "age": 23,
+        "club": "本菲卡",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "尼克拉·卡蒂奇",
+        "value_m": 3,
+        "age": 29,
+        "club": "沙尔克04",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "塔里克·穆哈雷莫维奇",
+        "value_m": 20,
+        "age": 23,
+        "club": "萨索洛",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "尼达尔·切利克",
+        "value_m": 6,
+        "age": 25,
+        "club": "朗斯",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "阿米尔·哈吉艾哈迈托维奇",
+        "value_m": 4,
+        "age": 29,
+        "club": "赫尔城",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "本亚明·塔希罗维奇",
+        "value_m": 5,
+        "age": 23,
+        "club": "布隆德比",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿马尔·梅米奇",
+        "value_m": 3.5,
+        "age": 24,
+        "club": "比尔森胜利",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿尔明·吉戈维奇",
+        "value_m": 4,
+        "age": 24,
+        "club": "年轻人",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "埃斯米尔·巴伊拉克塔雷维奇",
+        "value_m": 6,
+        "age": 21,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "埃尔梅丁·德米罗维奇",
+        "value_m": 22,
+        "age": 28,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "约沃·卢基奇",
+        "value_m": 3,
+        "age": 27,
+        "club": "克卢日大学",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "萨梅德·巴日达尔",
+        "value_m": 3.5,
+        "age": 22,
+        "club": "雅盖隆尼亚",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "哈里斯·塔巴科维奇",
+        "value_m": 5,
+        "age": 31,
+        "club": "门兴格拉德巴赫",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "埃丁·哲科",
+        "value_m": 1.5,
+        "age": 40,
+        "club": "沙尔克04",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "卡塔尔": {
+    "rank": 60,
+    "pre_goals_per_game": 1,
+    "total_value_m": 11,
+    "top5_count": 0,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "马穆德·阿布纳德",
+        "value_m": 0.4,
+        "age": 25,
+        "club": "赖扬",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "梅萨尔·巴沙姆",
+        "value_m": 0.7,
+        "age": 28,
+        "club": "多哈萨德",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "布阿莱姆·胡希",
+        "value_m": 0.2,
+        "age": 35,
+        "club": "多哈萨德",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "霍曼·艾哈迈德",
+        "value_m": 0.5,
+        "age": 26,
+        "club": "莱昂内萨",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "卢卡斯·门德斯",
+        "value_m": 0.3,
+        "age": 35,
+        "club": "沃克拉",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "佩德罗·米格尔",
+        "value_m": 0.1,
+        "age": 35,
+        "club": "多哈萨德",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "阿西姆·马迪博",
+        "value_m": 0.3,
+        "age": 29,
+        "club": "沃克拉",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "艾哈迈德·法特希",
+        "value_m": 0.2,
+        "age": 33,
+        "club": "阿拉比SC",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "贾西姆·阿卜杜勒萨拉姆",
+        "value_m": 0.5,
+        "age": 23,
+        "club": "赖扬",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "艾哈迈德·贾内希",
+        "value_m": 0.5,
+        "age": 24,
+        "club": "加拉法",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿克拉姆·阿菲夫",
+        "value_m": 8,
+        "age": 29,
+        "club": "多哈萨德",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "莫埃兹·阿里",
+        "value_m": 2.5,
+        "age": 29,
+        "club": "杜海勒",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "埃德米尔森·儒尼奥尔",
+        "value_m": 1.8,
+        "age": 31,
+        "club": "杜海勒",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "优素福·阿卜杜里萨格",
+        "value_m": 0.3,
+        "age": 26,
+        "club": "沃克拉",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "瑞士": {
+    "rank": 18,
+    "pre_goals_per_game": 1.6,
+    "total_value_m": 75,
+    "top5_count": 4,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "格雷戈·科贝尔",
+        "value_m": 40,
+        "age": 28,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "约纳斯·姆沃戈",
+        "value_m": 3,
+        "age": 32,
+        "club": "洛里昂",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "曼努埃尔·阿坎吉",
+        "value_m": 18,
+        "age": 30,
+        "club": "国际米兰",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "尼科·埃尔维迪",
+        "value_m": 8,
+        "age": 29,
+        "club": "门兴格拉德巴赫",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "米罗·穆海姆",
+        "value_m": 5,
+        "age": 27,
+        "club": "汉堡",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "里卡多·罗德里格斯",
+        "value_m": 1.5,
+        "age": 33,
+        "club": "皇家贝蒂斯",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "西尔万·威德默",
+        "value_m": 0.8,
+        "age": 33,
+        "club": "美因茨",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "莱昂尼达斯·斯特吉奥",
+        "value_m": 10,
+        "age": 24,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "奥雷莱·阿门达",
+        "value_m": 8,
+        "age": 21,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "埃雷·居马尔特",
+        "value_m": 2.5,
+        "age": 28,
+        "club": "瓦伦西亚",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "格拉尼特·扎卡",
+        "value_m": 10,
+        "age": 33,
+        "club": "桑德兰",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "约翰·曼赞比",
+        "value_m": 50,
+        "age": 21,
+        "club": "弗赖堡",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "雷莫·弗鲁勒",
+        "value_m": 4,
+        "age": 34,
+        "club": "博洛尼亚",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "德尼·扎卡里亚",
+        "value_m": 25,
+        "age": 29,
+        "club": "摩纳哥",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "亚沙里",
+        "value_m": 30,
+        "age": 20,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "吉布里尔·索乌",
+        "value_m": 7.5,
+        "age": 29,
+        "club": "塞维利亚",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "米歇尔·埃比舍尔",
+        "value_m": 4.5,
+        "age": 29,
+        "club": "比萨",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "法比安·里德",
+        "value_m": 8,
+        "age": 24,
+        "club": "奥格斯堡",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "鲁文·巴尔加斯",
+        "value_m": 12,
+        "age": 27,
+        "club": "塞维利亚",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "布雷尔·恩博洛",
+        "value_m": 12,
+        "age": 29,
+        "club": "雷恩",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "诺亚·奥卡福",
+        "value_m": 18,
+        "age": 26,
+        "club": "利兹联",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "丹·恩多耶",
+        "value_m": 35,
+        "age": 25,
+        "club": "诺丁汉森林",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "泽基·阿姆杜尼",
+        "value_m": 9,
+        "age": 24,
+        "club": "伯恩利",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "塞德里克·伊滕",
+        "value_m": 1.8,
+        "age": 29,
+        "club": "杜塞尔多夫",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "巴西": {
+    "rank": 2,
+    "pre_goals_per_game": 2,
+    "total_value_m": 414,
+    "top5_count": 7,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "维尼修斯",
+        "value_m": 140,
+        "age": 25,
+        "intl_goals": 8,
+        "intl_caps": 42,
+        "season_goals": 22,
+        "season_assists": 15,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "加布里埃尔",
+        "value_m": 75,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "拉菲尼亚",
+        "value_m": 80,
+        "age": 29,
+        "intl_goals": 10,
+        "intl_caps": 38,
+        "season_goals": 18,
+        "season_assists": 16,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "吉马良斯",
+        "value_m": 70,
+        "club": "纽卡斯尔联",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "内马尔",
+        "value_m": 8,
+        "age": 34,
+        "intl_goals": 82,
+        "intl_caps": 138,
+        "season_goals": 10,
+        "season_assists": 8,
+        "club": "桑托斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿利松",
+        "value_m": 17,
+        "age": 33,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "马尔基尼奥斯",
+        "value_m": 28,
+        "age": 32,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "卡塞米罗",
+        "value_m": 6,
+        "age": 34,
+        "club": "曼联",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "摩洛哥": {
+    "rank": 20,
+    "pre_goals_per_game": 1.5,
+    "total_value_m": 133,
+    "top5_count": 3,
+    "top5_attackers": 0,
+    "giant_killings": [
+      "2022四强·淘汰葡萄牙+西班牙"
+    ],
+    "players": [
+      {
+        "name": "阿什拉夫·哈基米",
+        "value_m": 80,
+        "age": 27,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "纳耶夫·阿格尔德",
+        "value_m": 35,
+        "age": 30,
+        "club": "西汉姆联",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "马兹拉维",
+        "value_m": 18,
+        "age": 28,
+        "club": "曼联",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "布拉欣·迪亚斯",
+        "value_m": 35,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "伊利亚斯·赛巴里",
+        "value_m": 15,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "比拉尔·埃尔哈努斯",
+        "value_m": 32,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "欧纳希",
+        "value_m": 12,
+        "club": "赫罗纳",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "布阿迪",
+        "value_m": 50,
+        "club": "里尔",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "苏格兰": {
+    "rank": 35,
+    "pre_goals_per_game": 1.4,
+    "total_value_m": 65,
+    "top5_count": 2,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "斯科特·麦克托米奈",
+        "value_m": 40,
+        "intl_goals": 12,
+        "intl_caps": 62,
+        "season_goals": 6,
+        "season_assists": 3,
+        "club": "那不勒斯",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "安迪·罗伯逊",
+        "value_m": 10,
+        "age": 32,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "约翰·麦金",
+        "value_m": 15,
+        "age": 31,
+        "club": "阿斯顿维拉",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "海地": {
+    "rank": 85,
+    "pre_goals_per_game": 0.5,
+    "total_value_m": 18,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "威尔逊·伊西多尔",
+        "value_m": 18,
+        "intl_goals": 0,
+        "intl_caps": 5,
+        "season_goals": 12,
+        "season_assists": 3,
+        "club": "雷恩",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "美国": {
+    "rank": 14,
+    "pre_goals_per_game": 1.7,
+    "total_value_m": 139,
+    "top5_count": 4,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "马特·弗里兹",
+        "value_m": 2,
+        "age": 27,
+        "club": "纽约城",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "克里斯·理查兹",
+        "value_m": 25,
+        "age": 26,
+        "club": "水晶宫",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "安东尼·罗宾逊",
+        "value_m": 25,
+        "age": 29,
+        "club": "富勒姆",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "塞吉诺·德斯特",
+        "value_m": 18,
+        "age": 26,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "亚历克斯·弗里曼",
+        "value_m": 3.5,
+        "age": 21,
+        "club": "比利亚雷亚尔",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "乔·斯卡利",
+        "value_m": 7,
+        "age": 23,
+        "club": "门兴格拉德巴赫",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "泰勒·亚当斯",
+        "value_m": 25,
+        "age": 27,
+        "club": "伯恩茅斯",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "韦斯顿·麦肯尼",
+        "value_m": 30,
+        "age": 27,
+        "club": "尤文图斯",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "马利克·蒂尔曼",
+        "value_m": 30,
+        "age": 24,
+        "club": "勒沃库森",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "布伦登·阿隆森",
+        "value_m": 15,
+        "age": 25,
+        "club": "利兹联",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "克里斯蒂安·普利西奇",
+        "value_m": 40,
+        "age": 27,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "蒂莫西·维阿",
+        "value_m": 20,
+        "age": 26,
+        "club": "马赛",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "吉奥·雷纳",
+        "value_m": 4,
+        "age": 24,
+        "club": "门兴格拉德巴赫",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "福拉林·巴洛贡",
+        "value_m": 40,
+        "age": 24,
+        "club": "摩纳哥",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "里卡多·佩皮",
+        "value_m": 30,
+        "age": 23,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "哈吉·赖特",
+        "value_m": 14,
+        "age": 28,
+        "club": "考文垂",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "巴拉圭": {
+    "rank": 48,
+    "pre_goals_per_game": 1.1,
+    "total_value_m": 74,
+    "top5_count": 3,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "奥兰多·吉尔",
+        "value_m": 6,
+        "age": 26,
+        "club": "圣洛伦索",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "胡安·卡塞雷斯",
+        "value_m": 5,
+        "age": 26,
+        "club": "莫斯科迪纳摩",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "奥马尔·阿尔德雷特",
+        "value_m": 15,
+        "age": 29,
+        "club": "桑德兰",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "古斯塔沃·戈麦斯",
+        "value_m": 3.5,
+        "age": 33,
+        "club": "帕尔梅拉斯",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "儒尼奥尔·阿隆索",
+        "value_m": 1.5,
+        "age": 33,
+        "club": "米内罗竞技",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "达米安·博瓦迪利亚",
+        "value_m": 6,
+        "age": 24,
+        "club": "圣保罗",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "安德烈斯·库巴斯",
+        "value_m": 4,
+        "age": 30,
+        "club": "温哥华白浪",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "迭戈·戈麦斯",
+        "value_m": 25,
+        "age": 23,
+        "club": "布莱顿",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "马蒂亚斯·加拉尔萨",
+        "value_m": 3,
+        "age": 24,
+        "club": "亚特兰大联",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "米格尔·阿尔米隆",
+        "value_m": 9,
+        "age": 32,
+        "club": "亚特兰大联",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "胡利奥·恩西索",
+        "value_m": 25,
+        "age": 22,
+        "club": "斯特拉斯堡",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "伊西德罗·皮塔",
+        "value_m": 7.5,
+        "age": 26,
+        "club": "布拉甘蒂诺红牛",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "亚历克斯·阿尔塞",
+        "value_m": 3.5,
+        "age": 29,
+        "club": "门多萨独立",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "安东尼奥·萨纳夫里亚",
+        "value_m": 1.8,
+        "age": 30,
+        "club": "克雷莫内塞",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "拉蒙·索萨",
+        "value_m": 10,
+        "age": 26,
+        "club": "帕尔梅拉斯",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "澳大利亚": {
+    "rank": 32,
+    "pre_goals_per_game": 1.3,
+    "total_value_m": 24,
+    "top5_count": 2,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "马修·瑞安",
+        "value_m": 5.5,
+        "age": 34,
+        "club": "莱万特",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "帕特里克·比奇",
+        "value_m": 1,
+        "age": 22,
+        "club": "墨尔本城",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "乔丹·博斯",
+        "value_m": 12,
+        "age": 23,
+        "club": "费耶诺德",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "卡梅伦·伯吉斯",
+        "value_m": 1.5,
+        "age": 30,
+        "club": "斯旺西",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "亚历山德罗·奇尔卡蒂",
+        "value_m": 12,
+        "age": 22,
+        "club": "帕尔马",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "哈里·苏塔",
+        "value_m": 3.5,
+        "age": 27,
+        "club": "莱斯特城",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "康纳·梅特卡夫",
+        "value_m": 1.5,
+        "age": 26,
+        "club": "圣保利",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "艾登·奥尼尔",
+        "value_m": 3,
+        "age": 27,
+        "club": "纽约城",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "内斯托里·伊兰昆达",
+        "value_m": 8,
+        "age": 20,
+        "club": "沃特福德",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "穆罕默德·图雷",
+        "value_m": 2.9,
+        "age": 21,
+        "club": "诺维奇",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "克里斯蒂安·沃尔帕托",
+        "value_m": 10,
+        "age": 22,
+        "club": "萨索洛",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "土耳其": {
+    "rank": 28,
+    "pre_goals_per_game": 1.6,
+    "total_value_m": 181,
+    "top5_count": 3,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "乌古尔坎·恰基尔",
+        "value_m": 15,
+        "age": 29,
+        "club": "加拉塔萨雷",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "瑟云聚",
+        "value_m": 3.5,
+        "age": 30,
+        "club": "费内巴切",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "费尔迪·卡迪奥卢",
+        "value_m": 30,
+        "age": 26,
+        "club": "布莱顿",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "德米拉尔",
+        "value_m": 14,
+        "age": 28,
+        "club": "吉达国民",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "默特·穆尔杜",
+        "value_m": 7,
+        "age": 27,
+        "club": "费内巴切",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "卡巴克",
+        "value_m": 15,
+        "age": 26,
+        "club": "霍芬海姆",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "泽基·切利克",
+        "value_m": 14,
+        "age": 29,
+        "club": "罗马",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "恰尔汗奥卢",
+        "value_m": 16,
+        "age": 32,
+        "club": "国际米兰",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "伊斯梅尔·尤克塞克",
+        "value_m": 15,
+        "age": 27,
+        "club": "费内巴切",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "奥尔昆·科克库",
+        "value_m": 25,
+        "age": 25,
+        "club": "贝西克塔斯",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "居莱尔",
+        "value_m": 90,
+        "age": 21,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "巴勒什·阿尔佩尔·伊尔马兹",
+        "value_m": 30,
+        "age": 26,
+        "club": "加拉塔萨雷",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "乌尊",
+        "value_m": 45,
+        "age": 20,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "凯南·伊尔迪兹",
+        "value_m": 75,
+        "age": 21,
+        "club": "尤文图斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "凯雷姆·阿克蒂尔克奥卢",
+        "value_m": 20,
+        "age": 26,
+        "club": "费内巴切",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "尤努斯·阿克金",
+        "value_m": 18,
+        "age": 25,
+        "club": "加拉塔萨雷",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "德国": {
+    "rank": 8,
+    "pre_goals_per_game": 2.3,
+    "total_value_m": 300,
+    "top5_count": 6,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "奥利弗·鲍曼",
+        "value_m": 3,
+        "age": 35,
+        "club": "霍芬海姆",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "曼努埃尔·诺伊尔",
+        "value_m": 4,
+        "age": 40,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "亚历山大·努贝尔",
+        "value_m": 12,
+        "age": 29,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "瓦尔德马·安东",
+        "value_m": 18,
+        "age": 29,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "纳撒尼尔·布朗",
+        "value_m": 35,
+        "age": 22,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "帕斯卡尔·格罗斯",
+        "value_m": 3.5,
+        "age": 34,
+        "club": "布莱顿",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "约书亚·基米希",
+        "value_m": 40,
+        "age": 31,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "大卫·劳姆",
+        "value_m": 22,
+        "age": 28,
+        "club": "RB莱比锡",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "安东尼奥·吕迪格",
+        "value_m": 9,
+        "age": 33,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "尼科·施洛特贝克",
+        "value_m": 55,
+        "age": 26,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "约纳坦·塔",
+        "value_m": 30,
+        "age": 30,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "马利克·蒂亚夫",
+        "value_m": 45,
+        "age": 24,
+        "club": "纽卡斯尔联",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "纳迪姆·阿米里",
+        "value_m": 17,
+        "age": 29,
+        "club": "美因茨",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "莱昂·格雷茨卡",
+        "value_m": 15,
+        "age": 31,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "贾马尔·穆西亚拉",
+        "value_m": 100,
+        "age": 23,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "费利克斯·恩梅查",
+        "value_m": 50,
+        "age": 25,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "亚历山大·帕夫洛维奇",
+        "value_m": 75,
+        "age": 22,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "伦纳特·卡尔",
+        "value_m": 60,
+        "age": 18,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "杰米·勒韦林",
+        "value_m": 40,
+        "age": 25,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "安杰洛·施蒂勒",
+        "value_m": 45,
+        "age": 25,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "弗洛里安·维尔茨",
+        "value_m": 110,
+        "age": 23,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "马克西米利安·拜尔",
+        "value_m": 40,
+        "age": 23,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "凯·哈弗茨",
+        "value_m": 50,
+        "age": 27,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "勒鲁瓦·萨内",
+        "value_m": 22,
+        "age": 30,
+        "club": "加拉塔萨雷",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "德尼兹·翁达夫",
+        "value_m": 22,
+        "age": 29,
+        "club": "斯图加特",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "尼克·沃尔特马德",
+        "value_m": 65,
+        "age": 24,
+        "club": "纽卡斯尔联",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "厄瓜多尔": {
+    "rank": 22,
+    "pre_goals_per_game": 1.2,
+    "total_value_m": 243,
+    "top5_count": 4,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "莫伊塞斯·凯塞多",
+        "value_m": 100,
+        "age": 24,
+        "intl_goals": 7,
+        "intl_caps": 43,
+        "season_goals": 5,
+        "season_assists": 1,
+        "club": "切尔西",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "威廉·帕乔",
+        "value_m": 80,
+        "age": 24,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "因卡皮耶",
+        "value_m": 50,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "佩尔维斯·埃斯图皮南",
+        "value_m": 12,
+        "age": 28,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "恩纳·瓦伦西亚",
+        "value_m": 1,
+        "age": 36,
+        "club": "帕丘卡",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "贡萨洛·普拉塔",
+        "value_m": 8,
+        "club": "弗拉门戈",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿兰·明达",
+        "value_m": 5,
+        "club": "布鲁日",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "约翰·耶博阿",
+        "value_m": 6,
+        "club": "热那亚",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "科特迪瓦": {
+    "rank": 38,
+    "pre_goals_per_game": 1.3,
+    "total_value_m": 50,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "阿马德·迪亚洛",
+        "value_m": 50,
+        "age": 23,
+        "club": "曼联",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "库拉索": {
+    "rank": 178,
+    "pre_goals_per_game": 0.3,
+    "total_value_m": 0,
+    "top5_count": 0,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "泰里克·博达克",
+        "value_m": 0,
+        "age": 24,
+        "club": "特尔斯达",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "埃洛伊·罗姆",
+        "value_m": 0.2,
+        "age": 37,
+        "club": "迈阿密FC",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "里赫德利·巴佐尔",
+        "value_m": 2.2,
+        "age": 29,
+        "club": "科尼亚体育",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "罗松·范艾马",
+        "value_m": 0.5,
+        "age": 27,
+        "club": "瓦尔韦克",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "谢雷尔·弗洛拉努斯",
+        "value_m": 0.6,
+        "age": 27,
+        "club": "兹沃勒",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "德弗伦·丰维尔",
+        "value_m": 1,
+        "age": 23,
+        "club": "奈梅亨",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "阿尔曼多·奥比斯波",
+        "value_m": 0.8,
+        "age": 26,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "舒兰迪·桑博",
+        "value_m": 1.5,
+        "age": 24,
+        "club": "鹿特丹斯巴达",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "莱安德罗·巴库纳",
+        "value_m": 0.2,
+        "age": 34,
+        "club": "厄德尔",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "儒尼尼奥·巴库纳",
+        "value_m": 2.2,
+        "age": 28,
+        "club": "福伦丹",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "利瓦诺·科梅内西亚",
+        "value_m": 0.5,
+        "age": 22,
+        "club": "苏黎世",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "陈达毅",
+        "value_m": 4.5,
+        "age": 26,
+        "club": "谢菲尔德联",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "松切·汉森",
+        "value_m": 4,
+        "age": 24,
+        "club": "米德尔斯堡",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "于尔根·洛卡迪亚",
+        "value_m": 0.2,
+        "age": 32,
+        "club": "迈阿密FC",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "杰尔·马格里沙",
+        "value_m": 1,
+        "age": 26,
+        "club": "贝弗伦",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "荷兰": {
+    "rank": 7,
+    "pre_goals_per_game": 2,
+    "total_value_m": 198,
+    "top5_count": 4,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "瑞安·赫拉芬贝赫",
+        "value_m": 90,
+        "age": 24,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "范戴克",
+        "value_m": 15,
+        "age": 34,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "弗兰基·德容",
+        "value_m": 35,
+        "age": 29,
+        "intl_goals": 4,
+        "intl_caps": 65,
+        "season_goals": 6,
+        "season_assists": 8,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "加克波",
+        "value_m": 60,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "孟菲斯·德佩",
+        "value_m": 8,
+        "age": 32,
+        "club": "科林蒂安",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "邓弗里斯",
+        "value_m": 25,
+        "club": "国际米兰",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "范德芬",
+        "value_m": 40,
+        "club": "热刺",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "赖因德斯",
+        "value_m": 30,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "马伦",
+        "value_m": 25,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "日本": {
+    "rank": 19,
+    "pre_goals_per_game": 1.8,
+    "total_value_m": 82,
+    "top5_count": 5,
+    "top5_attackers": 2,
+    "giant_killings": [
+      "2022胜德国+西班牙"
+    ],
+    "players": [
+      {
+        "name": "久保建英",
+        "value_m": 30,
+        "age": 25,
+        "intl_goals": 10,
+        "intl_caps": 45,
+        "season_goals": 12,
+        "season_assists": 8,
+        "club": "皇家社会",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "远藤航",
+        "value_m": 4,
+        "age": 33,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "长友佑都",
+        "value_m": 0.1,
+        "age": 39,
+        "intl_goals": 4,
+        "intl_caps": 150,
+        "season_goals": 0,
+        "season_assists": 0,
+        "club": "FC东京",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "伊藤洋辉",
+        "value_m": 18,
+        "age": 27,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "镰田大地",
+        "value_m": 10,
+        "age": 29,
+        "club": "水晶宫",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "铃木彩艳",
+        "value_m": 20,
+        "age": 23,
+        "club": "帕尔马",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "堂安律",
+        "value_m": 18,
+        "club": "弗赖堡",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "中村敬斗",
+        "value_m": 15,
+        "club": "兰斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "前田大然",
+        "value_m": 10,
+        "club": "凯尔特人",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "上田绮世",
+        "value_m": 12,
+        "club": "费耶诺德",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "佐野海舟",
+        "value_m": 8,
+        "club": "美因茨",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "谷口彰悟",
+        "value_m": 2,
+        "club": "FC东京",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "渡边刚",
+        "value_m": 3,
+        "club": "科特赖克",
+        "top5": false,
+        "pos": "CB"
+      }
+    ]
+  },
+  "瑞典": {
+    "rank": 27,
+    "pre_goals_per_game": 1.7,
+    "total_value_m": 190,
+    "top5_count": 2,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "亚历山大·伊萨克",
+        "value_m": 85,
+        "age": 26,
+        "intl_goals": 25,
+        "intl_caps": 55,
+        "season_goals": 22,
+        "season_assists": 8,
+        "club": "纽卡斯尔联",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "维克托·约克雷斯",
+        "value_m": 75,
+        "age": 28,
+        "intl_goals": 15,
+        "intl_caps": 35,
+        "season_goals": 28,
+        "season_assists": 6,
+        "club": "葡萄牙体育",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "亚辛·阿亚里",
+        "value_m": 30,
+        "age": 22,
+        "intl_goals": 3,
+        "intl_caps": 15,
+        "season_goals": 5,
+        "season_assists": 8,
+        "club": "布莱顿",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "突尼斯": {
+    "rank": 42,
+    "pre_goals_per_game": 1,
+    "total_value_m": 15,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "艾曼·达门",
+        "value_m": 0.8,
+        "age": 28,
+        "club": "斯法克斯",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "蒙塔萨尔·塔尔比",
+        "value_m": 7,
+        "age": 28,
+        "club": "洛里昂",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "迪伦·布龙",
+        "value_m": 0.8,
+        "age": 31,
+        "club": "塞尔维特",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "奥马尔·雷基克",
+        "value_m": 0.5,
+        "age": 24,
+        "club": "马里博尔",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "扬·瓦莱里",
+        "value_m": 1.3,
+        "age": 27,
+        "club": "伯尔尼年轻人",
+        "top5": false,
+        "pos": "RB"
+      },
+      {
+        "name": "阿里·阿卜迪",
+        "value_m": 2.5,
+        "age": 32,
+        "club": "尼斯",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "埃尔耶斯·斯希里",
+        "value_m": 6,
+        "age": 31,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "拉尼·赫迪拉",
+        "value_m": 2,
+        "age": 32,
+        "club": "柏林联合",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "汉尼拔·梅布里",
+        "value_m": 16,
+        "age": 23,
+        "club": "伯恩利",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "阿尼斯·本·苏莱曼",
+        "value_m": 3,
+        "age": 25,
+        "club": "诺维奇",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "伊斯梅尔·加尔比",
+        "value_m": 5,
+        "age": 22,
+        "club": "奥格斯堡",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "埃利亚斯·阿舒里",
+        "value_m": 3.5,
+        "age": 27,
+        "club": "哥本哈根",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "埃利亚斯·萨阿德",
+        "value_m": 2.5,
+        "age": 24,
+        "club": "汉诺威96",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "塞巴斯蒂安·图内克蒂",
+        "value_m": 6,
+        "age": 23,
+        "club": "凯尔特人",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "拉扬·埃卢米",
+        "value_m": 0.6,
+        "age": 18,
+        "club": "温哥华白浪",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "比利时": {
+    "rank": 4,
+    "pre_goals_per_game": 2,
+    "total_value_m": 141,
+    "top5_count": 5,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "蒂博·库尔图瓦",
+        "value_m": 18,
+        "age": 34,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "蒂莫西·卡斯塔涅",
+        "value_m": 10,
+        "age": 30,
+        "club": "富勒姆",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "泽诺·德巴斯特",
+        "value_m": 30,
+        "age": 22,
+        "club": "葡萄牙体育",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "马克西姆·德克伊珀",
+        "value_m": 22,
+        "age": 25,
+        "club": "布莱顿",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "柯尼·德温特",
+        "value_m": 23,
+        "age": 23,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "内森·恩戈伊",
+        "value_m": 20,
+        "age": 23,
+        "club": "里尔",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "阿蒂尔·蒂特",
+        "value_m": 17,
+        "age": 26,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "凯文·德布劳内",
+        "value_m": 8,
+        "age": 35,
+        "club": "那不勒斯",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿马杜·奥纳纳",
+        "value_m": 45,
+        "age": 24,
+        "club": "阿斯顿维拉",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "尤里·蒂勒曼斯",
+        "value_m": 35,
+        "age": 29,
+        "club": "阿斯顿维拉",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "查尔斯·德凯特拉雷",
+        "value_m": 35,
+        "age": 25,
+        "club": "亚特兰大",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "杰里米·多库",
+        "value_m": 75,
+        "age": 24,
+        "club": "曼城",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "马蒂亚斯·费尔南德斯-帕尔多",
+        "value_m": 35,
+        "age": 21,
+        "club": "里尔",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "罗梅卢·卢卡库",
+        "value_m": 12,
+        "age": 33,
+        "club": "那不勒斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "多迪·卢克巴吉奥",
+        "value_m": 20,
+        "age": 28,
+        "club": "本菲卡",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "迭戈·莫雷拉",
+        "value_m": 25,
+        "age": 22,
+        "club": "斯特拉斯堡",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "亚历克西斯·萨勒马克尔斯",
+        "value_m": 25,
+        "age": 26,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "莱安德罗·特罗萨德",
+        "value_m": 18,
+        "age": 31,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "埃及": {
+    "rank": 33,
+    "pre_goals_per_game": 1.5,
+    "total_value_m": 81,
+    "top5_count": 2,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "穆罕默德·希纳维",
+        "value_m": 0.5,
+        "age": 37,
+        "club": "开罗国民",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "穆罕默德·阿卜杜勒穆奈姆",
+        "value_m": 3.5,
+        "age": 26,
+        "club": "尼斯",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "穆罕默德·萨拉赫",
+        "value_m": 30,
+        "age": 33,
+        "club": "利物浦",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "奥马尔·马尔穆什",
+        "value_m": 50,
+        "age": 27,
+        "club": "曼城",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "伊朗": {
+    "rank": 36,
+    "pre_goals_per_game": 1.2,
+    "total_value_m": 7.8,
+    "top5_count": 0,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "阿里雷萨·贝兰万德",
+        "value_m": 0.65,
+        "age": 33,
+        "club": "大不里士拖拉机",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "赛义德·埃扎托拉希",
+        "value_m": 1.8,
+        "age": 29,
+        "club": "迪拜国民",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "迈赫迪·加耶迪",
+        "value_m": 4.5,
+        "age": 27,
+        "club": "迪拜纳斯尔",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "萨曼·戈多斯",
+        "value_m": 1.2,
+        "age": 32,
+        "club": "卡尔巴联合",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿里雷扎·贾汉巴赫什",
+        "value_m": 0.6,
+        "age": 32,
+        "club": "登德",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "穆罕默德·莫赫比",
+        "value_m": 2.5,
+        "age": 28,
+        "club": "罗斯托夫",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "梅赫迪·塔雷米",
+        "value_m": 2.5,
+        "age": 33,
+        "club": "奥林匹亚科斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "丹尼斯·埃克特",
+        "value_m": 2,
+        "age": 29,
+        "club": "标准列日",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "新西兰": {
+    "rank": 90,
+    "pre_goals_per_game": 0.6,
+    "total_value_m": 7.5,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "马克斯·克罗科姆",
+        "value_m": 0.75,
+        "age": 32,
+        "club": "米尔沃尔",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "泰勒·宾登",
+        "value_m": 3.5,
+        "age": 21,
+        "club": "谢菲尔德联",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "利贝拉托·卡卡塞",
+        "value_m": 3.1,
+        "age": 25,
+        "club": "雷克瑟姆",
+        "top5": false,
+        "pos": "LB"
+      },
+      {
+        "name": "乔·贝尔",
+        "value_m": 3,
+        "age": 27,
+        "club": "维京",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "马尔科·斯特梅克",
+        "value_m": 2.6,
+        "age": 24,
+        "club": "斯旺西",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "克里斯·伍德",
+        "value_m": 8,
+        "age": 34,
+        "club": "诺丁汉森林",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "伊利亚·贾斯特",
+        "value_m": 2.5,
+        "age": 26,
+        "club": "马瑟韦尔",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "西班牙": {
+    "rank": 3,
+    "pre_goals_per_game": 2.2,
+    "total_value_m": 520,
+    "top5_count": 5,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "拉明·亚马尔",
+        "value_m": 200,
+        "age": 18,
+        "intl_goals": 15,
+        "intl_caps": 30,
+        "season_goals": 18,
+        "season_assists": 20,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "佩德里",
+        "value_m": 150,
+        "age": 23,
+        "intl_goals": 3,
+        "intl_caps": 32,
+        "season_goals": 8,
+        "season_assists": 12,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "罗德里",
+        "value_m": 65,
+        "age": 29,
+        "intl_goals": 4,
+        "intl_caps": 62,
+        "season_goals": 8,
+        "season_assists": 5,
+        "club": "曼城",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "乌奈·西蒙",
+        "value_m": 25,
+        "age": 29,
+        "club": "毕尔巴鄂竞技",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "库巴西",
+        "value_m": 80,
+        "age": 19,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "加维",
+        "value_m": 30,
+        "age": null,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "乌拉圭": {
+    "rank": 16,
+    "pre_goals_per_game": 1.6,
+    "total_value_m": 173,
+    "top5_count": 4,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "费德里科·巴尔韦德",
+        "value_m": 90,
+        "age": 27,
+        "intl_goals": 10,
+        "intl_caps": 68,
+        "season_goals": 10,
+        "season_assists": 8,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "罗纳德·阿劳霍",
+        "value_m": 20,
+        "club": "巴塞罗那",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "达尔文·努涅斯",
+        "value_m": 25,
+        "age": 26,
+        "intl_goals": 13,
+        "intl_caps": 38,
+        "season_goals": 9,
+        "season_assists": 5,
+        "club": "利雅得新月",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "曼努埃尔·乌加特",
+        "value_m": 30,
+        "age": 25,
+        "intl_goals": 1,
+        "intl_caps": 30,
+        "season_goals": 0,
+        "season_assists": 0,
+        "club": "曼联",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "何塞·马里亚·希梅内斯",
+        "value_m": 12,
+        "age": 31,
+        "club": "马德里竞技",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "费尔南多·穆斯莱拉",
+        "value_m": 0.7,
+        "age": 40,
+        "intl_goals": 0,
+        "intl_caps": 148,
+        "season_goals": 0,
+        "season_assists": 0,
+        "club": "拉普拉塔大学生",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "马克西米利亚诺·阿劳霍",
+        "value_m": 35,
+        "club": "葡萄牙体育",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "乔治亚·德阿拉斯卡埃塔",
+        "value_m": 14,
+        "club": "弗拉门戈",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "罗德里戈·萨拉萨尔",
+        "value_m": 30,
+        "club": "布拉加",
+        "top5": false,
+        "pos": "MF"
+      }
+    ]
+  },
+  "佛得角": {
+    "rank": 72,
+    "pre_goals_per_game": 0.5,
+    "total_value_m": 15,
+    "top5_count": 1,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "洛甘·科斯塔",
+        "value_m": 15,
+        "club": "比利亚雷亚尔",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "沃齐尼亚",
+        "value_m": 0.1,
+        "age": 39,
+        "club": "沙维斯",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "蒙特罗",
+        "value_m": 5,
+        "club": "布拉加",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "利夫拉门托",
+        "value_m": 3,
+        "club": "博阿维斯塔",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "沙特阿拉伯": {
+    "rank": 55,
+    "pre_goals_per_game": 1.1,
+    "total_value_m": 2.8,
+    "top5_count": 0,
+    "top5_attackers": 0,
+    "giant_killings": [
+      "2022胜阿根廷"
+    ],
+    "players": [
+      {
+        "name": "萨勒姆·多萨里",
+        "value_m": 1.5,
+        "age": 34,
+        "club": "利雅得新月",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "穆罕默德·奥韦斯",
+        "value_m": 0.3,
+        "age": 34,
+        "club": "利雅得新月",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "阿卜杜拉·阿姆里",
+        "value_m": 1,
+        "age": 29,
+        "club": "利雅得胜利",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "菲拉斯·布赖坎",
+        "value_m": 3,
+        "club": "利雅得新月",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿卜杜拉·哈姆丹",
+        "value_m": 2,
+        "club": "利雅得新月",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "法国": {
+    "rank": 1,
+    "pre_goals_per_game": 2.5,
+    "total_value_m": 670,
+    "top5_count": 6,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "基利安·姆巴佩",
+        "value_m": 180,
+        "age": 27,
+        "intl_goals": 58,
+        "intl_caps": 90,
+        "season_goals": 35,
+        "season_assists": 12,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "迈克尔·奥利塞",
+        "value_m": 150,
+        "age": 24,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "奥斯曼·登贝莱",
+        "value_m": 100,
+        "age": 29,
+        "intl_goals": 8,
+        "intl_caps": 55,
+        "season_goals": 20,
+        "season_assists": 15,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "威廉·萨利巴",
+        "value_m": 100,
+        "age": 25,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "德西雷·杜埃",
+        "value_m": 120,
+        "age": 21,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "迈尼昂",
+        "value_m": 20,
+        "age": 30,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "GK"
+      }
+    ]
+  },
+  "挪威": {
+    "rank": 11,
+    "pre_goals_per_game": 1.9,
+    "total_value_m": 265,
+    "top5_count": 2,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "埃尔林·哈兰德",
+        "value_m": 200,
+        "age": 25,
+        "intl_goals": 42,
+        "intl_caps": 45,
+        "season_goals": 38,
+        "season_assists": 8,
+        "club": "曼城",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "马丁·厄德高",
+        "value_m": 65,
+        "age": 27,
+        "intl_goals": 8,
+        "intl_caps": 65,
+        "season_goals": 12,
+        "season_assists": 15,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "MF"
+      }
+    ]
+  },
+  "塞内加尔": {
+    "rank": 23,
+    "pre_goals_per_game": 1.4,
+    "total_value_m": 62,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "萨迪奥·马内",
+        "value_m": 7,
+        "age": 34,
+        "intl_goals": 55,
+        "intl_caps": 126,
+        "season_goals": 12,
+        "season_assists": 5,
+        "club": "利雅得胜利",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "伊利曼·恩迪亚耶",
+        "value_m": 55,
+        "intl_caps": 40,
+        "season_goals": 6,
+        "season_assists": 3,
+        "club": "埃弗顿",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "伊拉克": {
+    "rank": 70,
+    "pre_goals_per_game": 0.8,
+    "total_value_m": 1.9,
+    "top5_count": 0,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "艾曼·侯赛因",
+        "value_m": 0.5,
+        "age": 30,
+        "club": "阿尔卡尔马",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿里·哈马迪",
+        "value_m": 1.5,
+        "age": 24,
+        "club": "卢顿",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿里·贾西姆",
+        "value_m": 3,
+        "club": "科莫",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "阿米尔·阿马里",
+        "value_m": 2,
+        "club": "哥德堡",
+        "top5": false,
+        "pos": "MF"
+      }
+    ]
+  },
+  "阿根廷": {
+    "rank": 5,
+    "pre_goals_per_game": 2,
+    "total_value_m": 300,
+    "top5_count": 6,
+    "top5_attackers": 3,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "莱昂内尔·梅西",
+        "value_m": 15,
+        "intl_goals": 112,
+        "intl_caps": 195,
+        "season_goals": 22,
+        "season_assists": 18,
+        "club": "迈阿密国际",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "胡利安·阿尔瓦雷斯",
+        "value_m": 100,
+        "age": 26,
+        "intl_goals": 12,
+        "intl_caps": 45,
+        "season_goals": 25,
+        "season_assists": 10,
+        "club": "马德里竞技",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "劳塔罗·马丁内斯",
+        "value_m": 85,
+        "age": 28,
+        "intl_goals": 28,
+        "intl_caps": 72,
+        "season_goals": 28,
+        "season_assists": 8,
+        "club": "国际米兰",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "埃米利亚诺·马丁内斯",
+        "value_m": 15,
+        "age": 33,
+        "club": "阿斯顿维拉",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "恩佐·费尔南德斯",
+        "value_m": 90,
+        "age": 25,
+        "club": "切尔西",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "克里斯蒂安·罗梅罗",
+        "value_m": 45,
+        "age": 28,
+        "club": "热刺",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "利桑德罗·马丁内斯",
+        "value_m": 40,
+        "age": 28,
+        "club": "曼联",
+        "top5": true,
+        "pos": "CB"
+      }
+    ]
+  },
+  "奥地利": {
+    "rank": 24,
+    "pre_goals_per_game": 1.7,
+    "total_value_m": 44,
+    "top5_count": 4,
+    "top5_attackers": 2,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "马尔科·阿瑙托维奇",
+        "value_m": 3.5,
+        "age": 37,
+        "intl_goals": 38,
+        "intl_caps": 118,
+        "season_goals": 6,
+        "season_assists": 3,
+        "club": "国际米兰",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "马塞尔·萨比策",
+        "value_m": 6,
+        "age": 32,
+        "intl_goals": 18,
+        "intl_caps": 82,
+        "season_goals": 5,
+        "season_assists": 4,
+        "club": "多特蒙德",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "大卫·阿拉巴",
+        "value_m": 3,
+        "age": 33,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "康拉德·莱默尔",
+        "value_m": 32,
+        "intl_goals": 5,
+        "intl_caps": 45,
+        "season_goals": 3,
+        "season_assists": 3,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "克里斯托夫·鲍姆加特纳",
+        "value_m": 30,
+        "club": "RB莱比锡",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "迈克尔·格雷戈里奇",
+        "value_m": 4,
+        "club": "弗赖堡",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "斯特凡·波施",
+        "value_m": 15,
+        "club": "博洛尼亚",
+        "top5": true,
+        "pos": "RB"
+      }
+    ]
+  },
+  "阿尔及利亚": {
+    "rank": 37,
+    "pre_goals_per_game": 1.3,
+    "total_value_m": 14,
+    "top5_count": 2,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "利雅德·马赫雷斯",
+        "value_m": 8,
+        "age": 35,
+        "intl_goals": 32,
+        "intl_caps": 98,
+        "season_goals": 5,
+        "season_assists": 8,
+        "club": "吉达国民",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "艾萨·曼迪",
+        "value_m": 1,
+        "age": 34,
+        "club": "里尔",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "纳比勒·本塔莱布",
+        "value_m": 5,
+        "age": 31,
+        "intl_goals": 8,
+        "intl_caps": 52,
+        "season_goals": 3,
+        "season_assists": 3,
+        "club": "里尔",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "古伊里",
+        "value_m": 25,
+        "club": "雷恩",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "法雷斯·沙伊比",
+        "value_m": 18,
+        "club": "法兰克福",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "哈迪·穆萨",
+        "value_m": 12,
+        "club": "尼斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "易卜拉欣·马扎",
+        "value_m": 45,
+        "club": "柏林赫塔",
+        "top5": false,
+        "pos": "MF"
+      }
+    ]
+  },
+  "约旦": {
+    "rank": 80,
+    "pre_goals_per_game": 0.6,
+    "total_value_m": 10,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "穆萨·塔马里",
+        "value_m": 10,
+        "club": "里尔",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "阿里·乌勒万",
+        "value_m": 0.5,
+        "club": "豪尔",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "葡萄牙": {
+    "rank": 6,
+    "pre_goals_per_game": 2.2,
+    "total_value_m": 467,
+    "top5_count": 5,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "克里斯蒂亚诺·罗纳尔多",
+        "value_m": 10,
+        "intl_goals": 138,
+        "intl_caps": 218,
+        "season_goals": 32,
+        "season_assists": 5,
+        "club": "利雅得胜利",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "维蒂尼亚",
+        "value_m": 140,
+        "age": 26,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "若昂·内维斯",
+        "value_m": 140,
+        "age": 21,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "贝尔纳多·席尔瓦",
+        "value_m": 22,
+        "age": 31,
+        "intl_goals": 15,
+        "intl_caps": 102,
+        "season_goals": 10,
+        "season_assists": 12,
+        "club": "曼城",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "布鲁诺·费尔南德斯",
+        "value_m": 35,
+        "age": 31,
+        "intl_goals": 28,
+        "intl_caps": 82,
+        "season_goals": 18,
+        "season_assists": 15,
+        "club": "曼联",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "迪奥戈·科斯塔",
+        "value_m": 40,
+        "club": "波尔图",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "努诺·门德斯",
+        "value_m": 80,
+        "age": 24,
+        "club": "巴黎圣日耳曼",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "拉斐尔·莱奥",
+        "value_m": 50,
+        "club": "AC米兰",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "佩德罗·内托",
+        "value_m": 40,
+        "club": "切尔西",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "若昂·费利克斯",
+        "value_m": 25,
+        "club": "切尔西",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "哥伦比亚": {
+    "rank": 13,
+    "pre_goals_per_game": 1.5,
+    "total_value_m": 90,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "卡米洛·巴尔加斯",
+        "value_m": 0.5,
+        "age": 37,
+        "club": "阿特拉斯",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "戴维·奥斯皮纳",
+        "value_m": 0.2,
+        "age": 37,
+        "club": "国民竞技",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "丹尼尔·穆尼奥斯",
+        "value_m": 27,
+        "age": 30,
+        "club": "水晶宫",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "约翰·卢库米",
+        "value_m": 25,
+        "age": 27,
+        "club": "博洛尼亚",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "达文森·桑切斯",
+        "value_m": 16,
+        "age": 29,
+        "club": "加拉塔萨雷",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "耶里·米纳",
+        "value_m": 3,
+        "age": 31,
+        "club": "卡利亚里",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "里奥斯",
+        "value_m": 22,
+        "age": 25,
+        "club": "本菲卡",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "约翰·阿里亚斯",
+        "value_m": 15,
+        "age": 28,
+        "club": "帕尔梅拉斯",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "卡拉斯卡尔",
+        "value_m": 11,
+        "age": 27,
+        "club": "弗拉门戈",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "莱尔马",
+        "value_m": 8,
+        "age": 31,
+        "club": "水晶宫",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "哈梅斯·罗德里格斯",
+        "value_m": 2,
+        "age": 34,
+        "club": "明尼苏达联",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "路易斯·迪亚斯",
+        "value_m": 70,
+        "age": 29,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "路易斯·苏亚雷斯",
+        "value_m": 28,
+        "age": 26,
+        "club": "葡萄牙体育",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "库乔·埃尔南德斯",
+        "value_m": 18,
+        "age": 27,
+        "club": "皇家贝蒂斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "约翰·科尔多瓦",
+        "value_m": 10,
+        "age": 33,
+        "club": "克拉斯诺达尔",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "刚果(金)": {
+    "rank": 65,
+    "pre_goals_per_game": 0.5,
+    "total_value_m": 28,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "姆帕西",
+        "value_m": 0.4,
+        "age": 31,
+        "club": "勒阿弗尔",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "万-比萨卡",
+        "value_m": 15,
+        "age": 28,
+        "club": "西汉姆联",
+        "top5": true,
+        "pos": "RB"
+      },
+      {
+        "name": "马苏亚库",
+        "value_m": 2.5,
+        "age": 32,
+        "club": "朗斯",
+        "top5": true,
+        "pos": "LB"
+      },
+      {
+        "name": "卡普阿迪",
+        "value_m": 3,
+        "age": 27,
+        "club": "维德祖罗兹",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "图安泽贝",
+        "value_m": 4.9,
+        "age": 28,
+        "club": "伯恩利",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "尚塞尔·姆本巴",
+        "value_m": 2.5,
+        "age": 31,
+        "club": "里尔",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "诺亚·萨迪基",
+        "value_m": 35,
+        "age": 21,
+        "club": "桑德兰",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "萨穆勒·穆图萨米",
+        "value_m": 2.8,
+        "age": 29,
+        "club": "阿特罗米托斯",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "埃多·卡亚比",
+        "value_m": 3.3,
+        "age": 27,
+        "club": "沃特福德",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "邦贡达",
+        "value_m": 4,
+        "age": 30,
+        "club": "莫斯科斯巴达",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "巴坎布",
+        "value_m": 1.5,
+        "age": 34,
+        "club": "皇家贝蒂斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "西蒙·班扎",
+        "value_m": 11,
+        "age": 29,
+        "club": "阿尔贾兹拉",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "维萨",
+        "value_m": 25,
+        "age": 29,
+        "club": "纽卡斯尔联",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "乌兹别克斯坦": {
+    "rank": 50,
+    "pre_goals_per_game": 0.8,
+    "total_value_m": 54,
+    "top5_count": 2,
+    "top5_attackers": 0,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "阿卜杜科迪尔·胡桑诺夫",
+        "value_m": 35,
+        "age": 22,
+        "club": "曼城",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "奥塔别克·舒库罗夫",
+        "value_m": 1.5,
+        "age": 29,
+        "club": "班尼亚斯",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿克马尔·莫兹戈沃伊",
+        "value_m": 1.4,
+        "age": 26,
+        "club": "纳萨夫",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "阿博斯别克·法伊祖拉耶夫",
+        "value_m": 7,
+        "age": 22,
+        "club": "巴萨克赛尔",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "奥斯通·乌鲁诺夫",
+        "value_m": 2,
+        "age": 25,
+        "club": "波斯波利斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "埃尔多尔·肖穆罗多夫",
+        "value_m": 7,
+        "age": 30,
+        "club": "巴萨克赛尔",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "伊戈尔·谢尔盖耶夫",
+        "value_m": 1.2,
+        "age": 33,
+        "club": "波斯波利斯",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "贾洛利丁·马沙里波夫",
+        "value_m": 1,
+        "age": 32,
+        "club": "德黑兰独立",
+        "top5": false,
+        "pos": "FW"
+      }
+    ]
+  },
+  "英格兰": {
+    "rank": 4,
+    "pre_goals_per_game": 2.3,
+    "total_value_m": 450,
+    "top5_count": 6,
+    "top5_attackers": 4,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "裘德·贝林厄姆",
+        "value_m": 130,
+        "age": 22,
+        "intl_goals": 12,
+        "intl_caps": 48,
+        "season_goals": 25,
+        "season_assists": 18,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "德克兰·赖斯",
+        "value_m": 120,
+        "age": 27,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "布卡约·萨卡",
+        "value_m": 110,
+        "age": 24,
+        "intl_goals": 15,
+        "intl_caps": 50,
+        "season_goals": 20,
+        "season_assists": 15,
+        "club": "阿森纳",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "哈里·凯恩",
+        "value_m": 60,
+        "age": 32,
+        "intl_goals": 72,
+        "intl_caps": 108,
+        "season_goals": 32,
+        "season_assists": 10,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "乔丹·皮克福德",
+        "value_m": 15,
+        "age": 32,
+        "club": "埃弗顿",
+        "top5": true,
+        "pos": "GK"
+      },
+      {
+        "name": "约翰·斯通斯",
+        "value_m": 15,
+        "age": 32,
+        "club": "曼城",
+        "top5": true,
+        "pos": "CB"
+      }
+    ]
+  },
+  "克罗地亚": {
+    "rank": 12,
+    "pre_goals_per_game": 1.5,
+    "total_value_m": 91,
+    "top5_count": 3,
+    "top5_attackers": 1,
+    "giant_killings": [
+      "2018亚军·2022季军"
+    ],
+    "players": [
+      {
+        "name": "卢卡·莫德里奇",
+        "value_m": 4,
+        "intl_goals": 26,
+        "intl_caps": 188,
+        "season_goals": 4,
+        "season_assists": 6,
+        "club": "皇家马德里",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "约什科·格瓦迪奥尔",
+        "value_m": 70,
+        "club": "曼城",
+        "top5": true,
+        "pos": "CB"
+      },
+      {
+        "name": "马特奥·科瓦契奇",
+        "value_m": 12,
+        "age": 32,
+        "intl_goals": 8,
+        "intl_caps": 112,
+        "season_goals": 5,
+        "season_assists": 5,
+        "club": "曼城",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "多米尼克·利瓦科维奇",
+        "value_m": 4,
+        "age": 31,
+        "club": "萨格勒布迪纳摩",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "伊万·佩里西奇",
+        "value_m": 1.3,
+        "age": 37,
+        "intl_goals": 35,
+        "intl_caps": 142,
+        "season_goals": 3,
+        "season_assists": 2,
+        "club": "埃因霍温",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "佩塔尔·苏契奇",
+        "value_m": 40,
+        "club": "萨格勒布迪纳摩",
+        "top5": false,
+        "pos": "MF"
+      },
+      {
+        "name": "马里奥·帕沙利奇",
+        "value_m": 8,
+        "club": "亚特兰大",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "卢卡·武什科维奇",
+        "value_m": 60,
+        "club": "汉堡",
+        "top5": false,
+        "pos": "CB"
+      },
+      {
+        "name": "约瑟夫·斯塔尼西奇",
+        "value_m": 40,
+        "club": "拜仁慕尼黑",
+        "top5": true,
+        "pos": "RB"
+      }
+    ]
+  },
+  "加纳": {
+    "rank": 45,
+    "pre_goals_per_game": 1.3,
+    "total_value_m": 65,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "安托万·塞门约",
+        "value_m": 80,
+        "age": 26,
+        "intl_goals": 3,
+        "intl_caps": 34,
+        "season_goals": 21,
+        "season_assists": 7,
+        "club": "曼城",
+        "top5": true,
+        "pos": "FW"
+      }
+    ]
+  },
+  "巴拿马": {
+    "rank": 58,
+    "pre_goals_per_game": 0.7,
+    "total_value_m": 7,
+    "top5_count": 1,
+    "top5_attackers": 1,
+    "giant_killings": [],
+    "players": [
+      {
+        "name": "迈克尔·穆里略",
+        "value_m": 7,
+        "club": "马赛",
+        "top5": true,
+        "pos": "MF"
+      },
+      {
+        "name": "伊斯梅尔·迪亚斯",
+        "value_m": 0,
+        "age": 29,
+        "club": "—",
+        "top5": false,
+        "pos": "FW"
+      },
+      {
+        "name": "奥兰多·莫斯克拉",
+        "value_m": 0,
+        "age": 31,
+        "club": "—",
+        "top5": false,
+        "pos": "GK"
+      },
+      {
+        "name": "何塞·路易斯·罗德里格斯",
+        "value_m": 3,
+        "club": "皇家贝蒂斯",
+        "top5": true,
+        "pos": "FW"
+      },
+      {
+        "name": "巴塞纳斯",
+        "value_m": 4,
+        "club": "科罗拉多急流",
+        "top5": false,
+        "pos": "MF"
+      }
+    ]
+  }
+}

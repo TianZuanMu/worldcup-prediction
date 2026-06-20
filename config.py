@@ -35,7 +35,7 @@ class Config:
 
     # 顶级强队过热例外 (V3.2: MOD/BIG精英队温和过热→实力碾压)
     elite_team_max_rank: int = 5            # 顶级强队FIFA排名上限
-    elite_moderate_cold_max: float = 40.0   # 温和过热上限 (超过此值仍为真过热)
+    elite_moderate_cold_max: float = 55.0   # V3.5: 40→55 (球员DB更新后冷热值普涨·英格兰+46/阿根廷+44需覆盖)
 
     # CLOSE级别精英例外 (V3.3: 扩展精英例外到CLOSE·修复韩国/英格兰/加纳)
     close_elite_rank_threshold: int = 10    # 热方FIFA排名≤10视为精英(比MOD/BIG宽松)

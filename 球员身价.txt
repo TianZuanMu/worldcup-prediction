@@ -1,186 +1,1251 @@
-| 球员 | 国籍 | 年龄 | 身价（欧元） | 所属俱乐部 | 位置 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 亚马尔 (Lamine Yamal) | 西班牙 | 18岁 | 2亿 | 巴塞罗那 | 前锋 |
-| 哈兰德 (Erling Haaland) | 挪威 | 25岁 | 2亿 | 曼城 | 中锋 |
-| 姆巴佩 (Kylian Mbappé) | 法国 | 27岁 | 1.8亿 | 皇家马德里 | 前锋 / 中锋 |
-| 奥利塞 (Michael Olise) | 法国 | 24岁 | 1.5亿 | 拜仁慕尼黑 | 右边锋 |
-| 佩德里 (Pedri) | 西班牙 | 23岁 | 1.5亿 | 巴塞罗那 | 中场 |
-| 维尼修斯 (Vinícius Júnior) | 巴西 | 25岁 | 1.4亿 | 皇家马德里 | 左边锋 |
-| 维蒂尼亚 (Vitinha) | 葡萄牙 | 26岁 | 1.4亿 | 巴黎圣日耳曼 | 中场 |
-| 若昂·内维斯 (João Neves) | 葡萄牙 | 21岁 | 1.4亿 | 巴黎圣日耳曼 | 后腰 |
-| 贝林厄姆 (Jude Bellingham) | 英格兰 | 22岁 | 1.3亿 | 皇家马德里 | 中场 |
-| 赖斯 (Declan Rice) | 英格兰 | 27岁 | 1.2亿 | 阿森纳 | 后腰 |
-| 杜埃 (Désiré Doué) | 法国 | 21岁 | 1.2亿 | 巴黎圣日耳曼 | 中场 / 前锋 |
-| 萨卡 (Bukayo Saka) | 英格兰 | 24岁 | 1.1亿 | 阿森纳 | 右边锋 |
-| 凯塞多 (Moises Caicedo) | 厄瓜多尔 | 24岁 | 1亿 | 切尔西 | 防守型中场 |
-| 登贝莱 (Ousmane Dembélé) | 法国 | 29岁 | 1亿 | 巴黎圣日耳曼 | 前锋 |
-| 萨利巴 (William Saliba) | 法国 | 25岁 | 1亿 | 阿森纳 | 中后卫 |
-| 阿尔瓦雷斯 (Julián Álvarez) | 阿根廷 | 26岁 | 1亿 | 马德里竞技 | 中锋 / 右边锋 |
-| 穆西亚拉 (Jamal Musiala) | 德国 | 23岁 | 1亿 | 拜仁慕尼黑 | 中场 |
-| 维尔茨 (Florian Wirtz) | 德国 | 23岁 | 1亿 | 利物浦 | 前腰 |
-| 巴尔韦德 (Federico Valverde) | 乌拉圭 | 27岁 | 9000万 | 皇家马德里 | 中场 |
-| 恩佐·费尔南德斯 (Enzo Fernández) | 阿根廷 | 25岁 | 9000万 | 切尔西 | 中场 |
-| 居莱尔 (Arda Güler) | 土耳其 | 21岁 | 9000万 | 皇家马德里 | 中场 |
-| 劳塔罗·马丁内斯 (Lautaro Martínez) | 阿根廷 | 28岁 | 8500万 | 国际米兰 | 中锋 |
-| 伊萨克 (Alexander Isak) | 瑞典 | 26岁 | 8500万 | 利物浦 | 中锋 |
-| 库巴西 (Pau Cubarsí) | 西班牙 | 19岁 | 8000万 | 巴塞罗那 | 中后卫 |
-| 威廉·帕乔 (Willian Pacho) | 厄瓜多尔 | 24岁 | 8000万 | 巴黎圣日耳曼 | 中后卫 |
-| 阿什拉夫 (Achraf Hakimi) | 摩洛哥 | 27岁 | 8000万 | 巴黎圣日耳曼 | 右后卫 |
-| 努诺·门德斯 (Nuno Mendes) | 葡萄牙 | 23岁 | 8000万 | 巴黎圣日耳曼 | 左后卫 |
-| 苏维门迪 (Martín Zubimendi) | 西班牙 | 27岁 | 8000万 | 阿森纳 | 中场 |
-| 尼科·帕斯 (Nico Paz) | 阿根廷 | 21岁 | 8000万 | 科莫 | 攻击型中场 |
-| 塞门约 (Ibrahim Osman) | 加纳 | 21岁 | 8000万 | 费耶诺德（租借） | 左边锋 |
-| 格瓦迪奥尔 (Joško Gvardiol) | 克罗地亚 | 24岁 | 7000万 | 曼城 | 中后卫 / 左后卫 |
-| 路易斯·迪亚斯 (Luis Díaz) | 哥伦比亚 | 29岁 | 7000万 | 拜仁慕尼黑 | 左边锋 |
-| 于帕梅卡诺 (Dayot Upamecano) | 法国 | 27岁 | 7000万 | 拜仁慕尼黑 | 中后卫 |
-| 罗德里 (Rodri) | 西班牙 | 29岁 | 6500万 | 曼城 | 防守型中场 |
-| 福登 (Phil Foden) | 英格兰 | 26岁 | 8000万 | 曼城 | 左边锋 / 中前卫 / 前腰 |
-| 多库 (Jérémy Doku) | 比利时 | 24岁 | 7500万 | 曼城 | 左边锋 |
-| 凯南·伊尔迪兹 (Kenan Yıldız) | 土耳其 | 21岁 | 7500万 | 尤文图斯 | 前腰 / 左右边锋 |
-| 廷贝尔 (Jurriën Timber) | 荷兰 | 24岁 | 7000万 | 阿森纳 | 后卫 |
-| 亚历山大-阿诺德 (Trent Alexander-Arnold) | 英格兰 | 27岁 | 6500万 | 皇家马德里 | 右后卫 |
-| 吉布斯-怀特 (Morgan Gibbs-White) | 英格兰 | 26岁 | 6000万 | 诺丁汉森林 | 前腰 |
-| 亚当·沃顿 (Adam Wharton) | 英格兰 | 21岁 | 6000万 | 水晶宫 | 中前卫 / 后腰 |
-| 武什科维奇 (Luka Vušković) | 克罗地亚 | 19岁 | 6000万 | 汉堡 | 中后卫 |
-| 曼赞比 (Johan Manzambi) | 瑞士 | 20岁 | 5000万 | 弗赖堡 | 中场 |
-| 普利希奇 (Christian Pulisic) | 美国 | 27岁 | 5000万 | AC米兰 | 边锋 / 前腰 |
-| 克里斯蒂安·罗梅罗 (Cristian Romero) | 阿根廷 | 28岁 | 5000万 | 托特纳姆热刺 | 中后卫 |
-| 佐野海舟 (Kaishu Sano) | 日本 | 25岁 | 4000万 | 美因茨 | 后腰 |
-| 迪奥戈·科斯塔 (Diogo Costa) | 葡萄牙 | 26岁 | 4000万 | 波尔图 | 门将 |
-| 科贝尔 (Gregor Kobel) | 瑞士 | 28岁 | 4000万 | 多特蒙德 | 门将 |
-| 霍安·加西亚 (Joan García) | 西班牙 | 25岁 | 4000万 | 巴塞罗那 | 门将 |
-| 利桑德罗·马丁内斯 (Lisandro Martínez) | 阿根廷 | 28岁 | 4000万 | 曼联 | 中后卫 |
-| 佩塔尔·苏契奇 (Petar Sučić) | 克罗地亚 | 22岁 | 4000万 | 国际米兰 | 中场 |
-| 约瑟普·斯塔尼西奇 (Josip Stanišić) | 克罗地亚 | 26岁 | 4000万 | 拜仁慕尼黑 | 后卫 |
-| 梅西 (Lionel Messi) | 阿根廷 | 38岁 | 1500万 | 迈阿密国际 | 前锋 |
-| 扬·迪奥曼德 (Yan Diomande) | 科特迪瓦 | 19岁 | 9000万 | RB莱比锡 | 前锋 |
-| 谢尔基 (Rayan Cherki) | 法国 | 22岁 | 9000万 | 曼彻斯特城 | 中场（前腰/右边锋/左边锋） |
-| 亚历山大·帕夫洛维奇 (Aleksandar Pavlović) | 德国 | 22岁 | 9000万 | 拜仁慕尼黑 | 中场 |
-| 赫拉芬贝赫 (Ryan Gravenberch) | 荷兰 | 24岁 | 8000万 | 利物浦 | 中场 |
-| 扎伊尔·埃梅里 (Warren Zaïre-Emery) | 法国 | 20岁 | 8000万 | 巴黎圣日耳曼 | 中场 |
-| 加布里埃尔 (Gabriel) | 巴西 | 28岁 | 7500万 | 阿森纳 | 后卫 |
-| 格瓦迪奥尔 (Joško Gvardiol) | 克罗地亚 | 24岁 | 7000万 | 曼彻斯特城 | 后卫（中后卫/左后卫） |
-| 于帕梅卡诺 (Dayot Upamecano) | 法国 | 27岁 | 7000万 | 拜仁慕尼黑 | 后卫（中后卫） |
-| 亚历山大-阿诺德 (Trent Alexander-Arnold) | 英格兰 | 27岁 | 6500万 | 皇家马德里 | 后卫（右后卫） |
-| 罗德里 (Rodri) | 西班牙 | 29岁 | 6500万 | 曼彻斯特城 | 防守型中场 |
-| 武什科维奇 (Luka Vušković) | 克罗地亚 | 19岁 | 6000万 | 汉堡（租借自热刺） | 后卫（中后卫） |
-| 亚当·沃顿 (Adam Wharton) | 英格兰 | 21岁 | 6000万 | 水晶宫 | 后腰 |
-| 鲁本·迪亚斯 (Rúben Dias) | 葡萄牙 | 29岁 | 6000万 | 曼彻斯特城 | 后卫（中后卫） |
-| 伊利曼·恩迪亚耶 (Iliman Ndiaye) | 塞内加尔 | 26岁 | 5500万 | 埃弗顿 | 前锋（右边锋/左边锋/前腰） |
-| 马尔穆什 (Omar Marmoush) | 埃及 | 27岁 | 5000万 | 曼彻斯特城 | 前锋 |
-| 胡桑诺夫 (Abdukodir Khusanov) | 乌兹别克斯坦 | 22岁 | 5000万 | 曼彻斯特城 | 后卫 |
-| 霍安·加西亚 (Joan García) | 西班牙 | 25岁 | 4500万 | 巴塞罗那 | 门将 |
-| 易卜拉欣·马扎 (Ibrahim Maza) | 阿尔及利亚 | 20岁 | 4500万 | 勒沃库森 | 中场（攻击型中场） |
-| 努内斯 (Matheus Nunes) | 葡萄牙 | 27岁 | 4500万 | 曼彻斯特城 | 中场 |
-| 伊纳西奥 (Gonçalo Inácio) | 葡萄牙 | 24岁 | 4000万 | 葡萄牙体育 | 后卫 |
-| 阿方索·戴维斯 (Alphonso Davies) | 加拿大 | 25岁 | 4000万 | 拜仁慕尼黑 | 后卫（左后卫） |
-| 韦斯利 (Wesley) | 巴西 | 22岁 | 4000万 | 罗马 | 后卫 |
-| 利桑德罗·马丁内斯 (Lisandro Martínez) | 阿根廷 | 28岁 | 4000万 | 曼彻斯特联 | 后卫（中后卫/左后卫/后腰） |
-| 斯塔尼西奇 (Josip Stanišić) | 克罗地亚 | 26岁 | 4000万 | 拜仁慕尼黑 | 右后卫 |
-| 普利希奇 (Christian Pulisic) | 美国 | 27岁 | 4000万 | AC米兰 | 前锋/边锋/前腰 |
-| 麦克托米奈 (Scott McTominay) | 苏格兰 | 28岁 | 4000万 | 那不勒斯 | 中前卫 |
-| 布雷默 (Bremer) | 巴西 | 29岁 | 3500万 | 尤文图斯 | 后卫（中后卫） |
-| 萨迪基 (Noah Sadiki) | 刚果（金） | 21岁 | 3500万 | 桑德兰 | 中场（中场/后腰/右后卫） |
-| 莱默尔 (Konrad Laimer) | 奥地利 | 28岁 | 3200万 | 拜仁慕尼黑 | 中场 |
-| 马尔基尼奥斯 (Marcos Aoás Corrêa) | 巴西 | 31岁 | 3000万 | 巴黎圣日耳曼 | 后卫（中后卫/后腰） |
-| 加维 (Gavi) | 西班牙 | 21岁 | 3000万 | 巴塞罗那 | 中场 |
-| 乔纳森·戴维 (Jonathan David) | 加拿大 | 26岁 | 3000万 | 尤文图斯 | 前锋（中锋/影子前锋） |
-| 乌加特 (Manuel Ugarte) | 乌拉圭 | 25岁 | 3000万 | 曼彻斯特联 | 中场（后腰） |
-| 拉门斯 (Maatje Lammens) | 比利时 | 23岁 | 3000万 | 曼彻斯特联 | 门将 |
-| 麦肯尼 (Weston McKennie) | 美国 | 27岁 | 3000万 | 尤文图斯 | 中场 |
-| 达洛特 (Diogo Dalot) | 葡萄牙 | 27岁 | 3000万 | 曼彻斯特联 | 后卫（右后卫/左后卫） |
-| 李刚仁 (Lee Kang-in) | 韩国 | 25岁 | 2800万 | 巴黎圣日耳曼 | 中场/前锋（前腰/左边锋/右边锋） |
-| 阿劳霍 (Araújo) | 葡萄牙 | 23岁 | 2800万 | 本菲卡 | 中后卫 |
-| 穆哈雷莫维奇 (Dino Muharemović) | 波黑 | — | 2500万 | — | — |
-| 恩西索 (Julio Enciso) | 巴拉圭 | 22岁 | 2500万 | 斯特拉斯堡 | 中场（前腰） |
-| 维加 (Vega) | 葡萄牙 | 22岁 | 2500万 | 比利亚雷亚尔 | 后卫（中后卫） |
-| 克雷伊奇 (Robin Kreičí) | 捷克 | 27岁 | 2200万 | 狼队 | 后卫 |
-| B席 (Bernardo Silva) | 葡萄牙 | 31岁 | 2200万 | 曼彻斯特城 | 中场 |
-| 圣地亚哥·希门尼斯 (Santiago Giménez) | 墨西哥 | 25岁 | 1800万 | AC米兰 | 前锋 |
-| 伊西多尔 (Louis Isidore) | 海地 | 25岁 | 1800万 | 桑德兰 | 前锋（中锋） |
-| 法昆多·梅迪纳 (Facundo Medina) | 阿根廷 | 27岁 | 1800万 | 马赛 | 后卫（中后卫/左后卫） |
-| 库尔图瓦 (Thibaut Courtois) | 比利时 | 34岁 | 1800万 | 皇家马德里 | 门将 |
-| 阿利松 (Alisson) | 巴西 | 33岁 | 1700万 | 利物浦 | 门将 |
-| 罗杰·伊巴涅斯 (Roger Ibañez) | 巴西 | 27岁 | 1700万 | 吉达国民 | 后卫（中后卫） |
-| 达米安·马丁内斯 (Damián Martínez) | 阿根廷 | 33岁 | 1500万 | 阿斯顿维拉 | 门将 |
-| 汉尼拔·梅布里 (Hannibal Mejbri) | 突尼斯 | 23岁 | 1500万 | 伯恩利 | 中场（攻击型中场） |
-| 洛甘·科斯塔 (Logan Costa) | 佛得角 | 25岁 | 1500万 | 比利亚雷亚尔 | 后卫 |
-| 乔丹·博斯 (Jordan Bos) | 澳大利亚 | 23岁 | 1200万 | 费耶诺德 | 左后卫 |
-| 穆萨·塔马里 (Mousa Tamari) | 约旦 | 29岁 | 1000万 | 雷恩 | 前锋/左中场 |
-| 里奥·佩雷拉 (Leo Pereira) | 巴西 | 30岁 | 1000万 | 弗拉门戈 | 后卫（中后卫） |
-| C罗 (Cristiano Ronaldo) | 葡萄牙 | 41岁 | 1000万 | 利雅得胜利 | 前锋（中锋/左边锋/右边锋） |
-| 坎塞洛 (João Cancelo) | 葡萄牙 | 31岁 | 900万 | 巴塞罗那 | 后卫 |
-| 沙特·阿卜杜勒哈米德 (Saudi Abdulhamid) | 沙特 | 26岁 | 900万 | 朗斯 | 后卫（右翼卫） |
-| 道格拉斯·桑托斯 (Douglas Santos) | 巴西 | 32岁 | 800万 | 圣彼得堡泽尼特 | 后卫（左后卫） |
-| 莱尔·福斯特 (Lyle Foster) | 南非 | 25岁 | 800万 | 伯恩利 | 前锋（中锋） |
-| 阿菲夫 (Akram Afif) | 卡塔尔 | 29岁 | 800万 | — | 前锋（左边锋/中锋） |
-| 德布劳内 (Kevin De Bruyne) | 比利时 | 34岁 | 800万 | 那不勒斯 | 中场 |
-| 迈克尔·穆里略 (Michael Murillo) | 巴拿马 | 30岁 | 700万 | 贝西克塔斯 | 后卫（右后卫/右中场） |
-| 塞梅多 (Nélson Semedo) | 葡萄牙 | 32岁 | 700万 | 费内巴切 | 后卫（右后卫） |
-| 克里斯·伍德 (Chris Wood) | 新西兰 | 34岁 | 500万 | 诺丁汉森林 | 前锋（中锋） |
-| 加埃迪 (Mehdi Ghayedi) | 伊朗 | 27岁 | 450万 | 迪拜胜利 | 前锋（左边锋/攻击型中场） |
-| 卡西姆 (Kasim) | 伊拉克 | 22岁 | 350万 | 纳什维尔 | 右边锋 |
-| 安东尼·塞门约 (Antoine Semenyo) | 加纳 | 26岁 | 8000万 | 曼彻斯特城 | 右边锋 |
-| 瑞安·赫拉芬贝赫 (Ryan Gravenberch) | 荷兰 | 23岁 | 9000万 | 利物浦 | 中场 |
-| 杰里米·多库 (Jérémy Doku) | 比利时 | 24岁 | 7500万 | 曼彻斯特城 | 左边锋 |
-| 鲁本·迪亚斯 (Rúben Dias) | 葡萄牙 | 29岁 | 6000万 | 曼彻斯特城 | 中后卫 |
-| 拉斐尔·莱奥 (Rafael Leão) | 葡萄牙 | 26岁 | 5000万 | AC米兰 | 前锋 |
-| 克里斯蒂安·罗梅罗 (Cristian Romero) | 阿根廷 | 28岁 | 4500万 | 托特纳姆热刺 | 中后卫 |
-| 马克西米利亚诺·阿劳霍 (Maximiliano Araújo) | 乌拉圭 | 26岁 | 2500万 | 葡萄牙体育 | 中场 |
-| 巴伦廷·巴尔科 (Valentín Barco) | 阿根廷 | 21岁 | 3500万 | 斯特拉斯堡 | 左后卫/中场 |
-| 尤里·蒂勒曼斯 (Youri Tielemans) | 比利时 | 29岁 | 3500万 | 阿斯顿维拉 | 中场 |
-| 查尔斯·德凯特拉雷 (Charles De Ketelaere) | 比利时 | 25岁 | 3500万 | 亚特兰大 | 中场 |
-| 康拉德·莱默尔 (Konrad Laimer) | 奥地利 | 28岁 | 3200万 | 拜仁慕尼黑 | 右后卫/中场 |
-| 泽诺·德巴斯特 (Zeno Debast) | 比利时 | 22岁 | 3000万 | 葡萄牙体育 | 中后卫 |
-| 卡洛斯·费尔南德斯-帕尔多 (Carlos Fernández-Pardo) | 比利时 | 21岁 | 3000万 | 里尔 | 前锋 |
-| 森内·拉门斯 (Maatje Lammens) | 比利时 | 23岁 | 3000万 | 曼彻斯特联 | 门将 |
-| 克里斯托夫·鲍姆加特纳 (Christoph Baumgartner) | 奥地利 | 26岁 | 4000万 | RB莱比锡 | 中场 |
-| 米克尔·梅里诺 (Mikel Merino) | 西班牙 | 29岁 | 3000万 | 阿森纳 | 中场 |
-| 曼努埃尔·乌加特 (Manuel Ugarte) | 乌拉圭 | 25岁 | 3000万 | 曼彻斯特联 | 中场 |
-| 罗德里戈·萨拉萨尔 (Rodrigo Salazar) | 乌拉圭 | 26岁 | 3000万 | 布拉加 | 右边锋 |
-| 乔纳森·戴维 (Jonathan David) | 加拿大 | 26岁 | 3000万 | 尤文图斯 | 前锋 |
-| 弗拉林·巴洛贡 (Folarin Balogun) | 美国 | 24岁 | 4000万 | 摩纳哥 | 中锋 |
-| 约内·维萨 (Yoane Wissa) | 刚果（金） | 29岁 | 3000万 | 纽卡斯尔联 | 前锋 |
-| 诺亚·萨迪基 (Noah Sadiki) | 刚果（金） | 20岁 | 3500万 | 桑德兰 | 中场 |
-| 李刚仁 (Lee Kang-in) | 韩国 | 25岁 | 2800万 | 巴黎圣日耳曼 | 前锋 |
-| 米克尔·奥亚萨瓦尔 (Mikel Oyarzabal) | 西班牙 | 29岁 | 2500万 | 皇家社会 | 前锋 |
-| 埃塞基耶尔·帕拉西奥斯 (Exequiel Palacios) | 阿根廷 | 27岁 | 2500万 | 勒沃库森 | 中场 |
-| 何塞·洛佩斯 (José López) | 阿根廷 | 25岁 | 2500万 | 帕尔梅拉斯 | 中锋 |
-| 达尔文·努涅斯 (Darwin Núñez) | 乌拉圭 | 26岁 | 2500万 | 利雅得新月 | 中锋 |
-| 柯尼·德温特 (Koni De Winter) | 比利时 | 23岁 | 2300万 | AC米兰 | 中后卫 |
-| 罗曼·彭德斯 (Roman Penders) | 比利时 | 19岁 | 2200万 | 斯特拉斯堡 | 中场 |
-| 约内·德克伊珀 (Jorne De Kuyper) | 比利时 | 25岁 | 2200万 | 布莱顿 | 后卫 |
-| 罗德里戈·本坦库尔 (Rodrigo Bentancur) | 乌拉圭 | 28岁 | 2200万 | 托特纳姆热刺 | 防守型中场 |
-| 尼古拉斯·冈萨雷斯 (Nicolás González) | 阿根廷 | 28岁 | 2400万 | 马德里竞技 | 前锋 |
-| 基利安·恩戈伊 (Kilian Ngoie) | 比利时 | — | 2000万 | 里尔 | 前锋 |
-| 阿蒂尔·蒂特 (Arthur Theate) | 比利时 | 26岁 | 1700万 | 法兰克福 | 中后卫/左后卫 |
-| 多迪·卢克巴吉奥 (Dodi Lukebakio) | 比利时 | 28岁 | 2000万 | 本菲卡 | 右边锋 |
-| 莱安德罗·特罗萨德 (Leandro Trossard) | 比利时 | 31岁 | 1800万 | 阿森纳 | 左边锋 |
-| 罗纳德·阿劳霍 (Ronald Araújo) | 乌拉圭 | 27岁 | 2000万 | 巴塞罗那 | 中后卫 |
-| 蒂亚戈·阿尔马达 (Thiago Almada) | 阿根廷 | 25岁 | 2000万 | 马德里竞技 | 进攻型中场 |
-| 蒂博·库尔图瓦 (Thibaut Courtois) | 比利时 | 34岁 | 1500万 | 皇家马德里 | 门将 |
-| 莱昂纳多·巴莱迪 (Leonardo Balerdi) | 阿根廷 | 26岁 | 1800万 | 马赛 | 中后卫 |
-| 法昆多·梅迪纳 (Facundo Medina) | 阿根廷 | 26岁 | 1800万 | 马赛 | 中后卫/左后卫 |
-| 圣地亚哥·希门尼斯 (Santiago Giménez) | 墨西哥 | 25岁 | 2000万 | AC米兰 | 中锋 |
-| 孙兴慜 (Son Heung-min) | 韩国 | 33岁 | 1500万 | 洛杉矶FC | 前锋 |
-| 吴贤揆 (Oh Hyeon-gyu) | 韩国 | 25岁 | 1500万 | 贝西克塔斯 | 前锋 |
-| 纳韦尔·莫利纳 (Nahuel Molina) | 阿根廷 | 28岁 | 1500万 | 马德里竞技 | 右后卫 |
-| 马蒂亚斯·奥利维拉 (Mathías Olivera) | 乌拉圭 | 28岁 | 1500万 | 那不勒斯 | 左后卫 |
-| 罗德里戈·德保罗 (Rodrigo De Paul) | 阿根廷 | 32岁 | 1400万 | 迈阿密国际 | 中场 |
-| 乔治亚·德阿拉斯卡埃塔 (Giorgian de Arrascaeta) | 乌拉圭 | 32岁 | 1400万 | 弗拉门戈 | 攻击型中场 |
-| 罗梅卢·卢卡库 (Romelu Lukaku) | 比利时 | 33岁 | 1200万 | 那不勒斯 | 中锋 |
-| 华金·皮克雷斯 (Joaquín Piquerez) | 乌拉圭 | 27岁 | 1200万 | 帕尔梅拉斯 | 左后卫 |
-| 何塞·马里亚·希门尼斯 (José María Giménez) | 乌拉圭 | 31岁 | 1200万 | 马德里竞技 | 中后卫 |
-| 尼古拉斯·拉斯金 (Nicolas Raskin) | 比利时 | 25岁 | 1200万 | 格拉斯哥流浪者 | 防守型中场 |
-| 吉奥瓦尼·洛塞尔索 (Giovani Lo Celso) | 阿根廷 | 30岁 | 1000万 | 皇家贝蒂斯 | 攻击型中场 |
-| 凯文·德布劳内 (Kevin De Bruyne) | 比利时 | 34岁 | 800万 | 那不勒斯 | 中场 |
-| 蒂莫西·卡斯塔涅 (Timothy Castagne) | 比利时 | 30岁 | 1000万 | 富勒姆 | 右后卫 |
-| 圣地亚哥·布埃诺 (Santiago Bueno) | 乌拉圭 | 27岁 | 1000万 | 狼队 | 中后卫 |
-| C罗 (Cristiano Ronaldo) | 葡萄牙 | 41岁 | 1000万 | 利雅得胜利 | 中锋 |
-| 莱尔·福斯特 (Lyle Foster) | 南非 | 25岁 | 1000万 | 伯恩利 | 中锋 |
-| 阿克拉姆·阿菲夫 (Akram Afif) | 卡塔尔 | 29岁 | 800万 | 萨德 | 左边锋 |
-| 赫罗尼莫·鲁利 (Gerónimo Rulli) | 阿根廷 | 34岁 | 800万 | 马赛 | 门将 |
-| 布莱恩·罗德里格斯 (Brian Rodríguez) | 乌拉圭 | 26岁 | 800万 | 墨西哥美洲 | 左边锋 |
-| 若昂·坎塞洛 (João Cancelo) | 葡萄牙 | 32岁 | 900万 | 巴塞罗那 | 右后卫 |
-| 克里斯·伍德 (Chris Wood) | 新西兰 | 34岁 | 500万 | 诺丁汉森林 | 中锋 |
-| 梅赫迪·加耶迪 (Mehdi Ghayedi) | 伊朗 | 27岁 | 450万 | 阿尔纳赛尔 | 前锋 |
+球员  国籍  年龄  身价（欧元）  所属俱乐部  位置 
+奥利弗·鲍曼 (Oliver Baumann)  德国  35岁  300万  霍芬海姆  门将 
+曼努埃尔·诺伊尔 (Manuel Neuer)  德国  40岁  400万  拜仁慕尼黑  门将 
+亚历山大·努贝尔 (Alexander Nubel)  德国  29岁  1200万  斯图加特  门将 
+瓦尔德马·安东 (Waldemar Anton)  德国  29岁  1800万  多特蒙德  后卫 
+纳撒尼尔·布朗 (Nathaniel Brown)  德国  22岁  3500万  法兰克福  后卫 
+帕斯卡尔·格罗斯 (Pascal Gross)  德国  34岁  350万  布莱顿  后卫 
+约书亚·基米希 (Joshua Kimmich)  德国  31岁  4000万  拜仁慕尼黑  后卫 
+大卫·劳姆 (David Raum)  德国  28岁  2200万  RB莱比锡  后卫 
+安东尼奥·吕迪格 (Antonio Rudiger)  德国  33岁  900万  皇家马德里  后卫 
+尼科·施洛特贝克 (Nico Schlotterbeck)  德国  26岁  5500万  多特蒙德  后卫 
+约纳坦·塔 (Jonathan Tah)  德国  30岁  3000万  拜仁慕尼黑  后卫 
+马利克·蒂亚夫 (Malick Thiaw)  德国  24岁  4500万  纽卡斯尔联  后卫 
+纳迪姆·阿米里 (Nadiem Amiri)  德国  29岁  1700万  美因茨  中场 
+莱昂·格雷茨卡 (Leon Goretzka)  德国  31岁  1500万  拜仁慕尼黑  中场 
+贾马尔·穆西亚拉 (Jamal Musiala)  德国  23岁  1亿  拜仁慕尼黑  中场 
+费利克斯·恩梅查 (Felix Nmecha)  德国  25岁  5000万  多特蒙德  中场 
+亚历山大·帕夫洛维奇 (Aleksandar Pavlović)  德国  22岁  7500万  拜仁慕尼黑  中场 
+伦纳特·卡尔 (Lennart Karl)  德国  18岁  6000万  拜仁慕尼黑  中场 
+杰米·勒韦林 (Jamie Leweling)  德国  **25岁**  4000万  斯图加特  中场 
+安杰洛·施蒂勒 (Angelo Stiller)  德国  25岁  4500万  斯图加特  中场 
+弗洛里安·维尔茨 (Florian Wirtz)  德国  **23岁**  1.1亿  利物浦  中场 
+马克西米利安·拜尔 (Maximilian Beier)  德国  **23岁**  4000万  多特蒙德  前锋 
+凯·哈弗茨 (Kai Havertz)  德国  **27岁**  5000万  阿森纳  前锋 
+勒鲁瓦·萨内 (Leroy Sané)  德国  30岁  2200万  加拉塔萨雷  前锋 
+德尼兹·翁达夫 (Deniz Undav)  德国  **29岁**  2200万  斯图加特  前锋 
+尼克·沃尔特马德 (Nick Woltemade)  德国  **24岁**  6500万  纽卡斯尔联  前锋 
+巴尔特·费布鲁亨 (Bart Verbruggen)  荷兰  23岁  4000万  布莱顿  门将 
+罗宾·罗埃夫斯 (Robin Roefs)  荷兰  23岁  2500万  桑德兰  门将 
+马克·弗莱肯 (Mark Flekken)  荷兰  32岁  600万  勒沃库森  门将 
+尤里恩·廷贝尔 (Jurriën Timber)  荷兰  24岁  7000万  阿森纳  后卫 
+米基·范德芬 (Micky van de Ven)  荷兰  25岁  6500万  热刺  后卫 
+扬·保罗·范赫克 (Jan Paul van Hecke)  荷兰  25岁  3500万  布莱顿  后卫 
+乔雷尔·哈托 (Jorrel Hato)  荷兰  20岁  3500万  切尔西  后卫 
+丹泽尔·邓弗里斯 (Denzel Dumfries)  荷兰  30岁  2500万  国际米兰  后卫 
+马茨·魏费尔 (Mats Wieffer)  荷兰  26岁  2500万  布莱顿  后卫 
+维吉尔·范戴克 (Virgil van Dijk)  荷兰  34岁  1800万  利物浦  后卫 
+内森·阿克 (Nathan Aké)  荷兰  31岁  1500万  曼城  后卫 
+瑞安·赫拉芬贝赫 (Ryan Gravenberch)  荷兰  23岁  9000万  利物浦  中场 
+蒂贾尼·赖因德斯 (Tijjani Reijnders)  荷兰  27岁  6000万  曼城  中场 
+弗伦基·德容 (Frenkie de Jong)  荷兰  29岁  4500万  巴塞罗那  中场 
+昆滕·廷贝尔 (Quinten Timber)  荷兰  24岁  2500万  马赛  中场 
+特恩·库普梅纳斯 (Teun Koopmeiners)  荷兰  28岁  2000万  尤文图斯  中场 
+古斯·蒂尔 (Guus Til)  荷兰  28岁  1500万  埃因霍温  中场 
+马滕·德容恩 (Marten de Roon)  荷兰  35岁  350万  亚特兰大  中场 
+科迪·加克波 (Cody Gakpo)  荷兰  27岁  6500万  利物浦  前锋 
+克里森西奥·萨默维尔 (Crysencio Summerville)  荷兰  24岁  3500万  西汉姆联  前锋 
+唐耶尔·马伦 (Donyell Malen)  荷兰  27岁  3500万  罗马  前锋 
+贾斯汀·克鲁伊维特 (Justin Kluivert)  荷兰  27岁  3000万  伯恩茅斯  前锋 
+布赖恩·布罗比 (Brian Brobbey)  荷兰  24岁  2500万  桑德兰  前锋 
+诺阿·朗 (Noa Lang)  荷兰  26岁  2200万  加拉塔萨雷  前锋 
+孟菲斯·德佩 (Memphis Depay)  荷兰  32岁  700万  科林蒂安  前锋 
+沃特·韦格霍斯特 (Wout Weghorst)  荷兰  33岁  250万  阿贾克斯  前锋 
+维克托·约翰松 (Viktor Johansson)	瑞典	27岁	400万	斯托克城	门将
+克里斯托弗·诺德菲尔特 (Kristoffer Nordfeldt)	瑞典	36岁	18万	AIK索尔纳	门将
+雅各布·维德尔·泽特斯特伦 (Jacob Widell Zetterström)	瑞典	27岁	330万	德比郡	门将
+希尔马·埃克达尔 (Hjalmar Ekdal)	瑞典	27岁	680万	伯恩利	中后卫
+加布里埃尔·古德蒙松 (Gabriel Gudmundsson)	瑞典	27岁	1870万	利兹联	左后卫/左翼卫
+伊萨克·希恩 (Isak Hien)	瑞典	27岁	3400万	亚特兰大	中后卫
+赫尔曼·约翰松 (Herman Johansson)	瑞典	28岁	100万	达拉斯FC	右中场
+古斯塔夫·拉格比耶尔克 (Gustaf Lagerbielke)	瑞典	25岁	240.8万	布拉加	中后卫
+维克托·林德勒夫 (Victor Lindelöf)	瑞典	31岁	600万	阿斯顿维拉	中后卫
+埃里克·史密斯 (Eric Smith)	瑞典	29岁	500万	圣保利	中后卫
+卡尔·斯塔费尔特 (Carl Starfelt)	瑞典	30岁	1150万	塞尔塔	后卫
+埃利奥特·斯特劳德 (Elliot Stroud)	瑞典	23岁	500万	米亚尔比	左中场
+丹尼尔·斯文松 (Daniel Svensson)	瑞典	24岁	2350万	多特蒙德	左翼卫
+塔哈·阿里 (Taha Ali)	瑞典	27岁	120万	马尔默	前锋
+亚辛·阿亚里 (Yasin Ayari)	瑞典	22岁	3500万	布莱顿	防守型中场
+卢卡斯·贝里瓦尔 (Lucas Bergvall)	瑞典	20岁	3500万	热刺	中场
+亚历山大·伯恩哈德松 (Alexander Bernhardsson)	瑞典	27岁	300万	荷尔斯泰因基尔	前锋
+加斯佩·卡尔斯特伦 (Jesper Karlström)	瑞典	30岁	150万	乌迪内斯	中场
+本杰明·尼格伦 (Benjamin Nygren)	瑞典	24岁	650万	凯尔特人	攻击型中场
+肯·塞马 (Ken Sema)	瑞典	32岁	150万	帕福斯FC	左翼卫
+马蒂亚斯·斯万贝里 (Mattias Svanberg)	瑞典	27岁	420万	沃尔夫斯堡	中场
+贝斯福特·泽内利 (Besfort Zeneli)	瑞典	23岁	450万	圣吉罗斯联	中场
+安东尼·埃兰加 (Anthony Elanga)	瑞典	24岁	3670万	纽卡斯尔联	右边锋
+维克托·哲凯赖什 (Viktor Gyökeres)	瑞典	28岁	3300万	阿森纳	前锋
+亚历山大·伊萨克 (Alexander Isak)	瑞典	26岁	8500万	利物浦	前锋
+古斯塔夫·尼尔松 (Gustaf Nilsson)	瑞典	29岁	27万	布鲁日	前锋
+叶海亚·福法纳 (Yahia Fofana)	科特迪瓦	25岁	500万	里泽体育	门将
+穆罕默德·科内 (Mohamed Koné)	科特迪瓦	24岁	80万	沙勒罗瓦	门将
+阿尔邦·拉丰 (Alban Lafont)	科特迪瓦	27岁	300万	帕纳辛纳科斯	门将
+埃马纽埃尔·阿格巴杜 (Emmanuel Agbadou)	科特迪瓦	29岁	1800万	贝西克塔斯	后卫
+克莱芒·阿克帕 (Clément Akpa)	科特迪瓦	24岁	900万	欧塞尔	后卫
+奥斯曼·迪奥曼德 (Ousmane Diomandé)	科特迪瓦	22岁	4500万	葡萄牙体育	中后卫
+盖拉·杜埃 (Guéla Doué)	科特迪瓦	23岁	1800万	斯特拉斯堡	右后卫
+吉兰·科南 (Ghislain Konan)	科特迪瓦	30岁	300万	吉尔维森特	左后卫
+奥迪隆·科苏努 (Odilon Kossounou)	科特迪瓦	25岁	1800万	亚特兰大	后卫
+埃万·恩迪卡 (Evan Ndicka)	科特迪瓦	26岁	3500万	罗马	中后卫
+威尔弗里德·辛戈 (Wilfried Singo)	科特迪瓦	25岁	2500万	加拉塔萨雷	后卫
+克里斯托弗·奥佩里 (Christopher Operi)	科特迪瓦	29岁	—	伊斯坦布尔	左后卫
+塞科·福法纳 (Seko Fofana)	科特迪瓦	31岁	800万	波尔图	中场
+帕尔费·吉亚贡 (Parfait Guiagon)	科特迪瓦	25岁	500万	沙勒罗瓦	中场
+克里斯特·乌拉伊 (Christ Inao Oulai)	科特迪瓦	20岁	1700万	特拉布宗体育	中场
+弗兰克·凯西 (Franck Kessié)	科特迪瓦	29岁	1200万	吉达国民	中场
+易卜拉欣·桑加雷 (Ibrahim Sangaré)	科特迪瓦	28岁	2200万	诺丁汉森林	中场
+让-米夏埃尔·塞里 (Jean-Mickaël Seri)	科特迪瓦	34岁	10万	马里博尔	中场
+西蒙·阿丁格拉 (Simon Adingra)	科特迪瓦	24岁	2500万	摩纳哥	前锋
+安热-约安·博尼 (Ange-Yoan Bonny)	科特迪瓦	22岁	3500万	国际米兰	前锋
+阿马德·迪亚洛 (Amad Diallo)	科特迪瓦	23岁	5000万	曼联	前锋
+奥马尔·迪亚基特 (Oumar Diakité)	科特迪瓦	22岁	500万	色格拉布鲁日	前锋
+扬·迪奥曼德 (Yan Diomandé)	科特迪瓦	19岁	7500万	RB莱比锡	前锋
+埃万·盖桑 (Evann Guessand)	科特迪瓦	24岁	2800万	水晶宫	前锋
+尼古拉·佩佩 (Nicolas Pépé)	科特迪瓦	31岁	600万	比利亚雷亚尔	前锋
+巴祖马纳·图雷 (Bazoumana Touré)	科特迪瓦	20岁	3500万	霍芬海姆	左边锋
+埃利·瓦希 (Elye Wahi)	科特迪瓦	23岁	1200万	尼斯	前锋
+埃尔南·加林德斯 (Hernán Galíndez)	厄瓜多尔	39岁	30万	飓风	门将
+莫伊塞斯·拉米雷斯 (Moisés Ramírez)	厄瓜多尔	25岁	80万	基菲萨	门将
+贡萨洛·瓦莱 (Gonzalo Valle)	厄瓜多尔	29岁	180万	基多体育大学	门将
+威廉·帕乔 (Willian Pacho)	厄瓜多尔	24岁	7000万	巴黎圣日耳曼	中后卫
+彼罗·因卡皮耶 (Piero Hincapié)	厄瓜多尔	24岁	5000万	阿森纳	中后卫/左后卫
+佩尔维斯·埃斯图皮尼安 (Pervis Estupiñán)	厄瓜多尔	28岁	1200万	AC米兰	左后卫
+乔尔·奥多涅斯 (Joel Ordóñez)	厄瓜多尔	22岁	3300万	布鲁日	中后卫
+安吉洛·普雷西亚多 (Ángelo Preciado)	厄瓜多尔	28岁	350万	米内罗竞技	右后卫
+菲利克斯·托雷斯 (Félix Torres)	厄瓜多尔	29岁	100万	巴西国际	中后卫
+哈克松·波罗索 (Jackson Porozo)	厄瓜多尔	24岁	250万	蒂华纳	中后卫
+亚马尔·梅迪纳 (Yaimar Medina)	厄瓜多尔	21岁	400万	亨克	左后卫
+莫伊塞斯·凯塞多 (Moisés Caicedo)	厄瓜多尔	24岁	1.1亿	切尔西	中场
+阿兰·弗兰科 (Alan Franco)	厄瓜多尔	27岁	450万	米内罗竞技	中场
+肯德里·派斯 (Kendry Páez)	厄瓜多尔	19岁	800万	河床	攻击型中场
+佩德罗·维特 (Pedro Vite)	厄瓜多尔	24岁	600万	墨西哥美洲狮	中场
+乔迪·阿尔西瓦尔 (Jordy Alcívar)	厄瓜多尔	26岁	180万	山谷独立	中场
+丹尼尔·卡斯蒂略 (Denil Castillo)	厄瓜多尔	22岁	700万	中日德兰	中场
+约翰·叶博亚 (John Yeboah)	厄瓜多尔	25岁	500万	威尼斯	中场/前锋
+尼尔松·安古洛 (Nilson Angulo)	厄瓜多尔	22岁	1700万	桑德兰	前锋
+冈萨洛·普拉塔 (Gonzalo Plata)	厄瓜多尔	25岁	900万	弗拉门戈	前锋
+恩纳·瓦伦西亚 (Enner Valencia)	厄瓜多尔	36岁	100万	帕丘卡	前锋
+阿兰·明达 (Alan Minda)	厄瓜多尔	22岁	300万	米内罗竞技	前锋
+安东尼·瓦伦西亚 (Anthony Valencia)	厄瓜多尔	24岁	100万	安特卫普	前锋
+乔迪·凯塞多 (Jordy Caicedo)	厄瓜多尔	28岁	200万	飓风	前锋
+凯文·罗德里格斯 (Kevin Rodríguez)	厄瓜多尔	25岁	500万	圣吉罗斯联合	前锋
+赫雷米·阿雷瓦洛 (Jeremy Arévalo)	厄瓜多尔	21岁	700万	斯图加特	前锋
+泰里克·博达克 (Tyrick Bodak)	库拉索	24岁	2.5万	特尔斯达 (SC Telstar)	门将
+特雷弗·多恩布施 (Trevor Doornbusch)	库拉索	26岁	9万	芬洛 (VVV-Venlo)	门将
+埃洛伊·罗姆 (Eloy Room)	库拉索	37岁	20万	迈阿密FC (Miami FC)	门将
+里赫德利·巴佐尔 (Riechedly Bazoer)	库拉索	29岁	220万	科尼亚体育 (Konyaspor)	中后卫
+约书亚·布雷内特 (Joshua Brenet)	库拉索	32岁	120万	开塞利体育 (Kayserispor)	后卫
+罗松·范艾马 (Roshon van Eijma)	库拉索	27岁	45万	瓦尔韦克 (RKC Waalwijk)	中后卫
+谢雷尔·弗洛拉努斯 (Sherel Floranus)	库拉索	27岁	64万	兹沃勒 (PEC Zwolle)	左后卫
+德弗伦·丰维尔 (Deveron Fonville)	库拉索	23岁	100万	奈梅亨 (NEC Nijmegen)	中后卫
+朱里恩·加里 (Juriën Gaari)	库拉索	32岁	46万	艾卜哈 (Abha Club)	中后卫
+阿尔曼多·奥比斯波 (Armando Obispo)	库拉索	26岁	84万	埃因霍温 (PSV Eindhoven)	中后卫
+舒兰迪·桑博 (Shurandy Sambo)	库拉索	24岁	150万	鹿特丹斯巴达 (Sparta Rotterdam)	右后卫
+莱安德罗·巴库纳 (Leandro Bacuna)	库拉索	34岁	25万	厄德尔 (Iğdır FK)	中场
+儒尼尼奥·巴库纳 (Juninho Bacuna)	库拉索	28岁	220万	福伦丹 (FC Volendam)	中前卫
+利瓦诺·科梅内西亚 (Livano Comenencia)	库拉索	22岁	50万	苏黎世 (FC Zürich)	中场/右后卫
+凯文·费利达 (Kevin Felida)	库拉索	26岁	26万	邓伯什 (FC Den Bosch)	中场
+阿尔贾尼·马萨 (Ar'Jany Martha)	库拉索	22岁	70万	罗瑟汉姆 (Rotherham United)	中场/后卫
+泰瑞斯·诺斯林 (Tyrese Noslin)	库拉索	23岁	75万	特尔斯达 (SC Telstar)	右翼卫
+戈弗里德·罗默拉托 (Godfried Roemeratoe)	库拉索	26岁	46万	瓦尔韦克 (RKC Waalwijk)	中场
+杰里米·安东尼斯 (Jeremy Antonisse)	库拉索	23岁	80万	基菲萨 (AE Kifisia)	左边锋
+陈达毅 (Tahith Chong)	库拉索	26岁	450万	谢菲尔德联 (Sheffield United)	前锋/中场
+肯吉·戈雷 (Kenji Gorré)	库拉索	31岁	32万	海法马卡比 (Maccabi Haifa)	左边锋
+松切·汉森 (Sontje Hansen)	库拉索	24岁	400万	米德尔斯堡 (Middlesbrough)	右边锋
+赫尔瓦内·卡斯塔内尔 (Gervane Kastaneer)	库拉索	29岁	18万	登嘉楼 (Terengganu FC)	前锋
+布兰德利·库沃斯 (Brandley Kuwas)	库拉索	33岁	25万	福伦丹 (FC Volendam)	前锋
+于尔根·洛卡迪亚 (Jürgen Locadia)	库拉索	32岁	20万	迈阿密FC (Miami FC)	前锋
+杰尔·马格里沙 (Jearl Margaritha)	库拉索	26岁	100万	贝弗伦 (SK Beveren)	左边锋
+艾曼·达门 (Aymen Dahmen)	突尼斯	28岁	80万	斯法克斯 (CS Sfaxien)	门将
+萨布里·本·黑森 (Sabri Ben Hassen)	突尼斯	30岁	40万	沙希尔星 (Étoile du Sahel)	门将
+阿卜杜勒穆希卜·查马克 (Abdelmouhib Chamakh)	突尼斯	25岁	45万	非洲之鹰 (Club Africain)	门将
+蒙塔萨尔·塔尔比 (Montassar Talbi)	突尼斯	28岁	700万	洛里昂 (Lorient)	中后卫
+迪伦·布龙 (Dylan Bronn)	突尼斯	31岁	80万	塞尔维特 (Servette)	后卫
+奥马尔·雷基克 (Omar Rekik)	突尼斯	24岁	50万	马里博尔 (Maribor)	后卫
+阿德姆·阿鲁斯 (Adem Arous)	突尼斯	22岁	100万	卡斯帕萨 (Kasımpaşa)	后卫
+拉伊德·奇卡维 (Raed Chikhaoui)	突尼斯	—	25万	蒙纳斯堤 (US Monastir)	后卫
+扬·瓦莱里 (Yan Valery)	突尼斯	27岁	130万	伯尔尼年轻人 (Young Boys)	右后卫
+穆塔兹·内法蒂 (Moutaz Neffati)	突尼斯	—	90万	北雪平 (IFK Norrköping)	后卫
+阿里·阿卜迪 (Ali Abdi)	突尼斯	32岁	250万	尼斯 (Nice)	左后卫
+穆罕默德·阿明·本·哈米达 (Mohamed Amine Ben Hamida)	突尼斯	—	70万	突尼斯希望 (Espérance de Tunis)	后卫
+埃尔耶斯·斯希里 (Ellyes Skhiri)	突尼斯	31岁	600万	法兰克福 (Eintracht Frankfurt)	中场
+穆罕默德·哈吉·马哈茂德 (Mohamed Hadj Mahmoud)	突尼斯	—	250万	卢加诺 (Lugano)	中场
+拉尼·赫迪拉 (Rani Khedira)	突尼斯	32岁	200万	柏林联合 (Union Berlin)	中场
+汉尼拔·梅布里 (Hannibal Mejbri)	突尼斯	23岁	1600万	伯恩利 (Burnley)	中场
+阿尼斯·本·苏莱曼 (Anis Ben Slimane)	突尼斯	25岁	300万	诺维奇 (Norwich City)	中场
+穆尔塔达·本·奥内斯 (Mortadha Ben Ouanes)	突尼斯	32岁	150万	卡斯帕萨 (Kasımpaşa)	中场/边锋
+伊斯梅尔·加尔比 (Ismaël Gharbi)	突尼斯	—	500万	奥格斯堡 (FC Augsburg)	中场
+哈利勒·阿亚里 (Khalil Ayari)	突尼斯	21岁	80万	巴黎圣日耳曼 (PSG)	前锋
+塞巴斯蒂安·图内克蒂 (Sebastian Tounekti)	突尼斯	—	600万	凯尔特人 (Celtic)	前锋
+埃利亚斯·阿舒里 (Elias Achouri)	突尼斯	27岁	350万	哥本哈根 (Copenhagen)	前锋
+菲拉斯·沙瓦 (Firas Chaouat)	突尼斯	—	85万	非洲之鹰 (Club Africain)	前锋
+哈泽姆·马斯图里 (Hazem Mastouri)	突尼斯	—	70万	马哈奇卡拉 (Dynamo Makhachkala)	前锋
+埃利亚斯·萨阿德 (Elias Saad)	突尼斯	—	250万	汉诺威96 (Hannover 96)	前锋
+拉扬·埃卢米 (Rayan Elloumi)	突尼斯	18岁	60万	温哥华白浪 (Vancouver Whitecaps)	前锋
+铃木彩艳 (Zion Suzuki)	日本	23岁	2000万	帕尔马 (Parma)	门将
+大迫敬介 (Keisuke Osako)	日本	26岁	200万	广岛三箭 (Sanfrecce Hiroshima)	门将
+早川友基 (Tomoki Hayakawa)	日本	27岁	150万	鹿岛鹿角 (Kashima Antlers)	门将
+长友佑都 (Yuto Nagatomo)	日本	39岁	10万	FC东京 (FC Tokyo)	后卫
+谷口彰悟 (Shogo Taniguchi)	日本	34岁	80万	圣图尔登 (Sint-Truiden)	后卫
+板仓滉 (Ko Itakura)	日本	29岁	1000万	阿贾克斯 (Ajax)	后卫
+渡边刚 (Tsuyoshi Watanabe)	日本	29岁	1000万	费耶诺德 (Feyenoord)	后卫
+富安健洋 (Takehiro Tomiyasu)	日本	27岁	800万	阿贾克斯 (Ajax)	后卫
+伊藤洋辉 (Hiroki Ito)	日本	26岁	1800万	拜仁慕尼黑 (Bayern Munich)	后卫
+濑古步梦 (Ayumu Seko)	日本	26岁	500万	勒阿弗尔 (Le Havre)	后卫
+菅原由势 (Yukinari Sugawara)	日本	25岁	750万	云达不莱梅 (Werder Bremen)	后卫
+铃木淳之介 (Junnosuke Suzuki)	日本	23岁	200万	哥本哈根 (København)	中场
+远藤航 (Wataru Endo)	日本	33岁	500万	利物浦 (Liverpool)	中场
+伊东纯也 (Junya Ito)	日本	33岁	350万	亨克 (Genk)	中场/前锋
+镰田大地 (Daichi Kamada)	日本	29岁	1200万	水晶宫 (Crystal Palace)	中场/前锋
+小川航基 (Koki Ogawa)	日本	28岁	250万	奈梅亨 (NEC Nijmegen)	中场/前锋
+前田大然 (Daizen Maeda)	日本	28岁	1200万	凯尔特人 (Celtic)	中场/前锋
+堂安律 (Ritsu Doan)	日本	27岁	2000万	法兰克福 (Eintracht Frankfurt)	中场/前锋
+上田绮世 (Ayase Ueda)	日本	27岁	1500万	费耶诺德 (Feyenoord)	中场/前锋
+田中碧 (Ao Tanaka)	日本	29岁	1000万	利兹联 (Leeds United)	中场/前锋
+中村敬斗 (Keito Nakamura)	日本	25岁	1000万	兰斯 (Reims)	中场/前锋
+佐野海舟 (Kaishu Sano)	日本	25岁	4000万 (或2500万)	美因茨 (Mainz)	中场/前锋
+久保建英 (Takefusa Kubo)	日本	24岁	3000万	皇家社会 (Real Sociedad)	中场/前锋
+铃木唯人 (Yuito Suzuki)	日本	24岁	1800万 (或2400万)	弗赖堡 (Freiburg)	中场/前锋
+盐贝健人 (Kento Shiogai)	日本	20岁	800万	沃尔夫斯堡 (VfL Wolfsburg)	中场/前锋
+后藤启介 (Keisuke Goto)	日本	20岁	800万	圣图尔登 (Sint-Truiden)	中场/前锋
+吉列尔莫·奥乔亚 (Guillermo Ochoa)	墨西哥	40岁	30万	AEL利马索尔	门将
+何塞·兰赫尔 (José Rangel)	墨西哥	25岁	650万	瓜达拉哈拉	门将
+卡洛斯·阿塞韦多 (Carlos Acevedo)	墨西哥	28岁	280万	桑托斯拉古纳	门将
+豪尔赫·桑切斯 (Jorge Sánchez)	墨西哥	28岁	220万	塞萨洛尼基	后卫
+伊斯雷尔·雷耶斯 (Israel Reyes)	墨西哥	25岁	600万	墨西哥美洲	后卫
+塞萨尔·蒙特斯 (César Montes)	墨西哥	29岁	750万	莫斯科火车头	后卫
+约翰·巴斯克斯 (Johan Vásquez)	墨西哥	27岁	1200万	热那亚	后卫
+赫苏斯·加利亚多 (Jesús Gallardo)	墨西哥	31岁	280万	托卢卡	后卫
+马特奥·查韦斯 (Mateo Chávez)	墨西哥	22岁	400万	阿尔克马尔	后卫
+路易斯·罗莫 (Luis Romo)	墨西哥	31岁	300万	瓜达拉哈拉	后卫
+埃里克·利拉 (Érik Lira)	墨西哥	26岁	1200万	蓝十字	中场
+布里安·古铁雷斯 (Brian Gutiérrez)	墨西哥	23岁	800万	瓜达拉哈拉	中场
+希尔韦托·莫拉 (Gilberto Mora)	墨西哥	17岁	1000万	蒂华纳	中场
+阿尔瓦罗·菲达尔戈 (Álvaro Fidalgo)	墨西哥	28岁	1000万	皇家贝蒂斯	中场
+奥贝德·巴尔加斯 (Obed Vargas)	墨西哥	22岁	800万	马德里竞技	中场
+奥韦林·皮内达 (Orbelín Pineda)	墨西哥	30岁	700万	雅典AEK	中场
+埃德松·阿尔瓦雷斯 (Edson Álvarez)	墨西哥	28岁	1500万	费内巴切	中场
+路易斯·查韦斯 (Luis Chávez)	墨西哥	30岁	600万	莫斯科迪纳摩	中场
+塞萨尔·韦尔塔 (César Huerta)	墨西哥	25岁	500万	安德莱赫特	前锋
+亚历克西斯·贝加 (Alexis Vega)	墨西哥	28岁	800万	托卢卡	前锋
+阿曼多·冈萨雷斯 (Armando González)	墨西哥	22岁	1500万	瓜达拉哈拉	前锋
+吉列尔莫·马丁内斯 (Guillermo Martínez)	墨西哥	29岁	150万	美洲狮	前锋
+胡利安·基尼奥内斯 (Julián Quiñones)	墨西哥	29岁	1200万	胡拜尔库迪西亚	前锋
+罗伯托·阿尔瓦拉多 (Roberto Alvarado)	墨西哥	27岁	750万	瓜达拉哈拉	前锋
+劳尔·希门尼斯 (Raúl Jiménez)	墨西哥	35岁	400万	富勒姆	前锋
+圣地亚哥·希门尼斯 (Santiago Giménez)	墨西哥	25岁	1800万	AC米兰	前锋
+罗恩文·威廉姆斯 (Ronwen Williams)	南非	33岁	90万	马梅洛迪日落	门将
+里卡多·戈斯 (Ricardo Goss)	南非	32岁	35万	西韦莱莱	门将
+西波·钱恩 (Sipho Chaine)	南非	29岁	140万	奥兰多海盗	门将
+库利索·穆达乌 (Khuliso Mudau)	南非	30岁	120万	马梅洛迪日落	后卫
+恩科西纳蒂·西比西 (Nkosinathi Sibisi)	南非	30岁	160万	奥兰多海盗	后卫
+伊梅·奥孔 (Ime Okon)	南非	22岁	200万	汉诺威96	后卫
+库卢马尼·恩达马内 (Khulumani Ndamane)	南非	24岁	80万	马梅洛迪日落	后卫
+奥布雷·莫迪巴 (Aubrey Modiba)	南非	30岁	180万	马梅洛迪日落	后卫
+姆贝凯泽利·姆博卡齐 (Mbekezeli Mbokazi)	南非	20岁	250万	芝加哥火焰	后卫
+萨穆凯洛·卡比尼 (Samukele Kabini)	南非	27岁	200万	莫尔德FK	后卫
+塔邦·马图鲁迪 (Thabang Matuludi)	南非	26岁	90万	波洛夸内城	后卫
+奥尔韦图·马卡尼亚 (Olwethu Makhanya)	南非	28岁	200万	费城联合	后卫
+布拉德利·克罗斯 (Bradley Cross)	南非	25岁	—	凯撒酋长	后卫
+卡莫盖洛·塞贝莱贝莱 (Kamogelo Sebelebele)	南非	25岁	85万	奥兰多海盗	后卫
+泰博霍·莫库纳 (Teboho Mokoena)	南非	29岁	250万	马梅洛迪日落	中场
+塔伦特·姆巴塔 (Talente Mbatha)	南非	24岁	160万	奥兰多海盗	中场
+斯费费洛·西索莱 (Sphephelo Sithole)	南非	27岁	60万	通德拉	中场
+杰登·亚当斯 (Jayden Adams)	南非	25岁	140万	马梅洛迪日落	中场
+奥斯温·阿波利斯 (Oswin Appollis)	南非	24岁	200万	奥兰多海盗	前锋
+伊克拉姆·雷纳斯 (Iqraam Rayners)	南非	30岁	300万	马梅洛迪日落	前锋
+切潘·莫雷米 (Tshepang Moremi)	南非	24岁	100万	奥兰多海盗	前锋
+埃维登斯·马科戈帕 (Evidence Makgopa)	南非	26岁	120万	奥兰多海盗	前锋
+莱尔·福斯特 (Lyle Foster)	南非	25岁	1000万	伯恩利	前锋
+雷莱博希莱·莫福肯 (Relebohile Mofokeng)	南非	21岁	200万	奥兰多海盗	前锋
+滕巴·兹瓦内 (Themba Zwane)	南非	36岁	30万	马梅洛迪日落	前锋
+塔佩洛·马塞科 (Thapelo Maseko)	南非	24岁	75万	AEL利马索尔	前锋
+金承奎 (Kim Seung-gyu)	韩国	35岁	60万	FC东京	门将
+赵贤祐 (Jo Hyeon-woo)	韩国	34岁	70万	蔚山HD	门将
+宋范根 (Song Bum-keun)	韩国	28岁	100万	全北现代	门将
+金玟哉 (Kim Min-jae)	韩国	29岁	2500万	拜仁慕尼黑	后卫
+曹侑珉 (Cho Yu-min)	韩国	29岁	180万	沙迦	后卫
+李韩汎 (Lee Han-beom)	韩国	24岁	180万	中日德兰	后卫
+李期奕 (Lee Ki-hyeok)	韩国	25岁	60万	江原FC	后卫
+金太炫 (Kim Tae-hyeon)	韩国	26岁	70万	鹿岛鹿角	后卫
+李太锡 (Lee Tae-seok)	韩国	23岁	150万	奥地利维也纳	后卫
+薛英佑 (Seol Young-woo)	韩国	27岁	500万	贝尔格莱德红星	后卫
+延斯·卡斯特罗普 (Jens Castrop)	韩国	22岁	600万	门兴格拉德巴赫	后卫
+金纹奂 (Kim Moon-hwan)	韩国	30岁	80万	大田韩亚市民	后卫
+朴镇燮 (Park Jin-seop)	韩国	30岁	100万	浙江	中场
+杨贤俊 (Yang Hyun-jun)	韩国	23岁	300万	凯尔特人	中场
+白昇浩 (Paik Seung-ho)	韩国	29岁	250万	伯明翰	中场
+黄仁范 (Hwang In-beom)	韩国	29岁	800万	费耶诺德	中场
+李东炅 (Lee Dong-gyeong)	韩国	28岁	160万	蔚山HD	中场
+金镇圭 (Kim Jin-gyu)	韩国	28岁	120万	全北现代	中场
+裴峻浩 (Bae Jun-ho)	韩国	22岁	300万	斯托克城	中场
+严智星 (Um Ji-sung)	韩国	24岁	140万	斯旺西	中场
+黄喜灿 (Hwang Hee-chan)	韩国	30岁	800万	狼队	中场
+李在城 (Lee Jae-sung)	韩国	33岁	200万	美因茨	中场
+李刚仁 (Lee Kang-in)	韩国	25岁	2800万	巴黎圣日耳曼	中场
+孙兴慜 (Son Heung-min)	韩国	33岁	1700万	洛杉矶FC	前锋
+吴贤揆 (Oh Hyeon-gyu)	韩国	25岁	1500万	贝西克塔斯	前锋
+曹圭成 (Cho Gue-sung)	韩国	28岁	300万	中日德兰	前锋
+卢卡什·霍尔尼切克 (Lukáš Horníček)	捷克	24岁	1800万	布拉加	门将
+马泰·科瓦日 (Matěj Kovář)	捷克	25岁	800万	埃因霍温	门将
+因德日赫·斯塔涅克 (Jindřich Staněk)	捷克	30岁	200万	布拉格斯拉维亚	门将
+弗拉迪米尔·曹法尔 (Vladimír Coufal)	捷克	33岁	250万	霍芬海姆	后卫
+大卫·道杰拉 (David Doudera)	捷克	28岁	350万	布拉格斯拉维亚	后卫
+托马斯·霍莱什 (Tomáš Holeš)	捷克	33岁	100万	布拉格斯拉维亚	后卫
+罗宾·赫拉纳奇 (Robin Hranáč)	捷克	26岁	1000万	霍芬海姆	后卫
+斯捷潘·哈劳佩克 (Štěpán Chaloupek)	捷克	22岁	1000万	布拉格斯拉维亚	后卫
+大卫·尤拉塞克 (David Jurásek)	捷克	25岁	500万	布拉格斯拉维亚	后卫
+拉迪斯拉夫·克雷伊奇 (Ladislav Krejčí)	捷克	27岁	2200万	狼队	后卫
+雅罗斯拉夫·泽莱尼 (Jaroslav Zelený)	捷克	33岁	60万	布拉格斯巴达	后卫
+大卫·齐马 (David Zima)	捷克	25岁	700万	布拉格斯拉维亚	后卫
+卢卡什·切尔夫 (Lukáš Červ)	捷克	25岁	600万	比尔森胜利	中场
+弗拉基米尔·达里达 (Vladimír Darida)	捷克	35岁	37.5万	赫拉德茨克拉洛韦	中场
+卢卡什·普罗沃德 (Lukáš Provod)	捷克	29岁	800万	布拉格斯拉维亚	中场
+米哈尔·萨迪莱克 (Michal Sadílek)	捷克	27岁	800万	布拉格斯拉维亚	中场
+胡戈·索胡雷克 (Hugo Sochůrek)	捷克	17岁	350万	布拉格斯巴达	中场
+亚历山大·索伊卡 (Alexandr Sojka)	捷克	24岁	230万	比尔森胜利	中场
+托马斯·绍切克 (Tomáš Souček)	捷克	31岁	1200万	西汉姆联	中场
+帕维尔·舒尔茨 (Pavel Šulc)	捷克	25岁	2000万	里昂	中场
+丹尼斯·维辛斯基 (Denis Višinský)	捷克	22岁	300万	比尔森胜利	中场
+亚当·赫洛热克 (Adam Hložek)	捷克	23岁	1000万	霍芬海姆	前锋
+托马斯·绍里 (Tomáš Chorý)	捷克	31岁	270万	布拉格斯拉维亚	前锋
+莫伊米尔·希季尔 (Mojmír Chytil)	捷克	27岁	400万	布拉格斯拉维亚	前锋
+帕特里克·希克 (Patrik Schick)	捷克	30岁	1800万	勒沃库森	前锋
+扬·库赫塔 (Jan Kuchta)	捷克	29岁	270万	布拉格斯巴达	前锋
+达尼·圣克莱尔 (Dayne St. Clair)	加拿大	28岁	350万	迈阿密国际	门将
+马克西姆·克雷波 (Maxime Crépeau)	加拿大	32岁	200万	奥兰多城	门将
+欧文·古德曼 (Owen Goodman)	加拿大	22岁	55万	水晶宫	门将
+阿方索·戴维斯 (Alphonso Davies)	加拿大	25岁	4000万	拜仁慕尼黑	后卫
+莫伊塞·邦比托 (Moïse Bombito)	加拿大	26岁	800万	尼斯	后卫
+阿利斯泰·约翰斯顿 (Alistair Johnston)	加拿大	27岁	800万	凯尔特人	后卫
+阿尔菲·琼斯 (Alfie Jones)	加拿大	28岁	600万	米德尔斯堡	后卫
+尼科·西古尔 (Niko Sigur)	加拿大	22岁	400万	哈伊杜克	后卫
+德里克·科尼利厄斯 (Derek Cornelius)	加拿大	28岁	250万	格拉斯哥流浪者	后卫
+乔尔·沃特曼 (Joel Waterman)	加拿大	30岁	250万	芝加哥火焰	后卫
+扎卡里·德富热罗勒 (Zachary DeFougerolles)	加拿大	22岁	100万	登德	后卫
+里奇·拉尔贾 (Richie Laryea)	加拿大	31岁	100万	多伦多FC	后卫
+伊斯梅尔·科内 (Ismaël Koné)	加拿大	24岁	2500万	萨索洛	中场
+泰琼·布坎南 (Tajon Buchanan)	加拿大	27岁	1200万	比利亚雷亚尔	中场
+斯蒂芬·欧斯塔基奥 (Stephen Eustáquio)	加拿大	29岁	700万	洛杉矶FC	中场
+内森·萨利巴 (Nathan Saliba)	加拿大	22岁	600万	安德莱赫特	中场
+阿里·艾哈迈德 (Ali Ahmed)	加拿大	25岁	500万	诺维奇	中场
+马塞洛·弗洛雷斯 (Marcelo Flores)	加拿大	22岁	450万	老虎大学	中场
+雅各布·沙费尔伯格 (Jacob Shaffelburg)	加拿大	26岁	300万	洛杉矶FC	中场
+利亚姆·米勒 (Liam Millar)	加拿大	26岁	300万	赫尔城	中场
+乔纳森·奥索里奥 (Jonathan Osorio)	加拿大	33岁	120万	多伦多FC	中场
+拉尔夫·乔涅雷 (Ralph Choniere)	加拿大	—	80万	洛杉矶FC	中场
+乔纳森·戴维 (Jonathan David)	加拿大	26岁	3000万	尤文图斯	前锋
+普罗米斯·戴维 (Promise David)	加拿大	24岁	1700万	圣吉罗斯联合	前锋
+泰肖恩·奥卢瓦塞伊 (Tayshawn Oluwaseyi)	加拿大	25岁	800万	比利亚雷亚尔	前锋
+西尔·拉林 (Cyle Larin)	加拿大	31岁	250万	南安普顿	前锋
+尼古拉·瓦西里 (Nikola Vasilj)	波黑	30岁	100万	圣保利	门将
+马丁·兹洛米斯利奇 (Martin Zlomislić)	波黑	27岁	80万	里耶卡	门将
+奥斯曼·哈季基奇 (Osman Hadžikić)	波黑	26岁	50万	斯拉文贝鲁波	门将
+塞亚德·科拉希纳茨 (Sead Kolašinac)	波黑	32岁	1500万	亚特兰大	后卫
+阿马尔·德迪奇 (Amar Dedić)	波黑	23岁	1200万	本菲卡	后卫
+尼哈德·穆亚基奇 (Nihad Mujakić)	波黑	27岁	250万	加济安泰普	后卫
+尼克拉·卡蒂奇 (Nikola Katić)	波黑	29岁	300万	沙尔克04	后卫
+塔里克·穆哈雷莫维奇 (Tarik Muharemović)	波黑	23岁	2000万	萨索洛	后卫
+斯捷潘·拉德里季奇 (Stjepan Radeljić)	波黑	28岁	350万	里耶卡	后卫
+丹尼斯·哈迪卡杜尼克 (Denis Hadžikadunić)	波黑	27岁	450万	桑普多利亚	后卫
+尼达尔·切利克 (Nidal Čelik)	波黑	25岁	600万	朗斯	后卫
+阿米尔·哈吉艾哈迈托维奇 (Amir Hadžiahmetović)	波黑	29岁	400万	赫尔城	中场
+伊万·舒尼奇 (Ivan Šunjić)	波黑	29岁	300万	帕福斯	中场
+伊万·巴希奇 (Ivan Bašić)	波黑	24岁	200万	阿斯塔纳	中场
+泽尼斯·布尔尼奇 (Zenis Burnić)	波黑	28岁	250万	卡尔斯鲁厄	中场
+埃尔明·马赫米奇 (Ermin Mahmić)	波黑	26岁	180万	利贝雷茨	中场
+本亚明·塔希罗维奇 (Benjamin Tahirović)	波黑	23岁	500万	布隆德比	中场
+阿马尔·梅米奇 (Amar Memić)	波黑	24岁	350万	比尔森胜利	中场
+阿尔明·吉戈维奇 (Armin Gigović)	波黑	24岁	400万	年轻人	中场
+克里姆·阿拉伊贝戈维奇 (Kerim Alajbegović)	波黑	18岁	350万	萨尔茨堡红牛	中场
+埃斯米尔·巴伊拉克塔雷维奇 (Esmir Bajraktarević)	波黑	21岁	600万	埃因霍温	前锋
+埃尔梅丁·德米罗维奇 (Ermedin Demirović)	波黑	28岁	2200万	斯图加特	前锋
+约沃·卢基奇 (Jovo Lukić)	波黑	27岁	300万	克卢日大学	前锋
+萨梅德·巴日达尔 (Samed Baždar)	波黑	22岁	350万	雅盖隆尼亚	前锋
+哈里斯·塔巴科维奇 (Haris Tabaković)	波黑	31岁	500万	门兴格拉德巴赫	前锋
+埃丁·哲科 (Edin Džeko)	波黑	40岁	150万	沙尔克04	前锋
+马穆德·阿布纳德 (Mahmoud Abunada)	卡塔尔	25岁	40万	赖扬	门将
+梅萨尔·巴沙姆 (Meshaal Barsham)	卡塔尔	28岁	70万	多哈萨德	门将
+萨拉赫·扎卡里亚 (Salah Zakaria)	卡塔尔	25岁	40万	杜海勒	门将
+阿尤布·阿莱维 (Ayoub Alawi)	卡塔尔	20岁	37.5万	加拉法	后卫
+布阿莱姆·胡希 (Boualem Khoukhi)	卡塔尔	35岁	20万	多哈萨德	后卫
+霍曼·艾哈迈德 (Homam Ahmed)	卡塔尔	26岁	50万	莱昂内萨	后卫
+卢卡斯·门德斯 (Lucas Mendes)	卡塔尔	35岁	35万	沃克拉	后卫
+伊萨·拉耶 (Issa Laye)	卡塔尔	27岁	20万	卢塞尔SC	后卫
+佩德罗·米格尔 (Pedro Miguel)	卡塔尔	35岁	15万	多哈萨德	后卫
+苏丹·布雷克 (Sultan Al Brake)	卡塔尔	29岁	30万	杜海勒	后卫
+哈希米·侯赛因 (Hashimi Hussain)	卡塔尔	26岁	25万	阿拉比SC	后卫
+阿西姆·马迪博 (Assim Madibo)	卡塔尔	29岁	35万	沃克拉	中场
+阿卜杜勒阿齐兹·哈特姆 (Abdulaziz Hatem)	卡塔尔	35岁	25万	赖扬	中场
+艾哈迈德·法特希 (Ahmed Fathi)	卡塔尔	33岁	25万	阿拉比SC	中场
+卡里姆·布迪亚夫 (Karim Boudiaf)	卡塔尔	35岁	17.5万	杜海勒	中场
+贾西姆·阿卜杜勒萨拉姆 (Jassim Abdulsalam)	卡塔尔	23岁	50万	赖扬	中场
+穆罕默德·马奈 (Mohammed Manea)	卡塔尔	25岁	50万	北部体育	中场
+艾哈迈德·贾内希 (Ahmed Al Janhi)	卡塔尔	24岁	50万	加拉法	前锋
+艾哈迈德·阿拉丁 (Ahmed Alaa)	卡塔尔	33岁	30万	赖扬	前锋
+阿克拉姆·阿菲夫 (Akram Afif)	卡塔尔	29岁	800万	多哈萨德	前锋
+莫埃兹·阿里 (Almoez Ali)	卡塔尔	29岁	250万	杜海勒	前锋
+埃德米尔森·儒尼奥尔 (Edmilson Junior)	卡塔尔	31岁	180万	杜海勒	前锋
+哈桑·海多斯 (Hassan Al-Haydos)	卡塔尔	35岁	30万	多哈萨德	前锋
+穆罕默德·蒙塔里 (Mohammed Muntari)	卡塔尔	32岁	20万	加拉法	前锋
+塔赫辛·贾姆希德 (Tahsin Al-Jamshid)	卡塔尔	23岁	20万	杜海勒	前锋
+优素福·阿卜杜里萨格 (Yusuf Abdurisag)	卡塔尔	26岁	27.5万	沃克拉	前锋
+格雷戈·科贝尔 (Gregor Kobel)	瑞士	28岁	4000万	多特蒙德	门将
+约纳斯·姆沃戈 (Jonas Omlin)	瑞士	32岁	300万	洛里昂	门将
+马文·凯勒 (Marvin Keller)	瑞士	23岁	700万	年轻人	门将
+曼努埃尔·阿坎吉 (Manuel Akanji)	瑞士	30岁	1800万	国际米兰	后卫
+尼科·埃尔维迪 (Nico Elvedi)	瑞士	29岁	800万	门兴格拉德巴赫	后卫
+米罗·穆海姆 (Miro Muheim)	瑞士	27岁	500万	汉堡	后卫
+里卡多·罗德里格斯 (Ricardo Rodriguez)	瑞士	33岁	150万	皇家贝蒂斯	后卫
+西尔万·威德默 (Silvan Widmer)	瑞士	33岁	80万	美因茨	后卫
+莱昂尼达斯·斯特吉奥 (Leonidas Stergiou)	瑞士	24岁	1000万	斯图加特	后卫
+奥雷莱·阿门达 (Aurèle Amenda)	瑞士	21岁	800万	法兰克福	后卫
+埃雷·居马尔特 (Eray Cömert)	瑞士	28岁	250万	瓦伦西亚	后卫
+格拉尼特·扎卡 (Granit Xhaka)	瑞士	33岁	1000万	桑德兰	中场
+约翰·曼赞比 (Johan Manzambi)	瑞士	21岁	5000万	弗赖堡	中场
+雷莫·弗鲁勒 (Remo Freuler)	瑞士	34岁	400万	博洛尼亚	中场
+德尼·扎卡里亚 (Denis Zakaria)	瑞士	29岁	2500万	摩纳哥	中场
+亚沙里 (Yashari)	瑞士	20岁	3000万	AC米兰	中场
+吉布里尔·索乌 (Djibril Sow)	瑞士	29岁	750万	塞维利亚	中场
+米歇尔·埃比舍尔 (Michel Aebischer)	瑞士	29岁	450万	比萨	中场
+法比安·里德 (Fabian Rieder)	瑞士	24岁	800万	奥格斯堡	中场
+鲁文·巴尔加斯 (Ruben Vargas)	瑞士	27岁	1200万	塞维利亚	前锋
+布雷尔·恩博洛 (Breel Embolo)	瑞士	29岁	1200万	雷恩	前锋
+诺亚·奥卡福 (Noah Okafor)	瑞士	26岁	1800万	利兹联	前锋
+丹·恩多耶 (Dan Ndoye)	瑞士	25岁	3500万	诺丁汉森林	前锋
+泽基·阿姆杜尼 (Zeki Amdouni)	瑞士	24岁	900万	伯恩利	前锋
+塞德里克·伊滕 (Cedric Itten)	瑞士	29岁	180万	杜塞尔多夫	前锋
+法斯纳赫特 (Fasnacht)	瑞士	21岁	200万	伯尔尼年轻人	前锋
+阿利松 (Alisson)	巴西	33岁	1700万	利物浦	门将
+埃德松 (Ederson)	巴西	32岁	1300万	费内巴切	门将
+韦弗顿 (Weverton)	巴西	38岁	70万	格雷米奥	门将
+加布里埃尔 (Gabriel Magalhães)	巴西	28岁	7500万	阿森纳	后卫
+韦斯利 (Wesley)	巴西	22岁	4000万	罗马	后卫
+布雷默 (Bremer)	巴西	29岁	3500万	尤文图斯	后卫
+马尔基尼奥斯 (Marquinhos)	巴西	32岁	3000万	巴黎圣日耳曼	后卫
+罗杰·伊巴涅斯 (Roger Ibañez)	巴西	27岁	1700万	吉达国民	后卫
+里奥·佩雷拉 (Leo Pereira)	巴西	30岁	1000万	弗拉门戈	后卫
+道格拉斯·桑托斯 (Douglas Santos)	巴西	32岁	800万	泽尼特	后卫
+达尼洛 (Danilo)	巴西	34岁	250万	弗拉门戈	后卫
+阿莱克斯·桑德罗 (Alex Sandro)	巴西	35岁	150万	弗拉门戈	后卫
+布鲁诺·吉马良斯 (Bruno Guimarães)	巴西	28岁	7500万	纽卡斯尔联	中场
+卢卡斯·帕奎塔 (Lucas Paquetá)	巴西	28岁	3500万	弗拉门戈	中场
+达尼洛·桑托斯 (Danilo Santos)	巴西	25岁	2400万	博塔弗戈	中场
+法比尼奥 (Fabinho)	巴西	32岁	1300万	吉达联合	中场
+卡塞米罗 (Casemiro)	巴西	34岁	800万	曼联	中场
+维尼修斯 (Vinícius Júnior)	巴西	25岁	1.5亿	皇家马德里	前锋
+拉菲尼亚 (Raphinha)	巴西	29岁	8000万	巴塞罗那	前锋
+马特乌斯·库尼亚 (Matheus Cunha)	巴西	27岁	7000万	曼联	前锋
+伊戈尔·蒂亚戈 (Igor Thiago)	巴西	24岁	5000万	布伦特福德	前锋
+马丁内利 (Gabriel Martinelli)	巴西	24岁	4500万	阿森纳	前锋
+拉扬 (Rayan)	巴西	19岁	4000万	伯恩茅斯	前锋
+恩德里克 (Endrick)	巴西	19岁	3500万	里昂	前锋
+路易斯·恩里克 (Luiz Henrique)	巴西	25岁	2400万	泽尼特	前锋
+内马尔 (Neymar)	巴西	34岁	1000万	桑托斯	前锋
+布努 (Yassine Bounou)	摩洛哥	35岁	350万	利雅得新月	门将
+穆尼尔·穆罕默德 (Munir El Kajoui)	摩洛哥	37岁	70万	贝尔卡尼	门将
+塔格诺提 (Ahmed Reda Tagnaouti)	摩洛哥	30岁	80万	拉巴特皇家武装	门将
+阿什拉夫 (Achraf Hakimi)	摩洛哥	27岁	8000万	巴黎圣日耳曼	后卫
+马兹拉维 (Noussair Mazraoui)	摩洛哥	28岁	2000万	曼联	后卫
+阿格德 (Nayef Aguerd)	摩洛哥	30岁	2000万	马赛	后卫
+埃尔瓦赫迪 (Soufiane El Ouahdi)	摩洛哥	24岁	1500万	亨克	后卫
+里亚德 (Chadi Riad)	摩洛哥	23岁	1200万	水晶宫	后卫
+萨拉赫·埃丁 (Salah-Eddine)	摩洛哥	22岁	1200万	埃因霍温	后卫
+迪奥普 (Mamadou Diop)	摩洛哥	25岁	1000万	富勒姆	后卫
+贝拉马里 (Younes Belammari)	摩洛哥	27岁	120万	拉加竞技	后卫
+哈尔哈尔 (Oussama El Hilali)	摩洛哥	22岁	300万	梅赫伦	后卫
+布阿迪 (Ayyoub Bouaddi)	摩洛哥	18岁	5000万	里尔	中场
+布拉欣·迪亚斯 (Brahim Díaz)	摩洛哥	26岁	3500万	皇家马德里	中场
+埃尔哈努斯 (Bilal El Khannouss)	摩洛哥	22岁	3200万	斯图加特	中场
+塞巴里 (Ismael Saibari)	摩洛哥	25岁	3200万	埃因霍温	中场
+埃扎卢利 (Abde Ezzalzouli)	摩洛哥	24岁	3000万	皇家贝蒂斯	中场
+穆拉贝特 (Iliesse Mourabit)	摩洛哥	—	1800万	斯特拉斯堡	中场
+艾纳维 (Oussama El Azzouzi)	摩洛哥	24岁	2000万	罗马	中场
+阿姆拉巴特 (Sofyan Amrabat)	摩洛哥	29岁	1200万	皇家贝蒂斯	中场
+奥纳西 (Azzedine Ounahi)	摩洛哥	26岁	1000万	赫罗纳	中场
+塔尔比 (Mohamed Taïbi)	摩洛哥	24岁	2500万	桑德兰	前锋
+卡埃比 (Ayoub El Kaabi)	摩洛哥	32岁	500万	奥林匹亚科斯	前锋
+拉希米 (Soufiane Rahimi)	摩洛哥	29岁	600万	阿尔艾因	前锋
+亚辛 (Yassin)	摩洛哥	—	1000万	斯特拉斯堡	前锋
+阿迈穆尼-埃奇古亚布 (Amine Et Taïbi)	摩洛哥	—	700万	法兰克福	前锋
+普拉西德 (Johny Placide)	海地	38岁	15万	巴斯蒂亚	门将
+亚历山大·皮埃尔 (Alexandre Pierre)	海地	25岁	50万	索肖	门将
+迪韦尔热 (Josué Duverger)	海地	26岁	5万	科布伦茨	门将
+阿尔库斯 (Carlens Arcus)	海地	29岁	180万	昂热	后卫
+杜维尔 (Jean-Kévin Duverne)	海地	28岁	200万	根特	后卫
+德尔克鲁瓦 (Hannes Delcroix)	海地	27岁	200万	卢加诺	后卫
+波冈 (Wilguens Paugain)	海地	—	60万	威尔郡	后卫
+里卡多·阿德 (Ricardo Ade)	海地	—	30万	基多大学	后卫
+基托·泰尔蒙西 (Keeto Thermoncy)	海地	—	2.5万	伯尔尼年轻人	后卫
+埃克斯佩里恩塞 (Martin Expérience)	海地	—	40万	南锡	后卫
+杜克-拉克鲁瓦 (Duke Lacroix)	海地	—	12.5万	科罗拉多泉	后卫
+贝勒加德 (Jean-Ricner Bellegarde)	海地	27岁	1600万	狼队	中场
+卡西米尔 (Josué Casimir)	海地	24岁	350万	欧塞尔	中场
+让-雅克 (Danley Jean Jacques)	海地	25岁	300万	费城联合	中场
+莱弗顿·皮埃尔 (Leverton Pierre)	海地	—	20万	维泽拉	中场
+多米尼克·西蒙 (Dominique Simon)	海地	—	22.5万	扑雷索夫	中场
+伍登斯基·皮埃尔 (Woodensky Pierre)	海地	20岁	0	雷亚尔希望	中场
+卡尔·圣泰 (Carl Fred Sainte)	海地	—	12.5万	埃尔帕索机车	中场
+伊西多尔 (Wilson Isidor)	海地	25岁	1800万	桑德兰	前锋
+皮埃罗 (Frantzdy Pierrot)	海地	30岁	250万	里泽体育	前锋
+迪德森 (Don Deedson Louicius)	海地	—	120万	达拉斯	前锋
+伦尼·约瑟夫 (Lenny Joseph)	海地	—	120万	费伦茨瓦罗斯	前锋
+纳松 (Duckens Nazon)	海地	32岁	90万	德黑兰独立	前锋
+普罗维登斯 (Ruben Providence)	海地	24岁	30万	阿尔梅勒城	前锋
+亚辛·福琼 (Yassin Fortune)	海地	27岁	20万	维泽拉	前锋
+埃蒂安 (Derrick Etienne)	海地	29岁	80万	多伦多FC	前锋
+克雷格·戈登 (Craig Gordon)	苏格兰	43岁	5万	哈茨	门将
+安格斯·冈恩 (Angus Gunn)	苏格兰	30岁	150万	诺丁汉森林	门将
+利亚姆·凯利 (Liam Kelly)	苏格兰	30岁	80万	流浪者	门将
+罗伯逊 (Andy Robertson)	苏格兰	32岁	1000万	利物浦	后卫
+阿伦·希基 (Aaron Hickey)	苏格兰	23岁	1600万	布伦特福德	后卫
+内森·帕特森 (Nathan Patterson)	苏格兰	24岁	1000万	埃弗顿	后卫
+蒂尔尼 (Kieran Tierney)	苏格兰	28岁	800万	凯尔特人	后卫
+斯科特·麦克纳 (Scott McKenna)	苏格兰	29岁	400万	萨格勒布迪纳摩	后卫
+约翰·苏塔 (John Souttar)	苏格兰	29岁	300万	哈茨	后卫
+杰克·亨德利 (Jack Hendry)	苏格兰	30岁	250万	达曼协作	后卫
+海亚姆 (Dom Hyam)	苏格兰	30岁	250万	雷克瑟姆	后卫
+格兰特·汉利 (Grant Hanley)	苏格兰	34岁	35万	希伯尼安	后卫
+安东尼·罗尔斯顿 (Anthony Ralston)	苏格兰	27岁	150万	凯尔特人	后卫
+麦克托米奈 (Scott McTominay)	苏格兰	29岁	4500万	那不勒斯	中场
+刘易斯·弗格森 (Lewis Ferguson)	苏格兰	26岁	1800万	博洛尼亚	中场
+麦金 (John McGinn)	苏格兰	31岁	1500万	阿斯顿维拉	中场
+本·多克 (Ben Gannon-Doak)	苏格兰	20岁	1600万	伯恩茅斯	中场
+瑞安·克里斯蒂 (Ryan Christie)	苏格兰	31岁	900万	伯恩茅斯	中场
+比利·吉尔摩 (Billy Gilmour)	苏格兰	24岁	2000万	那不勒斯	中场
+麦克莱恩 (Kenny McLean)	苏格兰	34岁	50万	诺维奇	中场
+芬德利·柯蒂斯 (Findlay Curtis)	苏格兰	19岁	90万	基尔马诺克	中场
+切·亚当斯 (Ché Adams)	苏格兰	29岁	850万	都灵	前锋
+乔治·赫斯特 (George Hirst)	苏格兰	27岁	800万	伊普斯维奇	前锋
+罗斯·斯图尔特 (Ross Stewart)	苏格兰	29岁	280万	南安普顿	前锋
+尚克兰 (Lawrence Shankland)	苏格兰	30岁	280万	哈茨	前锋
+戴克斯 (Lyndon Dykes)	苏格兰	30岁	100万	查尔顿	前锋
+马特·特纳 (Matt Turner)	美国	32岁	250万	新英格兰革命	门将
+马特·弗里兹 (Matt Freese)	美国	27岁	200万	纽约城	门将
+克里斯·布雷迪 (Chris Brady)	美国	22岁	250万	芝加哥火焰	门将
+克里斯·理查兹 (Chris Richards)	美国	26岁	2500万	水晶宫	后卫
+蒂姆·里姆 (Tim Ream)	美国	38岁	20万	夏洛特FC	后卫
+马克·麦肯齐 (Mark McKenzie)	美国	27岁	600万	图卢兹	后卫
+奥斯顿·托斯蒂 (Auston Trusty)	美国	28岁	600万	凯尔特人	后卫
+米尔斯·罗宾森 (Miles Robinson)	美国	29岁	350万	辛辛那提	后卫
+安东尼·罗宾逊 (Antonee Robinson)	美国	29岁	2500万	富勒姆	后卫
+塞吉诺·德斯特 (Sergiño Dest)	美国	26岁	1800万	埃因霍温	后卫
+亚历克斯·弗里曼 (Alex Freeman)	美国	21岁	350万	比利亚雷亚尔	后卫
+乔·斯卡利 (Joe Scally)	美国	23岁	700万	门兴格拉德巴赫	后卫
+马克斯·阿夫斯滕 (Max Arfsten)	美国	25岁	450万	哥伦布机员	后卫
+泰勒·亚当斯 (Tyler Adams)	美国	27岁	2500万	伯恩茅斯	中场
+韦斯顿·麦肯尼 (Weston McKennie)	美国	27岁	3000万	尤文图斯	中场
+克里斯蒂安·罗尔丹 (Cristian Roldan)	美国	30岁	350万	西雅图海湾人	中场
+塞巴斯蒂安·贝哈尔特 (Sebastian Berhalter)	美国	25岁	500万	温哥华白浪	中场
+亚历杭德罗·赞德哈斯 (Alejandro Zendejas)	美国	28岁	1000万	墨西哥美洲	中场
+马利克·蒂尔曼 (Malik Tillman)	美国	24岁	3000万	勒沃库森	中场
+布伦登·阿隆森 (Brenden Aaronson)	美国	25岁	1500万	利兹联	中场
+克里斯蒂安·普利西奇 (Christian Pulisic)	美国	27岁	4000万	AC米兰	前锋
+蒂莫西·维阿 (Timothy Weah)	美国	26岁	2000万	马赛	前锋
+吉奥·雷纳 (Gio Reyna)	美国	24岁	400万	门兴格拉德巴赫	前锋
+福拉林·巴洛贡 (Folarin Balogun)	美国	24岁	4000万	摩纳哥	前锋
+里卡多·佩皮 (Ricardo Pepi)	美国	23岁	3000万	埃因霍温	前锋
+哈吉·赖特 (Haji Wright)	美国	28岁	1400万	考文垂	前锋
+奥兰多·吉尔 (Orlando Gill)	巴拉圭	26岁	600万	圣洛伦索	门将
+加斯东·奥利韦拉 (Gastón Olveira)	巴拉圭	33岁	50万	奥林匹亚	门将
+加蒂托·费尔南德斯 (Gatito Fernández)	巴拉圭	38岁	10万	波特诺山丘	门将
+胡安·卡塞雷斯 (Juan Cáceres)	巴拉圭	26岁	500万	莫斯科迪纳摩	后卫
+何塞·卡纳莱 (José Canale)	巴拉圭	29岁	220万	拉努斯	后卫
+法比安·巴尔武埃纳 (Fabián Balbuena)	巴拉圭	34岁	90万	格雷米奥	后卫
+奥马尔·阿尔德雷特 (Omar Alderete)	巴拉圭	29岁	1500万	桑德兰	后卫
+古斯塔沃·戈麦斯 (Gustavo Gómez)	巴拉圭	33岁	350万	帕尔梅拉斯	后卫
+亚历杭德罗·迈达纳 (Alejandro Maidana)	巴拉圭	28岁	250万	塔列雷斯	后卫
+儒尼奥尔·阿隆索 (Junior Alonso)	巴拉圭	33岁	150万	米内罗竞技	后卫
+古斯塔沃·贝拉斯克斯 (Gustavo Velázquez)	巴拉圭	35岁	40万	波特诺山丘	后卫
+布拉扬·奥赫达 (Braian Ojeda)	巴拉圭	25岁	350万	奥兰多城	中场
+达米安·博瓦迪利亚 (Damián Bobadilla)	巴拉圭	24岁	600万	圣保罗	中场
+安德烈斯·库巴斯 (Andrés Cubas)	巴拉圭	30岁	400万	温哥华白浪	中场
+迭戈·戈麦斯 (Diego Gómez)	巴拉圭	23岁	2500万	布莱顿	中场
+亚历杭德罗·罗梅罗·加马拉 (Alejandro Romero Gamarra)	巴拉圭	31岁	450万	艾因	中场
+毛里西奥·马加良斯 (Mauricio Magalhães)	巴拉圭	24岁	1500万	帕尔梅拉斯	中场
+马蒂亚斯·加拉尔萨 (Matías Galarza)	巴拉圭	24岁	300万	亚特兰大联	中场
+米格尔·阿尔米隆 (Miguel Almirón)	巴拉圭	32岁	900万	亚特兰大联	中场
+胡利奥·恩西索 (Julio Enciso)	巴拉圭	22岁	2500万	斯特拉斯堡	中场
+古斯塔沃·卡瓦列罗 (Gustavo Caballero)	巴拉圭	24岁	100万	朴茨茅斯	前锋
+加夫列尔·阿瓦洛斯 (Gabriel Ávalos)	巴拉圭	35岁	75万	独立	前锋
+伊西德罗·皮塔 (Isidro Pitta)	巴拉圭	26岁	750万	布拉甘蒂诺红牛	前锋
+亚历克斯·阿尔塞 (Álex Arce)	巴拉圭	29岁	350万	门多萨独立	前锋
+安东尼奥·萨纳夫里亚 (Antonio Sanabria)	巴拉圭	30岁	180万	克雷莫内塞	前锋
+拉蒙·索萨 (Ramón Sosa)	巴拉圭	26岁	1000万	帕尔梅拉斯	前锋
+马修·瑞安 (Mathew Ryan)	澳大利亚	34岁	550万	莱万特	门将
+保罗·伊佐 (Paul Izzo)	澳大利亚	31岁	50万	兰纳斯	门将
+帕特里克·比奇 (Patrick Beach)	澳大利亚	22岁	100万	墨尔本城	门将
+阿齐兹·比伊奇 (Aziz Behich)	澳大利亚	35岁	25万	墨尔本城	后卫
+乔丹·博斯 (Jordan Bos)	澳大利亚	23岁	1200万	费耶诺德	后卫
+卡梅伦·伯吉斯 (Cameron Burgess)	澳大利亚	30岁	150万	斯旺西	后卫
+亚历山德罗·奇尔卡蒂 (Alessandro Circati)	澳大利亚	22岁	1200万	帕尔马	后卫
+米洛斯·德格内克 (Milos Degenek)	澳大利亚	32岁	50万	希腊人竞技	后卫
+贾森·杰里亚 (Jason Geria)	澳大利亚	33岁	40万	新泻天鹅	后卫
+卢卡斯·赫林顿 (Lucas Herrington)	澳大利亚	23岁	150万	科罗拉多急流	后卫
+雅各布·伊塔利亚诺 (Jacob Italiano)	澳大利亚	24岁	60万	格拉茨AK	后卫
+哈里·苏塔 (Harry Souttar)	澳大利亚	27岁	350万	莱斯特城	后卫
+凯·特里温 (Kai Trewin)	澳大利亚	24岁	100万	纽约城	后卫
+卡梅伦·德夫林 (Cameron Devlin)	澳大利亚	27岁	200万	哈茨	中场
+艾丁·赫鲁斯蒂奇 (Ajdin Hrustic)	澳大利亚	29岁	60万	阿尔梅罗大力神	中场
+杰克逊·欧文 (Jackson Irvine)	澳大利亚	33岁	100万	圣保利	中场
+康纳·梅特卡夫 (Connor Metcalfe)	澳大利亚	26岁	150万	圣保利	中场
+艾登·奥尼尔 (Aiden O'Neill)	澳大利亚	27岁	300万	纽约城	中场
+保罗·奥孔-恩斯特勒 (Paul Okon-Engstler)	澳大利亚	21岁	120万	悉尼FC	中场
+内斯托里·伊兰昆达 (Nestory Irankunda)	澳大利亚	20岁	800万	沃特福德	前锋
+马修·莱基 (Mathew Leckie)	澳大利亚	35岁	30万	墨尔本城	前锋
+阿维·马比尔 (Awer Mabil)	澳大利亚	30岁	40万	卡斯迪隆	前锋
+穆罕默德·图雷 (Mohamed Toure)	澳大利亚	21岁	290万	诺维奇	前锋
+尼尚·韦卢皮莱 (Nishan Velupillay)	澳大利亚	25岁	65万	墨尔本胜利	前锋
+克里斯蒂安·沃尔帕托 (Cristian Volpato)	澳大利亚	22岁	1000万	萨索洛	前锋
+泰特·延吉 (Tate Yengi)	澳大利亚	24岁	25万	町田泽维亚	前锋
+乌古尔坎·恰基尔 (Uğurcan Çakır)	土耳其	29岁	1500万	加拉塔萨雷	门将
+阿勒泰·巴延德尔 (Altay Bayındır)	土耳其	28岁	700万	曼联	门将
+默特·古诺克 (Mert Günok)	土耳其	37岁	50万	费内巴切	门将
+瑟云聚 (Çağlar Söyüncü)	土耳其	30岁	350万	费内巴切	后卫
+阿卜杜勒克里姆·巴尔达克彻 (Abdülkerim Bardakcı)	土耳其	31岁	650万	加拉塔萨雷	后卫
+埃伦·埃尔马利 (Eren Elmalı)	土耳其	25岁	500万	加拉塔萨雷	后卫
+费尔迪·卡迪奥卢 (Ferdi Kadıoğlu)	土耳其	26岁	3000万	布莱顿	后卫
+德米拉尔 (Merih Demiral)	土耳其	28岁	1400万	吉达国民	后卫
+默特·穆尔杜 (Mert Müldür)	土耳其	27岁	700万	费内巴切	后卫
+卡巴克 (Ozan Kabak)	土耳其	26岁	1500万	霍芬海姆	后卫
+泽基·切利克 (Zeki Çelik)	土耳其	29岁	1400万	罗马	后卫
+萨梅特·阿卡丁 (Samet Akaydın)	土耳其	32岁	120万	里泽斯堡	后卫
+恰尔汗奥卢 (Hakan Çalhanoğlu)	土耳其	32岁	1600万	国际米兰	中场
+伊斯梅尔·尤克塞克 (İsmail Yüksek)	土耳其	27岁	1500万	费内巴切	中场
+卡安·艾汗 (Kaan Ayhan)	土耳其	31岁	150万	加拉塔萨雷	中场
+萨利赫·厄兹詹 (Salih Özcan)	土耳其	28岁	350万	多特蒙德	中场
+奥尔昆·科克库 (Orkun Kökçü)	土耳其	25岁	2500万	贝西克塔斯	中场
+居莱尔 (Arda Güler)	土耳其	21岁	9000万	皇家马德里	前锋
+巴勒什·阿尔佩尔·伊尔马兹 (Barış Alper Yılmaz)	土耳其	26岁	3000万	加拉塔萨雷	前锋
+乌尊 (Can Uzun)	土耳其	20岁	4500万	法兰克福	前锋
+德尼兹·居尔 (Deniz Gül)	土耳其	21岁	500万	波尔图	前锋
+伊尔凡·坎·卡赫韦奇 (İrfan Can Kahveci)	土耳其	30岁	300万	卡斯帕萨	前锋
+凯南·伊尔迪兹 (Kenan Yıldız)	土耳其	21岁	7500万	尤文图斯	前锋
+凯雷姆·阿克蒂尔克奥卢 (Kerem Aktürkoğlu)	土耳其	26岁	2000万	费内巴切	前锋
+尤努斯·阿克金 (Yunus Akgün)	土耳其	25岁	1800万	加拉塔萨雷	前锋
+奥古兹·艾丁 (Oğuz Aydın)	土耳其	25岁	700万	费内巴切	前锋
+埃米利亚诺·马丁内斯 (Emiliano Martínez)	阿根廷	33岁	1500万	阿斯顿维拉	门将
+赫罗尼莫·鲁利 (Gerónimo Rulli)	阿根廷	34岁	800万	马赛	门将
+胡安·穆索 (Juan Musso)	阿根廷	32岁	300万	马德里竞技	门将
+莱昂纳多·巴列尔迪 (Leonardo Balerdi)	阿根廷	27岁	1800万	马赛	后卫
+尼古拉斯·塔利亚菲科 (Nicolás Tagliafico)	阿根廷	33岁	500万	里昂	后卫
+冈萨洛·蒙铁尔 (Gonzalo Montiel)	阿根廷	29岁	450万	河床	后卫
+利桑德罗·马丁内斯 (Lisandro Martínez)	阿根廷	28岁	4000万	曼联	后卫
+克里斯蒂安·罗梅罗 (Cristian Romero)	阿根廷	28岁	5000万	托特纳姆热刺	后卫
+尼古拉斯·奥塔门迪 (Nicolás Otamendi)	阿根廷	38岁	100万	本菲卡	后卫
+法昆多·梅迪纳 (Facundo Medina)	阿根廷	27岁	1800万	马赛	后卫
+纳韦尔·莫利纳 (Nahuel Molina)	阿根廷	28岁	1500万	马德里竞技	后卫
+莱安德罗·帕雷德斯 (Leandro Paredes)	阿根廷	31岁	500万	博卡青年	中场
+罗德里戈·德保罗 (Rodrigo De Paul)	阿根廷	32岁	1500万	迈阿密国际	中场
+巴伦廷·巴尔科 (Valentín Barco)	阿根廷	21岁	3500万	斯特拉斯堡	中场
+乔瓦尼·洛塞尔索 (Giovani Lo Celso)	阿根廷	30岁	1000万	皇家贝蒂斯	中场
+埃塞基耶尔·帕拉西奥斯 (Exequiel Palacios)	阿根廷	27岁	2500万	勒沃库森	中场
+亚历克西斯·麦卡利斯特 (Alexis Mac Allister)	阿根廷	27岁	8000万	利物浦	中场
+恩佐·费尔南德斯 (Enzo Fernández)	阿根廷	25岁	9000万	切尔西	中场
+胡利安·阿尔瓦雷斯 (Julián Álvarez)	阿根廷	26岁	9000万	马德里竞技	前锋
+利昂内尔·梅西 (Lionel Messi)	阿根廷	38岁	1500万	迈阿密国际	前锋
+尼古拉斯·冈萨雷斯 (Nicolás González)	阿根廷	28岁	2400万	马德里竞技	前锋
+蒂亚戈·阿尔马达 (Thiago Almada)	阿根廷	25岁	2000万	马德里竞技	前锋
+朱利亚诺·西蒙尼 (Giuliano Simeone)	阿根廷	23岁	4000万	马德里竞技	前锋
+尼科·帕斯 (Nico Paz)	阿根廷	21岁	6500万	科莫	前锋
+何塞·曼努埃尔·洛佩斯 (José Manuel López)	阿根廷	25岁	2500万	帕尔梅拉斯	前锋
+劳塔罗·马丁内斯 (Lautaro Martínez)	阿根廷	28岁	8500万	国际米兰	前锋
+卢卡·齐达内 (Luca Zidane)	阿尔及利亚	28岁	100万	格拉纳达	门将
+乌萨马·本博特 (Oussama Benbot)	阿尔及利亚	27岁	85万	USM阿尔及尔	门将
+梅尔文·马斯蒂尔 (Melvin Mastil)	阿尔及利亚	26岁	25万	洛桑	门将
+拉菲克·贝尔加利 (Rafik Belghali)	阿尔及利亚	24岁	700万	维罗纳	后卫
+萨米尔·切尔吉 (Samir Chergui)	阿尔及利亚	25岁	300万	巴黎FC	后卫
+拉扬·艾特-努里 (Rayan Aït-Nouri)	阿尔及利亚	24岁	4000万	曼城	后卫
+贾万·哈贾姆 (Jaouen Hadjam)	阿尔及利亚	23岁	800万	年轻人	后卫
+艾萨·曼迪 (Aïssa Mandi)	阿尔及利亚	34岁	100万	里尔	后卫
+拉米·本塞拜尼 (Ramy Bensebaïni)	阿尔及利亚	31岁	700万	多特蒙德	后卫
+齐内丁·贝莱德 (Zineddine Belaïd)	阿尔及利亚	27岁	150万	USM阿尔及尔	后卫
+阿什拉夫·阿巴达 (Achref Abada)	阿尔及利亚	24岁	100万	ASO车拉幅	后卫
+穆罕默德·阿明·图盖 (Mohamed Tougai)	阿尔及利亚	26岁	130万	突尼斯希望	后卫
+侯塞姆·奥阿尔 (Houssem Aouar)	阿尔及利亚	28岁	800万	吉达联合	中场
+纳比尔·本塔莱布 (Nabil Bentaleb)	阿尔及利亚	31岁	500万	里尔	中场
+希沙姆·布达维 (Hicham Boudaoui)	阿尔及利亚	26岁	1200万	尼斯	中场
+法雷斯·柴比 (Farès Chaïbi)	阿尔及利亚	23岁	1500万	法兰克福	中场
+易卜拉欣·马扎 (Ibrahim Maza)	阿尔及利亚	20岁	4500万	勒沃库森	中场
+亚辛·蒂特拉维 (Yacine Titraoui)	阿尔及利亚	22岁	700万	巴拉特	中场
+拉米兹·泽鲁基 (Ramiz Zerrouki)	阿尔及利亚	28岁	650万	特温特	中场
+里亚德·马赫雷斯 (Riyad Mahrez)	阿尔及利亚	35岁	700万	吉达国民	前锋
+穆罕默德·阿穆拉 (Mohamed Amoura)	阿尔及利亚	25岁	2000万	沃尔夫斯堡	前锋
+纳迪尔·本布阿里 (Nadir Benbouali)	阿尔及利亚	24岁	120万	吉奥里	前锋
+阿迪尔·布尔比纳 (Adil Boulbina)	阿尔及利亚	25岁	300万	杜海勒	前锋
+法雷斯·盖杰米斯 (Farès Ghedjemis)	阿尔及利亚	24岁	550万	弗洛西诺内	前锋
+阿米内·古里 (Amine Gouiri)	阿尔及利亚	26岁	2800万	马赛	前锋
+阿尼斯·哈吉·穆萨 (Anis Hadj Moussa)	阿尔及利亚	24岁	2300万	费耶诺德	前锋
+亚历山大·施拉格 (Alexander Schlager)	奥地利	29岁	250万	萨尔茨堡红牛	门将
+弗洛里安·维格勒 (Florian Wiegele)	奥地利	27岁	180万	比尔森胜利	门将
+帕特里克·彭茨 (Patrick Pentz)	奥地利	29岁	220万	布隆德比	门将
+大卫·阿芬格鲁伯 (David Affengruber)	奥地利	25岁	900万	埃尔切	后卫
+凯文·丹索 (Kevin Danso)	奥地利	27岁	2000万	托特纳姆热刺	后卫
+斯特凡·波施 (Stefan Posch)	奥地利	29岁	550万	美因茨	后卫
+大卫·阿拉巴 (David Alaba)	奥地利	34岁	350万	皇家马德里	后卫
+菲利普·林哈特 (Philipp Lienhart)	奥地利	29岁	1200万	弗赖堡	后卫
+菲利普·姆维尼 (Phillipp Mwene)	奥地利	32岁	150万	美因茨	后卫
+亚历山大·普拉斯 (Alexander Prass)	奥地利	25岁	700万	霍芬海姆	后卫
+马尔科·弗里德尔 (Marco Friedl)	奥地利	28岁	1200万	云达不来梅	后卫
+泽弗尔·施拉格 (Xaver Schlager)	奥地利	28岁	1000万	RB莱比锡	中场
+尼古拉斯·塞沃尔德 (Nicolas Seiwald)	奥地利	25岁	2200万	RB莱比锡	中场
+马塞尔·萨比策 (Marcel Sabitzer)	奥地利	32岁	700万	多特蒙德	中场
+弗洛里安·格里利奇 (Florian Grillitsch)	奥地利	30岁	200万	布拉加	中场
+卡尔尼·丘库埃梅卡 (Carney Chukwuemeka)	奥地利	22岁	2000万	多特蒙德	中场
+罗马诺·施密德 (Romano Schmid)	奥地利	26岁	1500万	云达不来梅	中场
+克里斯托弗·鲍姆加特纳 (Christoph Baumgartner)	奥地利	26岁	3000万	RB莱比锡	中场
+康拉德·莱默尔 (Konrad Laimer)	奥地利	29岁	3200万	拜仁慕尼黑	中场
+帕特里克·维默尔 (Patrick Wimmer)	奥地利	25岁	1500万	沃尔夫斯堡	中场
+保罗·万纳尔 (Paul Wanner)	奥地利	20岁	1800万	埃因霍温	中场
+米夏埃尔·斯沃博达 (Michael Svoboda)	奥地利	27岁	300万	威尼斯	中场
+亚历山德罗·舍普夫 (Alessandro Schöpf)	奥地利	32岁	90万	沃尔夫斯贝格	中场
+马尔科·阿瑙托维奇 (Marko Arnautović)	奥地利	37岁	250万	贝尔格莱德红星	前锋
+米歇尔·格雷戈里施 (Michael Gregoritsch)	奥地利	32岁	150万	奥格斯堡	前锋
+萨萨·卡拉季奇 (Saša Kalajdžić)	奥地利	28岁	200万	林茨	前锋
+亚齐德·阿布·莱拉 (Yazid Abu Laila)	约旦	33岁	30万	侯赛因	门将
+阿卜杜拉·法霍里 (Abdallah Al Fakhouri)	约旦	23岁	25万	安曼团结	门将
+努尔·巴尼·阿泰耶 (Noor Bani Attiah)	约旦	25岁	25万	费萨里	门将
+穆罕默德·阿布·哈什 (Mohammad Abu Hashish)	约旦	25岁	45万	扎胡	后卫
+阿卜杜拉·纳西布 (Abdullah Nasib)	约旦	32岁	50万	扎乌拉	后卫
+胡萨姆·阿布·达哈卜 (Husam Abu Dahab)	约旦	28岁	35万	费萨里	后卫
+亚赞·阿拉伯 (Yazan Al-Arab)	约旦	30岁	100万	首尔FC	后卫
+穆罕默德·阿布·纳迪 (Mohammad Abualnadi)	约旦	28岁	22.5万	雪兰莪	后卫
+萨利姆·奥贝德 (Salim Obeid)	约旦	27岁	10万	侯赛因	后卫
+赛义德·罗桑 (Saed Al Rosan)	约旦	26岁	40万	侯赛因	后卫
+伊赫桑·哈达迪 (Ehsan Haddad)	约旦	32岁	35万	侯赛因	后卫
+阿纳斯·巴达维 (Anas Badawi)	约旦	26岁	17.5万	费萨里	后卫
+穆罕纳德·阿布·塔哈 (Muhannad Abu Taha)	约旦	26岁	45万	安曼团结	后卫
+阿米尔·贾穆斯 (Amer Jamous)	约旦	28岁	45万	扎乌拉	中场
+努尔·拉瓦比德 (Noor Al-Rawabdeh)	约旦	29岁	45万	雪兰莪	中场
+拉贾伊·阿耶德 (Rajaei Ayed)	约旦	32岁	35万	侯赛因	中场
+易卜拉欣·萨德 (Ibrahim Saadeh)	约旦	25岁	40万	扎胡	中场
+纳扎尔·拉什丹 (Nizar Al-Rashdan)	约旦	26岁	60万	卡塔尔SC	中场
+穆罕默德·达乌德 (Mohammad Daoud)	约旦	24岁	15万	安曼团结	中场
+穆罕默德·阿布·兹雷克 (Mohammad Abu Zraiq)	约旦	27岁	37.5万	拉加竞技	前锋
+阿里·奥尔万 (Ali Olwan)	约旦	26岁	80万	赛利亚	前锋
+穆萨·塔马里 (Mousa Al-Tamari)	约旦	29岁	1000万	雷恩	前锋
+奥德·法胡里 (Odeh Al Fakhouri)	约旦	28岁	35万	金字塔	前锋
+马哈茂德·马尔迪 (Mahmoud Al Mardi)	约旦	26岁	40万	侯赛因	前锋
+阿里·阿扎伊泽 (Ali Azaizeh)	约旦	25岁	20万	利雅得青年	前锋
+易卜拉欣·萨布拉 (Ibrahim Sabra)	约旦	20岁	50万	萨格勒布火车头	前锋
+迪奥戈·科斯塔 (Diogo Costa)	葡萄牙	26岁	4000万	波尔图	门将
+若泽·萨 (José Sá)	葡萄牙	33岁	500万	狼队	门将
+鲁伊·席尔瓦 (Rui Silva)	葡萄牙	32岁	700万	葡萄牙体育	门将
+迪奥戈·达洛特 (Diogo Dalot)	葡萄牙	27岁	3000万	曼联	后卫
+马特乌斯·努内斯 (Matheus Nunes)	葡萄牙	27岁	4500万	曼城	后卫
+塞梅多 (Nélson Semedo)	葡萄牙	32岁	700万	费内巴切	后卫
+若昂·坎塞洛 (João Cancelo)	葡萄牙	32岁	900万	巴塞罗那	后卫
+努诺·门德斯 (Nuno Mendes)	葡萄牙	23岁	7500万	巴黎圣日耳曼	后卫
+贡萨洛·伊纳西奥 (Gonçalo Inácio)	葡萄牙	24岁	4000万	葡萄牙体育	后卫
+雷纳托·韦加 (Renato Veiga)	葡萄牙	22岁	2500万	比利亚雷亚尔	后卫
+鲁本·迪亚斯 (Rúben Dias)	葡萄牙	29岁	6000万	曼城	后卫
+托马斯·阿劳若 (Tomás Araújo)	葡萄牙	24岁	2800万	本菲卡	后卫
+鲁本·内维斯 (Rúben Neves)	葡萄牙	29岁	2500万	利雅得新月	中场
+萨穆·科斯塔 (Samú Costa)	葡萄牙	25岁	1500万	马略卡	中场
+若昂·内维斯 (João Neves)	葡萄牙	21岁	1.1亿	巴黎圣日耳曼	中场
+维蒂尼亚 (Vitinha)	葡萄牙	26岁	1.1亿	巴黎圣日耳曼	中场
+布鲁诺·费尔南德斯 (Bruno Fernandes)	葡萄牙	31岁	4000万	曼联	中场
+贝尔纳多·席尔瓦 (Bernardo Silva)	葡萄牙	31岁	2700万	曼城	中场
+若昂·菲利克斯 (João Félix)	葡萄牙	26岁	2500万	利雅得胜利	前锋
+特林康 (Francisco Trincão)	葡萄牙	26岁	3500万	葡萄牙体育	前锋
+弗朗西斯科·孔塞桑 (Francisco Conceição)	葡萄牙	23岁	3000万	尤文图斯	前锋
+佩德罗·内托 (Pedro Neto)	葡萄牙	26岁	6000万	切尔西	前锋
+拉斐尔·莱奥 (Rafael Leão)	葡萄牙	27岁	6500万	AC米兰	前锋
+贡萨洛·格德斯 (Gonçalo Guedes)	葡萄牙	29岁	600万	皇家社会	前锋
+贡萨洛·拉莫斯 (Gonçalo Ramos)	葡萄牙	24岁	3500万	巴黎圣日耳曼	前锋
+克里斯蒂亚诺·罗纳尔多 (Cristiano Ronaldo)	葡萄牙	41岁	1200万	利雅得胜利	前锋
+蒂莫西·法尤卢 (Timothy Fayulu)	民主刚果	26岁	130万	FC诺亚	门将
+莱昂内尔·姆帕西 (Lionel Mpasi)	民主刚果	31岁	40万	勒阿弗尔	门将
+迈克·埃波洛 (Mike Epolo)	民主刚果	20岁	1050万	标准列日	门将
+万-比萨卡 (Aaron Wan-Bissaka)	民主刚果	28岁	1500万	西汉姆联	后卫
+热代翁·卡卢卢 (Gédéon Kalulu)	民主刚果	28岁	400万	艾里斯利马索尔	后卫
+卡延贝 (Elias Kalyembe)	民主刚果	31岁	48万	亨克	后卫
+马苏亚库 (Arthur Masuaku)	民主刚果	32岁	250万	朗斯	后卫
+卡普阿迪 (Gianni Kapuadi)	民主刚果	27岁	300万	维德祖罗兹	后卫
+布希里 (Emmanuel Biumla)	民主刚果	20岁	300万	昂热	后卫
+图安泽贝 (Axel Tuanzebe)	民主刚果	28岁	490万	伯恩利	后卫
+尚塞尔·姆本巴 (Chancel Mbemba)	民主刚果	31岁	250万	里尔	后卫
+巴图宾西卡 (Jonathan Bumbu)	民主刚果	26岁	15万	拉里萨	后卫
+诺亚·萨迪基 (Noah Sadiki)	民主刚果	21岁	3500万	桑德兰	中场
+萨穆勒·穆图萨米 (Samuel Moutoussamy)	民主刚果	29岁	280万	阿特罗米托斯	中场
+埃多·卡亚比 (Edo Kayembe)	民主刚果	27岁	330万	沃特福德	中场
+穆考 (Youssouf M'Changama)	民主刚果	35岁	30万	阿尔巴廷	中场
+皮克尔 (William Pikel)	民主刚果	—	—	西班牙人	中场
+姆布库 (Jean-Emmanuel Mboula)	民主刚果	—	—	蒙彼利埃	中场
+齐本加 (Nzinga Buingo)	民主刚果	—	—	卡斯迪隆	中场
+邦贡达 (Théo Bongonda)	民主刚果	30岁	400万	莫斯科斯巴达	中场
+加库尔·卡库塔 (Gael Kakuta)	民主刚果	34岁	30万	拉里萨	中场
+伊利亚 (Gianni Ilias)	民主刚果	—	—	阿拉尼亚体育	前锋
+梅耶尔 (Jonathan Mayer)	民主刚果	—	—	金字塔	前锋
+巴坎布 (Cédric Bakambu)	民主刚果	34岁	150万	皇家贝蒂斯	前锋
+西蒙·班扎 (Simon Banza)	民主刚果	29岁	1100万	阿尔贾兹拉	前锋
+维萨 (Yoane Wissa)	民主刚果	29岁	2500万	纽卡斯尔联	前锋
+乌特基尔·尤苏波夫 (Utkir Yusupov)	乌兹别克斯坦	35岁	50万	纳曼干新春	门将
+博蒂拉利·埃尔加舍夫 (Botirali Ergashev)	乌兹别克斯坦	27岁	50万	费尔干纳油工	门将
+阿卜杜沃希德·内马托夫 (Abduvohid Nematov)	乌兹别克斯坦	25岁	150万	纳萨夫	门将
+阿布杜卡迪尔·胡桑诺夫 (Abdukodir Khusanov)	乌兹别克斯坦	22岁	3500万	曼城	后卫
+乌罗佐夫 (Jasurbek Urozov)	乌兹别克斯坦	—	60万	埃尤普体育	后卫
+乌尔马萨利耶夫 (Mukhammadali Urmasaliyev)	乌兹别克斯坦	—	50万	阿尔马雷克	后卫
+法鲁克·萨菲耶夫 (Farrukh Safiev)	乌兹别克斯坦	—	22.5万	费尔干纳油工	后卫
+谢尔佐德·纳斯鲁拉耶夫 (Sherzod Nasrullaev)	乌兹别克斯坦	28岁	120万	塔什干棉农	后卫
+卡里莫夫 (Bekzod Karimov)	乌兹别克斯坦	—	35万	特尔梅兹	后卫
+埃什穆罗多夫 (Islom Eshmurodov)	乌兹别克斯坦	—	45万	纳萨夫	后卫
+拉斯塔马乔·阿舒马托夫 (Rustam Ashurmatov)	乌兹别克斯坦	29岁	75万	德黑兰独立	后卫
+阿里扎诺夫 (Khojiakbar Alidzhanov)	乌兹别克斯坦	29岁	130万	塔什干棉农	后卫
+阿卜杜拉·阿卜杜拉耶夫 (Abdulla Abdullaev)	乌兹别克斯坦	—	50万	迪巴SCC	后卫
+奥塔别克·舒库罗夫 (Otabek Shukurov)	乌兹别克斯坦	29岁	150万	班尼亚斯	中场
+阿克马尔·莫兹戈沃伊 (Akmal Mozgovoy)	乌兹别克斯坦	26岁	140万	纳萨夫	中场
+贾姆希德·伊斯坎德罗夫 (Jamshid Iskanderov)	乌兹别克斯坦	32岁	100万	费尔干纳油工	中场
+奥迪尔·坎罗布科夫 (Odil Kamolov)	乌兹别克斯坦	—	100万	大不里士拖拉机	中场
+阿齐兹·加尼耶夫 (Aziz Ganiev)	乌兹别克斯坦	28岁	200万	巴塔	中场
+谢尔佐德·埃萨诺夫 (Sherzod Esanov)	乌兹别克斯坦	—	45万	布哈拉	中场
+阿博斯别克·法伊祖拉耶夫 (Abbosbek Fayzullaev)	乌兹别克斯坦	22岁	700万	RAMS巴萨克赛尔	中场
+奥斯通·乌鲁诺夫 (Oston Urunov)	乌兹别克斯坦	25岁	200万	波斯波利斯	前锋
+埃尔多尔·肖穆罗多夫 (Eldor Shomurodov)	乌兹别克斯坦	30岁	700万	RAMS巴萨克赛尔	前锋
+伊戈尔·谢尔盖耶夫 (Igor Sergeev)	乌兹别克斯坦	33岁	120万	波斯波利斯	前锋
+贾洛利丁·马沙里波夫 (Jaloliddin Masharipov)	乌兹别克斯坦	32岁	100万	德黑兰独立	前锋
+多斯顿别克·哈姆达莫夫 (Dostonbek Khamdamov)	乌兹别克斯坦	29岁	90万	塔什干棉农	前锋
+阿齐兹别克·阿莫诺夫 (Azizbek Amonov)	乌兹别克斯坦	—	50万	萨马尔罕迪纳摩	前锋
+阿尔瓦罗·蒙特罗 (Álvaro Montero)	哥伦比亚	31岁	250万	萨斯菲尔德	门将
+卡米洛·巴尔加斯 (Camilo Vargas)	哥伦比亚	37岁	45万	阿特拉斯	门将
+戴维·奥斯皮纳 (David Ospina)	哥伦比亚	37岁	25万	国民竞技	门将
+丹尼尔·穆尼奥斯 (Daniel Muñoz)	哥伦比亚	30岁	2700万	水晶宫	后卫
+约翰·卢库米 (Jhon Lucumí)	哥伦比亚	27岁	2500万	博洛尼亚	后卫
+达文森·桑切斯 (Dávinson Sánchez)	哥伦比亚	29岁	1600万	加拉塔萨雷	后卫
+威勒·迪塔 (Willer Ditta)	哥伦比亚	29岁	550万	蓝十字	后卫
+耶里·米纳 (Yerry Mina)	哥伦比亚	31岁	300万	卡利亚里	后卫
+德伊弗·马查多 (Deiver Machado)	哥伦比亚	32岁	200万	南特	后卫
+约翰·莫西卡 (Johan Mojica)	哥伦比亚	33岁	180万	马略卡	后卫
+圣地亚哥·阿里亚斯 (Santiago Arias)	哥伦比亚	34岁	120万	阿根廷独立	后卫
+里奥斯 (Richard Ríos)	哥伦比亚	25岁	2200万	本菲卡	中场
+约翰·阿里亚斯 (Jhon Arias)	哥伦比亚	28岁	1500万	帕尔梅拉斯	中场
+卡拉斯卡尔 (Jorge Carrascal)	哥伦比亚	27岁	1100万	弗拉门戈	中场
+莱尔马 (Jefferson Lerma)	哥伦比亚	31岁	800万	水晶宫	中场
+卡斯塔尼奥 (Kevin Castaño)	哥伦比亚	25岁	500万	河床	中场
+古斯塔沃·普埃塔 (Gustavo Puerta)	哥伦比亚	22岁	500万	桑坦德竞技	中场
+波尔蒂利亚 (Jhon Portilla)	哥伦比亚	27岁	330万	巴拉纳竞技	中场
+哈梅斯·罗德里格斯 (James Rodríguez)	哥伦比亚	34岁	200万	明尼苏达联	中场
+胡安·金特罗 (Juan Quintero)	哥伦比亚	33岁	180万	河床	中场
+路易斯·迪亚斯 (Luis Díaz)	哥伦比亚	29岁	7000万	拜仁慕尼黑	前锋
+路易斯·苏亚雷斯 (Luis Suárez)	哥伦比亚	26岁	2800万	葡萄牙体育	前锋
+库乔·埃尔南德斯 (Cucho Hernández)	哥伦比亚	27岁	1800万	皇家贝蒂斯	前锋
+约翰·科尔多瓦 (Jhon Córdoba)	哥伦比亚	33岁	1000万	克拉斯诺达尔	前锋
+安德烈斯·戈麦斯 (Andrés Gómez)	哥伦比亚	23岁	800万	瓦斯科达伽马	前锋
+坎帕兹 (Johan Campaz)	哥伦比亚	25岁	900万	罗萨里奥中央	前锋
+乔丹·皮克福德 (Jordan Pickford)	英格兰	32岁	2000万	埃弗顿	门将
+迪恩·亨德森 (Dean Henderson)	英格兰	29岁	1200万	水晶宫	门将
+詹姆斯·特拉福德 (James Trafford)	英格兰	23岁	1800万	曼城	门将
+里斯·詹姆斯 (Reece James)	英格兰	26岁	3500万	切尔西	后卫
+蒂诺·利夫拉门托 (Tino Livramento)	英格兰	23岁	2800万	纽卡斯尔联	后卫
+马克·格伊 (Marc Guéhi)	英格兰	25岁	3800万	水晶宫	后卫
+埃兹里·孔萨 (Ezri Konsa)	英格兰	28岁	2500万	阿斯顿维拉	后卫
+约翰·斯通斯 (John Stones)	英格兰	32岁	2000万	曼城	后卫
+贾雷尔·宽萨 (Jarell Quansah)	英格兰	23岁	2200万	利物浦	后卫
+尼科·奥赖利 (Nico O'Reilly)	英格兰	21岁	1500万	曼城	后卫
+丹·伯恩 (Dan Burn)	英格兰	34岁	400万	纽卡斯尔联	后卫
+杰德·斯彭斯 (Djed Spence)	英格兰	25岁	1500万	热刺	后卫
+德克兰·赖斯 (Declan Rice)	英格兰	27岁	1.2亿	阿森纳	中场
+埃利奥特·安德森 (Elliot Anderson)	英格兰	23岁	3000万	诺丁汉森林	中场
+裘德·贝林厄姆 (Jude Bellingham)	英格兰	22岁	1.3亿	皇家马德里	中场
+乔丹·亨德森 (Jordan Henderson)	英格兰	35岁	400万	阿贾克斯	中场
+摩根·罗杰斯 (Morgan Rogers)	英格兰	23岁	4000万	阿斯顿维拉	中场
+科比·梅努 (Kobbie Mainoo)	英格兰	21岁	5000万	曼联	中场
+埃贝雷奇·埃泽 (Eberechi Eze)	英格兰	27岁	3500万	水晶宫	中场
+哈里·凯恩 (Harry Kane)	英格兰	32岁	4500万	拜仁慕尼黑	前锋
+伊万·托尼 (Ivan Toney)	英格兰	30岁	3500万	吉达国民	前锋
+奥利·沃特金斯 (Ollie Watkins)	英格兰	30岁	4000万	阿斯顿维拉	前锋
+布卡约·萨卡 (Bukayo Saka)	英格兰	24岁	1.1亿	阿森纳	前锋
+诺尼·马杜埃凯 (Noni Madueke)	英格兰	24岁	3500万	切尔西	前锋
+马库斯·拉什福德 (Marcus Rashford)	英格兰	28岁	4000万	阿斯顿维拉	前锋
+安东尼·戈登 (Anthony Gordon)	英格兰	25岁	4500万	纽卡斯尔联	前锋
+多米尼克·利瓦科维奇 (Dominik Livaković)	克罗地亚	31岁	400万	萨格勒布迪纳摩	门将
+多米尼克·科塔尔斯基 (Dominik Kotarski)	克罗地亚	26岁	600万	哥本哈根	门将
+伊沃·潘杜尔 (Ivor Pandur)	克罗地亚	26岁	350万	赫尔城	门将
+约什科·格瓦迪奥尔 (Joško Gvardiol)	克罗地亚	24岁	7000万	曼城	后卫
+杜耶·卡莱塔-卡尔 (Duje Ćaleta-Car)	克罗地亚	29岁	300万	皇家社会	后卫
+约瑟普·舒塔洛 (Josip Šutalo)	克罗地亚	26岁	1500万	阿贾克斯	后卫
+约瑟普·斯塔尼希奇 (Josip Stanišić)	克罗地亚	26岁	3500万	拜仁慕尼黑	后卫
+马林·庞格拉契奇 (Marin Pongračić)	克罗地亚	28岁	750万	佛罗伦萨	后卫
+马丁·埃尔利奇 (Martin Erlić)	克罗地亚	28岁	400万	中日德兰	后卫
+卢卡·武什科维奇 (Luka Vušković)	克罗地亚	19岁	6000万	汉堡	后卫
+伊万·斯莫尔契奇 (Ivan Smolčić)	克罗地亚	25岁	500万	科莫	后卫
+卢卡·莫德里奇 (Luka Modrić)	克罗地亚	40岁	400万	AC米兰	中场
+马特奥·科瓦契奇 (Mateo Kovačić)	克罗地亚	32岁	1200万	曼城	中场
+马里奥·帕萨利奇 (Mario Pašalić)	克罗地亚	31岁	700万	亚特兰大	中场
+尼古拉·弗拉希奇 (Nikola Vlašić)	克罗地亚	28岁	900万	都灵	中场
+卢卡·苏契奇 (Luka Sučić)	克罗地亚	23岁	1000万	皇家社会	中场
+马丁·巴图里纳 (Martin Baturina)	克罗地亚	23岁	2400万	科莫	中场
+克里斯蒂扬·亚基奇 (Kristijan Jakić)	克罗地亚	29岁	600万	奥格斯堡	中场
+佩塔尔·苏契奇 (Petar Sučić)	克罗地亚	22岁	3000万	国际米兰	中场
+尼科拉·莫罗 (Nikola Moro)	克罗地亚	28岁	600万	博洛尼亚	中场
+托尼·弗鲁克 (Toni Fruk)	克罗地亚	25岁	900万	里耶卡	中场
+伊万·佩里西奇 (Ivan Perišić)	克罗地亚	37岁	130万	埃因霍温	前锋
+安德雷·克拉马里奇 (Andrej Kramarić)	克罗地亚	34岁	300万	霍芬海姆	前锋
+安特·布季米尔 (Ante Budimir)	克罗地亚	34岁	300万	奥萨苏纳	前锋
+马尔科·帕萨利奇 (Marco Pašalić)	克罗地亚	25岁	650万	奥兰多城	前锋
+佩塔尔·穆萨 (Petar Musa)	克罗地亚	28岁	800万	达拉斯FC	前锋
+伊戈尔·马塔诺维奇 (Igor Matanović)	克罗地亚	23岁	1000万	弗赖堡	前锋
+本杰明·阿萨雷 (Benjamin Asare)	加纳	32岁	65万	阿克拉橡树之心	门将
+劳伦斯·阿蒂-齐吉 (Lawrence Ati-Zigi)	加纳	29岁	260万	圣加仑	门将
+约瑟夫·阿南 (Joseph Anang)	加纳	25岁	45万	圣帕特里克竞技	门将
+巴巴·阿卜杜勒·拉赫曼 (Baba Abdul Rahman)	加纳	31岁	150万	PAOK	后卫
+德里克·卢卡森 (Derrick Luckassen)	加纳	30岁	100万	帕福斯	后卫
+吉迪恩·门萨 (Gideon Mensah)	加纳	27岁	300万	欧塞尔	后卫
+马尔文·塞纳亚 (Marvin Senaya)	加纳	25岁	200万	欧塞尔	后卫
+阿利杜·塞杜 (Alidu Seidu)	加纳	25岁	400万	雷恩	后卫
+阿卜杜勒·穆明 (Abdul Mumin)	加纳	27岁	300万	巴列卡诺	后卫
+杰罗姆·奥波库 (Jerome Opoku)	加纳	27岁	250万	伊斯坦布尔巴萨克赛尔	后卫
+乔纳斯·阿杰泰 (Jonas Adjetey)	加纳	22岁	500万	沃尔夫斯堡	后卫
+科乔·奥蓬·佩普拉 (Kojo Oppong Peprah)	加纳	22岁	350万	尼斯	后卫
+托马斯·帕尔特伊 (Thomas Partey)	加纳	32岁	1500万	比利亚雷亚尔	中场
+卡马尔丁·苏莱曼纳 (Kamaldeen Sulemana)	加纳	24岁	1200万	亚特兰大	中场
+夸西·西博 (Kwasi Sibo)	加纳	27岁	150万	皇家奥维耶多	中场
+奥古斯丁·博阿基耶 (Augustine Boakye)	加纳	25岁	300万	圣埃蒂安	中场
+卡莱布·耶伦基 (Caleb Yirenkyi)	加纳	20岁	500万	北西兰	中场
+阿卜杜勒·法塔武·伊萨哈库 (Abdul Fatawu Issahaku)	加纳	22岁	800万	莱斯特城	中场
+埃利沙·奥乌苏 (Elisha Owusu)	加纳	28岁	200万	欧塞尔	中场
+克里斯托弗·邦苏·巴 (Christopher Bonsu Baah)	加纳	21岁	600万	卡迪西亚	前锋
+埃内斯特·努阿马 (Ernest Nuamah)	加纳	22岁	1500万	里昂	前锋
+安托万·塞门约 (Antoine Semenyo)	加纳	26岁	7200万	曼城	前锋
+布兰登·托马斯-阿桑特 (Brandon Thomas-Asante)	加纳	27岁	500万	考文垂	前锋
+普林斯·夸贝纳·阿杜 (Prince Kwabena Adu)	加纳	22岁	300万	比尔森胜利	前锋
+伊尼亚基·威廉姆斯 (Iñaki Williams)	加纳	31岁	2000万	毕尔巴鄂竞技	前锋
+乔丹·阿尤 (Jordan Ayew)	加纳	34岁	300万	莱斯特城	前锋
+奥兰多·莫斯克拉 (Orlando Mosquera)	巴拿马	30岁	65万	费哈	门将
+路易斯·梅希亚 (Luis Mejía)	巴拿马	35岁	40万	民族	门将
+塞萨尔·萨穆迪奥 (César Samudio)	巴拿马	32岁	30万	马拉松	门将
+塞萨尔·布莱克曼 (César Blackman)	巴拿马	28岁	80万	萨普里萨	后卫
+豪尔赫·古铁雷斯 (Jorge Gutiérrez)	巴拿马	27岁	50万	皇家盐湖城	后卫
+阿米尔·穆里略 (Amir Murillo)	巴拿马	30岁	700万	贝西克塔斯	后卫
+菲德尔·埃斯科瓦尔 (Fidel Escobar)	巴拿马	31岁	60万	萨普里萨	后卫
+安德烈斯·安德拉德 (Andrés Andrade)	巴拿马	28岁	80万	阿利亚萨	后卫
+埃德加多·法里尼亚 (Edgardo Fariña)	巴拿马	24岁	70万	圣米格利托	后卫
+何塞·科尔多瓦 (José Córdoba)	巴拿马	24岁	120万	诺维奇	后卫
+埃里克·戴维斯 (Eric Davis)	巴拿马	35岁	40万	科布雷萨尔	后卫
+希奥瓦尼·拉莫斯 (Jiovany Ramos)	巴拿马	28岁	50万	阿卡德米亚	后卫
+罗德里克·米勒 (Roderick Miller)	巴拿马	34岁	30万	图兰	后卫
+阿尼瓦尔·戈多伊 (Aníbal Godoy)	巴拿马	36岁	50万	纳什维尔	中场
+阿达尔韦托·卡拉斯基亚 (Adalberto Carrasquilla)	巴拿马	27岁	300万	休斯敦迪纳摩	中场
+卡洛斯·哈维 (Carlos Harvey)	巴拿马	26岁	100万	明尼苏达联	中场
+克里斯蒂安·马丁内斯 (Cristian Martínez)	巴拿马	29岁	80万	圣卡洛斯	中场
+何塞·路易斯·罗德里格斯 (José Luis Rodríguez)	巴拿马	28岁	150万	华雷斯	中场
+塞萨尔·亚尼斯 (César Yanis)	巴拿马	30岁	70万	科布雷萨尔	中场
+约埃尔·巴塞纳斯 (Yoel Bárcenas)	巴拿马	32岁	120万	马萨特兰	中场
+阿尔韦托·金特罗 (Alberto Quintero)	巴拿马	38岁	30万	联盟	中场
+阿萨里亚斯·隆多尼奥 (Azarías Londoño)	巴拿马	25岁	60万	圣米格利托	中场
+伊斯梅尔·迪亚斯 (Ismael Díaz)	巴拿马	29岁	100万	卡塔戈	前锋
+塞西利奥·沃特曼 (Cecilio Waterman)	巴拿马	35岁	40万	科布雷萨尔	前锋
+何塞·法哈尔多 (José Fajardo)	巴拿马	32岁	70万	卡塔戈	前锋
+托马斯·罗德里格斯 (Tomás Rodríguez)	巴拿马	26岁	60万	圣米格利托	前锋
+蒂博·库尔图瓦 (Thibaut Courtois)	比利时	34岁	1800万	皇家马德里	门将
+森内·拉门斯 (Senne Lammens)	比利时	24岁	3500万	曼联	门将
+迈克·彭德斯 (Mike Penders)	比利时	21岁	2410万	斯特拉斯堡（切尔西租借）	门将
+蒂莫西·卡斯塔涅 (Timothy Castagne)	比利时	30岁	1000万	富勒姆	后卫
+泽诺·德巴斯特 (Zeno Debast)	比利时	22岁	3000万	葡萄牙体育	后卫
+马克西姆·德克伊珀 (Maxim De Cuyper)	比利时	25岁	2200万	布莱顿	后卫
+柯尼·德温特 (Koni De Winter)	比利时	23岁	2300万	AC米兰	后卫
+布兰东·梅赫莱 (Brandon Mechele)	比利时	33岁	350万	布鲁日	后卫
+托马斯·默尼耶 (Thomas Meunier)	比利时	34岁	200万	里尔	后卫
+内森·恩戈伊 (Nathan Ngoy)	比利时	23岁	2000万	里尔	后卫
+若阿金·塞 (Joaquin Seys)	比利时	21岁	1700万	布鲁日	后卫
+阿蒂尔·蒂特 (Arthur Theate)	比利时	26岁	1700万	法兰克福	后卫
+凯文·德布劳内 (Kevin De Bruyne)	比利时	35岁	800万	那不勒斯	中场
+阿马杜·奥纳纳 (Amadou Onana)	比利时	24岁	4500万	阿斯顿维拉	中场
+尼古拉·拉斯金 (Nicolas Raskin)	比利时	25岁	1200万	格拉斯哥流浪者	中场
+尤里·蒂勒曼斯 (Youri Tielemans)	比利时	29岁	3500万	阿斯顿维拉	中场
+汉斯·范纳肯 (Hans Vanaken)	比利时	33岁	400万	布鲁日	中场
+阿克塞尔·维特塞尔 (Axel Witsel)	比利时	37岁	200万	赫罗纳	中场
+查尔斯·德凯特拉雷 (Charles De Ketelaere)	比利时	25岁	3500万	亚特兰大	前锋
+杰里米·多库 (Jérémy Doku)	比利时	24岁	7500万	曼城	前锋
+马蒂亚斯·费尔南德斯-帕尔多 (Matias Fernandez-Pardo)	比利时	21岁	3500万	里尔	前锋
+罗梅卢·卢卡库 (Romelu Lukaku)	比利时	33岁	1200万	那不勒斯	前锋
+多迪·卢克巴吉奥 (Dodi Lukebakio)	比利时	28岁	2000万	本菲卡	前锋
+迭戈·莫雷拉 (Diego Moreira)	比利时	22岁	2500万	斯特拉斯堡	前锋
+亚历克西斯·萨勒马克尔斯 (Alexis Saelemaekers)	比利时	26岁	2500万	AC米兰	前锋
+莱安德罗·特罗萨德 (Leandro Trossard)	比利时	31岁	1800万	阿森纳	前锋
+穆罕默德·希纳维 (Mohamed El Shenawy)	埃及	37岁	50万	开罗国民	门将
+穆斯塔法·舒贝尔 (Mostafa Shobeir)	埃及	26岁	120万	开罗国民	门将
+马赫迪·苏莱曼 (El Mahdi Soliman)	埃及	39岁	15万	艾德瀚德	门将
+穆罕默德·阿拉 (Mohamed Alaa)	埃及	27岁	120万	古纳	门将
+穆罕默德·哈尼 (Mohamed Hany)	埃及	30岁	150万	开罗国民	后卫
+塔里克·阿拉 (Tarek Alaa)	埃及	24岁	20万	ZED FC	后卫
+哈姆迪·法特希 (Hamdy Fathy)	埃及	32岁	220万	沃克拉	后卫
+拉米·拉比亚 (Rami Rabia)	埃及	33岁	80万	阿联酋阿尔艾因	后卫
+亚西尔·易卜拉欣 (Yasser Ibrahim)	埃及	33岁	40万	开罗国民	后卫
+侯萨姆·阿卜杜勒马吉德 (Hossam Abdelmaguid)	埃及	25岁	180万	扎马雷克体育	后卫
+穆罕默德·阿卜杜勒穆奈姆 (Mohamed Abdelmonem)	埃及	26岁	350万	尼斯	后卫
+艾哈迈德·法托 (Ahmed Fatouh)	埃及	28岁	100万	扎马雷克体育	后卫
+卡里姆·哈菲兹 (Karim Hafez)	埃及	30岁	70万	金字塔	后卫
+马尔万·阿提亚 (Marwan Attia)	埃及	27岁	400万	开罗国民	中场
+穆哈纳德·拉欣 (Mohanad Lasheen)	埃及	30岁	120万	金字塔	中场
+纳比勒·伊马德 (Nabil Emad)	埃及	30岁	50万	阿尔纳杰马	中场
+马哈茂德·萨比尔 (Mahmoud Saber)	埃及	25岁	80万	ZED FC	中场
+艾哈迈德·齐佐 (Ahmed Zizo)	埃及	30岁	350万	开罗国民	中场
+伊马姆·阿舒尔 (Emam Ashour)	埃及	28岁	400万	开罗国民	中场
+穆斯塔法·齐科 (Mostafa Ziko)	埃及	29岁	88万	金字塔	中场
+马哈茂德·特雷泽盖 (Mahmoud Trezeguet)	埃及	32岁	450万	开罗国民	中场
+易卜拉欣·阿德尔 (Ibrahim Adel)	埃及	25岁	390万	北西兰	中场
+海萨姆·哈桑 (Haissam Hassan)	埃及	24岁	400万	皇家奥维耶多	中场
+穆罕默德·萨拉赫 (Mohamed Salah)	埃及	33岁	3000万	利物浦	前锋
+奥马尔·马尔穆什 (Omar Marmoush)	埃及	27岁	5000万	曼城	前锋
+哈姆扎·阿卜杜勒卡里姆 (Hamza Abdelkarim)	埃及	18岁	150万	巴塞罗那竞技	前锋
+阿里雷萨·贝兰万德 (Alireza Beiranvand)	伊朗	33岁	65万	大不里士拖拉机	门将
+侯赛因·侯赛尼 (Hossein Hosseini)	伊朗	33岁	50万	塞帕罕	门将
+帕亚姆·尼亚曼德 (Payam Niamand)	伊朗	30岁	70万	波斯波利斯	门将
+达尼亚尔·埃里 (Daniyal Esmaeilifar)	伊朗	30岁	100万	马拉皖	后卫
+哈吉萨菲 (Ehsan Hajsafi)	伊朗	36岁	25万	塞帕罕	后卫
+萨利赫·哈达尼 (Saleh Hardani)	伊朗	27岁	80万	德黑兰独立	后卫
+侯赛因·卡纳尼 (Hossein Kanaanizadegan)	伊朗	32岁	160万	波斯波利斯	后卫
+舒贾·哈利勒扎德 (Shoja Khalilzadeh)	伊朗	37岁	10万	大不里士拖拉机	后卫
+米拉德·穆罕默迪 (Milad Mohammadi)	伊朗	32岁	90万	波斯波利斯	后卫
+阿里·内马蒂 (Ali Nemati)	伊朗	30岁	55万	胡齐斯坦钢铁	后卫
+拉明·雷扎伊扬 (Ramin Rezaeian)	伊朗	36岁	25万	胡齐斯坦钢铁	后卫
+鲁兹贝·切什米 (Rouzbeh Cheshmi)	伊朗	32岁	45万	德黑兰独立	中场
+赛义德·埃扎托拉希 (Saeid Ezatolahi)	伊朗	29岁	180万	迪拜国民	中场
+迈赫迪·加耶迪 (Mehdi Ghayedi)	伊朗	27岁	450万	迪拜纳斯尔	中场
+萨曼·戈多斯 (Saman Ghoddos)	伊朗	32岁	120万	卡尔巴联合	中场
+穆罕默德·戈尔巴尼 (Mohammad Ghorbani)	伊朗	25岁	120万	阿布扎比统一	中场
+阿里雷扎·贾汉巴赫什 (Alireza Jahanbakhsh)	伊朗	32岁	60万	登德	中场
+穆罕默德·莫赫比 (Mohammad Mohebi)	伊朗	28岁	250万	罗斯托夫	中场
+阿米尔穆罕默德·拉扎格尼亚 (Amirmohammad Razaghinia)	伊朗	24岁	120万	德黑兰独立	中场
+梅迪·托拉比 (Mehdi Torabi)	伊朗	31岁	120万	大不里士拖拉机	中场
+阿丽亚·尤素菲 (Aria Yousefi)	伊朗	23岁	150万	塞帕罕	中场
+阿里·阿利普尔 (Ali Alipour)	伊朗	30岁	170万	波斯波利斯	前锋
+丹尼斯·埃克特 (Dennis Eckert)	伊朗	29岁	200万	标准列日	前锋
+阿米尔侯赛因·侯赛因扎德 (Amirhossein Hosseinzadeh)	伊朗	25岁	220万	大不里士拖拉机	前锋
+梅赫迪·塔雷米 (Mehdi Taremi)	伊朗	33岁	250万	奥林匹亚科斯	前锋
+沙赫里亚尔·莫汉卢 (Shahriyar Moghanlou)	伊朗	31岁	80万	卡尔巴联合	前锋
+马克斯·克罗科姆 (Max Crocombe)	新西兰	32岁	75万	米尔沃尔	门将
+亚历克斯·保尔森 (Alex Paulsen)	新西兰	23岁	230万	格但斯克莱希亚	门将
+迈克尔·沃德 (Michael Woud)	新西兰	27岁	30万	奥克兰FC	门将
+蒂姆·佩恩 (Tim Payne)	新西兰	32岁	41万	惠灵顿凤凰	后卫
+弗朗西斯·德弗里斯 (Francis de Vries)	新西兰	31岁	140万	奥克兰FC	后卫
+泰勒·宾登 (Tyler Bindon)	新西兰	21岁	350万	谢菲尔德联	后卫
+米切尔·伯克萨尔 (Michael Boxall)	新西兰	37岁	33万	明尼苏达联	后卫
+利贝拉托·卡卡塞 (Liberato Cacace)	新西兰	25岁	310万	雷克瑟姆	后卫
+南多·派纳克 (Nando Pijnaker)	新西兰	27岁	40万	奥克兰FC	后卫
+芬恩·苏尔曼 (Finn Surman)	新西兰	22岁	150万	波特兰伐木工	后卫
+本·奥尔德 (Ben Old)	新西兰	23岁	180万	圣埃蒂安	后卫
+卡兰·埃利奥特 (Callan Elliot)	新西兰	26岁	50万	奥克兰FC	后卫
+汤米·史密斯 (Tommy Smith)	新西兰	36岁	10万	布伦特里	后卫
+乔·贝尔 (Joe Bell)	新西兰	27岁	300万	维京	中场
+马修·加伯特 (Matt Garbett)	新西兰	23岁	55万	彼得堡联	中场
+马尔科·斯特梅克 (Marko Stamenic)	新西兰	24岁	260万	斯旺西	中场
+萨普里特·辛格 (Sarpreet Singh)	新西兰	27岁	50万	惠灵顿凤凰	中场
+亚历克斯·鲁费 (Alex Rufer)	新西兰	30岁	60万	惠灵顿凤凰	中场
+卡勒姆·麦考瓦特 (Callum McCowatt)	新西兰	27岁	160万	锡尔克堡	中场
+瑞安·托马斯 (Ryan Thomas)	新西兰	31岁	73万	兹沃勒	中场
+拉克兰·贝利斯 (Lachlan Bayliss)	新西兰	23岁	55万	纽卡斯尔喷气机	中场
+克里斯·伍德 (Chris Wood)	新西兰	34岁	800万	诺丁汉森林	前锋
+伊利亚·贾斯特 (Eli Just)	新西兰	26岁	250万	马瑟韦尔	前锋
+科斯塔·巴巴洛塞斯 (Kosta Barbarouses)	新西兰	36岁	33万	西悉尼流浪者	前锋
+本·韦恩 (Ben Waine)	新西兰	25岁	40万	维尔港	前锋
+杰西·兰德尔 (Jesse Randall)	新西兰	—	—	奥克兰FC	前锋
+乌奈·西蒙 (Unai Simón)	西班牙	29岁	3500万	毕尔巴鄂竞技	门将
+大卫·拉亚 (David Raya)	西班牙	30岁	3500万	阿森纳	门将
+霍安·加西亚 (Joan García)	西班牙	25岁	1500万	巴塞罗那	门将
+佩德罗·波罗 (Pedro Porro)	西班牙	26岁	4500万	托特纳姆热刺	后卫
+马科斯·略伦特 (Marcos Llorente)	西班牙	31岁	2000万	马德里竞技	后卫
+保·库巴西 (Pau Cubarsí)	西班牙	19岁	7000万	巴塞罗那	后卫
+普维尔 (Javier Puado)	西班牙	28岁	1000万	马德里竞技	后卫
+拉波尔特 (Aymeric Laporte)	西班牙	32岁	2500万	毕尔巴鄂竞技	后卫
+埃里克·加西亚 (Eric García)	西班牙	25岁	2000万	巴塞罗那	后卫
+亚历杭德罗·格里马尔多 (Alejandro Grimaldo)	西班牙	30岁	3500万	勒沃库森	后卫
+马克·库库雷利亚 (Marc Cucurella)	西班牙	27岁	3000万	切尔西	后卫
+罗德里 (Rodri)	西班牙	30岁	1.3亿	曼城	中场
+马丁·苏维门迪 (Martín Zubimendi)	西班牙	27岁	6000万	阿森纳	中场
+加维 (Gavi)	西班牙	21岁	8000万	巴塞罗那	中场
+佩德里 (Pedri)	西班牙	23岁	1亿	巴塞罗那	中场
+法比安·鲁伊斯 (Fabián Ruiz)	西班牙	30岁	3500万	巴黎圣日耳曼	中场
+米克尔·梅里诺 (Mikel Merino)	西班牙	29岁	5000万	阿森纳	中场
+亚历克斯·巴埃纳 (Álex Baena)	西班牙	24岁	3000万	马德里竞技	中场
+拉明·亚马尔 (Lamine Yamal)	西班牙	18岁	1.8亿	巴塞罗那	前锋
+达尼·奥尔莫 (Dani Olmo)	西班牙	28岁	6000万	巴塞罗那	前锋
+费兰·托雷斯 (Ferran Torres)	西班牙	26岁	3500万	巴塞罗那	前锋
+耶雷米·皮诺 (Yeremy Pino)	西班牙	23岁	4000万	水晶宫	前锋
+尼科·威廉姆斯 (Nico Williams)	西班牙	23岁	6000万	毕尔巴鄂竞技	前锋
+维克托·穆尼奥斯 (Víctor Muñoz)	西班牙	25岁	1500万	奥萨苏纳	前锋
+米克尔·奥亚萨瓦尔 (Mikel Oyarzabal)	西班牙	29岁	4500万	皇家社会	前锋
+博尔哈·伊格莱西亚斯 (Borja Iglesias)	西班牙	33岁	800万	塞尔塔	前锋
+沃齐尼亚 (Vozinha)	佛得角	39岁	50万	沙维什	门将
+马尔西奥·罗萨 (Márcio Rosa)	佛得角	29岁	30万	蒙大拿	门将
+C.J.·多斯桑托斯 (CJ dos Santos)	佛得角	25岁	80万	圣地亚哥FC	门将
+史蒂文·莫雷拉 (Steven Moreira)	佛得角	31岁	150万	哥伦布机员	后卫
+瓦格纳·皮纳 (Wagner Pina)	佛得角	28岁	80万	特拉布宗体育	后卫
+若昂·保罗 (João Paulo)	佛得角	30岁	60万	FCSB	后卫
+西德尼·洛佩斯·卡布拉尔 (Sidny Lopes Cabral)	佛得角	24岁	100万	本菲卡	后卫
+洛根·科斯塔 (Logan Costa)	佛得角	25岁	1200万	比利亚雷亚尔	后卫
+皮科·洛佩斯 (Pico Lopes)	佛得角	36岁	20万	沙姆洛克流浪者	后卫
+凯尔文·皮雷斯 (Kelvin Pires)	佛得角	26岁	60万	SJK塞伊奈约基	后卫
+斯托皮拉 (Stopira)	佛得角	37岁	20万	托雷恩斯	后卫
+迪内伊 (Diney)	佛得角	28岁	50万	阿尔巴塔赫	后卫
+雅米罗·蒙泰罗 (Jamiro Monteiro)	佛得角	32岁	200万	PEC兹沃勒	中场
+特尔莫·阿尔卡若 (Telmo Arcanjo)	佛得角	24岁	100万	吉马良斯	中场
+亚尼克·塞梅多 (Yannick Semedo)	佛得角	23岁	80万	法伦斯	中场
+拉罗斯·杜阿尔特 (Laros Duarte)	佛得角	29岁	150万	普斯卡什学院	中场
+德罗伊·杜阿尔特 (Deroy Duarte)	佛得角	26岁	200万	卢多戈雷茨	中场
+凯文·皮纳 (Kevin Pina)	佛得角	29岁	120万	克拉斯诺达尔	中场
+瑞安·门德斯 (Ryan Mendes)	佛得角	36岁	40万	伊迪尔	前锋
+威利·塞梅多 (Willy Semedo)	佛得角	32岁	60万	奥莫尼亚尼科西亚	前锋
+加里·罗德里格斯 (Garry Rodrigues)	佛得角	35岁	50万	阿波罗利马索尔	前锋
+若瓦内·卡布拉尔 (Jovane Cabral)	佛得角	27岁	250万	埃什特雷拉	前锋
+努诺·达科斯塔 (Nuno da Costa)	佛得角	35岁	40万	伊斯坦布尔巴萨克赛尔	前锋
+戴隆·利夫拉门托 (Dailon Livramento)	佛得角	24岁	150万	卡萨皮亚	前锋
+吉尔森·本希莫尔 (Gilson Benchimol)	佛得角	24岁	60万	阿克伦托格里蒂	前锋
+埃利奥·瓦雷拉 (Hélio Varela)	佛得角	24岁	80万	特拉维夫马卡比	前锋
+艾哈迈德·卡萨尔 (Ahmed Al-Kassar)	沙特阿拉伯	30岁	17.5万	胡拜尔库迪西亚	门将
+穆罕默德·阿洛瓦伊斯 (Mohammed Al-Owais)	沙特阿拉伯	34岁	30万	利雅得新月	门将
+纳瓦夫·阿奇迪 (Nawaf Al-Aqidi)	沙特阿拉伯	26岁	70万	利雅得胜利	门将
+沙特·阿卜杜勒哈米德 (Saud Abdulhamid)	沙特阿拉伯	26岁	900万	朗斯	后卫
+哈桑·坦巴克蒂 (Hassan Tambakti)	沙特阿拉伯	27岁	180万	利雅得新月	后卫
+阿卜杜勒拉·阿姆里 (Abdulelah Al-Amri)	沙特阿拉伯	29岁	100万	利雅得胜利	后卫
+阿里·拉贾米 (Ali Lajami)	沙特阿拉伯	30岁	80万	利雅得新月	后卫
+哈桑·卡迪什 (Hassan Kadesh)	沙特阿拉伯	33岁	30万	吉达联合	后卫
+穆特卜·哈尔比 (Mutab Al-Harbi)	沙特阿拉伯	26岁	120万	利雅得新月	后卫
+艾哈迈德·塔克里 (Ahmed Thakri)	沙特阿拉伯	25岁	90万	胡拜尔库迪西亚	后卫
+阿卜杜勒拉赫曼·加里卜 (Abdulrahman Ghareeb)	沙特阿拉伯	29岁	120万	利雅得胜利	中场
+阿卜杜勒拉·马尔基 (Abdullah Al-Malki)	沙特阿拉伯	31岁	120万	吉达国民	中场
+穆罕默德·卡努 (Mohamed Kanno)	沙特阿拉伯	31岁	90万	利雅得新月	中场
+阿卜杜勒拉·哈巴利 (Abdullah Al-Khaibari)	沙特阿拉伯	29岁	80万	利雅得胜利	中场
+阿里·阿尔·哈桑 (Ali Al-Hassan)	沙特阿拉伯	29岁	80万	利雅得胜利	中场
+纳赛尔·多萨里 (Nasser Al-Dawsari)	沙特阿拉伯	27岁	80万	利雅得新月	中场
+艾曼·法拉塔赫 (Ayman Fallatah)	沙特阿拉伯	26岁	80万	胡拜尔库迪西亚	中场
+穆萨卜·朱瓦伊尔 (Musab Al-Juwair)	沙特阿拉伯	22岁	450万	胡拜尔库迪西亚	前锋
+菲拉斯·布赖坎 (Firas Al-Buraikan)	沙特阿拉伯	26岁	400万	吉达国民	前锋
+阿卜杜拉·叶海亚 (Abdullah Yahya)	沙特阿拉伯	25岁	140万	利雅得胜利	前锋
+萨利姆·多萨里 (Salem Al-Dawsari)	沙特阿拉伯	34岁	130万	利雅得新月	前锋
+穆罕默德·加纳姆 (Mohammed Al-Ghanam)	沙特阿拉伯	29岁	90万	达曼协作	前锋
+萨利赫·谢赫里 (Saleh Al-Shehri)	沙特阿拉伯	32岁	55万	吉达联合	前锋
+阿卜杜拉·哈姆丹 (Abdullah Al-Hamdan)	沙特阿拉伯	26岁	32.5万	利雅得胜利	前锋
+艾曼·赫吉 (Ayman Hejji)	沙特阿拉伯	25岁	15万	新未来城	前锋
+哈立德·加纳姆 (Khalid Al-Ghanam)	沙特阿拉伯	25岁	90万	达曼协作	前锋
+塞尔吉奥·罗切特 (Sergio Rochet)	乌拉圭	33岁	250万	巴西国际	门将
+费尔南多·穆斯莱拉 (Fernando Muslera)	乌拉圭	39岁	50万	拉普拉塔大学生	门将
+圣地亚哥·梅莱 (Santiago Mele)	乌拉圭	28岁	200万	蒙特雷	门将
+吉列尔莫·巴雷拉 (Guillermo Varela)	乌拉圭	33岁	150万	弗拉门戈	后卫
+罗纳德·阿劳霍 (Ronald Araujo)	乌拉圭	27岁	7000万	巴塞罗那	后卫
+何塞·马里亚·希门尼斯 (José María Giménez)	乌拉圭	31岁	2000万	马德里竞技	后卫
+圣地亚哥·布埃诺 (Santiago Bueno)	乌拉圭	27岁	800万	狼队	后卫
+塞瓦斯蒂安·卡塞雷斯 (Sebastián Cáceres)	乌拉圭	26岁	400万	墨西哥美洲	后卫
+马蒂亚斯·奥利维拉 (Mathías Olivera)	乌拉圭	28岁	1500万	那不勒斯	后卫
+华金·皮克雷斯 (Joaquín Piquerez)	乌拉圭	27岁	1200万	帕尔梅拉斯	后卫
+马蒂亚斯·比尼亚 (Matías Viña)	乌拉圭	28岁	600万	河床	后卫
+曼努埃尔·乌加特 (Manuel Ugarte)	乌拉圭	25岁	5000万	曼联	中场
+埃米利亚诺·马丁内斯 (Emiliano Martínez)	乌拉圭	26岁	800万	帕尔梅拉斯	中场
+罗德里戈·本坦库尔 (Rodrigo Bentancur)	乌拉圭	28岁	3000万	托特纳姆热刺	中场
+费德里科·巴尔韦德 (Federico Valverde)	乌拉圭	27岁	1.3亿	皇家马德里	中场
+阿古斯丁·卡诺比奥 (Agustín Canobbio)	乌拉圭	27岁	500万	弗鲁米嫩塞	中场
+胡安·曼努埃尔·萨纳夫里亚 (Juan Manuel Sanabria)	乌拉圭	25岁	400万	皇家盐湖城	中场
+乔治亚·德阿拉斯卡埃塔 (Giorgian de Arrascaeta)	乌拉圭	32岁	800万	弗拉门戈	中场
+尼古拉斯·德拉克鲁斯 (Nicolás de la Cruz)	乌拉圭	28岁	800万	弗拉门戈	中场
+罗德里戈·萨拉萨尔 (Rodrigo Zalazar)	乌拉圭	26岁	1000万	布拉加	中场
+法昆多·佩利斯特里 (Facundo Pellistri)	乌拉圭	24岁	600万	帕纳辛纳科斯	中场
+马克西米利亚诺·阿劳霍 (Maximiliano Araújo)	乌拉圭	26岁	1000万	葡萄牙体育	中场
+布赖恩·罗德里格斯 (Brian Rodríguez)	乌拉圭	26岁	600万	墨西哥美洲	中场
+罗德里戈·阿吉雷 (Rodrigo Aguirre)	乌拉圭	31岁	300万	老虎大学	前锋
+费德里科·比尼亚斯 (Federico Viñas)	乌拉圭	27岁	400万	皇家奥维耶多	前锋
+达尔文·努涅斯 (Darwin Núñez)	乌拉圭	26岁	6000万	利雅得新月	前锋
+迈尼昂 (Mike Maignan)	法国	30岁	3800万	AC米兰	门将
+布莱斯·桑巴 (Brice Samba)	法国	32岁	1000万	雷恩	门将
+罗宾·里塞 (Robin Risser)	法国	21岁	500万	朗斯	门将
+于帕梅卡诺 (Dayot Upamecano)	法国	27岁	7000万	拜仁慕尼黑	后卫
+萨利巴 (William Saliba)	法国	25岁	1亿	阿森纳	后卫
+科纳特 (Ibrahima Konaté)	法国	27岁	4500万	利物浦	后卫
+孔德 (Jules Koundé)	法国	27岁	5500万	巴塞罗那	后卫
+卢卡斯·埃尔南德斯 (Lucas Hernández)	法国	30岁	3500万	巴黎圣日耳曼	后卫
+特奥·埃尔南德斯 (Theo Hernández)	法国	28岁	6000万	利雅得新月	后卫
+迪涅 (Lucas Digne)	法国	32岁	1500万	阿斯顿维拉	后卫
+古斯托 (Malo Gusto)	法国	23岁	4000万	切尔西	后卫
+拉克鲁瓦 (Maxence Lacroix)	法国	26岁	2500万	水晶宫	后卫
+坎特 (N'Golo Kanté)	法国	35岁	800万	费内巴切	中场
+拉比奥 (Adrien Rabiot)	法国	31岁	3500万	AC米兰	中场
+楚阿梅尼 (Aurélien Tchouaméni)	法国	26岁	8000万	皇家马德里	中场
+夸迪奥·科内 (Kouadio Koné)	法国	25岁	3500万	罗马	中场
+扎伊尔·埃梅里 (Warren Zaïre-Emery)	法国	20岁	8000万	巴黎圣日耳曼	中场
+姆巴佩 (Kylian Mbappé)	法国	27岁	2亿	皇家马德里	前锋
+登贝莱 (Ousmane Dembélé)	法国	29岁	1亿	巴黎圣日耳曼	前锋
+奥利塞 (Michael Olise)	法国	24岁	1.5亿	拜仁慕尼黑	前锋
+谢尔基 (Rayan Cherki)	法国	22岁	9000万	曼城	前锋
+杜埃 (Désiré Doué)	法国	21岁	1.2亿	巴黎圣日耳曼	前锋
+巴尔科拉 (Bradley Barcola)	法国	23岁	5500万	巴黎圣日耳曼	前锋
+阿克利乌什 (Maghnes Akliouche)	法国	24岁	3500万	摩纳哥	前锋
+马特塔 (Jean-Philippe Mateta)	法国	28岁	3000万	水晶宫	前锋
+马库斯·图拉姆 (Marcus Thuram)	法国	28岁	4000万	国际米兰	前锋
+爱德华·门迪 (Édouard Mendy)	塞内加尔	34岁	800万	吉达国民	门将
+莫里·迪奥 (Mory Diaw)	塞内加尔	32岁	200万	勒阿弗尔	门将
+耶万·迪乌夫 (Yehvann Diouf)	塞内加尔	26岁	600万	尼斯	门将
+卡利杜·库利巴利 (Kalidou Koulibaly)	塞内加尔	34岁	500万	利雅得新月	后卫
+穆萨·尼亚卡特 (Moussa Niakhaté)	塞内加尔	30岁	2000万	诺丁汉森林	后卫
+马马杜·萨尔 (Mamadou Sarr)	塞内加尔	20岁	500万	斯特拉斯堡	后卫
+阿卜杜拉耶·塞克 (Abdoulaye Seck)	塞内加尔	33岁	150万	海法马卡比	后卫
+克雷潘·迪亚塔 (Krépin Diatta)	塞内加尔	27岁	1200万	摩纳哥	后卫
+安托万·门迪 (Antoine Mendy)	塞内加尔	21岁	800万	尼斯	后卫
+伊斯梅尔·雅各布斯 (Ismail Jakobs)	塞内加尔	26岁	1000万	摩纳哥	后卫
+哈吉·马利克 (Hadj Malick)	塞内加尔	24岁	300万	科特赖克	后卫
+伊德里萨·加纳·盖耶 (Idrissa Gana Gueye)	塞内加尔	36岁	300万	埃弗顿	中场
+拉明·卡马拉 (Lamine Camara)	塞内加尔	21岁	1500万	摩纳哥	中场
+帕普·盖耶 (Pape Gueye)	塞内加尔	27岁	800万	比利亚雷亚尔	中场
+帕普·马塔尔·萨尔 (Pape Matar Sarr)	塞内加尔	23岁	3000万	热刺	中场
+哈比卜·迪亚拉 (Habib Diarra)	塞内加尔	22岁	1500万	斯特拉斯堡	中场
+巴拉·萨波科·恩迪亚耶 (Balla Sakop Ndiaye)	塞内加尔	24岁	200万	根特	中场
+帕泰·西斯 (Pathé Ciss)	塞内加尔	32岁	300万	巴列卡诺	中场
+萨迪奥·马内 (Sadio Mané)	塞内加尔	34岁	1500万	利雅得胜利	前锋
+伊斯梅拉·萨尔 (Ismaïla Sarr)	塞内加尔	28岁	2000万	水晶宫	前锋
+伊利曼·恩迪亚耶 (Iliman Ndiaye)	塞内加尔	26岁	3500万	埃弗顿	前锋
+尼古拉斯·杰克逊 (Nicolas Jackson)	塞内加尔	24岁	3500万	切尔西	前锋
+谢里夫·恩迪亚耶 (Cherif Ndiaye)	塞内加尔	30岁	400万	萨姆松体育	前锋
+班巴·迪恩 (Bamba Dieng)	塞内加尔	26岁	600万	洛里昂	前锋
+易卜拉希马·姆巴耶 (Ibrahima Mbaye)	塞内加尔	18岁	1000万	巴黎圣日耳曼	前锋
+阿萨内·迪奥 (Assane Diao)	塞内加尔	20岁	800万	科莫	前锋
+贾拉尔·哈桑 (Jalal Hassan)	伊拉克	34岁	20万	扎瓦拉	门将
+法赫德·塔利卜 (Fahad Talib)	伊拉克	30岁	15万	塔拉巴	门将
+艾哈迈德·巴希尔 (Ahmed Basil)	伊拉克	29岁	10万	巴格达警察	门将
+侯赛因·阿里 (Hussein Ali)	伊拉克	24岁	120万	什切青波贡	后卫
+梅尔查斯·多斯基 (Merchas Doski)	伊拉克	25岁	100万	比尔森胜利	后卫
+扎伊德·塔辛 (Zaid Tahseen)	伊拉克	25岁	60万	巴格达警察	后卫
+雷宾·苏拉卡 (Rebin Sulaka)	伊拉克	34岁	30万	首尔FC	后卫
+阿卡姆·哈希姆 (Akam Hashem)	伊拉克	26岁	40万	巴格达警察	后卫
+艾哈迈德·马克纳齐 (Ahmed Maknazi)	伊拉克	25岁	30万	巴格达警察	后卫
+马纳夫·尤尼斯 (Manaf Younis)	伊拉克	29岁	25万	巴格达警察	后卫
+弗兰斯·普特罗斯 (Frans Putros)	伊拉克	32岁	30万	万隆	后卫
+穆斯塔法·萨杜恩 (Mustafa Saadoon)	伊拉克	25岁	20万	巴格达空军	中场
+齐达内·伊克巴尔 (Zidane Iqbal)	伊拉克	23岁	200万	乌德勒支	中场
+阿米尔·阿尔阿马里 (Amir Al Ammari)	伊拉克	28岁	180万	克拉科维亚	中场
+易卜拉欣·巴耶什 (Ibrahim Bayesh)	伊拉克	27岁	60万	迪哈夫拉	中场
+马尔科·法吉 (Marko Farji)	伊拉克	22岁	80万	威尼斯	中场
+凯文·雅库布 (Kevin Yakob)	伊拉克	25岁	80万	奥胡斯	中场
+扎伊德·伊斯梅尔 (Zaid Ismail)	伊拉克	22岁	50万	乌德勒支	中场
+艾马尔·谢尔 (Aimar Sher)	伊拉克	23岁	40万	萨普斯堡	中场
+艾哈迈德·卡塞姆 (Ahmed Qasem)	伊拉克	22岁	350万	纳什维尔SC	中场
+阿里·贾西姆 (Ali Jassim)	伊拉克	22岁	200万	纳杰马体育	前锋
+穆哈纳德·阿里 (Mohanad Ali)	伊拉克	25岁	150万	达巴富查伊拉	前锋
+艾曼·侯赛因 (Aymen Hussein)	伊拉克	30岁	120万	威柯拉	前锋
+阿里·哈马迪 (Ali Al Hamadi)	伊拉克	24岁	250万	卢顿	前锋
+阿里·尤素福 (Ali Yousef)	伊拉克	25岁	100万	阿波罗利马索尔	前锋
+优素福·阿明 (Youssef Amyn)	伊拉克	22岁	80万	拉纳卡AEK	前锋
+厄尔扬·尼兰 (Ørjan Nyland)	挪威	35岁	100万	塞维利亚	门将
+埃吉尔·塞尔维克 (Egil Selvik)	挪威	28岁	150万	沃特福德	门将
+桑德·唐维克 (Sander Tangvik)	挪威	23岁	300万	汉堡	门将
+克里斯托弗·阿耶 (Kristoffer Ajer)	挪威	28岁	1500万	布伦特福德	后卫
+弗雷德里克·比约坎 (Fredrik Bjørkan)	挪威	27岁	300万	博德闪耀	后卫
+亨里克·法尔切纳 (Henrik Falchener)	挪威	26岁	250万	维京	后卫
+桑德雷·隆奥斯 (Sondre Langås)	挪威	24岁	300万	德比郡	后卫
+托比约恩·赫格姆 (Torbjørn Heggem)	挪威	27岁	400万	博洛尼亚	后卫
+马库斯·霍尔姆格伦·彼德森 (Marcus Holmgren Pedersen)	挪威	26岁	300万	都灵	后卫
+朱利安·莱尔森 (Julian Ryerson)	挪威	28岁	1500万	多特蒙德	后卫
+戴维·沃尔费 (David Møller Wolfe)	挪威	24岁	500万	狼队	后卫
+莱奥·厄斯蒂高 (Leo Østigård)	挪威	26岁	800万	热那亚	后卫
+桑德·贝尔格 (Sander Berge)	挪威	28岁	2000万	富勒姆	中场
+帕特里克·贝格 (Patrick Berg)	挪威	28岁	400万	博德闪耀	中场
+弗雷德里克·奥尔斯内斯 (Fredrik Aursnes)	挪威	30岁	1200万	本菲卡	中场
+马丁·厄德高 (Martin Ødegaard)	挪威	27岁	6000万	阿森纳	中场
+克里斯蒂安·索尔茨维特 (Kristian Thorstvedt)	挪威	27岁	800万	萨索洛	中场
+莫滕·托斯比 (Morten Thorsby)	挪威	30岁	300万	克雷莫内塞	中场
+延斯·彼得·海于格 (Jens Petter Hauge)	挪威	26岁	500万	博德闪耀	中场
+安东尼奥·努萨 (Antonio Nusa)	挪威	21岁	3000万	RB莱比锡	中场
+安德烈亚斯·谢尔德鲁普 (Andreas Schjelderup)	挪威	21岁	800万	本菲卡	中场
+奥斯卡·鲍勃 (Oscar Bobb)	挪威	22岁	1500万	富勒姆	中场
+埃林·哈兰德 (Erling Haaland)	挪威	25岁	2亿	曼城	前锋
+亚历山大·瑟洛特 (Alexander Sørloth)	挪威	30岁	2500万	马德里竞技	前锋
+尤尔根·斯特兰德·拉森 (Jørgen Strand Larsen)	挪威	26岁	1500万	水晶宫	前锋
+扬·奥斯卡·阿尔茨加尔德 (Jan Oscar Aartsgard)	挪威	24岁	200万	格拉斯哥流浪者	前锋

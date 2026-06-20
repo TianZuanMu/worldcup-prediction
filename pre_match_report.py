@@ -955,8 +955,8 @@ def _apply_v26_rules(r: PreMatchReport):
     elif r.betfair_hot_side == 'home' and away_team:
         underdog_team = away_team  # 热方=主, 弱势方=客
     if underdog_team:
-        r.three_conditions = check_three_conditions(underdog_team)
-        r.moderate_threat = check_moderate_opponent(underdog_team)
+        r.three_conditions = check_three_conditions(underdog_team, gap)
+        r.moderate_threat = check_moderate_opponent(underdog_team, gap, getattr(r, 'hot_team_fifa_rank', 99))
 
     # 确定共识是否看衰东道主 (用于host discount matrix)
     # (is_host_match/home_host/away_host/HOST_NATIONS 已在交叉验证之前定义)
@@ -1363,6 +1363,23 @@ def _apply_v26_rules(r: PreMatchReport):
                 r.v26_rule = 'CLOSE + 真过热 → 热门不胜'
                 r.v26_prediction = '⚠️ 热门不胜'
                 base_conf = 85
+            # 🆕 V3.4: CLOSE防线检查
+            try:
+                home_t = r.match_name.split('VS')[0].strip()
+                away_t = r.match_name.split('VS')[-1].strip() if 'VS' in r.match_name else ''
+                hot_t = home_t if r.betfair_hot_side == 'home' else away_t
+                opp_t = away_t if r.betfair_hot_side == 'home' else home_t
+                from opponent_db import _count_defensive_strength
+                hot_def = _count_defensive_strength(hot_t)
+                opp_def = _count_defensive_strength(opp_t)
+                if hot_def < 1.0 and opp_def >= 2.0:
+                    base_conf -= 8
+                    r.v26_warnings.append(f'🛡️ 热方防线薄弱(def={hot_def:.1f})vs对手防线强(def={opp_def:.1f})·降信')
+                elif hot_def >= 3.0 and opp_def < 1.0:
+                    base_conf += 5
+                    r.v26_warnings.append(f'🛡️ 热方防线稳固(def={hot_def:.1f})·对手防线弱(def={opp_def:.1f})·升信')
+            except Exception:
+                pass
             r.score_prediction = predict_score_from_report(r)
             r.v26_score_predictions = [format_score_output_compact(r.score_prediction)]
         else:
@@ -1418,9 +1435,47 @@ def _apply_v26_rules(r: PreMatchReport):
                 base_conf = 75
                 r.v26_warnings.append(f"对手: {', '.join(r.moderate_threat.get('top_players', []))}")
             else:
-                r.v26_rule = 'MOD + 真过热 + 无进攻威胁 → 热门仍赢'
-                r.v26_prediction = '热门胜'
-                base_conf = 65
+                # 🆕 V3.5: 防线-攻击对比·对手防守强时翻转预测
+                try:
+                    home_t = r.match_name.split('VS')[0].strip()
+                    away_t = r.match_name.split('VS')[-1].strip() if 'VS' in r.match_name else ''
+                    hot_t = home_t if r.betfair_hot_side == 'home' else away_t
+                    opp_t = away_t if r.betfair_hot_side == 'home' else home_t
+                    from opponent_db import _count_attacking_threat, _count_defensive_strength
+                    hfw, hmf, hthreat, _, _ = _count_attacking_threat(hot_t, r.gap_level)
+                    hot_def = _count_defensive_strength(hot_t)
+                    opp_def = _count_defensive_strength(opp_t)
+                    # V3.5: 对手防线≥热方攻击×0.85 且 热方有一定攻击力(≥2.5)
+                    # 避免极弱攻击(如Mexico thr=2.4)被误判翻盘
+                    def_upset = (opp_def >= hthreat * 0.85 and 2.5 <= hthreat < 5.0)
+                except Exception:
+                    hthreat = 5.0; opp_def = 0; def_upset = False
+
+                if def_upset:
+                    r.v26_rule = 'MOD + 真过热 + 对手防线强 → 热门不胜'
+                    r.v26_prediction = '⚠️ 热门不胜'
+                    base_conf = 55
+                    r.v26_warnings.append(f'🛡️ 对手防线(def={opp_def:.1f})≥热方攻击(thr={hthreat:.1f})×0.7→攻击受限')
+                else:
+                    r.v26_rule = 'MOD + 真过热 + 无进攻威胁 → 热门仍赢'
+                    r.v26_prediction = '热门胜'
+                    base_conf = 65
+                # V3.4: 热方攻击+防线检查
+                try:
+                    if hthreat < 1.5:
+                        base_conf -= 10
+                        r.v26_warnings.append(f'热方攻击不足(threat={hthreat:.1f})·降信')
+                    elif hfw < 1:
+                        base_conf -= 5
+                        r.v26_warnings.append(f'热方无正印前锋(FW={hfw})·降信')
+                    if hot_def < 1.0 and opp_def >= 2.0:
+                        base_conf -= 5
+                        r.v26_warnings.append(f'🛡️ 热方防线薄弱(def={hot_def:.1f})vs对手防线强(def={opp_def:.1f})')
+                    elif hot_def >= 3.0 and opp_def < 1.0:
+                        base_conf += 3
+                        r.v26_warnings.append(f'🛡️ 热方防线稳固(def={hot_def:.1f})·升信')
+                except Exception:
+                    pass
                 # 穿盘率判断
                 if r.xls_cover_rate > 0 and r.xls_cover_rate < 30:  # V3.4: 35→30
                     r.v26_prediction += '·不穿盘'
@@ -1470,7 +1525,23 @@ def _apply_v26_rules(r: PreMatchReport):
 
         if is_real_hot:
             # 🆕 V3.2: 顶级强队 + 温和过热 → 实力碾压 (市场理性定价)
-            if r.hot_team_fifa_rank <= CONF.elite_team_max_rank and abs(cold) < CONF.elite_moderate_cold_max:
+            # V3.5: BIG级别额外检查对手是否有精英攻击手 (防止巴西/比利时过度触发)
+            big_elite_ok = True
+            if gap == 'big':
+                has_elite_attacker = False
+                for s in (r.three_conditions.get('scorers', []) if r.three_conditions else []):
+                    for part in s.split('/'):
+                        if part.startswith('Euro') and 'M' in part:
+                            try:
+                                v = float(part.replace('Euro','').replace('M','').replace(')','').strip())
+                                is_fw = 'FW' in s
+                                if is_fw and v >= 35: has_elite_attacker = True  # V3.5: 真正精英FW (>=35M)
+                                if not is_fw and v >= 50: has_elite_attacker = True  # V3.5: 精英MF (>=50M)
+                            except: pass
+                if has_elite_attacker:
+                    big_elite_ok = False
+                    r.v26_warnings.append(f'BIG精英例外被拦截: 对手有精英攻击手(FW≥20M或MF≥40M)')
+            if r.hot_team_fifa_rank <= CONF.elite_team_max_rank and abs(cold) < CONF.elite_moderate_cold_max and big_elite_ok:
                 r.v26_rule = 'BIG + 真过热 + 顶级强队 → 实力碾压'
                 r.v26_prediction = '热门胜 (实力碾压)'
                 base_conf = 70
@@ -1484,11 +1555,31 @@ def _apply_v26_rules(r: PreMatchReport):
                     r.v26_warnings.append(
                         f'三条件全满足但热方FIFA#{r.hot_team_fifa_rank}>35非精英→降级为\"热门可能不胜\"'
                     )
+                    # V3.5: 进一步检查攻击力
+                    _parts = r.match_name.split('VS')
+                    _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
+                    from opponent_db import _count_attacking_threat
+                    hfw2, hmf2, hthreat2, _, _ = _count_attacking_threat(_hot_t, 'big')
+                    if hthreat2 < 1.5:
+                            r.v26_prediction = '⚠️ 攻击枯竭·冷门预警 (三条件全过+非精英)'
+                            base_conf = 40
+                            r.v26_warnings.append(f'热方攻击枯竭(thr={hthreat2:.1f}<1.5)·破门无望→冷门高危')
                 else:
-                    r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
-                    r.v26_prediction = '热门仍赢 (三条件全满足)'
-                    base_conf = 65
-                    r.v26_warnings.append('三条件全满足: 唯一例外')
+                    # V3.5: 热门攻击力检查 — 即使三条件全过，攻击太弱也无法稳赢
+                    _parts = r.match_name.split('VS')
+                    _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
+                    from opponent_db import _count_attacking_threat
+                    hfw, hmf, hthreat, _, _ = _count_attacking_threat(_hot_t, 'big')
+                    if hthreat < 2.0:  # V3.5: 墨西哥2.2→赢, 乌拉圭1.6→平, 阈值2.0精准
+                        r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热方攻击不足 → 平局风险'
+                        r.v26_prediction = '⚠️ 攻击不足·平局风险 (三条件全过)'
+                        base_conf = 50
+                        r.v26_warnings.append(f'热方攻击威胁仅{hthreat:.1f}(<2.5)·三条件全过但破门能力不足→平局/冷门')
+                    else:
+                        r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
+                        r.v26_prediction = '热门仍赢 (三条件全满足)'
+                        base_conf = 65
+                        r.v26_warnings.append('三条件全满足: 唯一例外')
             else:
                 r.v26_rule = 'BIG + 真过热 → 默认热门不胜'
                 r.v26_prediction = '⚠️ 热门不胜'
@@ -2246,7 +2337,7 @@ def batch_report(matches: list, betfair_texts: dict = None) -> str:
                 f"{r.xls_consensus_pct:+5.0f}% | {r.betfair_cold:+4.0f} | "
                 f"{uni:6s} | {tc:5s} | "
                 f"{r.v26_rule[:24]:24s} | {pred[:16]:16s} | {r.v26_confidence:>2}% | "
-                f"{totals_str:10s} | {score_str[:18]:18s}")
+                f"{totals_str:10s} | {score_str[:30]:30s}")
         lines.append(line)
 
     lines.append(sep)

@@ -71,7 +71,7 @@ def build_calibration() -> dict:
     mapping = {}
 
     for lo, hi, center in BINS:
-        in_bin = [m for m in completed if lo <= m['prediction']['confidence'] < hi]
+        in_bin = [m for m in completed if m.get('prediction') and lo <= m['prediction']['confidence'] < hi]
         count = len(in_bin)
         correct = sum(1 for m in in_bin if m['correct'])
 

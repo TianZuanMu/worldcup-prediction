@@ -112,6 +112,13 @@ def run_backtest(verbose: bool = False) -> Dict:
         elif '主队不败' in pred_text:
             br.expected = 'home_or_draw'
             br.correct = (actual_result in ('home', 'draw'))
+        elif '平局风险' in pred_text:
+            br.expected = 'draw'
+            br.correct = (actual_result == 'draw')
+        elif '冷门预警' in pred_text:
+            br.expected = 'not_' + hot if hot else 'not_home'
+            br.correct = (br.expected == 'not_home' and actual_result != 'home') or \
+                         (br.expected == 'not_away' and actual_result != 'away')
 
         if not br.skipped:
             total += 1

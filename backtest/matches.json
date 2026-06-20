@@ -551,7 +551,7 @@
       "betfair_cold": 58
     },
     "correct": false,
-    "notes": "捷克萨迪莱克6′最快进球·南非莫科纳83′点球扳平·无红牌·3黄牌"
+    "notes": "捷克萨迪莱克6′最快进球·南非莫科纳83′点球扳平·无红牌·3黄牌 | 南非2人停赛(西索尔+兹瓦内红牌)"
   },
   {
     "match_name": "瑞士VS波黑",
@@ -596,5 +596,73 @@
     },
     "correct": true,
     "notes": "加拿大世界杯首胜·乔纳森戴维帽子戏法·卡塔尔2红(33′哈马姆+52′马迪博VAR黄改红·科内重伤)"
+  },
+  {
+    "match_name": "苏格兰VS摩洛哥",
+    "actual": {
+      "result": "away",
+      "score": "0-1"
+    },
+    "correct": true,
+    "notes": "[预测已补全·赛前未记录] 摩洛哥赛巴里71秒闪击·迪亚斯助攻·摩洛哥积4分·苏格兰积3分",
+    "kickoff": "2026-06-20T06:00",
+    "prediction": {
+      "text": "热门不胜 (摩洛哥方向)",
+      "confidence": 82.7,
+      "rule": "CLOSE + 真过热 → 热门不胜 (摩洛哥精英攻击线: 迪亚斯+阿什拉夫+布阿迪)"
+    },
+    "recorded_at": "2026-06-20T00:00:00Z (reconstructed)"
+  },
+  {
+    "match_name": "巴西VS海地",
+    "actual": {
+      "result": "home",
+      "score": "3-0"
+    },
+    "correct": null,
+    "notes": "库尼亚2球+维尼修斯1球·巴西积4分·海地2连败首支出局·模型EXTREME弃权",
+    "prediction": {
+      "text": "⚠️ 不预测 (EXTREME: 0-0↔7-1随机)",
+      "confidence": 0,
+      "rule": "EXTREME → 强制回避·不预测"
+    },
+    "features": {
+      "strength_gap": "extreme",
+      "betfair_cold": 2.0
+    },
+    "recorded_at": "2026-06-20T13:49:52.705969",
+    "kickoff": "2026-06-20T08:30"
+  },
+  {
+    "match_name": "美国VS澳大利亚",
+    "actual": {
+      "result": "home",
+      "score": "2-0"
+    },
+    "correct": true,
+    "notes": "[预测已补全·赛前未记录] 巴洛贡造乌龙+弗里曼头球·美国6分锁定D组头名出线·澳大利亚3分",
+    "kickoff": "2026-06-20T03:00",
+    "prediction": {
+      "text": "热门胜·不穿盘",
+      "confidence": 89.4,
+      "rule": "MOD + 真过热 + 无进攻威胁 → 热门仍赢"
+    },
+    "recorded_at": "2026-06-20T00:00:00Z (reconstructed)"
+  },
+  {
+    "match_name": "土耳其VS巴拉圭",
+    "actual": {
+      "result": "away",
+      "score": "0-1"
+    },
+    "correct": false,
+    "notes": "[预测已补全·赛前未记录] 巴拉圭加拉尔萨2分钟闪击·阿尔米隆红牌(遮口新规)·土耳其2连败出局",
+    "kickoff": "2026-06-20T11:00",
+    "prediction": {
+      "text": "⚠️ 热门不胜",
+      "confidence": 82.7,
+      "rule": "MOD + 真过热 → 热门不胜 (巴拉圭防守反击: 恩西索+迭戈戈麦斯)"
+    },
+    "recorded_at": "2026-06-20T00:00:00Z (reconstructed)"
   }
 ]
