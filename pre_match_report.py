@@ -1497,9 +1497,32 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_warnings.append(f'顶级强队(FIFA#{r.hot_team_fifa_rank})·温和过热(|cold|={abs(cold):.0f}<{CONF.elite_moderate_cold_max:.0f})→实力碾压覆盖')
         elif is_real_hot and r.moderate_threat:
             if r.moderate_threat.get('has_goal_threat'):
-                r.v26_rule = 'MOD + 真过热 + 顶级攻击手 → 热门不胜'
-                r.v26_prediction = '⚠️ 热门不胜'
-                base_conf = 75
+                # 🆕 V3.9: 实力优先 — 攻击差>4+防线差>2.5时冷热惩罚减半
+                mod_flip = False
+                try:
+                    from opponent_db import _count_attacking_threat as _catv39, _count_defensive_strength as _defv39
+                    _mp39 = r.match_name.split('VS')
+                    _ht39 = _mp39[0].strip() if r.betfair_hot_side == 'home' else _mp39[-1].strip()
+                    _ot39 = _mp39[-1].strip() if r.betfair_hot_side == 'home' else _mp39[0].strip()
+                    _, _, _atk_h, _, _ = _catv39(_ht39, 'moderate')
+                    _, _, _atk_o, _, _ = _catv39(_ot39, 'moderate')
+                    _atk_gap = _atk_h - _atk_o
+                    _def_gap = _defv39(_ht39) - _defv39(_ot39)
+                    if _atk_gap > 4.0 and _def_gap > 2.5 and _atk_o > 4.0:
+                        # 仅当对手也有真实攻击力(thr>4.0)时才豁免冷热惩罚
+                        # 日本thr=3.0·埃及thr=2.5 → 冷热可靠·不豁免
+                        # 瑞典thr=5.5 → 对手有反击能力·但荷兰优
+                        mod_flip = True
+                        r.v26_rule = 'MOD + 实力优先 → 热门仍赢 (冷热折扣减半)'
+                        r.v26_prediction = '热门胜 (实力优先·过热折扣减半)'
+                        base_conf = 68
+                        r.v26_warnings.append(f'⚡ 实力优先: 攻击差{_atk_gap:.1f}>4.0+防线差{_def_gap:.1f}>2.5→冷热惩罚减半·推翻默认热门不胜')
+                except Exception:
+                    pass
+                if not mod_flip:
+                    r.v26_rule = 'MOD + 真过热 + 顶级攻击手 → 热门不胜'
+                    r.v26_prediction = '⚠️ 热门不胜'
+                    base_conf = 75
                 r.v26_warnings.append(f"对手: {', '.join(r.moderate_threat.get('top_players', []))}")
             else:
                 # 🆕 V3.5: 防线-攻击对比·对手防守强时翻转预测
