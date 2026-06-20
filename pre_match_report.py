@@ -1375,6 +1375,7 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_rule = 'EXTREME + 碾压指数 → 实力碾压·强队胜'
             r.v26_prediction = '热门胜 (实力碾压·准EXTREME)'
             r.v26_confidence = 70
+            r.gap_level = 'extreme'  # V3.11: 确保gap_level与规则一致
             r.v26_warnings.append(f'⚡ 碾压指数{_oi:.2f}>0.80→准EXTREME·实力碾压·跳过泊松直接预测')
             _predict_totals(r); _build_structured(r); return
         else:
@@ -2120,10 +2121,20 @@ def _build_structured(r: PreMatchReport):
         bf = r._bf_raw_odds if hasattr(r, '_bf_raw_odds') else {}
         bf_home = bf.get('home', 0) or 0; bf_away = bf.get('away', 0) or 0
         bf_draw = bf.get('draw', 0) or 0
-        if bf_home > 0 and bf_away > 0 and bf_draw > 0:
-            total_imp = 1/bf_home + 1/bf_away + 1/bf_draw
+        if bf_home > 1.0 and bf_away > 1.0 and bf_draw > 1.0:
+            # V3.11: 去水分—去除庄家margin(假设5%)得到真实隐含概率
+            fair_home = 1 / (bf_home * 0.95); fair_away = 1 / (bf_away * 0.95)
+            fair_draw = 1 / (bf_draw * 0.95)
+            total_fair = fair_home + fair_away + fair_draw
             hot_price = bf_home if (r.betfair_hot_side == 'home') else bf_away
-            market_imp = (1/hot_price) / total_imp * 100 if hot_price > 0 else 0
+            market_imp = (1/hot_price) / (total_fair / 3) * 33.3
+            # 简化: 直接用1/odds归一化
+            if bf_home < 1.15 or bf_away < 1.15 or bf_home > 5.0 or bf_away > 5.0:
+                # 极端赔率: 去掉平局影响·直接两方归一
+                imp_h = 1/bf_home; imp_a = 1/bf_away
+                market_imp = (imp_h / (imp_h + imp_a) * 100) if (r.betfair_hot_side == 'home') else (imp_a / (imp_h + imp_a) * 100)
+            else:
+                market_imp = (1/hot_price) / (1/bf_home + 1/bf_draw + 1/bf_away) * 100
         else:
             market_imp = 0
         # 🆕 V3.8: 市场锚定熔断 — 模型与市场背离>25点时均值回拨

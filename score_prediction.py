@@ -526,6 +526,21 @@ def predict_score(match_name: str,
         if away_thr < 0.5:
             lam_away = min(lam_away, 0.3)
             adjustments.append(f'🛡️ {_an}攻击枯竭(thr={away_thr:.1f})→预期进球封顶0.3')
+        # 🆕 V3.11: 泊松-实力融合 — 40%实力λ+60%市场λ
+        from opponent_db import _count_defensive_strength
+        home_def = _count_defensive_strength(_hn); away_def = _count_defensive_strength(_an)
+        # 实力λ: 攻击/对手防线 × 联赛均值1.4
+        str_lam_home = (home_thr / max(away_def, 1.0)) * 1.4 if home_thr > 0 else lam_home
+        str_lam_away = (away_thr / max(home_def, 1.0)) * 1.4 if away_thr > 0 else lam_away
+        # 融合: 60%市场 + 40%实力 (仅当两者差距>30%时触发)
+        if abs(lam_home - str_lam_home) / max(lam_home, 0.1) > 0.3:
+            old_lam_home = lam_home
+            lam_home = lam_home * 0.6 + str_lam_home * 0.4
+            adjustments.append(f'⚡ 泊松融合: 主λ {old_lam_home:.2f}→{lam_home:.2f}(市场60%+实力40%)')
+        if abs(lam_away - str_lam_away) / max(lam_away, 0.1) > 0.3:
+            old_lam_away = lam_away
+            lam_away = lam_away * 0.6 + str_lam_away * 0.4
+            adjustments.append(f'⚡ 泊松融合: 客λ {old_lam_away:.2f}→{lam_away:.2f}(市场60%+实力40%)')
     except Exception:
         pass
 
