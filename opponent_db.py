@@ -1844,7 +1844,11 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
                     fw_count += 1 * age_factor
                 elif value_m >= MF_VALUE_THRESHOLD:  # V3.5: MF质量过滤
                     scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
-                    mf_count += 1 * age_factor
+                    # V3.6: MF分级权重 (精英MF打破"一律半折")
+                    if value_m >= 50: mf_weight = 1.0      # Musiala/Wirtz/Bellingham级
+                    elif value_m >= 25: mf_weight = 0.75   # 优质攻击MF
+                    else: mf_weight = 0.5                   # 普通MF/DM
+                    mf_count += 1 * age_factor * (mf_weight / 0.5)  # 标准化到原0.5基准
                 # else: low-value MF (<12M) silently skipped (likely DM)
 
             elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= 5:
