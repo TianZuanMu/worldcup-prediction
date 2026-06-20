@@ -186,7 +186,7 @@
       "match_id": "1359243",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-20 13:41"
+      "last_fetch": "2026-06-20 20:07"
     },
     "乌拉圭VS佛得角": {
       "match_id": "1359246",
@@ -229,6 +229,6 @@
   "download_delay": 2.0,
   "timeout": 30,
   "max_retries": 3,
-  "last_discovery": "2026-06-19 20:07:02",
+  "last_discovery": "2026-06-20 19:37:02",
   "preferred_source": "500com"
 }

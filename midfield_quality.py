@@ -15,10 +15,10 @@ MIDFIELD_RATING: dict = {
     # ═══ 顶级中场 (7.5-8.5) ═══
     '阿根廷':    8.0,   # Enzo(Chelsea)+Mac Allister+De Paul → 世界杯冠军中场
     '巴西':      8.0,   # Guimaraes(7000万纽卡)+Casemiro+内马尔(AM)
-    '荷兰':      8.0,   # Gravenberch(8000万利物浦)+De Jong(巴萨)+Simons
+    '荷兰':      7.5,   # Gravenberch(9000万利物浦)+De Jong(巴萨)+Reijnders(6000万曼城) → Simons伤缺
     '比利时':    7.5,   # De Bruyne(曼城)+Tielemans+Onana → KDB世界级但老化
     '土耳其':    8.0,   # Guler(9000万皇马)+Calhanoglu(国米) → 惊喜升级
-    '克罗地亚':  7.0,   # Modric(39岁/400万)+Kovacic(曼城) → 经验丰富但老化
+    '克罗地亚':  7.5,   # Modric(40/AC米兰)+Kovacic(曼城)+P.Sucic(3000万国米)+Baturina(2400万) → 新老结合
 
     # ═══ 强力中场 (6.5-7.5) ═══
     '乌拉圭':    7.5,   # Valverde(9000万皇马)+Ugarte(3000万曼联)+Bentancur
@@ -37,7 +37,7 @@ MIDFIELD_RATING: dict = {
     '苏格兰':    6.0,   # McTominay(4000万那不勒斯)+McGinn(维拉)
     '捷克':      6.0,   # Soucek(西汉姆)+Coufal → 英超双核偏防守
     '塞内加尔':  6.0,   # Koulibaly(退)+Gueye → 防守型
-    '瑞典':      6.0,   # Ayari(布莱顿)+Kulusevski(AM偏中)
+    '瑞典':      5.5,   # Ayari(3500万布莱顿)+Bergvall(3500万热刺) → Kulusevski伤缺
     '阿尔及利亚':6.0,   # Bennacer(老化)+Bentaleb → 经验型
     '加拿大':    6.0,   # Kone(萨索洛2500万)+Eustaquio(Porto) → 升级
     '巴拉圭':    5.5,   # Diego Gomez(布莱顿2500万) → 单核
@@ -50,7 +50,7 @@ MIDFIELD_RATING: dict = {
     '塞尔维亚':  6.5,   # Milinkovic-Savic+Tadic → 技术好
 
     # ═══ 弱中场 (3-5) ═══
-    '波黑':      4.5,   # Pjanic(老化)+Krunic → 老化严重
+    '波黑':      5.0,   # Tahirovic(500万)+Gigovic(400万)+Memic(350万) → 年轻但缺乏球星·Pjanic已退役
     '卡塔尔':    5.0,   # 亚洲冠军·技术流但低对抗
     '沙特阿拉伯':5.0,   # 技术型·缺乏高强度经验
     '南非':      4.0,   # 缺乏五大联赛中场
