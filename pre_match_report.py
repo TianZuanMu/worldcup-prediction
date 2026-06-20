@@ -119,9 +119,10 @@ class PreMatchReport:
     betfair_hot_side: str = ""
     betfair_is_real_hot: bool = False
     big_weak_overheat: bool = False      # 🆕 V3.3: BIG级别弱过热 (冷热20-29)
-    _late_surge: bool = False            # 🆕 V3.4: 冷热晚期飙升 (0→40+反向指标)
-    _late_surge_early: float = 0.0
-    _late_surge_late: float = 0.0
+    _late_surge: bool = False            # 🆕 V3.6: 冷热真实飙升(早期<25→晚期≥40)
+    _late_surge_early: float = 0.0       # 早期平均冷热
+    _late_surge_late: float = 0.0        # 晚期平均冷热
+    _betfair_trend: str = ''             # 🆕 V3.6: 冷热趋势(surging/fading/rising/cooling/stable)
     betfair_pollution: bool = False
     betfair_pollution_gap: float = 0.0
     betfair_big_sell: bool = False
@@ -557,33 +558,45 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                 r.betfair_big_sell_count = len(big_sells)
                 r.betfair_big_sell_volume = sum(t['volume'] for t in big_sells)
                 r._betfair_from_fallback = False  # 🆕 V3.3: JSON成功·数据可靠
-                # 🆕 V3.4: 冷热晚期飙升检测 (回测: 0→40+ 三场全错)
+                # 🆕 V3.6: 冷热时段分析 (替代V3.4简单首尾对比)
                 all_snaps = data.get('snapshots', [])
                 if len(all_snaps) >= 3:
-                    early_colds = []
-                    late_colds = []
+                    # 过滤空快照(odds全0的占位数据)
+                    valid_snaps = []
                     for s in all_snaps:
                         b = s.get('betfair', {})
+                        hp = b.get('home_price', 0) or b.get('home_odds', 0) or 0
+                        ap = b.get('away_price', 0) or b.get('away_odds', 0) or 0
                         ch = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
-                        if ch > 0:
-                            # 粗略分组: 前1/3为早期, 后1/3为晚期
-                            pass
-                    # 取第1个和最后2个快照的冷热
-                    first_val = 0
-                    for s in all_snaps[:1]:
-                        b = s.get('betfair', {})
-                        first_val = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
-                    last_vals = []
-                    for s in all_snaps[-2:]:
-                        b = s.get('betfair', {})
-                        ch = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
-                        last_vals.append(ch)
-                    last_avg = sum(last_vals) / 2 if last_vals else 0
-                    # 检测: 最初无热(≤5) → 最终极热(≥40)
-                    if first_val <= 5 and last_avg >= 40:
-                        r._late_surge = True
-                        r._late_surge_early = round(first_val)
-                        r._late_surge_late = round(last_avg)
+                        if hp > 0 and ap > 0:  # 有效数据
+                            valid_snaps.append((s.get('timestamp', ''), ch, hp, ap))
+                    if len(valid_snaps) >= 3:
+                        # 分三段: 早期(前1/3) 中期(中1/3) 晚期(后1/3)
+                        n = len(valid_snaps)
+                        seg = max(n // 3, 1)
+                        early = valid_snaps[:seg]
+                        mid   = valid_snaps[seg:2*seg] if n >= 6 else []
+                        late  = valid_snaps[-seg:]
+                        early_avg = sum(e[1] for e in early) / len(early)
+                        late_avg  = sum(l[1] for l in late) / len(late)
+                        mid_avg   = sum(m[1] for m in mid) / len(mid) if mid else early_avg
+                        r._late_surge_early = round(early_avg)
+                        r._late_surge_late = round(late_avg)
+                        # V3.6: 真实飙升 — 早期温和(<25) + 晚期极热(≥40) + 增幅≥20
+                        surge = late_avg - early_avg
+                        if early_avg < 25 and late_avg >= 40 and surge >= 20:
+                            r._late_surge = True
+                        # 也记录趋势方向供参考
+                        if surge >= 30:
+                            r._betfair_trend = ' surging'
+                        elif surge <= -20:
+                            r._betfair_trend = ' fading'
+                        elif surge >= 10:
+                            r._betfair_trend = ' rising'
+                        elif surge <= -10:
+                            r._betfair_trend = ' cooling'
+                        else:
+                            r._betfair_trend = ' stable'
                 # 🆕 V3.3: 存储原始数据供 dimension12_books 交叉验证
                 r._bf_raw_odds = {'home': bf.get('home_price', 0) or bf.get('home_odds', 0),
                                   'draw': bf.get('draw_price', 0) or bf.get('draw_odds', 0),
@@ -1047,12 +1060,24 @@ def _apply_v26_rules(r: PreMatchReport):
                 penalty = int(max_penalty * 0.27); tier = 'I (小额)'
             adj -= penalty
             r.v26_warnings.append(f'🔴 大额卖单({tier}): {cnt}笔·共{vol:,.0f} → 置信度-{penalty}')
-        # 🆕 V3.4: 冷热晚期飙升惩罚 (回测: 0→40+ 三场全错)
-        if r._late_surge:
+        # 🆕 V3.6: 冷热时段分析惩罚 (精英强队豁免·临场热钱是理性追强)
+        if r._late_surge and r.hot_team_fifa_rank > CONF.elite_team_max_rank:
             surge_penalty = 12
             adj -= surge_penalty
             r.v26_warnings.append(
-                f'🌊 冷热晚期飙升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·临场热钱反向指标→置信度-{surge_penalty}')
+                f'🌊 冷热飙升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·非精英热队·临场热钱反向→信-{surge_penalty}')
+        elif r._late_surge:
+            r.v26_warnings.append(
+                f'📈 冷热上升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·精英强队·理性追强→不降信')
+        elif hasattr(r, '_betfair_trend') and r._betfair_trend in (' surging',):
+            if r.hot_team_fifa_rank > CONF.elite_team_max_rank:
+                surge_penalty = 6
+                adj -= surge_penalty
+                r.v26_warnings.append(
+                    f'📈 冷热上升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·趋势走热→信-{surge_penalty}')
+            else:
+                r.v26_warnings.append(
+                    f'📈 冷热上升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·精英强队→不降信')
         return max(5, min(95, base_conf + adj))
 
     # ── V3.0 乘法调整链 (P1#5: 加法→乘法·防触顶) ──
@@ -1445,17 +1470,29 @@ def _apply_v26_rules(r: PreMatchReport):
                     hfw, hmf, hthreat, _, _ = _count_attacking_threat(hot_t, r.gap_level)
                     hot_def = _count_defensive_strength(hot_t)
                     opp_def = _count_defensive_strength(opp_t)
-                    # V3.5: 对手防线≥热方攻击×0.85 且 热方有一定攻击力(≥2.5)
-                    # 避免极弱攻击(如Mexico thr=2.4)被误判翻盘
-                    def_upset = (opp_def >= hthreat * 0.85 and 2.5 <= hthreat < 5.0)
+                    # V3.6: 防线翻盘检测 (ratio≥0.78 + 无prime-age精英FW)
+                    ratio = opp_def / hthreat if hthreat > 0 else 0
+                    # 检测热门是否有prime-age精英FW (>22岁·≥25M·top5)
+                    from opponent_db import opponent_quality as _oq
+                    _hot_data = _oq(hot_t)
+                    has_prime_fw = False
+                    for p in _hot_data.get('players', []):
+                        if (isinstance(p, dict) and p.get('top5') and p.get('pos') == 'FW'
+                            and p.get('value_m', 0) >= 25
+                            and (p.get('age') or 99) > 22):
+                            has_prime_fw = True
+                            break
+                    # 触发: 防线接近攻击(ratio≥0.78) + 无prime精英FW + 非极端(<1.2)
+                    def_upset = (ratio >= 0.78 and ratio < 1.2 and not has_prime_fw
+                                 and 2.5 <= hthreat < 5.0)
                 except Exception:
-                    hthreat = 5.0; opp_def = 0; def_upset = False
+                    hthreat = 5.0; opp_def = 0; def_upset = False; ratio = 0
 
                 if def_upset:
-                    r.v26_rule = 'MOD + 真过热 + 对手防线强 → 热门不胜'
+                    r.v26_rule = 'MOD + 真过热 + 对手防线强 + 热方无prime精英 → 热门不胜'
                     r.v26_prediction = '⚠️ 热门不胜'
                     base_conf = 55
-                    r.v26_warnings.append(f'🛡️ 对手防线(def={opp_def:.1f})≥热方攻击(thr={hthreat:.1f})×0.7→攻击受限')
+                    r.v26_warnings.append(f'🛡️ 对手防线(def={opp_def:.1f})接近热方攻击(thr={hthreat:.1f}·ratio={ratio:.2f})·热方无prime精英FW→翻盘风险')
                 else:
                     r.v26_rule = 'MOD + 真过热 + 无进攻威胁 → 热门仍赢'
                     r.v26_prediction = '热门胜'
@@ -1560,7 +1597,12 @@ def _apply_v26_rules(r: PreMatchReport):
                     _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
                     from opponent_db import _count_attacking_threat
                     hfw2, hmf2, hthreat2, _, _ = _count_attacking_threat(_hot_t, 'big')
-                    if hthreat2 < 1.5:
+                    # V3.6: 东道主豁免 (加拿大rank40走非精英路径)
+                    is_hot_host2 = (r.betfair_hot_side == 'home' and home_host) or \
+                                   (r.betfair_hot_side == 'away' and away_host)
+                    if is_hot_host2:
+                        pass  # 东道主不触发攻击枯竭
+                    elif hthreat2 < 1.5:
                             r.v26_prediction = '⚠️ 攻击枯竭·冷门预警 (三条件全过+非精英)'
                             base_conf = 40
                             r.v26_warnings.append(f'热方攻击枯竭(thr={hthreat2:.1f}<1.5)·破门无望→冷门高危')
@@ -1570,11 +1612,38 @@ def _apply_v26_rules(r: PreMatchReport):
                     _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
                     from opponent_db import _count_attacking_threat
                     hfw, hmf, hthreat, _, _ = _count_attacking_threat(_hot_t, 'big')
-                    if hthreat < 2.0:  # V3.5: 墨西哥2.2→赢, 乌拉圭1.6→平, 阈值2.0精准
-                        r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热方攻击不足 → 平局风险'
-                        r.v26_prediction = '⚠️ 攻击不足·平局风险 (三条件全过)'
-                        base_conf = 50
-                        r.v26_warnings.append(f'热方攻击威胁仅{hthreat:.1f}(<2.5)·三条件全过但破门能力不足→平局/冷门')
+                    if hthreat <= 3.5:  # V3.6: 攻击不足·但热门精英攻击手豁免
+                        # 检查热门自身是否有FW≥25M或MF≥40M(如哥伦比亚Diaz€70M)
+                        _parts = r.match_name.split('VS')
+                        _hot_t2 = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
+                        hfw2, hmf2, hthreat2, hscorers, _ = _count_attacking_threat(_hot_t2, 'big')
+                        has_elite = False
+                        for s in hscorers:
+                            if 'FW' in s and 'ex-5' not in s:  # only top5 FW, not ex-5 (Nunez in Saudi)
+                                for part in s.split('/'):
+                                    if part.startswith('Euro') and 'M' in part:
+                                        try:
+                                            v = float(part.replace('Euro','').replace('M','').replace(')','').strip())
+                                            if v >= 25: has_elite = True
+                                        except: pass
+                        # V3.6: 东道主豁免 (墨西哥主场·纸面攻击弱但主场优势)
+                        is_hot_host = (r.betfair_hot_side == 'home' and home_host) or \
+                                      (r.betfair_hot_side == 'away' and away_host)
+                        if is_hot_host:
+                            r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢 (东道主)'
+                            r.v26_prediction = '热门仍赢 (三条件全满足·东道主)'
+                            base_conf = 65
+                            r.v26_warnings.append(f'🏟️ 东道主豁免: 攻击纸面弱(thr={hthreat:.1f})但主场优势')
+                        elif not has_elite:
+                            r.v26_rule = 'BIG + 真过热 + 三条件全满足 + 热方攻击不足 → 平局风险'
+                            r.v26_prediction = '⚠️ 攻击不足·平局风险 (三条件全过)'
+                            base_conf = 50
+                            r.v26_warnings.append(f'热方攻击不足(thr={hthreat:.1f}≤3.5)·无精英攻击手→平局/冷门')
+                        else:
+                            r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
+                            r.v26_prediction = '热门仍赢 (三条件全满足)'
+                            base_conf = 65
+                            r.v26_warnings.append(f'热方攻击偏弱(thr={hthreat:.1f})但精英坐镇→仍可信')
                     else:
                         r.v26_rule = 'BIG + 真过热 → 三条件全满足·热门仍赢'
                         r.v26_prediction = '热门仍赢 (三条件全满足)'
