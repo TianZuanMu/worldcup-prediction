@@ -1,0 +1,1429 @@
+### 墨西哥队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 劳尔·兰赫尔（Raul Rangel） | 瓜达拉哈拉 | 18 |
+| 门将 | 卡洛斯·阿塞韦多（Carlos Acevedo） | 桑托斯拉古纳 | 0（暂未查到） |
+| 门将 | 吉列尔莫·奥乔亚（Guillermo Ochoa） | AEL利马索尔 | 153 |
+| 后卫 | 豪尔赫·桑切斯（Jorge Sanchez） | 塞萨洛尼基 | 近30场 |
+| 后卫 | 塞萨尔·蒙特斯（Cesar Montes） | 莫斯科火车头 | 64 |
+| 后卫 | 约翰·巴斯克斯（Johan Vasquez） | 热那亚 | 29 |
+| 后卫 | 伊斯雷尔·雷耶斯（Israel Reyes） | 美洲队 | 31 |
+| 后卫 | 马特奥·查韦斯（Mateo Chavez） | 阿尔克马尔 | 0（暂未查到） |
+| 后卫 | 赫苏斯·加利亚多（Jesus Gallardo） | 托卢卡 | 约100场 |
+| 中场 | 埃德松·阿尔瓦雷斯（Edson Alvarez） | 费内巴切 | 96 |
+| 中场 | 路易斯·罗莫（Luis Romo） | 瓜达拉哈拉 | — |
+| 中场 | 阿尔瓦罗·菲达尔戈（Alvaro Fidalgo） | 皇家贝蒂斯 | 4场 |
+| 中场 | 布里安·古铁雷斯（Brian Gutierrez） | 瓜达拉哈拉 | — |
+| 中场 | 奥韦林·皮内达（Orbelin Pineda） | 雅典AEK | 近50场 |
+| 中场 | 奥贝德·巴尔加斯（Obed Vargas） | 马德里竞技 | 5场 |
+| 中场 | 希尔韦托·莫拉（Gilberto Mora） | 蒂华纳 | 7 |
+| 中场 | 埃里克·利拉（Erik Lira） | 蓝十字 | 19 |
+| 中场 | 路易斯·查韦斯（Luis Chavez） | 莫斯科迪纳摩 | 约20场以上 |
+| 中场 | 塞萨尔·韦尔塔（Cesar Huerta） | 安德莱赫特 | 26场 |
+| 前锋 | 劳尔·希门尼斯（Raul Jimenez） | 富勒姆 | 125-126场 |
+| 前锋 | 亚历克西斯·贝加（Alexis Vega） | 托卢卡 | 16场以上 |
+| 前锋 | 圣地亚哥·希门尼斯（Santiago Gimenez） | AC米兰 | 32场 |
+| 前锋 | 阿曼多·冈萨雷斯（Armando Gonzalez） | 瓜达拉哈拉 | 7场 |
+| 前锋 | 胡利安·基尼奥内斯（Julian Quinones） | 胡拜尔库迪西亚 | 22场 |
+| 前锋 | 罗伯托·阿尔瓦拉多（Roberto Alvarado） | 瓜达拉哈拉 | 62场 |
+| 前锋 | 吉列尔莫·马丁内斯（Guillermo Martinez） | 墨西哥美洲狮 | 0（暂未查到） |
+---
+### 韩国队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 金承奎（Kim Seung-gyu） | FC东京 | 87场 |
+| 门将 | 宋范根（Song Bum-keun） | 全北现代 | 1场 |
+| 门将 | 赵贤祐（Jo Hyeon-woo） | 蔚山HD | 11场 |
+| 后卫 | 金玟哉（Kim Min-jae） | 拜仁慕尼黑 | 64场 |
+| 后卫 | 金太铉（Kim Tae-hyeon） | 鹿岛鹿角 | 0场（首次入选） |
+| 后卫 | 李汉范（Lee Han-beom） | 中日德兰 | 1场 |
+| 后卫 | 李太锡（Lee Tae-seok） | 奥地利维也纳 | 1场 |
+| 后卫 | 赵佑民（Cho Yu-min） | — | 5场 |
+| 后卫 | 金纹焕（Kim Moon-hwan） | 大田韩亚市民 | 33场 |
+| 后卫 | 朴镇燮（Park Jin-seob） | 浙江队 | 14场 |
+| 后卫 | 薛英佑（Seol Young-woo） | 贝尔格莱德红星 | 26场 |
+| 后卫 | 延斯·卡斯特罗普（Jens Castrop） | 门兴格拉德巴赫 | 5 |
+| 中场 | 黄仁范（Hwang In-beom） | 费耶诺德 | 60场 |
+| 中场 | 白昇浩（Paik Seung-ho） | 伯明翰 | 15场 |
+| 中场 | 李在城（Lee Jae-sung） | 美因茨 | 102场 |
+| 中场 | 黄喜灿（Hwang Hee-chan） | 狼队 | 59场 |
+| 中场 | 李刚仁（Lee Kang-in） | 巴黎圣日耳曼 | 88场 |
+| 中场 | 裴峻浩（Bae Jun-ho） | 斯托克城 | 11场 |
+| 中场 | 杨贤俊（Yang Hyun-jun） | 凯尔特人 | 6场 |
+| 中场 | 金镇圭（Kim Jin-gyu） | 全北现代 | — |
+| 中场 | 严智星（Eom Ji-sung） | 斯旺西 | — |
+| 中场 | 李东炅（Lee Dong-gyeong） | 蔚山HD | 16场 |
+| 中场 | 李基赫（Lee Ki-hyuk） | 江原FC | 1场 |
+| 前锋 | 孙兴慜（Son Heung-min） | 洛杉矶FC | 143 |
+| 前锋 | 曹圭成（Cho Gue-sung） | 中日德兰 | 24场 |
+| 前锋 | 吴贤揆（Oh Hyeon-gyu） | 贝西克塔斯 | 24场 |
+---
+### 南非队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 罗恩文·威廉姆斯（Ronwen Williams） | 马梅洛迪日落 | — |
+| 门将 | 西波·查因（Sipho Chaine） | 奥兰多海盗 | 1场 |
+| 门将 | 里卡多·戈斯（Ricardo Goss） | 西韦莱莱 | — |
+| 后卫 | 塔邦·马图鲁迪（Thabang Matuludi） | 波罗克瓦尼城 | — |
+| 后卫 | 库卢马尼·恩达马内（Khulumani Ndamane） | 马梅洛迪日落 | — |
+| 后卫 | 奥布里·莫迪巴（Aubrey Modiba） | 马梅洛迪日落 | — |
+| 后卫 | 姆贝凯泽利·姆博卡齐（Mbekezeli Mbokazi） | 芝加哥火焰 | — |
+| 后卫 | 萨穆凯莱·卡比尼（Samukele Kabini） | 莫尔德 | — |
+| 后卫 | 恩科西纳蒂·西比西（Nkosinathi Sibisi） | 奥兰多海盗 | 6场 |
+| 后卫 | 胡利索·穆道（Khuliso Mudau） | 马梅洛迪日落 | — |
+| 后卫 | 伊梅·奥孔（Ime Okon） | 汉诺威 | — |
+| 后卫 | 奥尔韦图·马坎亚（Olwethu Makhanya） | 费城联合 | 1场 |
+| 后卫 | 布拉德利·克罗斯（Bradley Cross） | 凯泽酋长 | — |
+| 中场 | 特博霍·莫科纳（Teboho Mokoena） | 马梅洛迪日落 | 53 |
+| 中场 | 塔伦特·姆巴塔（Thalente Mbatha） | 奥兰多海盗 | — |
+| 中场 | 斯费菲洛·西索尔（Sphephelo Sithole） | 通德拉 | — |
+| 中场 | 杰登·亚当斯（Jayden Adams） | 马梅洛迪日落 | 3场 |
+| 中场 | 卡莫吉洛·塞贝莱贝莱（Kamogelo Sebelebele） | 奥兰多海盗 | — |
+| 中场 | 切庞·莫雷米（Tshepang Moremi） | 奥兰多海盗 | — |
+| 前锋 | 奥斯温·阿波利斯（Oswin Appollis） | 奥兰多海盗 | 24场 |
+| 前锋 | 莱尔·福斯特（Lyle Foster） | 伯恩利 | 26 |
+| 前锋 | 雷莱博希莱·莫福肯（Relebohile Mofokeng） | 奥兰多海盗 | 13 |
+| 前锋 | 塔佩洛·马塞科（Thapelo Maseko） | AEL利马索尔 | — |
+| 前锋 | 伊克拉姆·雷纳斯（Iqraam Rayners） | 马梅洛迪日落 | — |
+| 前锋 | 埃维登斯·马克戈帕（Evidence Makgopa） | 奥兰多海盗 | — |
+| 前锋 | 滕巴·兹瓦内（Themba Zwane） | 马梅洛迪日落 | 47场 |
+---
+### 捷克队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 马捷·科瓦日（Matej Kovar） | 埃因霍温 | 19 |
+| 门将 | 因德日希·斯坦涅克（Jindrich Stanek） | 布拉格斯拉维亚 | 14 |
+| 门将 | 卢卡什·霍尔尼切克（Lukas Hornicek） | 布拉加 | 1 |
+| 后卫 | 弗拉基米尔·曹法尔（Vladimir Coufal） | 霍芬海姆 | 61 |
+| 后卫 | 托马斯·霍莱什（Tomas Holes） | 布拉格斯拉维亚 | 40 |
+| 后卫 | 拉迪斯拉夫·克雷伊奇（Ladislav Krejci） | 狼队 | 26 |
+| 后卫 | 罗宾·赫拉纳奇（Robin Hranac） | 霍芬海姆 | 15 |
+| 后卫 | 大卫·齐马（David Zima） | 布拉格斯拉维亚 | 33场 |
+| 后卫 | 斯捷潘·哈劳佩克（Stepan Chaloupek） | 布拉格斯拉维亚 | — |
+| 后卫 | 大卫·尤拉塞克（David Jurasek） | 布拉格斯拉维亚 | — |
+| 后卫 | 雅罗斯拉夫·泽莱尼（Jaroslav Zeleny） | 布拉格斯巴达 | 17场 |
+| 后卫 | 大卫·杜德拉（David Doudera） | 布拉格斯拉维亚 | 15场 |
+| 中场 | 托马斯·绍切克（Tomas Soucek） | 西汉姆联 | 89 |
+| 中场 | 弗拉基米尔·达里达（Vladimir Darida） | — | 76场 |
+| 中场 | 卢卡什·切尔夫（Lukas Cerv） | — | — |
+| 中场 | 卢卡什·普罗沃德（Lukas Provod） | — | 38场 |
+| 中场 | 米哈尔·萨迪莱克（Michal Sadilek） | — | 33场 |
+| 中场 | 亚历山大·索伊卡（Alexandr Sojka） | — | — |
+| 中场 | 帕维尔·舒尔茨（Pavel Sulc） | — | — |
+| 中场 | 丹尼斯·维希恩斯基（Denis Visinsky） | — | — |
+| 中场 | 胡戈·索胡雷克（Hugo Sochurek） | — | — |
+| 前锋 | 帕特里克·希克（Patrik Schick） | — | 52 |
+| 前锋 | 亚当·赫洛热克（Adam Hlozek） | — | — |
+| 前锋 | 托马斯·霍里（Tomas Chory） | — | — |
+| 前锋 | 莫伊米尔·希季尔（Mojmir Chytil） | — | — |
+| 前锋 | 扬·库赫塔（Jan Kuchta） | — | — |
+---
+### 加拿大队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 达尼·圣克莱尔（Dani St. Clair） | 迈阿密国际 | 19 |
+| 门将 | 马克西姆·克雷波（Maxime Crépeau） | 奥兰多城 | 30 |
+| 门将 | 欧文·古德曼（Owen Goodman） | 巴恩斯利 | 0 |
+| 后卫 | 阿方索·戴维斯（Alphonso Davies） | 拜仁慕尼黑 | 58 |
+| 后卫 | 阿里斯特·约翰斯顿（Alistair Johnston） | 凯尔特人 | 56 |
+| 后卫 | 德雷克·科内柳斯（Derek Cornelius） | 马赛 | 40 |
+| 后卫 | 里奇·拉耶（Richie Laryea） | 多伦多FC | 74 |
+| 后卫 | 尼科·西古尔（Niko Sigur） | 哈伊杜克 | 15 |
+| 后卫 | 乔尔·沃特曼（Joel Waterman） | 芝加哥火焰 | 17 |
+| 后卫 | 吕克·德富格罗莱斯（Luc de Fougerolles） | 登德 | 13 |
+| 后卫 | 莫伊斯·波姆比托（Moïse Bombito） | 尼斯 | 20 |
+| 后卫 | 阿尔菲·琼斯（Alfie Jones） | 米德尔斯堡 | — |
+| 中场 | 伊斯梅尔·科内（Ismaël Koné） | 萨索洛 | 42 |
+| 中场 | 阿里·艾哈迈德（Ali Ahmed） | 诺维奇 | 22 |
+| 中场 | 布坎南（Tajon Buchanan） | 比利亚雷亚尔 | 57 |
+| 中场 | 马修·舒瓦尼埃（Mathieu Choinière） | 洛杉矶FC | 23 |
+| 中场 | 史蒂芬·欧斯塔基奥（Stephen Eustáquio） | 洛杉矶FC | 54 |
+| 中场 | 马塞洛·弗洛雷斯（Marcelo Flores） | 老虎大学 | 2 |
+| 中场 | 利亚姆·米拉尔（Liam Millar） | 赫尔城 | 36 |
+| 中场 | 乔纳森·奥索里奥（Jonathan Osorio） | 多伦多FC | 90 |
+| 中场 | 内森·萨利巴（Nathan Saliba） | 安德莱赫特 | 5 |
+| 中场 | 沙菲尔博格（Jacob Shaffelburg） | 洛杉矶FC | 31 |
+| 前锋 | 乔纳森·戴维（Jonathan David） | 尤文图斯 | 79 |
+| 前锋 | 普罗米斯·戴维（Promise David） | 圣吉罗斯 | 8 |
+| 前锋 | 凯尔·拉林（Cyle Larin） | 南安普顿 | 89 |
+| 前锋 | 奥卢瓦塞伊（Tani Oluwaseyi） | 比利亚雷亚尔 | 15 |
+---
+### 瑞士队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 格雷戈·科贝尔（Gregor Kobel） | 多特蒙德 | 22 |
+| 门将 | 马尔文·凯勒（Marvin Keller） | 年轻人 | 1 |
+| 门将 | 姆沃戈（Yvon Mvogo） | 洛里昂 | 11 |
+| 后卫 | 阿坎吉（Manuel Akanji） | 国际米兰 | 71 |
+| 后卫 | 埃尔维迪（Nico Elvedi） | 门兴格拉德巴赫 | 56 |
+| 后卫 | 里卡多·罗德里格斯（Ricardo Rodríguez） | 皇家贝蒂斯 | 125 |
+| 后卫 | 席尔文·威德默（Silvan Widmer） | 美因茨 | 49 |
+| 后卫 | 穆海姆（Loris Mühleim） | 汉堡 | 3 |
+| 后卫 | 阿曼达（Aurèle Amenda） | 法兰克福 | 4 |
+| 后卫 | 卢卡·雅克（Luca Jaquez） | 斯图加特 | 0 |
+| 后卫 | 埃雷·科默特（Eray Cömert） | 瓦伦西亚 | 18 |
+| 中场 | 格拉尼特·扎卡（Granit Xhaka） | 桑德兰 | 144 |
+| 中场 | 约翰·曼赞比（John Manzambi） | 弗赖堡 | 12 |
+| 中场 | 弗罗伊勒（Remo Freuler） | 博洛尼亚 | 78 |
+| 中场 | 扎卡里亚（Denis Zakaria） | 摩纳哥 | 57 |
+| 中场 | 亚沙里（Ardon Jashari） | AC米兰 | 4 |
+| 中场 | 索乌（Djibril Sow） | 塞维利亚 | 41 |
+| 中场 | 米歇尔·阿比切尔（Michel Aebischer） | 比萨 | 36 |
+| 中场 | 法比安·里德（Fabian Rieder） | 奥格斯堡 | — |
+| 前锋 | 诺阿·奥卡福尔（Noah Okafor） | 利兹联 | 24 |
+| 前锋 | 恩多耶（Dan Ndoye） | 诺丁汉森林 | 22 |
+| 前锋 | 恩博洛（Breel Embolo） | 雷恩 | 75 |
+| 前锋 | 鲁本·巴尔加斯（Rubén Vargas） | 塞维利亚 | 50 |
+| 前锋 | 法斯纳赫特（Christian Fassnacht） | 年轻人 | — |
+| 前锋 | 塞德里克·伊顿（Cedric Itten） | 杜塞尔多夫 | 13 |
+| 前锋 | 阿姆杜尼（Zeki Amdouni） | 伯恩利 | 25 |
+---
+### 波黑队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 尼古拉·瓦西里（Nikola Vasilj） | 圣保利 | 25 |
+| 门将 | 马丁·兹洛米斯利奇（Martin Zlomislić） | 里耶卡 | 2 |
+| 门将 | 奥斯曼·哈季基奇（Osman Hadžikić） | 斯拉文贝鲁波 | 0 |
+| 后卫 | 塞亚德·科拉希纳茨（Sead Kolašinac） | 亚特兰大 | 60 |
+| 后卫 | 阿马尔·德迪奇（Amar Dedić） | 本菲卡 | 26 |
+| 后卫 | 尼哈德·穆亚基奇（Nihad Mujakić） | 加济安泰普 | 6 |
+| 后卫 | 尼古拉·卡蒂奇（Nikola Katić） | 沙尔克04 | 9 |
+| 后卫 | 塔里克·穆哈雷莫维奇（Tarik Muharemović） | 萨索洛 | 10 |
+| 后卫 | 斯捷潘·拉德里季奇（Stjepan Radeljić） | 里耶卡 | 3 |
+| 后卫 | 丹尼斯·哈迪卡杜尼克（Denis Hadžikadunić） | 桑普多利亚 | 32 |
+| 后卫 | 尼达尔·切利克（Nidal Čelik） | 朗斯 | 0 |
+| 中场 | 阿米尔·哈吉艾哈迈托维奇（Amir Hadžiahmetović） | 赫尔城 | 30 |
+| 中场 | 伊万·舒尼奇（Ivan Šunjić） | 帕福斯 | 4 |
+| 中场 | 伊万·巴希奇（Ivan Bašić） | 阿斯塔纳 | 16 |
+| 中场 | 泽尼斯·布尔尼奇（Zenís Burnić） | 卡尔斯鲁厄 | 8 |
+| 中场 | 埃尔明·马赫米奇（Ermin Mahmić） | 利贝雷茨 | 1 |
+| 中场 | 本亚明·塔希罗维奇（Benjamin Tahirović） | 布隆德比 | 22 |
+| 中场 | 阿马尔·梅米奇（Amar Memić） | 比尔森胜利 | 14 |
+| 中场 | 阿尔明·吉戈维奇（Armin Gigović） | 年轻人 | 19 |
+| 中场 | 克里姆·阿拉伊贝戈维奇（Kerim Alajbegović） | 萨尔茨堡红牛 | 9 |
+| 前锋 | 埃斯米尔·巴里亚克塔雷维奇（Esmir Bajraktarević） | 埃因霍温 | 14 |
+| 前锋 | 埃尔梅丁·德米罗维奇（Ermedin Demirović） | 斯图加特 | 38 |
+| 前锋 | 约沃·卢基奇（Jovo Lukić） | 克卢日大学 | 1 |
+| 前锋 | 萨梅德·巴日达尔（Samed Baždar） | 雅盖隆尼亚 | 11 |
+| 前锋 | 哈里斯·塔巴科维奇（Haris Tabaković） | 门兴格拉德巴赫 | 5 |
+| 前锋 | 埃丁·哲科（Edin Džeko） | 沙尔克04 | 148 |
+---
+### 卡塔尔队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+|------|------|--------|----------------|
+| 门将 | 马穆德·阿布纳德（Mahmoud Abunada） | 赖扬 | — |
+| 门将 | 梅萨尔·巴沙姆（Meshaal Barsham） | 多哈萨德 | 47 |
+| 门将 | 萨拉赫·扎卡里亚（Salah Zakaria） | 杜海勒 | 6 |
+| 后卫 | 阿尤布·阿莱维（Ayoub Alawi） | 加拉法 | — |
+| 后卫 | 布阿莱姆·胡希（Boualem Khoukhi） | 多哈萨德 | 108 |
+| 后卫 | 霍曼·艾哈迈德（Homam Ahmed） | 莱昂内萨 | 44 |
+| 后卫 | 卢卡斯·门德斯（Lucas Mendes） | 沃克拉 | — |
+| 后卫 | 伊萨·拉耶（Issa Lay） | 卢塞尔SC | — |
+| 后卫 | 佩德罗·米格尔（Pedro Miguel） | 多哈萨德 | 89 |
+| 后卫 | 苏丹·布雷克（Sultan Brake） | 杜海勒 | 8 |
+| 后卫 | 阿尔·哈希米·侯赛因（Al-Hashmi Al-Hussain） | 阿拉比SC | 7 |
+| 中场 | 阿西姆·马迪博（Assim Madibo） | 沃克拉 | 53 |
+| 中场 | 阿卜杜勒阿齐兹·哈特姆（Abdulaziz Hatem） | 赖扬 | 105 |
+| 中场 | 艾哈迈德·法特希（Ahmed Fathi） | 阿拉比SC | 28 |
+| 中场 | 卡里姆·布迪亚夫（Karim Boudiaf） | 杜海勒 | 111 |
+| 中场 | 贾西姆·阿卜杜勒萨拉姆（Jassim Abdulsalam） | 赖扬 | 22 |
+| 中场 | 穆罕默德·马奈（Mohammed Manai） | 北方体育 | — |
+| 前锋 | 艾哈迈德·贾内希（Ahmed Al-Ganehi） | 加拉法 | 7 |
+| 前锋 | 艾哈迈德·阿拉丁（Ahmed Alaaeldin） | 赖扬 | 61 |
+| 前锋 | 阿克拉姆·阿菲夫（Akram Afif） | 多哈萨德 | 126 |
+| 前锋 | 埃莫兹·阿里（Almoez Ali） | 杜海勒 | 126 |
+| 前锋 | 埃迪米森（Edimilson） | 杜海勒 | 14 |
+| 前锋 | 哈桑·海多斯（Hassan Al-Haydos） | 多哈萨德 | 184 |
+| 前锋 | 穆罕默德·蒙塔里（Mohammed Muntari） | 加拉法 | 63 |
+| 前锋 | 塔辛·穆罕默德·贾姆希德（Tashin Mohammed Jamshid） | 海勒 | 1 |
+| 前锋 | 优素福·阿卜杜里萨格（Yusuf Abdurisag） | 沃克拉体育 | 37 |
+---
+### 🇧🇷 巴西队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 阿利松 (Alisson Becker) | 利物浦 | 76 |
+| 门将 | 埃德松 (Ederson) | 费内巴切 | 31 |
+| 门将 | 韦弗顿 (Weverton) | 格雷米奥 | 1 |
+| 后卫 | 马尔基尼奥斯 (Marquinhos) | 巴黎圣日耳曼 | 106 |
+| 后卫 | 加布里埃尔 (Gabriel Magalhães) | 阿森纳 | 17 |
+| 后卫 | 阿莱克斯·桑德罗 (Alex Sandro) | 弗拉门戈 | 43 |
+| 后卫 | 布雷默 (Bremer) | 尤文图斯 | 6 |
+| 后卫 | 达尼洛 (Danilo) | 弗拉门戈 | 68 |
+| 后卫 | 道格拉斯·桑托斯 (Douglas Santos) | 泽尼特 | 5 |
+| 后卫 | 莱奥·佩雷拉 (Leo Pereira) | 弗拉门戈 | 2 |
+| 后卫 | 罗杰·伊巴涅斯 (Roger Ibanez) | 吉达国民 | 5 |
+| 后卫 | 韦斯利 (Wesley) | 罗马 | 0 |
+| 中场 | 吉马良斯 (Bruno Guimaraes) | 纽卡斯尔 | 41 |
+| 中场 | 卡塞米罗 (Casemiro) | 曼联 | 84 |
+| 中场 | 达尼洛·桑托斯 (Danilo Santos) | 博塔弗戈 | 2 |
+| 中场 | 法比尼奥 (Fabinho) | 吉达联合 | 31 |
+| 中场 | 帕奎塔 (Lucas Paqueta) | 弗拉门戈 | 61 |
+| 中场 | 埃德松 (Ederson) | 亚特兰大 | 3 |
+| 前锋 | 维尼修斯 (Vinicius Jr.) | 皇家马德里 | 50 |
+| 前锋 | 内马尔 (Neymar) | 桑托斯 | 128 |
+| 前锋 | 拉菲尼亚 (Raphinha) | 巴塞罗那 | 37 |
+| 前锋 | 恩德里克 (Endrick) | 里昂 | 15 |
+| 前锋 | 马丁内利 (Gabriel Martinelli) | 阿森纳 | 22 |
+| 前锋 | 伊戈尔·蒂亚戈 (Igor Thiago) | 布伦特福德 | 2 |
+| 前锋 | 路易斯·恩里克 (Luiz Henrique) | 泽尼特 | 13 |
+| 前锋 | 库尼亚 (Matheus Cunha) | 曼联 | 21 |
+| 前锋 | 拉扬 (Rayan) | 伯恩茅斯 | 1 |
+---
+### 🇲🇦 摩洛哥队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 亚辛·布努 (Yassine Bounou) | 利雅得新月 | 数据待核实 |
+| 门将 | 穆尼尔 (Munir El Kajoui) | 勒内森斯 | 数据待核实 |
+| 门将 | 塔格诺提 (Ahmed Reda Tagnaouti) | 卡萨布兰卡 | 数据待核实 |
+| 后卫 | 阿什拉夫·哈基米 (Achraf Hakimi) | 巴黎圣日耳曼 | 数据待核实 |
+| 后卫 | 马兹拉维 (Noussair Mazraoui) | 曼联 | 数据待核实 |
+| 后卫 | 埃丁 (Anass Salah-Eddine) | 埃因霍温 | 数据待核实 |
+| 后卫 | 里亚德 (Chadi Riad) | 水晶宫 | 数据待核实 |
+| 后卫 | 迪奥普 (Issa Diop) | 富勒姆 | 数据待核实 |
+| 后卫 | 哈尔哈尔 (Redouane Halhal) | 梅赫伦 | 数据待核实 |
+| 后卫 | 埃尔瓦赫迪 (Zakaria El Ouahdi) | 亨克 | 数据待核实 |
+| 后卫 | 贝拉马里 (Youssef Belammari) | 开罗国民 | 数据待核实 |
+| 后卫 | 萨阿丹 (Marwane Saâdane) | 哈萨征服 | 数据待核实 |
+| 中场 | 阿姆拉巴特 (Sofyan Amrabat) | 皇家贝蒂斯 | 数据待核实 |
+| 中场 | 奥纳希 (Azzedine Ounahi) | 赫罗纳 | 数据待核实 |
+| 中场 | 汉努斯 (Bilal El Khannouss) | 斯图加特 | 数据待核实 |
+| 中场 | 塞巴里 (Ismael Saibari) | 埃因霍温 | 数据待核实 |
+| 中场 | 布阿迪 (Ayyoub Bouaddi) | 里尔 | 数据待核实 |
+| 中场 | 艾纳奥伊 (Neil El Aynaoui) | 罗马 | 数据待核实 |
+| 中场 | 穆拉贝特 (Samir El Mourabet) | 斯特拉斯堡 | 数据待核实 |
+| 前锋 | 布拉欣·迪亚斯 (Brahim Diaz) | 皇家马德里 | 数据待核实 |
+| 前锋 | 拉希米 (Soufiane Rahimi) | 艾因 | 数据待核实 |
+| 前锋 | 卡比 (Ayoub El Kaabi) | 奥林匹亚科斯 | 数据待核实 |
+| 前锋 | 斯拜 (Amine Sbai) | 昂热 | 数据待核实 |
+| 前锋 | 塔尔比 (Chemsdine Talbi) | 桑德兰 | 数据待核实 |
+| 前锋 | 亚辛 (Yassine Gessime) | 斯特拉斯堡 | 数据待核实 |
+| 前锋 | 阿迈莫尼 (Ayoube Amaimouni) | 法兰克福 | 数据待核实 |
+---
+### 🇭🇹 海地队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 约翰尼·普拉西德 (Johny Placide) | 巴斯蒂亚 | 数据待核实 |
+| 门将 | 亚历山大·皮埃尔 (Alexandre Pierre) | 索肖 | 数据待核实 |
+| 门将 | 约书亚·迪韦尔热 (Josue Duverger) | 科布伦茨宇宙 | 数据待核实 |
+| 后卫 | 卡尔伦斯·阿尔库斯 (Carlens Arcus) | 昂热 | 数据待核实 |
+| 后卫 | 维尔格恩·波冈 (Wilguens Paugain) | 聚尔特瓦雷赫姆 | 数据待核实 |
+| 后卫 | 杜克·拉克鲁瓦 (Duke Lacroix) | 科罗拉多斯普林斯 | 数据待核实 |
+| 后卫 | 马丁·埃克佩里安斯 (Martin Experience) | 南锡 | 数据待核实 |
+| 后卫 | 让-凯文·迪韦尔纳 (Jean-Kévin Duverne) | 根特 | 数据待核实 |
+| 后卫 | 里卡多·阿德 (Ricardo Ade) | 基多体育大学 | 数据待核实 |
+| 后卫 | 汉内斯·德尔克鲁瓦 (Hannes Delcroix) | 卢加诺 | 数据待核实 |
+| 后卫 | 基托·泰尔蒙西 (Keito Thermoncy) | 年轻人 | 数据待核实 |
+| 中场 | 让-里克内·贝勒加德 (Jean-Ricner Bellegarde) | 狼队 | 数据待核实 |
+| 中场 | 莱弗顿·皮埃尔 (Leverton Pierre) | 维泽拉 | 数据待核实 |
+| 中场 | 卡尔-弗雷德·桑特 (Carl Fred Sainte) | 埃尔帕索机车 | 数据待核实 |
+| 中场 | 丹利·让-雅克 (Danley Jean Jacques) | 费城联合 | 数据待核实 |
+| 中场 | 皮埃尔·伍登斯基 (Woodensky Pierre) | 维奥莱特 | 数据待核实 |
+| 中场 | 多米尼克·西蒙 (Dominique Simon) | 普雷绍夫塔特兰 | 数据待核实 |
+| 前锋 | 威尔逊·伊西多尔 (Wilson Isidor) | 桑德兰 | 数据待核实 |
+| 前锋 | 达肯斯·纳松 (Duckens Nazon) | 德黑兰独立 | **76** |
+| 前锋 | 德里克·埃蒂安 (Derrick Etienne) | 多伦多FC | 46 |
+| 前锋 | 卢修斯·迪德松 (Louicius Deedson) | 达拉斯FC | 数据待核实 |
+| 前锋 | 吕本·普罗维登斯 (Ruben Providence) | 阿尔梅勒城 | 数据待核实 |
+| 前锋 | 若苏埃·卡西米尔 (Josue Casimir) | 欧塞尔 | 数据待核实 |
+| 前锋 | 弗兰茨迪·皮埃罗 (Frantzdy Pierrot) | 里泽体育 | 数据待核实 |
+| 前锋 | 亚辛·福尔蒂纳 (Yassin Fortune) | 维泽拉 | 数据待核实 |
+| 前锋 | 莱尼·约瑟夫 (Lenny Joseph) | 费伦茨瓦罗斯 | 数据待核实 |
+---
+### 苏格兰队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 克雷格·戈登 (Craig Gordon) | 哈茨 | 83 |
+| 门将 | 安格斯·冈恩 (Angus Gunn) | 诺丁汉森林 | 21 |
+| 门将 | 利亚姆·凯利 (Liam Kelly) | 流浪者 | 2 |
+| 后卫 | 安迪·罗伯逊 (Andy Robertson) | 利物浦 | **92** |
+| 后卫 | 格兰特·汉利 (Grant Hanley) | 希伯尼安 | 66 |
+| 后卫 | 杰克·亨德利 (Jack Hendry) | 达曼协作 | 数据待核实 |
+| 后卫 | 阿隆·希基 (Aaron Hickey) | 布伦特福德 | 数据待核实 |
+| 后卫 | 多米尼克·海厄姆 (Dom Hyam) | 雷克瑟姆 | 数据待核实 |
+| 后卫 | 斯科特·麦肯纳 (Scott McKenna) | 萨格勒布迪纳摩 | 数据待核实 |
+| 后卫 | 内森·帕特森 (Nathan Patterson) | 埃弗顿 | 数据待核实 |
+| 后卫 | 安东尼·拉尔斯顿 (Anthony Ralston) | 凯尔特人 | 数据待核实 |
+| 后卫 | 约翰·苏塔尔 (John Souttar) | 格拉斯哥流浪者 | 数据待核实 |
+| 后卫 | 基兰·蒂尔尼 (Kieran Tierney) | 凯尔特人 | 数据待核实 |
+| 中场 | 斯科特·麦克托米奈 (Scott McTominay) | 那不勒斯 | 数据待核实 |
+| 中场 | 约翰·麦金 (John McGinn) | 阿斯顿维拉 | 85 |
+| 中场 | 瑞安·克里斯蒂 (Ryan Christie) | 伯恩茅斯 | 数据待核实 |
+| 中场 | 刘易斯·弗格森 (Lewis Ferguson) | 博洛尼亚 | 数据待核实 |
+| 中场 | 芬德利·库蒂斯 (Findlay Curtis) | 基尔马诺克 | 数据待核实 |
+| 中场 | 本·多克 (Ben Doak) | 伯恩茅斯 | 数据待核实 |
+| 中场 | 比利·吉尔莫 (Billy Gilmour) | 那不勒斯 | 数据待核实 |
+| 中场 | 肯尼·麦克莱恩 (Kenny McLean) | 诺维奇 | 数据待核实 |
+| 前锋 | 切·亚当斯 (Che Adams) | 都灵 | 数据待核实 |
+| 前锋 | 林顿·戴克斯 (Lyndon Dykes) | 查尔顿竞技 | 数据待核实 |
+| 前锋 | 乔治·赫斯特 (George Hirst) | 伊普斯维奇 | 数据待核实 |
+| 前锋 | 劳伦斯·尚克兰 (Lawrence Shankland) | 哈茨 | 数据待核实 |
+| 前锋 | 罗斯·斯图尔特 (Ross Stewart) | 南安普顿 | 数据待核实 |
+---
+### 美国队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 马特·特纳 (Matt Turner) | 新英格兰革命 | 53 |
+| 门将 | 马特·弗里斯 (Matt Freese) | 纽约城 | 14 |
+| 门将 | 克里斯·布雷迪 (Chris Brady) | 芝加哥火焰 | 0 |
+| 后卫 | 塞尔吉诺·德斯特 (Sergiño Dest) | 埃因霍温 | 37 |
+| 后卫 | 克里斯·理查兹 (Chris Richards) | 水晶宫 | 36 |
+| 后卫 | 安东尼·罗宾逊 (Antonee Robinson) | 富勒姆 | 52 |
+| 后卫 | 蒂姆·里姆 (Tim Ream) | 夏洛特FC | 82 |
+| 后卫 | 迈尔斯·罗宾逊 (Miles Robinson) | 辛辛那提FC | 38 |
+| 后卫 | 马克·麦肯齐 (Mark McKenzie) | 图卢兹 | 29 |
+| 后卫 | 乔·斯卡利 (Joe Scally) | 门兴格拉德巴赫 | 26 |
+| 后卫 | 奥斯顿·特鲁斯蒂 (Auston Trusty) | 凯尔特人 | 6 |
+| 后卫 | 马克斯·阿夫斯坦 (Max Arfsten) | 哥伦布机员 | 20 |
+| 后卫 | 亚历克斯·弗里曼 (Alex Freeman) | 比利亚雷亚尔 | 17 |
+| 中场 | 泰勒·亚当斯 (Tyler Adams) | 伯恩茅斯 | 52 |
+| 中场 | 韦斯顿·麦肯尼 (Weston McKennie) | 尤文图斯 | 66 |
+| 中场 | 乔瓦尼·雷纳 (Gio Reyna) | 门兴格拉德巴赫 | 38 |
+| 中场 | 克里斯蒂安·罗尔丹 (Cristian Roldan) | 西雅图海湾人 | 47 |
+| 中场 | 塞巴斯蒂安·伯哈尔特 (Sebastian Berhalter) | 温哥华白浪 | 13 |
+| 中场 | 马利克·蒂尔曼 (Malik Tillman) | 勒沃库森 | 30 |
+| 前锋 | 克里斯蒂安·普利西奇 (Christian Pulisic) | AC米兰 | 86 |
+| 前锋 | 布伦登·阿伦森 (Brenden Aaronson) | 利兹联 | 58 |
+| 前锋 | 弗拉林·巴洛贡 (Folarin Balogun) | 摩纳哥 | 27 |
+| 前锋 | 里卡多·佩皮 (Ricardo Pepi) | 埃因霍温 | 37 |
+| 前锋 | 蒂莫西·维阿 (Tim Weah) | 马赛 | 51 |
+| 前锋 | 哈吉·赖特 (Haji Wright) | 考文垂 | 20 |
+| 前锋 | 亚历克斯·森德哈斯 (Alex Zendejas) | 美洲队 | 14 |
+### 🇵🇾 巴拉圭队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 加托尼·费尔南德斯 (Gatito Fernández) | 波特诺山丘 | 30 |
+| 门将 | 奥兰多·吉尔 (Orlando Gill) | 圣洛伦索 | 5 |
+| 门将 | 加斯顿·奥尔维拉 (Gastón Olveira) | 奥林匹亚 | 1 |
+| 后卫 | 古斯塔沃·戈麦斯 (Gustavo Gómez) | 帕尔梅拉斯 | **88** |
+| 后卫 | 儒尼奥尔·阿隆索 (Júnior Alonso) | 米内罗竞技 | 70 |
+| 后卫 | 法比安·巴尔武埃纳 (Fabian Balbuena) | 格雷米奥 | 47 |
+| 后卫 | 奥马尔·阿尔德雷特 (Omar Alderete) | 桑德兰 | 35 |
+| 后卫 | 胡安·何塞·卡塞雷斯 (Juan José Cáceres) | 莫斯科迪纳摩 | 16 |
+| 后卫 | 古斯塔沃·贝拉斯克斯 (Gustavo Velázquez) | 波特诺山丘 | 12 |
+| 后卫 | 何塞·卡纳莱 (José Canale) | 拉努斯 | 1 |
+| 后卫 | 亚历山德罗·迈达纳 (Alexandro Maidana) | 塔勒雷斯 | 1 |
+| 中场 | 米格尔·阿尔米隆 (Miguel Almirón) | 亚特兰大联 | 75 |
+| 中场 | 亚历杭德罗·罗梅罗·加马拉 (Kaku) | 艾因 | 32 |
+| 中场 | 安德烈斯·库巴斯 (Andrés Cubas) | 温哥华白浪 | 32 |
+| 中场 | 拉蒙·索萨 (Ramón Sosa) | 帕尔梅拉斯 | 28 |
+| 中场 | 迭戈·戈麦斯 (Diego Gómez) | 布莱顿 | 23 |
+| 中场 | 达米安·博瓦迪利亚 (Damián Bobadilla) | 圣保罗 | 19 |
+| 中场 | 布莱安·奥赫达 (Braian Ojeda) | 奥兰多城 | 16 |
+| 中场 | 马蒂亚斯·加拉尔萨 (Matías Galarza) | 亚特兰大联 | 14 |
+| 中场 | 毛里西奥·马加良斯 (Maurício) | 帕尔梅拉斯 | 2 |
+| 前锋 | 安东尼奥·萨纳夫里亚 (Antonio Sanabria) | 克雷莫内塞 | 47 |
+| 前锋 | 胡利奥·恩西索 (Julio Enciso) | 斯特拉斯堡 | 31 |
+| 前锋 | 加布里埃尔·阿瓦洛斯 (Gabriel Ávalos) | 阿根廷独立 | 22 |
+| 前锋 | 阿莱克斯·阿尔塞 (Álex Arce) | 门多萨独立 | 14 |
+| 前锋 | 伊西德罗·皮塔 (Isidro Pitta) | 布拉干蒂诺红牛 | 5 |
+| 前锋 | 古斯塔沃·卡瓦列罗 (Gustavo Caballero) | 朴茨茅斯 | 2 |
+---
+### 🇦🇺 澳大利亚队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 马修·瑞安 (Mathew Ryan) | 莱万特 | **104** |
+| 门将 | 保罗·伊佐 (Paul Izzo) | 兰德斯 | 4 |
+| 门将 | 帕特里克·比奇 (Patrick Beach) | 墨尔本城 | 1 |
+| 后卫 | 阿齐兹·贝希奇 (Aziz Behich) | 墨尔本城 | 83 |
+| 后卫 | 乔丹·博斯 (Jordan Bos) | 费耶诺德 | 3 |
+| 后卫 | 卡梅隆·伯吉斯 (Cameron Burgess) | 斯旺西 | 26 |
+| 后卫 | 亚历山德罗·奇尔卡蒂 (Alessandro Circati) | 帕尔马 | 12 |
+| 后卫 | 米洛斯·德格内克 (Milos Degenek) | 希腊人竞技 | 56 |
+| 后卫 | 杰森·杰里亚 (Jason Geria) | 新潟天鹅 | 13 |
+| 后卫 | 卢卡斯·赫林顿 (Lucas Herrington) | 科罗拉多急流 | 3 |
+| 后卫 | 雅各布·意大利亚诺 (Jacob Italiano) | 格拉茨AK | 4 |
+| 后卫 | 哈里·苏塔尔 (Harry Souttar) | 莱斯特城 | 37 |
+| 后卫 | 凯·特雷温 (Kai Trewin) | 纽约城 | 5 |
+| 中场 | 卡梅隆·德夫林 (Cameron Devlin) | 哈茨 | 4 |
+| 中场 | 阿伊丁·赫鲁斯蒂奇 (Ajdin Hrustic) | 赫拉克勒斯 | 37 |
+| 中场 | 杰克逊·欧文 (Jackson Irvine) | 圣保利 | 81 |
+| 中场 | 康纳·梅特卡夫 (Connor Metcalfe) | 数据待核实 | 数据待核实 |
+| 中场 | 艾登·奥尼尔 (Aiden O'Neill) | 纽约城 | 数据待核实 |
+| 中场 | 保罗·奥孔-恩格斯特勒 (Paul Okon-Engstler) | 墨尔本城 | 数据待核实 |
+| 中场 | 克里斯蒂安·沃尔帕托 (Cristian Volpato) | 萨索洛 | 0 |
+| 前锋 | 内斯托里·伊兰昆达 (Nestory Irankunda) | 沃特福德 | 14 |
+| 前锋 | 马修·莱基 (Mathew Leckie) | 墨尔本城 | 80 |
+| 前锋 | 阿维尔·马比尔 (Awer Mabil) | 卡斯特利翁 | 38 |
+| 前锋 | 穆罕默德·图雷 (Mohamed Toure) | 数据待核实 | 数据待核实 |
+| 前锋 | 尼山·韦卢皮莱 (Nishan Velupillay) | 墨尔本城 | 数据待核实 |
+| 前锋 | 泰特·延吉 (Tete Yengi) | 数据待核实 | 0 |
+---
+### 🇹🇷 土耳其队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 乌古尔坎·恰基尔 (Uğurcan Çakır) | 加拉塔萨雷 | 38 |
+| 门将 | 默特·古诺克 (Mert Günok) | 费内巴切 | 37 |
+| 门将 | 阿勒泰·巴延德尔 (Altay Bayındır) | 曼联 | 11 |
+| 后卫 | 梅里赫·德米拉尔 (Merih Demiral) | 阿赫利 | 61 |
+| 后卫 | 泽基·切利克 (Zeki Çelik) | 罗马 | 59 |
+| 后卫 | 卡格拉尔·瑟云聚 (Çağlar Söyüncü) | 费内巴切 | 59 |
+| 后卫 | 默特·穆尔杜 (Mert Müldür) | 费内巴切 | 43 |
+| 后卫 | 费迪·卡迪奥卢 (Ferdi Kadıoğlu) | 布莱顿 | 30 |
+| 后卫 | 奥赞·卡巴克 (Ozan Kabak) | 霍芬海姆 | 28 |
+| 后卫 | 阿卜杜勒卡里姆·巴尔达克彻 (Abdülkerim Bardakcı) | 加拉塔萨雷 | 26 |
+| 后卫 | 埃伦·埃尔马利 (Eren Elmalı) | 加拉塔萨雷 | 21 |
+| 后卫 | 萨梅特·阿卡丁 (Samet Akaydin) | 里泽体育 | 18 |
+| 中场 | 哈坎·恰尔汗奥卢 (Hakan Çalhanoğlu) | 国际米兰 | **104** |
+| 中场 | 卡安·艾汉 (Kaan Ayhan) | 加拉塔萨雷 | 72 |
+| 中场 | 奥尔昆·科克库 (Orkun Kökçü) | 贝西克塔斯 | 48 |
+| 中场 | 伊斯梅尔·于克塞克 (İsmail Yüksek) | 费内巴切 | 31 |
+| 中场 | 萨利赫·厄兹詹 (Salih Özcan) | 多特蒙德 | 29 |
+| 前锋 | 凯雷姆·阿克蒂尔克奥卢 (Kerem Aktürkoğlu) | 费内巴切 | 51 |
+| 前锋 | 伊尔凡·詹·卡赫韦奇 (İrfan Can Kahveci) | 卡斯帕萨 | 45 |
+| 前锋 | 巴勒什·阿尔佩尔·伊尔马兹 (Barış Alper Yılmaz) | 加拉塔萨雷 | 33 |
+| 前锋 | 阿尔达·居莱尔 (Arda Güler) | 皇家马德里 | 28 |
+| 前锋 | 凯南·伊尔迪兹 (Kenan Yıldız) | 尤文图斯 | 28 |
+| 前锋 | 尤努斯·阿克金 (Yunus Akgün) | 加拉塔萨雷 | 数据待核实 |
+| 前锋 | 詹·乌尊 (Can Uzun) | 法兰克福 | 6 |
+| 前锋 | 德尼兹·居尔 (Deniz Gül) | 波尔图 | 数据待核实 |
+| 前锋 | 奥古兹·艾丁 (Oğuz Aydın) | 费内巴切 | 数据待核实 |
+---
+### 🇩🇪 德国队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| 门将 | 曼努埃尔·诺伊尔 (Manuel Neuer) | 拜仁慕尼黑 | **124** |
+| 门将 | 奥利弗·鲍曼 (Oliver Baumann) | 霍芬海姆 | 11 |
+| 门将 | 亚历山大·尼贝尔 (Alexander Nübel) | 斯图加特 | 3 |
+| 后卫 | 约书亚·基米希 (Joshua Kimmich) | 拜仁慕尼黑 | **108** |
+| 后卫 | 安东尼奥·吕迪格 (Antonio Rüdiger) | 皇家马德里 | 82 |
+| 后卫 | 若纳唐·塔 (Jonathan Tah) | 拜仁慕尼黑 | 45 |
+| 后卫 | 大卫·劳姆 (David Raum) | 莱比锡RB | 36 |
+| 后卫 | 尼科·施洛特贝克 (Nico Schlotterbeck) | 多特蒙德 | 25 |
+| 后卫 | 瓦尔德马·安东 (Waldemar Anton) | 多特蒙德 | 12 |
+| 后卫 | 马利克·乔 (Malick Thiaw) | 纽卡斯尔联 | 5 |
+| 后卫 | 纳撒尼尔·布朗 (Nathaniel Brown) | 法兰克福 | 3 |
+| 中场 | 勒鲁瓦·萨内 (Leroy Sané) | 加拉塔萨雷 | 74 |
+| 中场 | 莱昂·戈雷茨卡 (Leon Goretzka) | 拜仁慕尼黑 | 69 |
+| 中场 | 贾马尔·穆西亚拉 (Jamal Musiala) | 拜仁慕尼黑 | 40 |
+| 中场 | 弗洛里安·维尔茨 (Florian Wirtz) | 利物浦 | 39 |
+| 中场 | 帕斯卡尔·格罗斯 (Pascal Groß) | 布莱顿 | 18 |
+| 中场 | 纳迪姆·阿米里 (Nadiem Amiri) | 美因茨05 | 9 |
+| 中场 | 亚历山大·帕夫洛维奇 (Aleksandar Pavlović) | 拜仁慕尼黑 | 9 |
+| 中场 | 安杰洛·施蒂勒 (Angelo Stiller) | 斯图加特 | 7 |
+| 中场 | 费利克斯·恩梅查 (Felix Nmecha) | 多特蒙德 | 6 |
+| 中场 | 莱韦林 (Jamie Leweling) | 斯图加特 | 4 |
+| 中场 | 伦纳特·卡尔 (Lennart Karl) | 拜仁慕尼黑 | 2 |
+| 前锋 | 凯·哈弗茨 (Kai Havertz) | 阿森纳 | 57 |
+| 前锋 | 尼克·沃尔特马德 (Nick Woltemade) | 纽卡斯尔联 | 10 |
+| 前锋 | 德尼兹·温达夫 (Deniz Undav) | 斯图加特 | 7 |
+| 前锋 | 马克西米利安·拜尔 (Maximilian Beier) | 多特蒙德 | 7 |
+---
+### 🇨🇼 库拉索队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 埃洛伊·鲁姆 (Eloy Room) | 迈阿密FC | 70 |
+| 门将 | 泰里克·博达克 (Tyrick Bodak) | 特尔斯达 | 数据待核实 |
+| 门将 | 特雷弗·多恩布施 (Trevor Doornbusch) | 芬洛 | 数据待核实 |
+| 后卫 | 尤里恩·加里 (Juriën Gaari) | 艾卜哈 | 58 |
+| 后卫 | 儒尼尼奥·巴库纳 (Juninho Bacuna) | 福伦丹 | 47 |
+| 后卫 | 罗雄·范·艾伊玛 (Roshon van Eijma) | RKC瓦尔韦克 | 27 |
+| 后卫 | 谢雷尔·弗洛拉努斯 (Sherel Floranus) | PEC兹沃勒 | 26 |
+| 后卫 | 里切德利·巴佐尔 (Riechedly Bazoer) | 科尼亚体育 | 数据待核实 |
+| 后卫 | 约书亚·布雷内特 (Joshua Brenet) | 开塞利体育 | 数据待核实 |
+| 后卫 | 德弗龙·方维尔 (Deveron Fonville) | NEC奈梅亨 | 数据待核实 |
+| 后卫 | 阿尔曼多·奥比斯波 (Armando Obispo) | 埃因霍温 | 4 |
+| 后卫 | 舒兰迪·桑博 (Shurandy Sambo) | 鹿特丹斯巴达 | 7 |
+| 中场 | 莱安德罗·巴库纳 (Leandro Bacuna) | 伊格迪尔 | **70** |
+| 中场 | 利瓦诺·科梅嫩西亚 (Livano Comenencia) | 苏黎世 | 18 |
+| 中场 | 戈德弗里德·罗默拉托 (Godfried Roemeratoe) | RKC瓦尔韦克 | 26 |
+| 中场 | 凯文·费利达 (Kevin Felida) | 登博斯 | 数据待核实 |
+| 中场 | 阿尔扬尼·玛尔塔 (Ar'jany Martha) | 罗瑟勒姆联 | 8 |
+| 中场 | 泰雷斯·诺斯林 (Tyrese Noslin) | 特尔斯达 | 5 |
+| 前锋 | 于尔根·洛卡迪亚 (Jürgen Locadia) | 迈阿密FC | 12 |
+| 前锋 | 塔希斯·钟 (Tahith Chong) | 谢菲尔德联 | 数据待核实 |
+| 前锋 | 肯吉·戈雷 (Kenji Gorré) | 海法马卡比 | 37 |
+| 前锋 | 布兰德利·库瓦斯 (Brandley Kuwas) | 福伦丹 | 34 |
+| 前锋 | 耶雷尔·玛格丽塔 (Jearl Margaritha) | 贝弗伦 | 21 |
+| 前锋 | 杰里米·安东尼塞 (Jeremy Antonisse) | 基菲萨 | 25 |
+| 前锋 | 松特耶·汉森 (Sontje Hansen) | 米德尔斯堡 | 5 |
+| 前锋 | 热尔瓦内·卡斯塔内尔 (Gervane Kastaneer) | 登嘉楼 | 数据待核实 |
+---
+### 🇨🇮 科特迪瓦队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 叶海亚·福法纳 (Yahia Fofana) | 里泽体育 | 34 |
+| 门将 | 阿尔邦·拉丰 (Alban Lafont) | 帕纳辛纳科斯 | 4 |
+| 门将 | 穆罕默德·科内 (Mohamed Koné) | 沙勒罗瓦 | 0 |
+| 后卫 | 吉斯兰·科南 (Ghislain Konan) | 吉尔维森特 | 53 |
+| 后卫 | 奥迪隆·科苏努 (Odilon Kossounou) | 亚特兰大 | 35 |
+| 后卫 | 威尔弗里德·辛戈 (Wilfried Singo) | 加拉塔萨雷 | 33 |
+| 后卫 | 埃文·恩迪卡 (Evan Ndicka) | 罗马 | 28 |
+| 后卫 | 埃马纽埃尔·阿格巴杜 (Emmanuel Agbadou) | 贝西克塔斯 | 19 |
+| 后卫 | 盖拉·杜埃 (Guéla Doué) | 斯特拉斯堡 | 19 |
+| 后卫 | 奥斯曼·迪奥曼德 (Ousmane Diomandé) | 葡萄牙体育 | 14 |
+| 后卫 | 克里斯托弗·奥佩里 (Christopher Opéri) | 伊斯坦布尔 | 11 |
+| 中场 | 弗兰克·凯西 (Franck Kessié) | 阿赫利 | **102** |
+| 中场 | 让·米歇尔·塞里 (Jean Michael Seri) | 马里博尔 | 65 |
+| 中场 | 易卜拉欣·桑加雷 (Ibrahim Sangaré) | 诺丁汉森林 | 57 |
+| 中场 | 塞科·福法纳 (Seko Fofana) | 波尔图 | 31 |
+| 中场 | 克里斯·伊纳奥·乌莱 (Christ Inao Oulaï) | 特拉布宗体育 | 8 |
+| 中场 | 帕尔费·吉亚贡 (Parfait Guiagon) | 沙勒罗瓦 | 5 |
+| 前锋 | 尼古拉·佩佩 (Nicolas Pépé) | 比利亚雷亚尔 | 54 |
+| 前锋 | 乌马尔·迪亚基特 (Oumar Diakité) | 瑟克尔布鲁日 | 28 |
+| 前锋 | 西蒙·阿丁格拉 (Simon Adingra) | 摩纳哥 | 28 |
+| 前锋 | 埃万·盖桑 (Evann Guessand) | 水晶宫 | 21 |
+| 前锋 | 阿马德·迪亚洛 (Amad Diallo) | 曼联 | 18 |
+| 前锋 | 扬·迪奥曼德 (Yan Diomandé) | 莱比锡RB | 9 |
+| 前锋 | 巴祖马纳·图雷 (Bazoumana Touré) | 霍芬海姆 | 5 |
+| 前锋 | 埃利·瓦希 (Elye Wahi) | 尼斯 | 1 |
+| 前锋 | 安热-约安·博尼 (Ange-Yoan Bonny) | 国际米兰 | 0 |
+---
+### 🇪🇨 厄瓜多尔队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 埃尔南·加林德斯 (Hernán Galíndez) | 飓风 | 34 |
+| 门将 | 莫伊塞斯·拉米雷斯 (Moisés Ramírez) | 基菲萨 | 7 |
+| 门将 | 贡萨洛·瓦莱 (Gonzalo Valle) | 基多体育大学 | 3 |
+| 后卫 | 安赫洛·普雷西亚多 (Ángelo Preciado) | 米内罗竞技 | 54 |
+| 后卫 | 佩尔维斯·埃斯图皮南 (Pervis Estupiñán) | AC米兰 | 53 |
+| 后卫 | 皮耶罗·因卡皮耶 (Piero Hincapié) | 阿森纳 | 51 |
+| 后卫 | 费利克斯·托雷斯 (Félix Torres) | 巴西国际 | 48 |
+| 后卫 | 威廉·帕乔 (Willian Pacho) | 巴黎圣日耳曼 | 34 |
+| 后卫 | 乔尔·奥尔多涅斯 (Joel Ordóñez) | 布鲁日 | 16 |
+| 后卫 | 杰克逊·波罗索 (Jackson Porozo) | 蒂华纳 | 9 |
+| 中场 | 莫伊塞斯·凯塞多 (Moisés Caicedo) | 切尔西 | **60** |
+| 中场 | 阿兰·佛朗哥 (Alan Franco) | 米内罗竞技 | 57 |
+| 中场 | 贡萨洛·普拉塔 (Gonzalo Plata) | 弗拉门戈 | 49 |
+| 中场 | 肯德里·派斯 (Kendry Páez) | 河床 | 25 |
+| 中场 | 约翰·耶博阿 (John Yeboah) | 威尼斯 | 22 |
+| 中场 | 阿兰·敏达 (Alan Minda) | 米内罗竞技 | 19 |
+| 中场 | 佩德罗·维特 (Pedro Vite) | 国立自治大学 | 16 |
+| 中场 | 乔迪·阿尔西瓦尔 (Jordy Alcívar) | 西班牙独立 | 10 |
+| 中场 | 德尼尔·卡斯蒂略 (Denil Castillo) | 中日德兰 | 5 |
+| 中场 | 亚伊马尔·梅迪纳 (Yaimar Medina) | 亨克 | 5 |
+| 前锋 | 恩纳·瓦伦西亚 (Enner Valencia) | 帕丘卡 | **105** |
+| 前锋 | 凯文·罗德里格斯 (Kevin Rodríguez) | 圣吉罗斯联合 | 31 |
+| 前锋 | 乔迪·凯塞多 (Jordy Caicedo) | 飓风 | 19 |
+| 前锋 | 尼尔森·安古洛 (Nilson Angulo) | 桑德兰 | 13 |
+| 前锋 | 杰里米·阿雷瓦洛 (Jeremy Arévalo) | 斯图加特 | 数据待核实 |
+| 前锋 | 安东尼·瓦伦西亚 (Anthony Valencia) | 皇家安特卫普 | 数据待核实 |
+---
+### 🇳🇱 荷兰队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 巴特·费布吕亨 (Bart Verbruggen) | 布莱顿 | **27** |
+| 门将 | 马克·弗莱肯 (Mark Flekken) | 勒沃库森 | **11** |
+| 门将 | 罗宾·鲁夫斯 (Robin Roefs) | 桑德兰 | **0** |
+| 后卫 | 维吉尔·范戴克 (Virgil van Dijk) | 利物浦 | **90** |
+| 后卫 | 纳坦·阿克 (Nathan Aké) | 曼城 | **58** |
+| 后卫 | 丹泽尔·邓弗里斯 (Denzel Dumfries) | 国际米兰 | **71** |
+| 后卫 | 卢特沙雷尔·海特鲁伊达 (Lutsharel Geertruida) | 桑德兰 | **21** |
+| 后卫 | 乔雷尔·哈托 (Jorrel Hato) | 切尔西 | **7** |
+| 后卫 | 扬·保罗·范赫克 (Jan Paul van Hecke) | 布莱顿 | **10** |
+| 后卫 | 米基·范德芬 (Micky van de Ven) | 热刺 | **19** |
+| 后卫 | 马茨·维费尔 (Mats Wieffer) | 布莱顿 | **14** |
+| 中场 | 弗兰基·德容 (Frenkie de Jong) | 巴塞罗那 | **64** |
+| 中场 | 马滕·德容恩 (Marten de Roon) | 亚特兰大 | **42** |
+| 中场 | 瑞安·赫拉芬贝赫 (Ryan Gravenberch) | 利物浦 | **25** |
+| 中场 | 尤斯廷·克鲁伊维特 (Justin Kluivert) | 伯恩茅斯 | 数据待核实 |
+| 中场 | 特恩·库普梅纳斯 (Teun Koopmeiners) | 尤文图斯 | **27** |
+| 中场 | 蒂贾尼·赖因德斯 (Tijjani Reijnders) | 曼城 | **30** |
+| 中场 | 古斯·蒂尔 (Guus Til) | 埃因霍温 | **6** |
+| 中场 | 昆滕·廷伯 (Quinten Timber) | 马赛 | **6** |
+| 前锋 | 孟菲斯·德佩 (Memphis Depay) | 科林蒂安 | **108** |
+| 前锋 | 布赖恩·布罗贝伊 (Brian Brobbey) | 桑德兰 | **10** |
+| 前锋 | 科迪·加克波 (Cody Gakpo) | 利物浦 | 数据待核实 |
+| 前锋 | 诺阿·朗 (Noa Lang) | 加拉塔萨雷 | 数据待核实 |
+| 前锋 | 唐耶尔·马伦 (Donyell Malen) | 罗马 | 数据待核实 |
+| 前锋 | 克赖森西奥·萨默维尔 (Crysencio Summerville) | 西汉姆联 | 数据待核实 |
+| 前锋 | 沃特·韦格霍斯特 (Wout Weghorst) | 阿贾克斯 | 数据待核实 |
+---
+### 🇯🇵 日本队
+日本队名单及出场次数来源于Squawka。
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 铃木彩艳 (Zion Suzuki) | 帕尔马 | **23** |
+| 门将 | 大迫敬介 (Keisuke Osako) | 广岛三箭 | **11** |
+| 门将 | 早川友基 (Tomoki Hayakawa) | 鹿岛鹿角 | **3** |
+| 后卫 | 长友佑都 (Yuto Nagatomo) | FC东京 | **144** |
+| 后卫 | 富安健洋 (Takehiro Tomiyasu) | 阿贾克斯 | **42** |
+| 后卫 | 板仓滉 (Ko Itakura) | 阿贾克斯 | **39** |
+| 后卫 | 谷口彰悟 (Shogo Taniguchi) | 圣图尔登 | **37** |
+| 后卫 | 伊藤洋辉 (Hiroki Ito) | 拜仁慕尼黑 | **23** |
+| 后卫 | 菅原由势 (Yukinari Sugawara) | 不莱梅 | **20** |
+| 后卫 | 关根大辉 (Ayumu Seko) | 勒阿弗尔 | **13** |
+| 后卫 | 渡边刚 (Tsuyoshi Watanabe) | 费耶诺德 | **10** |
+| 后卫 | 铃木润之介 (Junnosuke Suzuki) | 哥本哈根 | **6** |
+| 中场 | 远藤航 (Wataru Endo) | 利物浦 | **72** |
+| 中场 | 伊东纯也 (Junya Ito) | 亨克 | **68** |
+| 中场 | 堂安律 (Ritsu Doan) | 法兰克福 | **64** |
+| 中场 | 镰田大地 (Daichi Kamada) | 水晶宫 | **49** |
+| 中场 | 久保建英 (Takefusa Kubo) | 皇家社会 | **48** |
+| 中场 | 田中碧 (Ao Tanaka) | 利兹联 | **37** |
+| 中场 | 中村敬斗 (Keito Nakamura) | 兰斯 | **24** |
+| 中场 | 佐野海舟 (Kaishu Sano) | 美因茨 | **12** |
+| 前锋 | 上田绮世 (Ayase Ueda) | 费耶诺德 | **38** |
+| 前锋 | 前田大然 (Daizen Maeda) | 凯尔特人 | **27** |
+| 前锋 | 小川航基 (Koki Ogawa) | NEC奈梅亨 | **14** |
+| 前锋 | 铃木唯人 (Yuito Suzuki) | 弗赖堡 | **6** |
+| 前锋 | 后藤启介 (Keisuke Goto) | 圣图尔登 | **3** |
+| 前锋 | 盐贝健人 (Kento Shiogai) | 沃尔夫斯堡 | **1** |
+---
+### 🇸🇪 瑞典队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 维克托·约翰松 (Viktor Johansson) | 斯托克城 | **12** |
+| 门将 | 克里斯托弗·努德费尔特 (Kristoffer Nordfeldt) | AIK索尔纳 | **20** |
+| 门将 | 雅各布·维德尔·塞特斯特伦 (Jacob Widell Zetterström) | 德比郡 | **2** |
+| 后卫 | 维克托·林德洛夫 (Victor Lindelöf) | 阿斯顿维拉 | **75** |
+| 后卫 | 伊萨克·希恩 (Isak Hien) | 亚特兰大 | **27** |
+| 后卫 | 加布里埃尔·古德蒙松 (Gabriel Gudmundsson) | 利兹联 | **23** |
+| 后卫 | 卡尔·斯塔费尔特 (Carl Starfelt) | 塞尔塔 | **17** |
+| 后卫 | 约马尔·埃克达尔 (Hjalmar Ekdal) | 伯恩利 | **11** |
+| 后卫 | 古斯塔夫·拉格比耶尔克 (Gustaf Lagerbielke) | 布拉加 | **9** |
+| 后卫 | 丹尼尔·斯文松 (Daniel Svensson) | 多特蒙德 | **11** |
+| 后卫 | 赫尔曼·约翰松 (Herman Johansson) | 达拉斯FC | **2** |
+| 后卫 | 埃里克·史密斯 (Eric Smith) | 圣保利 | **0** |
+| 后卫 | 埃利奥特·斯特劳德 (Elliot Stroud) | 米亚尔比 | **0** |
+| 中场 | 马蒂亚斯·斯万贝里 (Mattias Svanberg) | 沃尔夫斯堡 | **39** |
+| 中场 | 安东尼·埃兰加 (Anthony Elanga) | 纽卡斯尔联 | **28** |
+| 中场 | 亚辛·阿亚里 (Yasin Ayari) | 布莱顿 | **19** |
+| 中场 | 杰斯佩·卡尔斯特伦 (Jesper Karlström) | 乌迪内斯 | **23** |
+| 中场 | 卢卡斯·贝里瓦尔 (Lucas Bergvall) | 热刺 | **8** |
+| 中场 | 贝斯福特·泽内利 (Besfort Zeneli) | 圣吉罗斯联合 | **6** |
+| 前锋 | 亚历山大·伊萨克 (Alexander Isak) | 利物浦 | **56** |
+| 前锋 | 维克托·约克雷斯 (Viktor Gyökeres) | 阿森纳 | **32** |
+| 前锋 | 肯·塞马 (Ken Sema) | 帕福斯 | **32** |
+| 前锋 | 本亚明·尼格伦 (Benjamin Nygren) | 凯尔特人 | **9** |
+| 前锋 | 亚历山大·伯恩哈德松 (Alexander Bernhardsson) | 荷尔斯泰因基尔 | **9** |
+| 前锋 | 古斯塔夫·尼尔松 (Gustaf Nilsson) | 布鲁日 | **8** |
+| 前锋 | 塔哈·阿里 (Taha Ali) | 马尔默 | **1** |
+---
+### 🇹🇳 突尼斯队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 艾曼·达赫曼 (Aymen Dahmen) | CS斯法克斯 | 数据待核实 |
+| 门将 | 萨布里·本·赫森 (Sabri Ben Hessen) | 萨赫勒之星 | 数据待核实 |
+| 门将 | 穆希卜·沙马克 (Mouhib Chamakh) | 非洲人俱乐部 | 数据待核实 |
+| 后卫 | 蒙塔萨尔·塔尔比 (Montassar Talbi) | 洛里昂 | 数据待核实 |
+| 后卫 | 迪伦·布龙 (Dylan Bronn) | 塞尔维特 | 数据待核实 |
+| 后卫 | 阿里·阿卜迪 (Ali Abdi) | 尼斯 | 数据待核实 |
+| 后卫 | 扬·瓦莱里 (Yan Valery) | 伯尔尼年轻人 | 数据待核实 |
+| 后卫 | 穆罕默德·阿明·本·哈米达 (Mohamed Amine Ben Hamida) | 突尼斯希望 | 数据待核实 |
+| 后卫 | 穆塔兹·内法蒂 (Moutaz Neffati) | 北雪平 | 数据待核实 |
+| 后卫 | 奥马尔·雷基克 (Omar Rekik) | 马里博尔 | 数据待核实 |
+| 后卫 | 阿德姆·阿鲁斯 (Adem Arous) | 卡森帕沙 | 数据待核实 |
+| 后卫 | 拉埃德·奇克哈维 (Raed Chikhaoui) | US莫纳斯蒂尔 | 数据待核实 |
+| 中场 | 埃利耶斯·斯希里 (Ellyes Skhiri) | 法兰克福 | 数据待核实 |
+| 中场 | 汉尼拔·梅布里 (Hannibal Mejbri) | 伯恩利 | 数据待核实 |
+| 中场 | 阿尼斯·本·斯利马内 (Anis Ben Slimane) | 诺维奇城 | 数据待核实 |
+| 中场 | 哈吉·马哈茂德 (Hadj Mahmoud) | 卢加诺 | 数据待核实 |
+| 中场 | 拉尼·赫迪拉 (Rani Khedira) | 柏林联合 | 数据待核实 |
+| 前锋 | 埃利亚斯·阿舒里 (Elias Achouri) | 哥本哈根 | 数据待核实 |
+| 前锋 | 菲拉斯·沙瓦特 (Firas Chaouat) | 非洲人俱乐部 | 数据待核实 |
+| 前锋 | 哈泽姆·马斯图里 (Hazem Mastouri) | 马哈奇卡拉迪纳摩 | 数据待核实 |
+| 前锋 | 莫尔塔达·本·瓦内斯 (Mortadha Ben Ouanes) | 卡森帕沙 | 数据待核实 |
+| 前锋 | 伊斯梅尔·加尔比 (Ismael Gharbi) | 奥格斯堡 | 数据待核实 |
+| 前锋 | 埃利亚斯·萨阿德 (Elias Saad) | 汉诺威96 | 数据待核实 |
+| 前锋 | 塞巴斯蒂安·图内克蒂 (Sebastian Tounekti) | 凯尔特人 | 数据待核实 |
+| 前锋 | 哈利勒·阿亚里 (Khalil Ayari) | 巴黎圣日耳曼 | 数据待核实 |
+| 前锋 | 拉扬·埃卢米 (Rayan Elloumi) | 温哥华白浪 | 数据待核实 |
+---
+### 🇧🇪 比利时队
+比利时队名单及出场次数来源于Squawka及Sporting News。
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 蒂博·库尔图瓦 (Thibaut Courtois) | 皇家马德里 | **107** |
+| 门将 | 塞内·拉门斯 (Senne Lammens) | 曼联 | 2 |
+| 门将 | 迈克·彭德斯 (Mike Penders) | 斯特拉斯堡 | 0 |
+| 后卫 | 托马斯·默尼耶 (Thomas Meunier) | 里尔 | **78** |
+| 后卫 | 蒂莫西·卡斯塔涅 (Timothy Castagne) | 富勒姆 | 62 |
+| 后卫 | 阿瑟·泰特 (Arthur Theate) | 法兰克福 | 32 |
+| 后卫 | 泽诺·德巴斯特 (Zeno Debast) | 葡萄牙体育 | 26 |
+| 后卫 | 马克西姆·德屈佩 (Maxim De Cuyper) | 布莱顿 | 17 |
+| 后卫 | 布兰东·梅赫勒 (Brandon Mechele) | 布鲁日 | 7 |
+| 后卫 | 科尼·德温特 (Koni De Winter) | AC米兰 | 7 |
+| 后卫 | 华金·塞伊斯 (Joaquin Seys) | 布鲁日 | 4 |
+| 后卫 | 内森·恩戈伊 (Nathan Ngoy) | 里尔 | 2 |
+| 中场 | 阿克塞尔·维特塞尔 (Axel Witsel) | 赫罗纳 | **136** |
+| 中场 | 罗梅卢·卢卡库 (Romelu Lukaku) | 那不勒斯 | **124** |
+| 中场 | 凯文·德布劳内 (Kevin De Bruyne) | 那不勒斯 | **117** |
+| 中场 | 尤里·蒂勒曼斯 (Youri Tielemans) | 阿斯顿维拉 | 83 |
+| 中场 | 汉斯·瓦纳肯 (Hans Vanaken) | 布鲁日 | 32 |
+| 中场 | 夏尔·德凯特拉雷 (Charles De Ketelaere) | 亚特兰大 | 28 |
+| 中场 | 阿马杜·奥纳纳 (Amadou Onana) | 阿斯顿维拉 | 27 |
+| 中场 | 尼古拉·拉斯金 (Nicolas Raskin) | 流浪者 | 11 |
+| 中场 | 迭戈·莫雷拉 (Diego Moreira) | 斯特拉斯堡 | 2 |
+| 前锋 | 莱安德罗·特罗萨德 (Leandro Trossard) | 阿森纳 | 50 |
+| 前锋 | 杰里米·多库 (Jeremy Doku) | 曼城 | 41 |
+| 前锋 | 多迪·卢克巴吉奥 (Dodi Lukebakio) | 本菲卡 | 29 |
+| 前锋 | 亚历克西斯·萨勒马克尔斯 (Alexis Saelemaekers) | AC米兰 | 23 |
+| 前锋 | 马蒂亚斯·费尔南德斯-帕尔多 (Matias Fernandez-Pardo) | 里尔 | 0 |
+---
+### 🇪🇬 埃及队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 穆罕默德·希纳维 (Mohamed El Shenawy) | 开罗国民 | 77 |
+| 门将 | 穆斯塔法·舒贝尔 (Mostafa Shobeir) | 开罗国民 | 10 |
+| 门将 | 马赫迪·苏莱曼 (El Mahdy Soliman) | 扎马雷克 | 0 |
+| 门将 | 穆罕默德·阿拉 (Mohamed Alaa) | 古纳 | 0 |
+| 后卫 | 拉米·拉比亚 (Ramy Rabia) | 艾因 | 47 |
+| 后卫 | 穆罕默德·哈尼 (Mohamed Hany) | 开罗国民 | 43 |
+| 后卫 | 艾哈迈德·法图赫 (Ahmed Fatouh) | 扎马雷克 | 39 |
+| 后卫 | 穆罕默德·阿卜杜勒穆奈姆 (Mohamed Abdelmonem) | 尼斯 | 36 |
+| 后卫 | 亚西尔·易卜拉欣 (Yasser Ibrahim) | 开罗国民 | 18 |
+| 后卫 | 胡萨姆·阿卜杜勒马吉德 (Hossam Abdelmaguid) | 扎马雷克 | 13 |
+| 后卫 | 卡里姆·哈菲兹 (Karim Hafez) | 金字塔 | 9 |
+| 后卫 | 塔雷克·阿拉 (Tarek Alaa) | ZED | 3 |
+| 中场 | 哈姆迪·法特希 (Hamdy Fathy) | 沃克拉 | 64 |
+| 中场 | 穆斯塔法·济科 (Mostafa Ziko) | 金字塔 | 2 |
+| 中场 | 伊马姆·阿舒尔 (Emam Ashour) | 开罗国民 | 29 |
+| 中场 | 穆哈纳德·拉申 (Mohanad Lasheen) | 金字塔 | 23 |
+| 中场 | 马哈茂德·萨贝尔 (Mahmoud Saber) | ZED | 15 |
+| 中场 | 纳比勒·伊马德 (Nabil Emad/Donga) | 纳杰马 | 12 |
+| 中场 | 马尔万·阿提亚 (Marwan Attia) | 开罗国民 | 35 |
+| 前锋 | 穆罕默德·萨拉赫 (Mohamed Salah, C) | 利物浦 | **116** |
+| 前锋 | 特雷泽盖 (Trézéguet) | 开罗国民 | 96 |
+| 前锋 | 奥马尔·马尔穆什 (Omar Marmoush) | 曼城 | 50 |
+| 前锋 | 齐佐 (Zizo) | 开罗国民 | 64 |
+| 前锋 | 易卜拉欣·阿德尔 (Ibrahim Adel) | 北西兰 | 24 |
+| 前锋 | 海瑟姆·哈桑 (Haissem Hassan) | 皇家奥维耶多 | 4 |
+| 前锋 | 哈姆扎·阿卜杜勒卡里姆 (Hamza Abdelkarim) | 巴塞罗那竞技 | 2 |
+---
+### 🇮🇷 伊朗队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 阿里雷扎·贝兰万德 (Alireza Beiranvand) | 拖拉机 | 86 |
+| 门将 | 侯赛因·侯赛尼 (Hossein Hosseini) | 塞帕罕 | 13 |
+| 门将 | 帕亚姆·尼亚兹曼德 (Payam Niazmand) | 波斯波利斯 | 13 |
+| 后卫 | 埃赫桑·哈吉萨菲 (Ehsan Hajsafi) | 塞帕罕 | **145** |
+| 后卫 | 阿利雷扎·贾汉巴赫什 (Alireza Jahanbakhsh) | 登德 | **98** |
+| 后卫 | 米拉德·穆罕默迪 (Milad Mohammadi) | 波斯波利斯 | 75 |
+| 后卫 | 拉明·雷扎扬 (Ramin Rezaeian) | 胡齐斯坦钢铁 | 73 |
+| 后卫 | 侯赛因·卡纳尼 (Hossein Kanani) | 波斯波利斯 | 64 |
+| 后卫 | 舒贾·哈利勒扎德 (Shoja Khalilzadeh) | 拖拉机 | 57 |
+| 后卫 | 萨利赫·哈尔达尼 (Saleh Hardani) | 德黑兰独立 | 17 |
+| 后卫 | 阿里·内马蒂 (Ali Nemati) | 胡齐斯坦钢铁 | 16 |
+| 后卫 | 达尼亚尔·伊里 (Danial Iri) | 马兰万 | 0 |
+| 中场 | 赛义德·埃扎托拉希 (Saeid Ezatolahi) | 沙巴布阿赫利 | 82 |
+| 中场 | 萨曼·戈多斯 (Saman Ghoddos) | 卡尔巴 | 67 |
+| 中场 | 迈赫迪·托拉比 (Mehdi Torabi) | 拖拉机 | 51 |
+| 中场 | 鲁兹贝·切什米 (Rouzbéh Cheshmi) | 德黑兰独立 | 39 |
+| 中场 | 穆罕默德·莫赫比 (Mohammad Mohebi) | 罗斯托夫 | 35 |
+| 中场 | 迈赫迪·加耶迪 (Mehdi Ghayedi) | 纳斯尔 | 28 |
+| 中场 | 穆罕默德·戈尔巴尼 (Mohammad Ghorbani) | 瓦赫达 | 15 |
+| 中场 | 阿里亚·尤塞菲 (Aria Yousefi) | 塞帕罕 | 12 |
+| 中场 | 阿米尔穆罕默德·拉扎吉尼亚 (Amirmohammad Razzaghinia) | 德黑兰独立 | 3 |
+| 前锋 | 迈赫迪·塔雷米 (Mehdi Taremi) | 奥林匹亚科斯 | **104** |
+| 前锋 | 阿里·阿利普尔 (Ali Alipour) | 波斯波利斯 | 14 |
+| 前锋 | 阿米尔侯赛因·侯赛因扎德 (Amirhossein Hosseinzadeh) | 拖拉机 | 18 |
+| 前锋 | 沙赫里亚尔·莫甘卢 (Shahriar Moghanlou) | 卡尔巴 | 19 |
+| 前锋 | 丹尼斯·达尔加希 (Dennis Dargahi) | 标准列日 | 0 |
+---
+### 🇳🇿 新西兰队
+新西兰队名单及出场次数来源于Sporting News及Friends of Football。
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 马克斯·克罗库姆 (Max Crocombe) | 米尔沃尔 | 22 |
+| 门将 | 亚历克斯·保尔森 (Alex Paulsen) | 格但斯克莱吉亚 | 6 |
+| 门将 | 迈克尔·伍德 (Michael Woud) | 奥克兰FC | 6 |
+| 后卫 | 泰勒·宾登 (Tyler Bindon) | 诺丁汉森林 | 64 |
+| 后卫 | 迈克尔·博克索尔 (Michael Boxall) | 明尼苏达联 | **61** |
+| 后卫 | 汤米·史密斯 (Tommy Smith) | 布伦特里镇 | 56 |
+| 后卫 | 蒂姆·佩恩 (Tim Payne) | 惠灵顿凤凰 | 50 |
+| 后卫 | 南多·派纳克 (Nando Pijnaker) | 奥克兰FC | 23 |
+| 后卫 | 弗朗西斯·德弗里斯 (Francis De Vries) | 奥克兰FC | 18 |
+| 后卫 | 芬·瑟曼 (Finn Surman) | 波特兰伐木者 | 17 |
+| 后卫 | 利贝拉托·卡卡切 (Liberato Cacace) | 雷克瑟姆 | 35 |
+| 后卫 | 卡伦·埃利奥特 (Callan Elliot) | 奥克兰FC | 9 |
+| 中场 | 马尔科·斯塔梅尼奇 (Marko Stamenic) | 斯旺西 | 37 |
+| 中场 | 乔·贝尔 (Joe Bell) | 维京 | 31 |
+| 中场 | 萨普里特·辛格 (Sarpreet Singh) | 惠灵顿凤凰 | 26 |
+| 中场 | 瑞安·托马斯 (Ryan Thomas) | 兹沃勒 | 25 |
+| 中场 | 亚历克斯·鲁弗 (Alex Rufer) | 惠灵顿凤凰 | 24 |
+| 中场 | 本·奥尔德 (Ben Old) | 圣埃蒂安 | 22 |
+| 中场 | 拉克伦·贝利斯 (Lachlan Bayliss) | 纽卡斯尔喷气机 | 2 |
+| 前锋 | 克里斯·伍德 (Chris Wood, C) | 诺丁汉森林 | **88** |
+| 前锋 | 科斯塔·巴尔巴鲁塞斯 (Kosta Barbarouses) | 西悉尼流浪者 | 74 |
+| 前锋 | 埃利·贾斯特 (Eli Just) | 马瑟韦尔 | 42 |
+| 前锋 | 马特·加贝特 (Matt Garbett) | 彼得伯勒联 | 36 |
+| 前锋 | 卡勒姆·麦科瓦特 (Callum McCowatt) | 锡尔克堡 | 30 |
+| 前锋 | 本·韦恩 (Ben Waine) | 维尔港 | 30 |
+| 前锋 | 杰西·兰德尔 (Jesse Randall) | 奥克兰FC | 9 |
+---
+### 🇪🇸 西班牙队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 乌奈·西蒙 (Unai Simón) | 毕尔巴鄂竞技 | **57** |
+| 门将 | 大卫·拉亚 (David Raya) | 阿森纳 | **12** |
+| 门将 | 霍安·加西亚 (Joan García) | 巴塞罗那 | **1** |
+| 后卫 | 马克·库库雷利亚 (Marc Cucurella) | 切尔西 | **23** |
+| 后卫 | 亚历杭德罗·格里马尔多 (Alejandro Grimaldo) | 勒沃库森 | **12** |
+| 后卫 | 保罗·库巴西 (Pau Cubarsí) | 巴塞罗那 | **11** |
+| 后卫 | 艾梅里克·拉波尔特 (Aymeric Laporte) | 毕尔巴鄂竞技 | **44** |
+| 后卫 | 埃里克·加西亚 (Eric García) | 巴塞罗那 | **19** |
+| 后卫 | 马克·普维尔 (Marc Pubill) | 马德里竞技 | **0** |
+| 后卫 | 马科斯·略伦特 (Marcos Llorente) | 马德里竞技 | **23** |
+| 后卫 | 佩德罗·波罗 (Pedro Porro) | 托特纳姆热刺 | **16** |
+| 中场 | 佩德里 (Pedri) | 巴塞罗那 | **40** |
+| 中场 | 法维安·鲁伊斯 (Fabián Ruiz) | 巴黎圣日耳曼 | **41** |
+| 中场 | 马丁·苏维门迪 (Martín Zubimendi) | 阿森纳 | **25** |
+| 中场 | 加维 (Gavi) | 巴塞罗那 | **28** |
+| 中场 | 罗德里 (Rodri) | 曼城 | **61** |
+| 中场 | 巴埃纳 (Álex Baena) | 马德里竞技 | **15** |
+| 中场 | 米克尔·梅里诺 (Mikel Merino) | 阿森纳 | 数据待核实 |
+| 前锋 | 拉明·亚马尔 (Lamine Yamal) | 巴塞罗那 | **25** |
+| 前锋 | 米克尔·奥亚萨瓦尔 (Mikel Oyarzabal) | 皇家社会 | **52** |
+| 前锋 | 达尼·奥尔莫 (Dani Olmo) | 巴塞罗那 | **48** |
+| 前锋 | 尼科·威廉斯 (Nico Williams) | 毕尔巴鄂竞技 | **30** |
+| 前锋 | 耶雷米·皮诺 (Yeremy Pino) | 水晶宫 | **21** |
+| 前锋 | 费兰·托雷斯 (Ferran Torres) | 巴塞罗那 | **55** |
+| 前锋 | 博尔哈·伊格莱西亚斯 (Borja Iglesias) | 塞尔塔 | **6** |
+| 前锋 | 维克托·穆尼奥斯 (Víctor Muñoz) | 奥萨苏纳 | **2** |
+---
+### 🇨🇻 佛得角队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 沃齐尼亚 (Vozinha) | 沙维斯 | **85** |
+| 门将 | 马尔西奥·罗萨 (Márcio Rosa) | 蒙塔纳 | **10** |
+| 门将 | C.J.·多斯桑托斯 (CJ dos Santos) | 圣迭戈FC | **0** |
+| 后卫 | 斯托皮拉 (Stopira) | 托伦斯 | **60** |
+| 后卫 | 罗伯托·洛佩斯 (Roberto Lopes) | 沙姆洛克流浪者 | **44** |
+| 后卫 | 若昂·保罗 (João Paulo) | FCSB | **40** |
+| 后卫 | 迪内伊 (Diney) | 阿尔巴塔赫 | **29** |
+| 后卫 | 洛甘·科斯塔 (Logan Costa) | 比利亚雷亚尔 | **26** |
+| 后卫 | 史蒂文·莫雷拉 (Steven Moreira) | 哥伦布机员 | **18** |
+| 后卫 | 瓦格纳·皮纳 (Wagner Pina) | 特拉布宗体育 | **12** |
+| 后卫 | 西德尼·洛佩斯·卡布拉尔 (Sidny Lopes Cabral) | 本菲卡 | **8** |
+| 后卫 | 凯尔文·皮雷斯 (Kelvin Pires) | SJK | **4** |
+| 中场 | 雅米罗·蒙泰罗 (Jamiro Monteiro) | PEC兹沃勒 | **53** |
+| 中场 | 凯文·皮纳 (Kevin Pina) | 克拉斯诺达尔 | **30** |
+| 中场 | 德罗伊·杜阿尔特 (Deroy Duarte) | 卢多戈雷茨 | **30** |
+| 中场 | 特尔莫·阿尔卡尼奥 (Telmo Arcanjo) | 吉马良斯 | **14** |
+| 中场 | 拉罗斯·杜阿尔特 (Laros Duarte) | 普斯卡什学院 | **12** |
+| 中场 | 亚尼克·塞梅多 (Yannick Semedo) | 法伦斯 | **10** |
+| 前锋 | 瑞安·门德斯 (Ryan Mendes, 队长) | 伊格迪尔 | **94** |
+| 前锋 | 加里·罗德里格斯 (Garry Rodrigues) | 阿波罗利马索尔 | **59** |
+| 前锋 | 威利·塞梅多 (Willy Semedo) | 奥莫尼亚 | **36** |
+| 前锋 | 若瓦内·卡布拉尔 (Jovane Cabral) | 埃斯特雷拉阿马多拉 | **25** |
+| 前锋 | 吉尔松·本希莫尔 (Gilson Benchimol) | 阿克伦托利亚蒂 | **21** |
+| 前锋 | 代隆·利夫拉门托 (Dailon Livramento) | 卡萨皮亚 | **20** |
+| 前锋 | 埃利奥·瓦雷拉 (Hélio Varela) | 特拉维夫马卡比 | **19** |
+| 前锋 | 努诺·达科斯塔 (Nuno da Costa) | 巴沙克城 | **7** |
+---
+### 🇸🇦 沙特阿拉伯队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 穆罕默德·奥韦斯 (Mohammed Al-Owais) | 阿尔乌拉 | **63** |
+| 门将 | 纳瓦夫·阿奇迪 (Nawaf Al-Aqidi) | 利雅得胜利 | **22** |
+| 门将 | 艾哈迈德·卡萨尔 (Ahmed Al-Kassar) | 卡迪西亚 | **8** |
+| 后卫 | 沙特·阿卜杜勒哈米德 (Saud Abdulhamid) | 朗斯 | **53** |
+| 后卫 | 哈桑·坦巴蒂 (Hassan Al-Tambakti) | 利雅得新月 | **51** |
+| 后卫 | 阿卜杜拉·阿姆里 (Abdulelah Al-Amri) | 利雅得胜利 | **41** |
+| 后卫 | 纳瓦夫·布沙尔 (Nawaf Boushal) | 利雅得胜利 | **24** |
+| 后卫 | 阿里·拉贾米 (Ali Lajami) | 利雅得新月 | **20** |
+| 后卫 | 阿里·迈拉希 (Ali Majrashi) | 吉达国民 | **20** |
+| 后卫 | 哈桑·卡迪什 (Hassan Kadesh) | 吉达联合 | **19** |
+| 后卫 | 莫泰卜·哈尔比 (Moteb Al-Harbi) | 利雅得新月 | **11** |
+| 后卫 | 吉哈德·萨克里 (Jehad Thakri) | 卡迪西亚 | **6** |
+| 后卫 | 穆罕默德·阿布沙马特 (Mohammed Abu Al-Shamat) | 卡迪西亚 | **5** |
+| 中场 | 萨利姆·多萨里 (Salem Al-Dawsari, 队长) | 利雅得新月 | **108** |
+| 中场 | 穆罕默德·卡努 (Mohamed Kanno) | 利雅得新月 | **75** |
+| 中场 | 纳赛尔·多萨里 (Nasser Al-Dawsari) | 利雅得新月 | **42** |
+| 中场 | 阿卜杜拉·海巴里 (Abdullah Al-Khaibari) | 利雅得胜利 | **38** |
+| 中场 | 穆萨卜·朱维尔 (Musab Al-Juwayr) | 卡迪西亚 | **33** |
+| 中场 | 艾曼·叶海亚 (Ayman Yahya) | 利雅得胜利 | **25** |
+| 中场 | 齐亚德·约哈尼 (Ziyad Al-Johani) | 吉达国民 | **11** |
+| 中场 | 苏丹·曼达什 (Sultan Mandash) | 利雅得新月 | **5** |
+| 中场 | 阿拉·赫吉 (Alaa Al-Hejji) | NEOM | **1** |
+| 前锋 | 菲拉斯·布赖坎 (Firas Al-Buraikan) | 吉达国民 | **69** |
+| 前锋 | 萨利赫·谢赫里 (Saleh Al-Shehri) | 吉达联合 | **55** |
+| 前锋 | 阿卜杜拉·哈姆丹 (Abdullah Al-Hamdan) | 利雅得胜利 | **48** |
+| 前锋 | 哈立德·加纳姆 (Khalid Al-Ghannam) | 达曼协作 | 数据待核实 |
+---
+### 🇺🇾 乌拉圭队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 费尔南多·穆斯莱拉 (Fernando Muslera) | 拉普拉塔大学生 | **134** |
+| 门将 | 塞尔吉奥·罗切特 (Sergio Rochet) | 巴西国际 | **35** |
+| 门将 | 圣地亚哥·梅莱 (Santiago Mele) | 蒙特雷 | **8** |
+| 后卫 | 何塞·马里亚·希梅内斯 (José María Giménez, 队长) | 马德里竞技 | **99** |
+| 后卫 | 罗纳德·阿劳霍 (Ronald Araújo) | 巴塞罗那 | **27** |
+| 后卫 | 马蒂亚斯·比尼亚 (Matías Viña) | 河床 | **43** |
+| 后卫 | 马蒂亚斯·奥利韦拉 (Mathías Olivera) | 那不勒斯 | **35** |
+| 后卫 | 吉列尔莫·瓦雷拉 (Guillermo Varela) | 弗拉门戈 | **28** |
+| 后卫 | 塞瓦斯蒂安·卡塞雷斯 (Sebastián Cáceres) | 美洲狮 | **24** |
+| 后卫 | 华金·皮克雷斯 (Joaquín Piquerez) | 帕尔梅拉斯 | **19** |
+| 后卫 | 圣地亚哥·布埃诺 (Santiago Bueno) | 狼队 | **8** |
+| 中场 | 罗德里戈·本坦库尔 (Rodrigo Bentancur) | 热刺 | **74** |
+| 中场 | 费德里科·巴尔韦德 (Federico Valverde) | 皇家马德里 | **73** |
+| 中场 | 乔治亚·德阿拉斯卡埃塔 (Giorgian de Arrascaeta) | 弗拉门戈 | **60** |
+| 中场 | 法昆多·佩利斯特里 (Facundo Pellistri) | 帕纳辛纳科斯 | **39** |
+| 中场 | 曼努埃尔·乌加特 (Manuel Ugarte) | 曼联 | **36** |
+| 中场 | 尼古拉斯·德拉克鲁斯 (Nicolás de la Cruz) | 弗拉门戈 | **34** |
+| 中场 | 布赖恩·罗德里格斯 (Brian Rodríguez) | 美洲狮 | **32** |
+| 中场 | 马克西米利亚诺·阿劳霍 (Maximiliano Araújo) | 葡萄牙体育 | **28** |
+| 中场 | 阿古斯丁·卡诺比奥 (Agustín Canobbio) | 弗鲁米嫩塞 | **15** |
+| 中场 | 埃米利亚诺·马丁内斯 (Emiliano Martínez) | 帕尔梅拉斯 | **10** |
+| 中场 | 罗德里戈·萨拉萨尔 (Rodrigo Zalazar) | 布拉加 | **8** |
+| 中场 | 胡安·曼努埃尔·萨纳夫里亚 (Juan Manuel Sanabria) | 皇家盐湖城 | **5** |
+| 前锋 | 达尔文·努涅斯 (Darwin Núñez) | 利雅得新月 | 数据待核实 |
+| 前锋 | 罗德里戈·阿吉雷 (Rodrigo Aguirre) | 老虎队 | 数据待核实 |
+| 前锋 | 费德里科·比尼亚斯 (Federico Viñas) | 皇家奥维耶多 | 数据待核实 |
+---
+### 🇫🇷 法国队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 迈尼昂 (Mike Maignan) | AC米兰 | **38** |
+| 门将 | 桑巴 (Brice Samba) | 雷恩 | **4** |
+| 门将 | 里塞 (Robin Risser) | 朗斯 | **0** |
+| 后卫 | 于帕梅卡诺 (Dayot Upamecano) | 拜仁慕尼黑 | **36** |
+| 后卫 | 科纳特 (Ibrahima Konaté) | 利物浦 | **27** |
+| 后卫 | 孔德 (Jules Koundé) | 巴塞罗那 | **46** |
+| 后卫 | 卢卡斯·埃尔南德斯 (Lucas Hernandez) | 巴黎圣日耳曼 | **41** |
+| 后卫 | 迪涅 (Lucas Digne) | 阿斯顿维拉 | **56** |
+| 后卫 | 古斯托 (Malo Gusto) | 切尔西 | **9** |
+| 后卫 | 特奥·埃尔南德斯 (Théo Hernandez) | 利雅得新月 | **42** |
+| 后卫 | 拉克鲁瓦 (Maxence Lacroix) | 水晶宫 | **2** |
+| 后卫 | 萨利巴 (William Saliba) | 阿森纳 | **31** |
+| 中场 | 拉比奥 (Adrien Rabiot) | AC米兰 | **57** |
+| 中场 | 楚阿梅尼 (Aurélien Tchouaméni) | 皇家马德里 | **44** |
+| 中场 | 坎特 (N'Golo Kanté) | 费内巴切 | **67** |
+| 中场 | 科内 (Manu Koné) | 罗马 | **12** |
+| 中场 | 扎伊尔·埃梅里 (Warren Zaïre-Emery) | 巴黎圣日耳曼 | **10** |
+| 前锋 | 姆巴佩 (Kylian Mbappé, 队长) | 皇家马德里 | **96** |
+| 前锋 | 登贝莱 (Ousmane Dembélé) | 巴黎圣日耳曼 | **58** |
+| 前锋 | 奥利塞 (Michael Olise) | 拜仁慕尼黑 | **15** |
+| 前锋 | 谢尔基 (Rayan Cherki) | 曼城 | 数据待核实 |
+| 前锋 | 杜埃 (Désiré Doué) | 巴黎圣日耳曼 | 数据待核实 |
+| 前锋 | 巴尔科拉 (Bradley Barcola) | 巴黎圣日耳曼 | **18** |
+| 前锋 | 图拉姆 (Marcus Thuram) | 国际米兰 | **33** |
+| 前锋 | 阿克利乌舍 (Maghnes Akliouche) | 摩纳哥 | **7** |
+| 前锋 | 马特塔 (Jean-Philippe Mateta) | 水晶宫 | 数据待核实 |
+### 🇸🇳 塞内加尔队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 爱德华·门迪 (Édouard Mendy) | 吉达国民 | **56** |
+| 门将 | 莫里·迪亚乌 (Mory Diaw) | 勒阿弗尔 | **5** |
+| 门将 | 耶万·迪乌夫 (Yehvann Diouf) | 尼斯 | **2** |
+| 后卫 | 库利巴利 (Kalidou Koulibaly, 队长) | 利雅得新月 | **102** |
+| 后卫 | 迪亚塔 (Krépin Diatta) | 摩纳哥 | **60** |
+| 后卫 | 安托万·门迪 (Antoine Mendy) | 尼斯 | **6** |
+| 后卫 | 哈吉·迪乌夫 (El Hadji Malick Diouf) | 西汉姆联 | **19** |
+| 后卫 | 马马杜·萨尔 (Mamadou Sarr) | 切尔西 | **7** |
+| 后卫 | 尼亚凯特 (Moussa Niakhaté) | 里昂 | **30** |
+| 后卫 | 塞克 (Abdoulaye Seck) | 海法马卡比 | **22** |
+| 后卫 | 雅各布斯 (Ismaïl Jakobs) | 加拉塔萨雷 | **29** |
+| 中场 | 伊德里萨·盖耶 (Idrissa Gana Gueye) | 埃弗顿 | **130** |
+| 中场 | 帕普·盖耶 (Pape Gueye) | 比利亚雷亚尔 | **41** |
+| 中场 | 拉明·卡马拉 (Lamine Camara) | 摩纳哥 | **32** |
+| 中场 | 哈比卜·迪亚拉 (Habib Diarra) | 桑德兰 | **20** |
+| 中场 | 西斯 (Pathé Ciss) | 巴列卡诺 | **29** |
+| 中场 | 帕普·萨尔 (Pape Matar Sarr) | 托特纳姆热刺 | **39** |
+| 中场 | 巴拉·恩迪亚耶 (Bara Sapoko Ndiaye) | 拜仁慕尼黑 | **1** |
+| 前锋 | 马内 (Sadio Mané) | 利雅得胜利 | **127** |
+| 前锋 | 伊斯梅拉·萨尔 (Ismaïla Sarr) | 水晶宫 | **82** |
+| 前锋 | 伊利曼·恩迪亚耶 (Iliman Ndiaye) | 埃弗顿 | **39** |
+| 前锋 | 迪奥 (Assane Diao) | 科莫 | **5** |
+| 前锋 | 姆巴耶 (Ibrahim Mbaye) | 巴黎圣日耳曼 | **10** |
+| 前锋 | 杰克逊 (Nicolas Jackson) | 拜仁慕尼黑 | **32** |
+| 前锋 | 谢里夫·恩迪亚耶 (Cherif Ndiaye) | 萨姆松体育 | **18** |
+| 前锋 | 班巴·迪昂 (Bamba Dieng) | 洛里昂 | **22** |
+### 🇮🇶 伊拉克队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 贾拉勒·哈桑 (Jalal Hassan, 队长) | 扎乌拉 | **100** |
+| 门将 | 法哈德·塔利卜 (Fahad Talib) | 塔拉巴 | **21** |
+| 门将 | 艾哈迈德·巴西勒 (Ahmed Basil) | 警察 | **14** |
+| 后卫 | 雷宾·苏拉卡 (Rebin Sulaka) | 港口 | **54** |
+| 后卫 | 马纳夫·尤尼斯 (Manaf Younis) | 警察 | **32** |
+| 后卫 | 梅尔查斯·多斯基 (Merchas Doski) | 比尔森胜利 | **30** |
+| 后卫 | 扎伊德·塔赫辛 (Zaid Tahseen) | 棉农 | **26** |
+| 后卫 | 弗兰斯·普特罗斯 (Frans Putros) | 佩尔西布 | **26** |
+| 后卫 | 侯赛因·阿里 (Hussein Ali) | 什切青波贡 | **25** |
+| 后卫 | 艾哈迈德·叶海亚 (Ahmed Yahya) | 警察 | **19** |
+| 后卫 | 穆斯塔法·萨阿敦 (Mustafa Saadoon) | 警察 | **15** |
+| 后卫 | 阿卡姆·哈希姆 (Akam Hashim) | 扎乌拉 | **12** |
+| 中场 | 易卜拉欣·巴耶什 (Ibrahim Bayesh) | 达夫拉 | **74** |
+| 中场 | 阿米尔·阿马里 (Amir Al-Ammari) | 克拉科维亚 | **49** |
+| 中场 | 阿里·贾西姆 (Ali Jasim) | 纳杰马 | **35** |
+| 中场 | 优素福·阿明 (Youssef Amyn) | AEK拉纳卡 | **25** |
+| 中场 | 齐达内·伊克巴尔 (Zidane Iqbal) | 乌得勒支 | **23** |
+| 中场 | 马尔科·法尔吉 (Marko Farji) | 威尼斯 | **10** |
+| 中场 | 凯文·雅各布 (Kevin Yakob) | 奥胡斯 | **7** |
+| 中场 | 艾马尔·谢尔 (Aimar Sher) | 萨尔普斯堡08 | **6** |
+| 中场 | 扎伊德·伊斯梅尔 (Zaid Ismail) | 塔拉巴 | **5** |
+| 中场 | 艾哈迈德·卡西姆 (Ahmed Qasem) | 纳什维尔SC | **1** |
+| 前锋 | 艾曼·侯赛因 (Aymen Hussein) | 卡尔马 | **93** |
+| 前锋 | 穆哈纳德·阿里 (Mohanad Ali) | 迪巴 | **71** |
+| 前锋 | 阿里·哈马迪 (Ali Al-Hamadi) | 卢顿镇 | **18** |
+| 前锋 | 阿里·优素福 (Ali Yousif) | 塔拉巴 | **6** |
+### 🇳🇴 挪威队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 尼兰德 (Ørjan Nyland) | 塞维利亚 | **69** |
+| 门将 | 塞尔维克 (Egil Selvik) | 沃特福德 | **6** |
+| 门将 | 唐维克 (Sander Tangvik) | 汉堡 | **0** |
+| 后卫 | 雷尔森 (Julian Ryerson) | 多特蒙德 | **41** |
+| 后卫 | 阿耶尔 (Kristoffer Ajer) | 布伦特福德 | **50** |
+| 后卫 | 厄斯蒂高 (Leo Skiri Østigård) | 热那亚 | **36** |
+| 后卫 | 沃尔夫 (David Møller Wolfe) | 狼队 | **20** |
+| 后卫 | 彼得森 (Marcus Holmgren Pedersen) | 都灵 | **31** |
+| 后卫 | 赫格姆 (Torbjørn Heggem) | 博洛尼亚 | **13** |
+| 后卫 | 比约坎 (Fredrik Bjørkan) | 博德闪耀 | **19** |
+| 后卫 | 法尔切纳 (Henrik Falchener) | 维京 | **1** |
+| 后卫 | 兰加斯 (Sondre Langås) | 德比郡 | **2** |
+| 中场 | 厄德高 (Martin Ødegaard, 队长) | 阿森纳 | **67** |
+| 中场 | 桑德·博格 (Sander Berge) | 富勒姆 | **64** |
+| 中场 | 帕特里克·博格 (Patrick Berg) | 博德闪耀 | **41** |
+| 中场 | 索尔茨维特 (Kristian Thorstvedt) | 萨索洛 | **35** |
+| 中场 | 托斯比 (Morten Thorsby) | 克雷莫内塞 | **30** |
+| 中场 | 奥斯加德 (Thelo Aasgaard) | 流浪者 | **6** |
+| 中场 | 谢尔德鲁普 (Andreas Schjelderup) | 本菲卡 | **10** |
+| 中场 | 豪格 (Jens Petter Hauge) | 博德闪耀 | **14** |
+| 中场 | 奥尔斯内斯 (Fredrik Aursnes) | 本菲卡 | **20** |
+| 中场 | 努萨 (Antonio Nusa) | 莱比锡RB | **22** |
+| 中场 | 博布 (Oscar Bobb) | 富勒姆 | **18** |
+| 前锋 | 哈兰德 (Erling Haaland) | 曼城 | **49** |
+| 前锋 | 瑟洛特 (Alexander Sørloth) | 马德里竞技 | **70** |
+| 前锋 | 拉尔森 (Jørgen Strand Larsen) | 水晶宫 | **26** |
+---
+### 🇦🇷 阿根廷队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 埃米利亚诺·马丁内斯 (Emiliano Martínez) | 阿斯顿维拉 | 59 |
+| 门将 | 赫罗尼莫·鲁利 (Gerónimo Rulli) | 马赛 | 7 |
+| 门将 | 胡安·穆索 (Juan Musso) | 马德里竞技 | 3 |
+| 后卫 | 尼古拉斯·奥塔门迪 (Nicolás Otamendi) | 本菲卡 | **130** |
+| 后卫 | 尼古拉斯·塔利亚菲科 (Nicolás Tagliafico) | 里昂 | 74 |
+| 后卫 | 纳乌埃尔·莫利纳 (Nahuel Molina) | 马德里竞技 | 58 |
+| 后卫 | 克里斯蒂安·罗梅罗 (Cristian Romero) | 热刺 | 49 |
+| 后卫 | 贡萨洛·蒙铁尔 (Gonzalo Montiel) | 河床 | 38 |
+| 后卫 | 利桑德罗·马丁内斯 (Lisandro Martínez) | 曼联 | 26 |
+| 后卫 | 莱昂纳多·巴列尔迪 (Leonardo Balerdi) | 马赛 | 11 |
+| 后卫 | 法昆多·梅迪纳 (Facundo Medina) | 朗斯 | 7 |
+| 中场 | 罗德里戈·德保罗 (Rodrigo De Paul) | 迈阿密国际 | 85 |
+| 中场 | 莱安德罗·帕雷德斯 (Leandro Paredes) | 博卡青年 | 77 |
+| 中场 | 乔瓦尼·洛塞尔索 (Giovani Lo Celso) | 比利亚雷亚尔 | 65 |
+| 中场 | 亚历克西斯·麦卡利斯特 (Alexis Mac Allister) | 利物浦 | 44 |
+| 中场 | 恩佐·费尔南德斯 (Enzo Fernández) | 切尔西 | 40 |
+| 中场 | 埃塞基耶尔·帕拉西奥斯 (Exequiel Palacios) | 勒沃库森 | 38 |
+| 中场 | 蒂亚戈·阿尔马达 (Thiago Almada) | 马德里竞技 | 14 |
+| 中场 | 尼科·帕斯 (Nico Paz) | 科莫 | 8 |
+| 前锋 | 莱昂内尔·梅西 (Lionel Messi, 队长) | 迈阿密国际 | **198** |
+| 前锋 | 劳塔罗·马丁内斯 (Lautaro Martínez) | 国际米兰 | 75 |
+| 前锋 | 胡利安·阿尔瓦雷斯 (Julián Álvarez) | 马德里竞技 | 51 |
+| 前锋 | 尼古拉斯·冈萨雷斯 (Nicolás González) | 马德里竞技 | 50 |
+| 前锋 | 朱利亚诺·西蒙尼 (Giuliano Simeone) | 马德里竞技 | 11 |
+| 前锋 | 何塞·曼努埃尔·洛佩斯 (José Manuel López) | 帕尔梅拉斯 | 3 |
+| 前锋 | 瓦伦蒂诺·巴尔科 (Valentín Barco) | 布莱顿 | 2 |
+### 🇩🇿 阿尔及利亚队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 卢卡·齐达内 (Luca Zidane) | 格拉纳达 | 6 |
+| 门将 | 乌萨马·本布特 (Oussama Benbot) | USM阿尔及尔 | 2 |
+| 门将 | 梅尔文·马斯蒂尔 (Melvin Mastil) | 尼翁体育场 | 1 |
+| 后卫 | 艾萨·曼迪 (Aïssa Mandi) | 里尔 | **116** |
+| 后卫 | 拉米·本塞拜尼 (Ramy Bensebaïni) | 多特蒙德 | 81 |
+| 后卫 | 穆罕默德·阿明·图盖 (Mohamed Amine Tougai) | 突尼斯希望 | 28 |
+| 后卫 | 拉扬·艾特-努里 (Rayan Aït-Nouri) | 曼城 | 27 |
+| 后卫 | 贾乌恩·哈贾姆 (Jaouen Hadjam) | 伯尔尼年轻人 | 16 |
+| 后卫 | 拉菲克·贝尔加利 (Rafik Belghali) | 维罗纳 | 11 |
+| 后卫 | 津内丁·贝莱德 (Zineddine Belaïd) | JS卡比利亚 | 9 |
+| 后卫 | 阿什拉夫·阿巴达 (Achref Abada) | USM阿尔及尔 | 6 |
+| 后卫 | 萨米尔·谢尔吉 (Samir Chergui) | 巴黎FC | 4 |
+| 中场 | 纳比勒·本塔莱布 (Nabil Bentaleb) | 里尔 | 58 |
+| 中场 | 拉米兹·泽鲁基 (Ramiz Zerrouki) | 特温特 | 51 |
+| 中场 | 希沙姆·布达维 (Hicham Boudaoui) | 尼斯 | 32 |
+| 中场 | 法雷斯·沙伊比 (Farès Chaïbi) | 法兰克福 | 28 |
+| 中场 | 乌萨马·阿瓦尔 (Houssem Aouar) | 吉达联合 | 19 |
+| 中场 | 易卜拉欣·马扎 (Ibrahim Maza) | 勒沃库森 | 15 |
+| 中场 | 亚辛·蒂特劳伊 (Yacine Titraoui) | 沙勒罗瓦 | 5 |
+| 前锋 | 里亚德·马赫雷斯 (Riyad Mahrez, 队长) | 吉达国民 | **113** |
+| 前锋 | 穆罕默德·阿穆拉 (Mohamed Amoura) | 沃尔夫斯堡 | 44 |
+| 前锋 | 阿明·古伊里 (Amine Gouiri) | 马赛 | 21 |
+| 前锋 | 阿尼斯·哈吉·穆萨 (Anis Hadj Moussa) | 费耶诺德 | 13 |
+| 前锋 | 阿迪尔·布勒比纳 (Adil Boulbina) | 杜海勒 | 10 |
+| 前锋 | 纳迪尔·本布瓦利 (Nadir Benbouali) | 吉厄尔 | 2 |
+| 前锋 | 法雷斯·盖杰米斯 (Farès Ghedjemis) | 弗罗西诺内 | 1 |
+### 🇦🇹 奥地利队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 亚历山大·施拉格 (Alexander Schlager) | 萨尔茨堡红牛 | 25 |
+| 门将 | 帕特里克·彭茨 (Patrick Pentz) | 布隆德比 | 18 |
+| 门将 | 弗洛里安·维格勒 (Florian Wiegele) | 比尔森胜利 | 1 |
+| 后卫 | 大卫·阿拉巴 (David Alaba, 队长) | 皇家马德里 | **112** |
+| 后卫 | 斯特凡·波施 (Stefan Posch) | 美因茨 | 51 |
+| 后卫 | 菲利普·林哈特 (Philipp Lienhart) | 弗赖堡 | 40 |
+| 后卫 | 凯文·丹索 (Kevin Danso) | 热刺 | 31 |
+| 后卫 | 菲利普·姆韦内 (Phillipp Mwene) | 美因茨 | 29 |
+| 后卫 | 亚历山大·普拉斯 (Alexander Prass) | 霍芬海姆 | 18 |
+| 后卫 | 马尔科·弗里德尔 (Marco Friedl) | 不莱梅 | 10 |
+| 后卫 | 迈克尔·斯沃博达 (Michael Svoboda) | 威尼斯 | 4 |
+| 后卫 | 大卫·阿芬格鲁伯 (David Affengruber) | 埃尔切 | 1 |
+| 中场 | 马塞尔·萨比策 (Marcel Sabitzer) | 多特蒙德 | 97 |
+| 中场 | 弗洛里安·格里利奇 (Florian Grillitsch) | 布拉加 | 58 |
+| 中场 | 康拉德·莱默尔 (Konrad Laimer) | 拜仁慕尼黑 | 56 |
+| 中场 | 克萨韦尔·施拉格 (Xaver Schlager) | 莱比锡RB | 50 |
+| 中场 | 尼古拉斯·赛瓦尔德 (Nicolas Seiwald) | 莱比锡RB | 46 |
+| 中场 | 亚历山德罗·舍普夫 (Alessandro Schöpf) | 沃尔夫斯贝格 | 35 |
+| 中场 | 罗马诺·施密德 (Romano Schmid) | 不莱梅 | 33 |
+| 中场 | 帕特里克·维默 (Patrick Wimmer) | 沃尔夫斯堡 | 30 |
+| 中场 | 卡尼·丘库埃梅卡 (Carney Chukwuemeka) | 多特蒙德 | 2 |
+| 中场 | 保罗·万纳 (Paul Wanner) | 埃因霍温 | 2 |
+| 前锋 | 马尔科·阿瑙托维奇 (Marko Arnautović) | 贝尔格莱德红星 | **132** |
+| 前锋 | 米夏埃尔·格雷戈里奇 (Michael Gregoritsch) | 奥格斯堡 | 74 |
+| 前锋 | 萨沙·卡拉伊季奇 (Saša Kalajdžić) | LASK林茨 | 21 |
+### 🇯🇴 约旦队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 亚齐德·阿布拉伊拉 (Yazeed Abulaila) | 侯赛因 | 75 |
+| 门将 | 阿卜杜拉·法胡里 (Abdallah Al-Fakhouri) | 维赫达特 | 11 |
+| 门将 | 努尔·巴尼·阿提亚 (Nour Bani Attiah) | 费萨里 | 4 |
+| 后卫 | 伊赫桑·哈达德 (Ihsan Haddad, 队长) | 侯赛因 | **91** |
+| 后卫 | 亚赞·阿拉伯 (Yazan Al-Arab) | FC首尔 | 79 |
+| 后卫 | 阿卜杜拉·纳西卜 (Abdallah Nasib) | 扎乌拉 | 64 |
+| 后卫 | 穆罕默德·阿布·哈希什 (Mohammad Abu Hashish) | 卡尔马 | 55 |
+| 后卫 | 赛义德·罗桑 (Saed Al-Rosan) | 侯赛因 | 20 |
+| 后卫 | 胡萨姆·阿布·达哈卜 (Husam Abu Dahab) | 费萨里 | 17 |
+| 后卫 | 穆罕纳德·阿布纳迪 (Mo Abualnadi) | 雪兰莪 | 17 |
+| 后卫 | 萨利姆·奥拜德 (Salim Obaid) | 侯赛因 | 10 |
+| 后卫 | 阿纳斯·巴达维 (Anas Badawi) | 费萨里 | 1 |
+| 中场 | 拉贾伊·阿耶德 (Rajaei Ayed) | 侯赛因 | 72 |
+| 中场 | 努尔·拉瓦卜德 (Noor Al-Rawabdeh) | 雪兰莪 | 67 |
+| 中场 | 易卜拉欣·萨德 (Ibrahim Sadeh) | 卡尔马 | 56 |
+| 中场 | 尼扎尔·拉什丹 (Nizar Al-Rashdan) | 卡塔尔SC | 46 |
+| 中场 | 穆罕纳德·阿布·塔哈 (Mohannad Abu Taha) | 巴格达空军 | 28 |
+| 中场 | 阿米尔·贾穆斯 (Amer Jamous) | 扎乌拉 | 18 |
+| 中场 | 穆罕默德·达乌德 (Mohammad Al-Dawoud) | 维赫达特 | 12 |
+| 前锋 | 穆萨·塔马里 (Musa Al-Taamari) | 雷恩 | **91** |
+| 前锋 | 马哈茂德·马尔迪 (Mahmoud Al-Mardi) | 侯赛因 | 88 |
+| 前锋 | 阿里·乌勒万 (Ali Olwan) | 赛利亚 | 65 |
+| 前锋 | 穆罕默德·阿布·兹赖克 (Mohammad Abu Zrayq) | 卡萨布兰卡拉贾 | 40 |
+| 前锋 | 奥德·法胡里 (Odeh Al-Fakhouri) | 金字塔 | 9 |
+| 前锋 | 易卜拉欣·萨卜拉 (Ibrahim Sabra) | 萨格勒布火车头 | 9 |
+| 前锋 | 阿里·阿扎伊泽 (Ali Azaizeh) | 沙巴布 | 3 |
+---
+### 🇵🇹 葡萄牙队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 迪奥戈·科斯塔 (Diogo Costa) | 波尔图 | **42** |
+| 门将 | 若泽·萨 (José Sá) | 狼队 | **4** |
+| 门将 | 鲁伊·席尔瓦 (Rui Silva) | 葡萄牙体育 | **2** |
+| 门将 | 里卡多·韦略 (Ricardo Velho) | 安卡拉青年联盟 | 数据待核实 |
+| 后卫 | 达洛特 (Diogo Dalot) | 曼联 | **33** |
+| 后卫 | 马特乌斯·努内斯 (Matheus Nunes) | 曼城 | **19** |
+| 后卫 | 塞梅多 (Nélson Semedo) | 费内巴切 | **48** |
+| 后卫 | 坎塞洛 (João Cancelo) | 巴塞罗那 | **66** |
+| 后卫 | 努诺·门德斯 (Nuno Mendes) | 巴黎圣日耳曼 | **43** |
+| 后卫 | 伊纳西奥 (Gonçalo Inácio) | 葡萄牙体育 | **24** |
+| 后卫 | 韦加 (Renato Veiga) | 比利亚雷亚尔 | **11** |
+| 后卫 | 鲁本·迪亚斯 (Rúben Dias) | 曼城 | **74** |
+| 后卫 | 托马斯·阿劳霍 (Tomás Araújo) | 本菲卡 | **3** |
+| 中场 | 鲁本·内维斯 (Rúben Neves) | 利雅得新月 | **65** |
+| 中场 | 萨穆·科斯塔 (Samú Costa) | 马略卡 | **4** |
+| 中场 | 若昂·内维斯 (João Neves) | 巴黎圣日耳曼 | **21** |
+| 中场 | 维蒂尼亚 (Vitinha) | 巴黎圣日耳曼 | **37** |
+| 中场 | 布鲁诺·费尔南德斯 (Bruno Fernandes) | 曼联 | **87** |
+| 中场 | 贝尔纳多·席尔瓦 (Bernardo Silva) | 曼城 | **107** |
+| 前锋 | 菲利克斯 (João Félix) | 利雅得胜利 | 数据待核实 |
+| 前锋 | 特林康 (Francisco Trincão) | 葡萄牙体育 | 数据待核实 |
+| 前锋 | 孔塞桑 (Francisco Conceição) | 尤文图斯 | **15** |
+| 前锋 | 佩德罗·内托 (Pedro Neto) | 切尔西 | 数据待核实 |
+| 前锋 | 莱奥 (Rafael Leão) | AC米兰 | 数据待核实 |
+| 前锋 | 格德斯 (Gonçalo Guedes) | 皇家社会 | 数据待核实 |
+| 前锋 | 贡萨洛·拉莫斯 (Gonçalo Ramos) | 巴黎圣日耳曼 | 数据待核实 |
+| 前锋 | C罗 (Cristiano Ronaldo, 队长) | 利雅得胜利 | **228** |
+### 🇨🇩 民主刚果队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 莱昂内尔·姆帕西 (Lionel Mpasi) | 勒阿弗尔 | **27** |
+| 门将 | 蒂莫西·法尤卢 (Timothy Fayulu) | 诺亚 | **3** |
+| 门将 | 马蒂厄·埃波洛 (Matthieu Epolo) | 标准列日 | **1** |
+| 后卫 | 钱塞尔·姆本巴 (Chancel Mbemba, 队长) | 里尔 | **107** |
+| 后卫 | 阿瑟·马苏亚库 (Arthur Masuaku) | 朗斯 | **44** |
+| 后卫 | 热代翁·卡卢卢 (Gédéon Kalulu) | 阿里斯利马索尔 | **27** |
+| 后卫 | 若里斯·卡延贝 (Joris Kayembe) | 亨克 | **24** |
+| 后卫 | 迪伦·巴图宾西卡 (Dylan Batubinsika) | 拉里萨 | **14** |
+| 后卫 | 阿克塞尔·图安泽贝 (Axel Tuanzebe) | 伯恩利 | **12** |
+| 后卫 | 万-比萨卡 (Aaron Wan-Bissaka) | 西汉姆联 | **10** |
+| 后卫 | 史蒂夫·卡普阿迪 (Steve Kapuadi) | 罗兹维泽夫 | **3** |
+| 中场 | 梅沙克·埃利亚 (Meschack Elia) | 阿拉尼亚体育 | **68** |
+| 中场 | 萨穆埃尔·穆图萨米 (Samuel Moutoussamy) | 阿特罗米托斯 | **56** |
+| 中场 | 埃多·卡延贝 (Edo Kayembe) | 沃特福德 | **41** |
+| 中场 | 特奥·邦贡达 (Théo Bongonda) | 莫斯科斯巴达克 | **37** |
+| 中场 | 夏尔·皮克尔 (Charles Pickel) | 西班牙人 | **33** |
+| 中场 | 加埃尔·卡库塔 (Gaël Kakuta) | 拉里萨 | **30** |
+| 中场 | 诺亚·萨迪基 (Noah Sadiki) | 桑德兰 | **18** |
+| 中场 | 纳塔纳埃尔·姆布库 (Nathanaël Mbuku) | 蒙彼利埃 | **17** |
+| 中场 | 阿隆·齐博拉 (Aaron Tshibola) | 基尔马诺克 | **16** |
+| 中场 | 恩加莱尔·穆考 (Ngal’ayel Mukau) | 里尔 | **12** |
+| 中场 | 布赖恩·西蓬加 (Brian Cipenga) | 卡斯特利翁 | **7** |
+| 前锋 | 塞德里克·巴坎布 (Cédric Bakambu) | 皇家贝蒂斯 | **68** |
+| 前锋 | 菲斯顿·马耶莱 (Fiston Mayele) | 金字塔 | **37** |
+| 前锋 | 约安·维萨 (Yoane Wissa) | 纽卡斯尔联 | **36** |
+| 前锋 | 西蒙·班扎 (Simon Banza) | 阿布扎比半岛 | **14** |
+### 🇺🇿 乌兹别克斯坦队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 乌特基尔·尤苏波夫 (Utkir Yusupov) | 纳曼干新春 | **39** |
+| 门将 | 阿卜杜沃希德·内马托夫 (Abduvohid Nematov) | 纳萨夫 | **7** |
+| 门将 | 博蒂拉利·埃尔加舍夫 (Botirali Ergashev) | 费尔干纳油工 | **2** |
+| 后卫 | 阿卜杜科迪尔·胡桑诺夫 (Abdukodir Khusanov) | 曼城 | **25** |
+| 后卫 | 扎洪吉尔·乌罗佐夫 (Jakhongir Urozov) | 萨马尔罕迪那摩 | **2** |
+| 后卫 | 阿瓦兹别克·乌尔马萨利耶夫 (Avazbek Ulmasaliev) | 阿尔马雷克 | **0** |
+| 后卫 | 法鲁赫·萨菲耶夫 (Farrukh Sayfiev) | 费尔干纳油工 | **44** |
+| 后卫 | 谢尔佐德·纳斯鲁拉耶夫 (Sherzod Nasrullaev) | 纳萨夫 | **29** |
+| 后卫 | 别克鲁兹·卡里莫夫 (Bekhruz Karimov) | 特尔梅兹 | **2** |
+| 后卫 | 乌马尔·埃什穆罗多夫 (Umar Eshmurodov) | 纳萨夫 | **29** |
+| 后卫 | 拉斯塔姆·阿舒马托夫 (Rustam Ashurmatov) | 德黑兰独立 | **47** |
+| 后卫 | 霍贾克巴尔·阿里扎诺夫 (Khojiakbar Alijonov) | 塔什干棉农 | **40** |
+| 后卫 | 阿卜杜拉·阿卜杜拉耶夫 (Abdulla Abdullaev) | 迪巴SCC | **16** |
+| 中场 | 奥塔别克·舒库罗夫 (Otabek Shukurov) | 班尼亚斯 | **82** |
+| 中场 | 阿克马尔·莫兹戈沃伊 (Akmal Mozgovoy) | 纳萨夫 | **23** |
+| 中场 | 贾姆希德·伊斯坎德罗夫 (Jamshid Iskanderov) | 费尔干纳油工 | **37** |
+| 中场 | 奥迪尔容·哈姆罗别科夫 (Odiljon Hamrobekov) | 大不里士拖拉机 | **71** |
+| 中场 | 阿齐兹别克·加尼耶夫 (Azizjon Ganiev) | 巴塔 | **18** |
+| 中场 | 谢尔佐德·埃萨诺夫 (Sherzod Esanov) | 布哈拉 | **0** |
+| 中场 | 贾洛利丁·马沙里波夫 (Jaloliddin Masharipov) | 德黑兰独立 | **74** |
+| 中场 | 阿博斯别克·法伊祖拉耶夫 (Abbosbek Fayzullaev) | 伊斯坦布尔 | **30** |
+| 中场 | 多斯通贝克·哈姆达莫夫 (Dostonbek Khamdamov) | 塔什干棉农 | **33** |
+| 前锋 | 奥斯通·乌鲁诺夫 (Oston Urunov) | 波斯波利斯 | **40** |
+| 前锋 | 埃尔多尔·肖穆罗多夫 (Eldor Shomurodov, 队长) | 伊斯坦布尔 | **90** |
+| 前锋 | 伊戈尔·谢尔盖耶夫 (Igor Sergeev) | 波斯波利斯 | **81** |
+| 前锋 | 阿齐兹别克·阿莫诺夫 (Azizbek Amonov) | 萨马尔罕迪那摩 | 数据待核实 |
+### 🇨🇴 哥伦比亚队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 戴维·奥斯皮纳 (David Ospina) | 国民竞技 | **129** |
+| 门将 | 卡米洛·巴尔加斯 (Camilo Vargas) | 阿特拉斯 | **40** |
+| 门将 | 阿尔瓦罗·蒙特罗 (Álvaro Montero) | 米洛纳里奥斯 | **11** |
+| 后卫 | 达文森·桑切斯 (Dávinson Sánchez) | 加拉塔萨雷 | **77** |
+| 后卫 | 圣地亚哥·阿里亚斯 (Santiago Arias) | 独立 | **63** |
+| 后卫 | 耶里·米纳 (Yerry Mina) | 卡利亚里 | **52** |
+| 后卫 | 丹尼尔·穆尼奥斯 (Daniel Muñoz) | 水晶宫 | **44** |
+| 后卫 | 约翰·莫西卡 (Johan Mojica) | 马略卡 | **43** |
+| 后卫 | 洪·卢库米 (Jhon Lucumí) | 博洛尼亚 | **35** |
+| 后卫 | 德伊韦尔·马查多 (Deiver Machado) | 南特 | **14** |
+| 后卫 | 威勒尔·迪塔 (Willer Ditta) | 蓝十字 | **3** |
+| 中场 | 哈梅斯·罗德里格斯 (James Rodríguez, 队长) | 明尼苏达联 | **124** |
+| 中场 | 杰弗森·莱尔马 (Jefferson Lerma) | 水晶宫 | **64** |
+| 中场 | 理查德·里奥斯 (Richard Ríos) | 本菲卡 | 数据待核实 |
+| 中场 | 胡安·费尔南多·金特罗 (Juan Fernando Quintero) | 河床 | **47** |
+| 中场 | 约翰·阿里亚斯 (Jhon Arias) | 帕尔梅拉斯 | **36** |
+| 中场 | 凯文·卡斯塔尼奥 (Kevin Castaño) | 河床 | **24** |
+| 中场 | 豪尔赫·卡拉斯卡尔 (Jorge Carrascal) | 弗拉门戈 | **22** |
+| 中场 | 贾明顿·坎帕斯 (Jaminton Campaz) | 罗萨里奥中央 | **9** |
+| 中场 | 胡安·卡米洛·波尔蒂利亚 (Juan Camilo Portilla) | 巴拉纳竞技 | **8** |
+| 中场 | 古斯塔沃·普埃尔塔 (Gustavo Puerta) | 桑坦德竞技 | **4** |
+| 前锋 | 路易斯·迪亚斯 (Luis Díaz) | 拜仁慕尼黑 | **75** |
+| 前锋 | 洪·科尔多瓦 (Jhon Córdoba) | 克拉斯诺达尔 | 数据待核实 |
+| 前锋 | 路易斯·苏亚雷斯 (Luis Suárez) | 葡萄牙体育 | 数据待核实 |
+| 前锋 | 胡安·卡米洛·埃尔南德斯 (Juan Camilo Hernández) | 贝蒂斯 | 数据待核实 |
+| 前锋 | 卡洛斯·安德烈斯·戈麦斯 (Carlos Andrés Gómez) | 瓦斯科达伽马 | 数据待核实 |
+---
+### 🏴󠁧󠁢󠁥󠁮󠁧󠁿 英格兰队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 乔丹·皮克福德 (Jordan Pickford) | 埃弗顿 | **82** |
+| 门将 | 迪恩·亨德森 (Dean Henderson) | 水晶宫 | **4** |
+| 门将 | 詹姆斯·特拉福德 (James Trafford) | 曼城 | **1** |
+| 后卫 | 约翰·斯通斯 (John Stones) | 曼城 | **87** |
+| 后卫 | 马克·格伊 (Marc Guéhi) | 曼城 | **27** |
+| 后卫 | 埃兹里·孔萨 (Ezri Konsa) | 阿斯顿维拉 | **18** |
+| 后卫 | 尼科·奥赖利 (Nico O'Reilly) | 曼城 | **3** |
+| 后卫 | 蒂诺·利夫拉门托 (Tino Livramento) | 纽卡斯尔联 | **5** |
+| 后卫 | 丹·伯恩 (Dan Burn) | 纽卡斯尔联 | **6** |
+| 后卫 | 里斯·詹姆斯 (Reece James) | 切尔西 | **22** |
+| 后卫 | 杰德·斯彭斯 (Djed Spence) | 托特纳姆热刺 | **4** |
+| 后卫 | 贾雷尔·夸安萨 (Jarell Quansah) | 勒沃库森 | **1** |
+| 中场 | 德克兰·赖斯 (Declan Rice) | 阿森纳 | **72** |
+| 中场 | 裘德·贝林厄姆 (Jude Bellingham) | 皇家马德里 | **46** |
+| 中场 | 乔丹·亨德森 (Jordan Henderson) | 布伦特福德 | **89** |
+| 中场 | 科比·梅努 (Kobbie Mainoo) | 曼联 | **12** |
+| 中场 | 摩根·罗杰斯 (Morgan Rogers) | 阿斯顿维拉 | **13** |
+| 中场 | 埃贝雷基·埃泽 (Eberechi Eze) | 阿森纳 | **16** |
+| 中场 | 埃利奥特·安德森 (Elliot Anderson) | 诺丁汉森林 | **7** |
+| 前锋 | 哈里·凯恩 (Harry Kane, 队长) | 拜仁慕尼黑 | **112** |
+| 前锋 | 布卡约·萨卡 (Bukayo Saka) | 阿森纳 | **48** |
+| 前锋 | 马库斯·拉什福德 (Marcus Rashford) | 巴塞罗那 | **70** |
+| 前锋 | 安东尼·戈登 (Anthony Gordon) | 纽卡斯尔联 | **17** |
+| 前锋 | 诺尼·马杜埃凯 (Noni Madueke) | 阿森纳 | **10** |
+| 前锋 | 奥利·沃特金斯 (Ollie Watkins) | 阿斯顿维拉 | 数据待核实 |
+| 前锋 | 伊万·托尼 (Ivan Toney) | 吉达国民 | 数据待核实 |
+### 🇭🇷 克罗地亚队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 多米尼克·利瓦科维奇 (Dominik Livaković) | 萨格勒布迪纳摩 | **73** |
+| 门将 | 多米尼克·科塔尔斯基 (Dominik Kotarski) | 哥本哈根 | **3** |
+| 门将 | 伊沃·潘杜 (Ivor Pandur) | 赫尔城 | **0** |
+| 后卫 | 约什科·格瓦迪奥尔 (Joško Gvardiol) | 曼城 | **46** |
+| 后卫 | 杜耶·卡莱塔-卡尔 (Duje Ćaleta-Car) | 皇家社会 | **38** |
+| 后卫 | 约瑟普·舒塔洛 (Josip Šutalo) | 阿贾克斯 | **31** |
+| 后卫 | 约西普·斯塔尼希奇 (Josip Stanišić) | 拜仁慕尼黑 | **29** |
+| 后卫 | 马林·庞格拉契奇 (Marin Pongračić) | 佛罗伦萨 | **18** |
+| 后卫 | 马丁·埃尔利奇 (Martin Erlić) | 中日德兰 | **12** |
+| 后卫 | 卢卡·武什科维奇 (Luka Vušković) | 汉堡 | **4** |
+| 中场 | 卢卡·莫德里奇 (Luka Modrić, 队长) | AC米兰 | **196** |
+| 中场 | 马特奥·科瓦契奇 (Mateo Kovačić) | 曼城 | **111** |
+| 中场 | 马里奥·帕萨利奇 (Mario Pašalić) | 亚特兰大 | **83** |
+| 中场 | 尼古拉·弗拉西奇 (Nikola Vlašić) | 都灵 | **61** |
+| 中场 | 卢卡·苏西奇 (Luka Sučić) | 皇家社会 | **19** |
+| 中场 | 马丁·巴图里纳 (Martin Baturina) | 科莫 | **17** |
+| 中场 | 克里斯蒂扬·亚基奇 (Kristijan Jakić) | 奥格斯堡 | **16** |
+| 中场 | 佩塔尔·苏契奇 (Petar Sučić) | 国际米兰 | **15** |
+| 中场 | 尼古拉·莫罗 (Nikola Moro) | 博洛尼亚 | **9** |
+| 中场 | 托尼·弗鲁克 (Toni Fruk) | 里耶卡 | **7** |
+| 前锋 | 伊万·佩里西奇 (Ivan Perišić) | 埃因霍温 | **152** |
+| 前锋 | 安德烈·克拉马里奇 (Andrej Kramarić) | 霍芬海姆 | **114** |
+| 前锋 | 安特·布迪米尔 (Ante Budimir) | 奥萨苏纳 | **36** |
+| 前锋 | 伊戈尔·马塔诺维奇 (Igor Matanović) | 弗赖堡 | **8** |
+| 前锋 | 佩塔尔·穆萨 (Petar Musa) | 达拉斯FC | **10** |
+| 前锋 | 马尔科·帕萨利奇 (Marco Pašalić) | 奥兰多城 | **13** |
+### 🇬🇭 加纳队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 劳伦斯·阿蒂-齐吉 (Lawrence Ati-Zigi) | 圣加仑 | **28** |
+| 门将 | 本杰明·阿萨雷 (Benjamin Asare) | 阿克雷斯奥克 | **10** |
+| 门将 | 约瑟夫·阿南 (Joseph Anang) | 圣帕特里克竞技 | **1** |
+| 后卫 | 阿卜杜勒·拉赫曼·巴巴 (Abdul Rahman Baba) | PAOK | **52** |
+| 后卫 | 吉迪恩·门萨 (Gideon Mensah) | 欧塞尔 | **39** |
+| 后卫 | 阿利杜·塞杜 (Alidu Seidu) | 雷恩 | **23** |
+| 后卫 | 杰罗姆·奥波库 (Jerome Opoku) | 伊斯坦布尔 | **10** |
+| 后卫 | 乔纳斯·阿杰蒂 (Jonas Adjetey) | 沃尔夫斯堡 | **9** |
+| 后卫 | 阿卜杜勒·穆明 (Abdul Mumin) | 巴列卡诺 | **4** |
+| 后卫 | 科乔·奥蓬·佩普拉 (Kojo Peprah Oppong) | 尼斯 | **4** |
+| 后卫 | 德里克·卢卡森 (Derrick Luckassen) | 帕福斯 | **1** |
+| 后卫 | 马尔文·塞纳亚 (Marvin Senaya) | 欧塞尔 | **1** |
+| 中场 | 托马斯·帕尔特伊 (Thomas Partey) | 比利亚雷亚尔 | **56** |
+| 中场 | 安托万·塞梅尼奥 (Antoine Semenyo) | 曼城 | **34** |
+| 中场 | 埃利沙·奥乌苏 (Elisha Owusu) | 欧塞尔 | **19** |
+| 中场 | 凯莱布·伊伦基 (Caleb Yirenkyi) | 北西兰 | **10** |
+| 中场 | 夸西·西博 (Kwasi Sibo) | 皇家奥维耶多 | **7** |
+| 中场 | 奥古斯丁·博阿基耶 (Augustine Boakye) | 圣埃蒂安 | **0** |
+| 前锋 | 乔丹·阿尤 (Jordan Ayew, 队长) | 莱斯特城 | **117** |
+| 前锋 | 阿卜杜勒·法塔武·伊萨哈库 (Abdul Fatawu Issahaku) | 莱斯特城 | **27** |
+| 前锋 | 卡马尔丁·苏莱曼纳 (Kamaldeen Sulemana) | 亚特兰大 | **27** |
+| 前锋 | 伊纳基·威廉姆斯 (Iñaki Williams) | 毕尔巴鄂竞技 | **25** |
+| 前锋 | 欧内斯特·努瓦马 (Ernest Nuamah) | 里昂 | **18** |
+| 前锋 | 克里斯托弗·邦苏·巴 (Christopher Bonsu Baah) | 卡迪西亚 | 数据待核实 |
+| 前锋 | 布兰登·托马斯-阿桑特 (Brandon Thomas-Asante) | 考文垂 | **7** |
+| 前锋 | 普林斯·夸贝纳·阿杜 (Prince Kwabena Adu) | 比尔森胜利 | 数据待核实 |
+### 🇵🇦 巴拿马队
+| 位置 | 球员 | 俱乐部 | 国家队出场次数 |
+| :--- | :--- | :--- | :--- |
+| 门将 | 路易斯·梅希亚 (Luis Mejía) | 民族(乌拉圭) | **56** |
+| 门将 | 奥兰多·莫斯克拉 (Orlando Mosquera) | 费哈(沙特) | **46** |
+| 门将 | 塞萨尔·萨穆迪奥 (César Samudio) | 马拉松(洪都拉斯) | **4** |
+| 后卫 | 埃里克·戴维斯 (Eric Davis) | 普拉亚阿马多尔 | **104** |
+| 后卫 | 菲德尔·埃斯科瓦尔 (Fidel Escobar) | 萨普里萨(哥斯达黎加) | **96** |
+| 后卫 | 阿米尔·穆里略 (Amir Murillo) | 贝西克塔斯 | **91** |
+| 后卫 | 罗德里克·米勒 (Roderick Miller) | 图兰托武兹(阿塞拜疆) | **48** |
+| 后卫 | 安德烈斯·安德拉德 (Andrés Andrade) | LASK林茨 | **47** |
+| 后卫 | 塞萨尔·布莱克曼 (César Blackman) | 布拉迪斯拉发 | **37** |
+| 后卫 | 何塞·科尔多瓦 (José Córdoba) | 诺维奇 | **30** |
+| 后卫 | 希奥瓦尼·拉莫斯 (Jiovany Ramos) | 卡韦略港(委内瑞拉) | **20** |
+| 后卫 | 豪尔赫·古铁雷斯 (Jorge Gutiérrez) | 拉瓜伊拉(委内瑞拉) | **17** |
+| 后卫 | 埃德加多·法里尼亚 (Edgardo Fariña) | 下诺夫哥罗德 | **15** |
+| 中场 | 阿尼瓦尔·戈多伊 (Aníbal Godoy) | 圣迭戈FC | **159** |
+| 中场 | 阿尔韦托·金特罗 (Alberto Quintero) | 普拉亚阿马多尔 | **140** |
+| 中场 | 约埃尔·巴尔塞纳斯 (Yoel Bárcenas) | 自由身 | **101** |
+| 中场 | 阿达尔韦托·卡拉斯基亚 (Adalberto Carrasquilla) | 国立自治大学 | **73** |
+| 中场 | 何塞·路易斯·罗德里格斯 (José Luis Rodríguez) | 华雷斯 | **67** |
+| 中场 | 克里斯蒂安·马丁内斯 (Cristian Martínez) | 基尔亚特什莫纳 | **63** |
+| 中场 | 塞萨尔·亚尼斯 (César Yanis) | 科布雷萨尔 | **55** |
+| 中场 | 卡洛斯·哈维 (Carlos Harvey) | 明尼苏达联 | **25** |
+| 中场 | 阿扎里亚斯·隆多尼奥 (Azarías Londoño) | 天主教大学 | **10** |
+| 前锋 | 何塞·法哈尔多 (José Fajardo) | 天主教大学 | **65** |
+| 前锋 | 伊斯梅尔·迪亚斯 (Ismael Díaz) | 莱昂 | **54** |
+| 前锋 | 塞西利奥·沃特曼 (Cecilio Waterman) | 康塞普西翁大学 | **52** |
+| 前锋 | 托马斯·罗德里格斯 (Tomás Rodríguez) | 萨普里萨 | **11** |
