@@ -1385,9 +1385,31 @@ def _apply_v26_rules(r: PreMatchReport):
                     f'CLOSE精英例外·实力碾压覆盖'
                 )
             else:
-                r.v26_rule = 'CLOSE + 真过热 → 热门不胜'
-                r.v26_prediction = '⚠️ 热门不胜'
-                base_conf = 85
+                # 🆕 V3.7: CLOSE级别实力阈值豁免
+                strength_override_close = False
+                try:
+                    from midfield_quality import MIDFIELD_RATING as _MR2
+                    _mpc = r.match_name.split('VS')
+                    hot_tc = _mpc[0].strip() if r.betfair_hot_side == 'home' else _mpc[-1].strip()
+                    opp_tc = _mpc[-1].strip() if r.betfair_hot_side == 'home' else _mpc[0].strip()
+                    mf_hot_c = _MR2.get(hot_tc, 5.0); mf_opp_c = _MR2.get(opp_tc, 5.0)
+                    mf_gap_c = abs(mf_hot_c - mf_opp_c)
+                    from opponent_db import _count_defensive_strength
+                    hot_def_c = _count_defensive_strength(hot_tc)
+                    opp_def_c = _count_defensive_strength(opp_tc)
+                    def_gap_c = hot_def_c - opp_def_c
+                    if mf_gap_c > 3.0 and def_gap_c > 4.0:
+                        strength_override_close = True
+                        r.v26_rule = 'CLOSE + 真过热 + 实力阈值豁免 → 热门仍赢'
+                        r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
+                        base_conf = 72
+                        r.v26_warnings.append(f'🏆 实力豁免: 中场差{mf_gap_c:.1f}>3.0+防线差{def_gap_c:.1f}>4.0→推翻默认热门不胜')
+                except Exception:
+                    pass
+                if not strength_override_close:
+                    r.v26_rule = 'CLOSE + 真过热 → 热门不胜'
+                    r.v26_prediction = '⚠️ 热门不胜'
+                    base_conf = 85
             # 🆕 V3.4: CLOSE防线检查
             try:
                 home_t = r.match_name.split('VS')[0].strip()
@@ -1657,9 +1679,31 @@ def _apply_v26_rules(r: PreMatchReport):
                         base_conf = 65
                         r.v26_warnings.append('三条件全满足: 唯一例外')
             else:
-                r.v26_rule = 'BIG + 真过热 → 默认热门不胜'
-                r.v26_prediction = '⚠️ 热门不胜'
-                base_conf = 70
+                # 🆕 V3.7: 实力阈值豁免 — 中场+防线双碾压时市场热度可能是理性的
+                strength_override = False
+                try:
+                    from midfield_quality import MIDFIELD_RATING as _MR
+                    _mp3 = r.match_name.split('VS')
+                    hot_t3 = _mp3[0].strip() if r.betfair_hot_side == 'home' else _mp3[-1].strip()
+                    opp_t3 = _mp3[-1].strip() if r.betfair_hot_side == 'home' else _mp3[0].strip()
+                    mf_hot = _MR.get(hot_t3, 5.0); mf_opp = _MR.get(opp_t3, 5.0)
+                    mf_gap = abs(mf_hot - mf_opp)
+                    from opponent_db import _count_defensive_strength
+                    hot_def2 = _count_defensive_strength(hot_t3)
+                    opp_def2 = _count_defensive_strength(opp_t3)
+                    def_gap = hot_def2 - opp_def2
+                    if mf_gap > 3.0 and def_gap > 4.0:
+                        strength_override = True
+                        r.v26_rule = 'BIG + 真过热 + 实力阈值豁免 → 热门仍赢'
+                        r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
+                        base_conf = 65
+                        r.v26_warnings.append(f'🏆 实力豁免: 中场差{mf_gap:.1f}>3.0+防线差{def_gap:.1f}>4.0→推翻默认热门不胜')
+                except Exception as e2:
+                    r.v26_warnings.append(f'[V3.7豁免异常: {e2}]')
+                if not strength_override:
+                    r.v26_rule = 'BIG + 真过热 → 默认热门不胜'
+                    r.v26_prediction = '⚠️ 热门不胜'
+                    base_conf = 70
                 # 🆕 V3.2: BIG客队热时置信度折扣 (客队往往是真正强队)
                 if hot_side == 'away':
                     base_conf -= CONF.big_away_hot_conf_discount
@@ -2004,10 +2048,10 @@ def _cross_validate_cover_rate(r: PreMatchReport):
             r.v26_warnings.append(
                 f'🔗 穿盘交叉✅: 热门胜+穿盘率{cr:.0f}%<30%→一致·小胜预期')
     elif hot_loses:
-        # 热门不胜但穿盘率极高 → 矛盾信号
+        # V3.7: 双轨输出 — 欧指和亚指是不同维度，不强制对立
         if cr >= 60:
             r.v26_warnings.append(
-                f'🔗 穿盘交叉⚠️: 预测热门不胜但穿盘率{cr:.0f}%≥60%→信号冲突·注意')
+                f'🔗 双轨: 欧指→热门不胜 | 亚指→穿盘率{cr:.0f}%高→可能赢球输盘 (如1-0小胜既正路又输盘)')
 
 
 def _build_structured(r: PreMatchReport):
@@ -2015,6 +2059,30 @@ def _build_structured(r: PreMatchReport):
     # 🆕 V3.4: 交叉验证 (必须在structured构建前执行)
     _cross_validate_score_vs_rules(r)
     _cross_validate_cover_rate(r)
+
+    # 🆕 V3.7: 三行置信度输出 (模型信号·泊松胜率·市场隐含)
+    try:
+        poisson_win = 0
+        if r.score_prediction:
+            hot_side = r.betfair_hot_side if r.betfair_hot_side else 'home'
+            if hot_side == 'home':
+                poisson_win = getattr(r.score_prediction, 'home_win_prob', 0) or 0
+            else:
+                poisson_win = getattr(r.score_prediction, 'away_win_prob', 0) or 0
+        bf = r._bf_raw_odds if hasattr(r, '_bf_raw_odds') else {}
+        bf_home = bf.get('home', 0) or 0; bf_away = bf.get('away', 0) or 0
+        bf_draw = bf.get('draw', 0) or 0
+        if bf_home > 0 and bf_away > 0 and bf_draw > 0:
+            total_imp = 1/bf_home + 1/bf_away + 1/bf_draw
+            hot_price = bf_home if (r.betfair_hot_side == 'home') else bf_away
+            market_imp = (1/hot_price) / total_imp * 100 if hot_price > 0 else 0
+        else:
+            market_imp = 0
+        if r.v26_confidence > 0:
+            r.v26_warnings.insert(0,
+                f'📊 三行置信: 模型信号{r.v26_confidence:.0f}% | 泊松胜率{poisson_win:.0f}% | 市场隐含{market_imp:.0f}%')
+    except Exception:
+        pass
 
     # Determine winner
     winner = None
