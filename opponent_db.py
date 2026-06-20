@@ -1807,7 +1807,7 @@ def opponent_quality(team_name: str) -> dict:
 
 
 def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tuple:
-    """V3.5: MF质量过滤·年龄衰减·弱联赛折扣"""
+    """V3.5: MF质量过滤·年龄衰减·弱联赛折扣·V3.12大赛经验系数"""
     data = opponent_quality(team_name)
     DEFENSIVE_POS = {'CB', 'LB', 'RB', 'GK', 'DF', 'WB', 'SW'}
     FORWARD_POS = {'FW', 'ST', 'CF', 'LW', 'RW', 'WG'}
@@ -1823,6 +1823,20 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
     fw_count = 0; mf_count = 0; ex_star_count = 0; scorers = []
     MF_VALUE_THRESHOLD = 12  # V3.5: MF需>=12M才计为攻击威胁(过滤DM)
 
+    # 🆕 V3.12: 大赛经验系数 — 老将身价贬值≠能力丧失
+    giant_killings = data.get('giant_killings', [])
+    has_tournament_xp = len(giant_killings) > 0
+    xp_age_factor_floor = 0.5 if has_tournament_xp else 0.0  # 大赛队老将下限
+    # 大赛队年龄分档阈值放宽 (Transfermarkt对老将身价指数贬值的补偿)
+    if has_tournament_xp:
+        FW_VALUE_THRESHOLD_AGE35 = 1.25   # >35岁FW: €5M→€1.25M (四分之一)
+        FW_VALUE_THRESHOLD_AGE32 = 2.5    # >32岁FW: €5M→€2.5M (一半)
+        MF_VALUE_THRESHOLD_AGE35 = 3.0    # >35岁MF: €12M→€3M (四分之一)
+        MF_VALUE_THRESHOLD_AGE32 = 6.0    # >32岁MF: €12M→€6M (一半)
+    else:
+        FW_VALUE_THRESHOLD_AGE35 = 5.0; FW_VALUE_THRESHOLD_AGE32 = 5.0
+        MF_VALUE_THRESHOLD_AGE35 = 12; MF_VALUE_THRESHOLD_AGE32 = 12
+
     for p in data.get('players', data.get('top5_players', [])):
         if isinstance(p, dict):
             pos = p.get('pos', ''); value_m = p.get('value_m', 0); top5 = p.get('top5', False)
@@ -1835,23 +1849,38 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
             elif age is not None and age <= 22: age_factor = 0.7  # V3.5: 年轻FW潜力≠即战力
             else: age_factor = 1.0
 
+            # 🆕 V3.12: 大赛经验队老将年龄因子下限提升
+            if has_tournament_xp and age > 33:
+                age_factor = max(age_factor, xp_age_factor_floor)
+
             # Check if in weak league (for ex-5 discount)
             in_weak_league = any(wl in club for wl in WEAK_LEAGUES)
 
-            if pos not in DEFENSIVE_POS and top5 and value_m >= 5:
+            # 🆕 V3.12: 大赛经验队老将价值阈值分级
+            if age > 35:
+                fw_val_thresh = FW_VALUE_THRESHOLD_AGE35
+                mf_val_thresh = MF_VALUE_THRESHOLD_AGE35
+            elif age > 32:
+                fw_val_thresh = FW_VALUE_THRESHOLD_AGE32
+                mf_val_thresh = MF_VALUE_THRESHOLD_AGE32
+            else:
+                fw_val_thresh = 5.0
+                mf_val_thresh = MF_VALUE_THRESHOLD
+
+            if pos not in DEFENSIVE_POS and top5 and value_m >= fw_val_thresh:
                 if pos in FORWARD_POS:
                     scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
                     fw_count += 1 * age_factor
-                elif value_m >= MF_VALUE_THRESHOLD:  # V3.5: MF质量过滤
+                elif value_m >= mf_val_thresh:  # V3.5: MF质量过滤
                     scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
                     # V3.6: MF分级权重 (精英MF打破"一律半折")
                     if value_m >= 50: mf_weight = 1.0      # Musiala/Wirtz/Bellingham级
                     elif value_m >= 25: mf_weight = 0.75   # 优质攻击MF
                     else: mf_weight = 0.5                   # 普通MF/DM
                     mf_count += 1 * age_factor * (mf_weight / 0.5)  # 标准化到原0.5基准
-                # else: low-value MF (<12M) silently skipped (likely DM)
+                # else: low-value MF silently skipped (likely DM)
 
-            elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= 5:
+            elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= fw_val_thresh:
                 discount = 0.5 * age_factor
                 if in_weak_league: discount *= 0.5  # V3.5: 弱联赛额外折扣
                 scorers.append(f"{p['name']}({pos}/ex-5/Euro{value_m:.0f}M)")
@@ -1864,6 +1893,19 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
     else: fw_mult = 1.5
     threat = fw_count * fw_mult + mf_count * 0.5 + ex_star_count * 0.5
     pre_goals = data.get('pre_goals_per_game', 1.0) or 1.0
+
+    # 🆕 V3.14: 亚足联(AFC)球队预选赛表现加权
+    # AFC球员多在非五大联赛→市场身价系统性低估实际进球能力
+    AFC_TEAMS = {'日本', '韩国', '伊朗', '沙特', '澳大利亚', '卡塔尔', '阿联酋',
+                 '伊拉克', '乌兹别克斯坦', '中国', '阿曼', '巴林', '约旦', '叙利亚',
+                 '科威特', '朝鲜', '印尼', '泰国', '越南', '黎巴嫩', '印度'}
+    if team_name in AFC_TEAMS and pre_goals > 0.5:
+        # 🆕 保证AFC球队至少有基础攻击评分 (即使球员身价极低)
+        afc_boost = max(pre_goals * 0.5, 0.5)  # 至少+0.5, 最多~1.5
+        threat = max(threat, afc_boost)  # 不低于预选赛表现推导值
+        if threat >= afc_boost and threat < afc_boost + 0.2:
+            scorers.append(f'🌏 AFC预选赛加权: 场均{pre_goals:.1f}球→攻击评分底限{afc_boost:.1f}')
+
     return fw_count, mf_count, threat, scorers, pre_goals
 
 

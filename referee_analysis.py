@@ -146,17 +146,40 @@ def analyze_referee_impact(match_name: str, home: str = '', away: str = '') -> d
     notes = []
     cards_adj = 0
     ou_adj = 0.0
+    confidence_adj = 0
 
-    # 1. 出牌频率分析
+    # 🆕 V3.15: 检测两队风格 (技术型 vs 力量型)
+    TECH_TEAMS = {'阿根廷', '西班牙', '葡萄牙', '巴西', '法国', '荷兰', '德国', '日本',
+                  '英格兰', '比利时', '克罗地亚', '乌拉圭', '哥伦比亚'}
+    PHYS_TEAMS = {'阿尔及利亚', '塞内加尔', '摩洛哥', '科特迪瓦', '民主刚果', '加纳',
+                  '尼日利亚', '喀麦隆', '南非', '塞尔维亚', '波兰', '瑞典', '丹麦',
+                  '挪威', '奥地利', '瑞士', '捷克', '斯洛伐克'}
+    home_is_tech = home in TECH_TEAMS
+    away_is_tech = away in TECH_TEAMS
+    home_is_phys = home in PHYS_TEAMS
+    away_is_phys = away in PHYS_TEAMS
+
+    # 1. 出牌频率分析 (V3.15: 差异化技术/力量队影响)
     if ref.avg_yellows >= 5.0:
         cards_adj = -3
         notes.append(f'🔴 裁判{ref.name}场均黄牌{ref.avg_yellows:.1f}张·极高')
+        # 高出牌→比赛碎片化→技术型队受损更重
+        if home_is_tech: confidence_adj -= 3
+        elif home_is_phys: confidence_adj += 2
+        if away_is_tech: confidence_adj += 3  # 对手技术队受损 → 主队受益
+        elif away_is_phys and not home_is_tech: confidence_adj -= 2
+        # 大小球: 高出牌→比赛碎片化→小球
+        ou_adj -= 0.08
     elif ref.avg_yellows >= 4.0:
         cards_adj = -1
         notes.append(f'🟡 裁判{ref.name}出牌偏多({ref.avg_yellows:.1f}张/场)')
+        if home_is_tech: confidence_adj -= 1
+        elif home_is_phys: confidence_adj += 1
+        ou_adj -= 0.04
     elif ref.avg_yellows <= 2.5:
         cards_adj = 1
         notes.append(f'🟢 裁判{ref.name}执法宽松({ref.avg_yellows:.1f}张/场)')
+        ou_adj += 0.02
 
     # 2. 点球频率
     if ref.pen_given_per_match >= 0.3:
@@ -175,22 +198,12 @@ def analyze_referee_impact(match_name: str, home: str = '', away: str = '') -> d
         notes.append(f'宽松执法: 比赛流畅·身体对抗允许·对技术队有利')
         ou_adj += 0.02
 
-    # 5. 国籍偏见检测
-    if ref.nationality and home:
-        # 同洲回避或同洲偏好
-        from match_time_impact import TEAM_CONFEDERATION
-        home_conf = TEAM_CONFEDERATION.get(home, '')
-        if home_conf and home_conf == ref.confederation:
-            # 同洲裁判对同洲球队可能有微弱偏好
-            pass  # 不做过度解读
-
-    # 综合
-    if cards_adj <= -3:
-        confidence_adj = -2  # 高牌风险增加不确定性
-    elif cards_adj >= 1:
-        confidence_adj = 0   # 宽松有利预测
-    else:
-        confidence_adj = 0
+    # 综合: 无差异化时使用基础card_adj
+    if confidence_adj == 0:
+        if cards_adj <= -3:
+            confidence_adj = -2
+        elif cards_adj >= 1:
+            confidence_adj = 0
 
     notes.append(ref.style_impact)
 

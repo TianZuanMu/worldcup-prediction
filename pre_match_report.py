@@ -1002,6 +1002,18 @@ def _apply_v26_rules(r: PreMatchReport):
     dc_triggered = r.draw_collapse.get('triggered', False)
     diverge = r.xls_bf_divergence.get('divergence', False)
 
+    # 🆕 V3.16: 裁判调整状态
+    ref_status = '无数据'
+    if r.referee_result and r.referee_result.get('referee'):
+        ref_ca = r.referee_result.get('confidence_adj', 0)
+        ref_ou = r.referee_result.get('over_under_adj', 0.0)
+        if ref_ca != 0 or abs(ref_ou) > 0.005:
+            ref_status = f"已应用 ({ref_ca:+d}%)"
+        else:
+            ref_status = '无显著调整'
+    elif r.referee_result and not r.referee_result.get('referee'):
+        ref_status = '⚠️ 数据缺失'
+
     r.signal_matrix = {
         'XLS共识': f"{r.xls_consensus_pct:+.1f}%→{r.xls_consensus_direction}",
         '赔率趋势': f"主{r.odds_home_chg:+.1f}% 平{r.odds_draw_chg:+.1f}% 客{r.odds_away_chg:+.1f}%",
@@ -1012,6 +1024,7 @@ def _apply_v26_rules(r: PreMatchReport):
         '共识污染': '是' if r.betfair_pollution else '否',
         '穿盘率': f"{r.xls_cover_rate:.0f}%",
         '三条件': f"{r.three_conditions.get('passed','?')}/3 {r.three_conditions.get('fail_reason','')}" if r.three_conditions else 'N/A',
+        '裁判调整': ref_status,  # 🆕 V3.16
     }
 
     # ── 辅助函数: 信号调整置信度 ──
@@ -1038,9 +1051,21 @@ def _apply_v26_rules(r: PreMatchReport):
         # XLS-必发背离: 市场分歧→降级
         if diverge:
             adj -= 15; r.v26_warnings.append('XLS-必发背离: 市场分歧→置信度降级')
-        # 平赔暴跌: 平局风险上升
+        # 🆕 V3.15: 平赔暴跌权重提升 — 跌幅越大·平局风险越高
         if dc_triggered:
-            adj += 5; r.v26_warnings.append(f'平赔暴跌: {r.draw_collapse.get("avg_change",0):.1f}% → 平局预警')
+            dc_severity = r.draw_collapse.get('severity', 'moderate')
+            dc_avg = abs(r.draw_collapse.get('avg_change', 0))
+            if dc_severity == 'critical' or dc_avg >= 7:
+                dc_adj = 20  # 严重暴跌: 强平局信号
+                dc_label = '🔴🔴 严重'
+            elif dc_severity == 'strong' or dc_avg >= 5:
+                dc_adj = 12
+                dc_label = '🔴 强'
+            else:
+                dc_adj = 7
+                dc_label = '🟡'
+            adj += dc_adj
+            r.v26_warnings.append(f'{dc_label} 平赔暴跌: {r.draw_collapse.get("avg_change",0):.1f}% → 平局风险+{dc_adj}%')
         # 共识污染: 必发不可信
         if r.betfair_pollution:
             adj -= 10; r.v26_warnings.append('共识污染: 必发信号可靠性下降')
@@ -1479,9 +1504,16 @@ def _apply_v26_rules(r: PreMatchReport):
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.3 P0-1: 高置信度预警 (>80%历史准确率仅20%)
+        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
-            r.v26_warnings.append('🔴 高置信度预警(>80%): 请仔细复核所有信号维度·历史高置信度准确率仅20%')
+            old_conf = r.v26_confidence
+            r.v26_confidence = int(r.v26_confidence * 0.80)
+            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
+        _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
+        if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
+            r.v26_confidence = 75
+            r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
@@ -1609,9 +1641,16 @@ def _apply_v26_rules(r: PreMatchReport):
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.3 P0-1: 高置信度预警 (>80%历史准确率仅20%)
+        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
-            r.v26_warnings.append('🔴 高置信度预警(>80%): 请仔细复核所有信号维度·历史高置信度准确率仅20%')
+            old_conf = r.v26_confidence
+            r.v26_confidence = int(r.v26_confidence * 0.80)
+            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
+        _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
+        if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
+            r.v26_confidence = 75
+            r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
@@ -1829,9 +1868,16 @@ def _apply_v26_rules(r: PreMatchReport):
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.3 P0-1: 高置信度预警 (>80%历史准确率仅20%)
+        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
-            r.v26_warnings.append('🔴 高置信度预警(>80%): 请仔细复核所有信号维度·历史高置信度准确率仅20%')
+            old_conf = r.v26_confidence
+            r.v26_confidence = int(r.v26_confidence * 0.80)
+            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
+        _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
+        if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
+            r.v26_confidence = 75
+            r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
@@ -1976,6 +2022,9 @@ def _predict_totals(r: PreMatchReport):
     # 计算最终
     final_conf = max(25, min(90, base_conf + conf_delta))
 
+    # 🆕 V3.12: 低置信度标记 — <40%的预测标注"仅供参考"
+    low_confidence = final_conf < 40
+
     # 方向翻转检测: conf_delta ≤ -20
     if base_dir == 'under' and conf_delta <= -20:
         final_dir = 'over'; flip_note = '⚠️ 降盘信号被多项因子削弱·翻转预测大球'
@@ -1984,10 +2033,15 @@ def _predict_totals(r: PreMatchReport):
     else:
         final_dir = base_dir; flip_note = ''
 
+    # 🆕 V3.12: 低置信度翻转增加警告
+    if low_confidence and flip_note:
+        flip_note += f' [低置信度{final_conf:.0f}%·仅供参考]'
+
     r._totals_prediction = {
         'direction': final_dir, 'confidence': final_conf, 'line': line, 'trend': trend,
         'adjustments': adjustments, 'flipped': final_dir != base_dir,
         'flip_note': flip_note, 'both_dangerous': both_dangerous,
+        'low_confidence': low_confidence,  # 🆕 V3.12
     }
 
 
@@ -2096,6 +2150,14 @@ def _cross_validate_cover_rate(r: PreMatchReport):
             r.v26_warnings.append(
                 f'🔗 穿盘交叉✅: 热门胜+穿盘率{cr:.0f}%<30%→一致·小胜预期')
     elif hot_loses:
+        # 🆕 V3.15: 方向-穿盘率一致性校验
+        # 热门不胜 + 穿盘率>40% → 数学矛盾 (P(穿盘) = P(净胜≥2|赢) × P(赢))
+        if cr > 40:
+            original_cr = cr
+            cr = cr * 0.70  # 强制下调
+            r.xls_cover_rate = cr
+            r.v26_warnings.append(
+                f'🔗 方向-穿盘冲突: 热门不胜+穿盘率{original_cr:.0f}%>40%→数学矛盾·强制下调至{cr:.0f}%')
         # V3.7: 双轨输出 — 欧指和亚指是不同维度，不强制对立
         if cr >= 60:
             r.v26_warnings.append(
@@ -2146,8 +2208,18 @@ def _build_structured(r: PreMatchReport):
                 melt_applied = True
                 r.v26_warnings.insert(0,
                     f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
-        # 🆕 V3.10: 泊松-市场收敛标记
-        poisson_melt = (market_imp > 0 and poisson_win > 0 and poisson_win < market_imp - 20)
+        # 🆕 V3.15: 泊松-市场背离熔断 — 赔率市场定价扭曲检测
+        poisson_melt = False
+        if market_imp > 0 and poisson_win > 0:
+            poisson_divergence = abs(poisson_win - market_imp)
+            if poisson_divergence > 35:
+                # 泊松与市场严重背离 → 市场可能扭曲(明星效应/恐慌投注)
+                if not melt_applied:  # 避免双重熔断
+                    original_conf = r.v26_confidence
+                    r.v26_confidence = min(r.v26_confidence, 50)  # 强制定墙上限
+                    r.v26_warnings.insert(0,
+                        f'🌊🌊 泊松-市场熔断: 泊松胜率{poisson_win:.0f}%与市场{market_imp:.0f}%背离{poisson_divergence:.0f}点>35→置信度强制≤50%')
+                poisson_melt = True
         if r.v26_confidence > 0:
             melt_note = ' [熔断]' if melt_applied else ''
             poisson_note = ' [收敛]' if poisson_melt else ''
@@ -2167,10 +2239,31 @@ def _build_structured(r: PreMatchReport):
     except Exception:
         pass
 
+    # 🆕 V3.17: 方向-泊松背离检测
+    direction_poisson_divergence = False
+    if r.score_prediction and r.v26_prediction:
+        sp = r.score_prediction
+        hot_wins = any(w in r.v26_prediction for w in ['热门胜', '热门仍赢', '实力碾压'])
+        hot_side = r.betfair_hot_side if r.betfair_hot_side else 'home'
+        if hot_wins and '⚠️' not in r.v26_prediction:
+            if hot_side == 'home' and sp.away_win_prob > sp.home_win_prob + 5:
+                direction_poisson_divergence = True
+                r.v26_warnings.insert(0,
+                    f'⚠️⚠️ 方向-泊松冲突: 预测热门胜但泊松客胜{sp.away_win_prob:.0f}%>主胜{sp.home_win_prob:.0f}%→降级处理')
+            elif hot_side == 'away' and sp.home_win_prob > sp.away_win_prob + 5:
+                direction_poisson_divergence = True
+                r.v26_warnings.insert(0,
+                    f'⚠️⚠️ 方向-泊松冲突: 预测热门胜但泊松主胜{sp.home_win_prob:.0f}%>客胜{sp.away_win_prob:.0f}%→降级处理')
+        if direction_poisson_divergence:
+            r.v26_confidence = min(r.v26_confidence, 50)
+            r.v26_warnings.insert(1, '🔺 方向分歧·置信度强制≤50%·建议回避')
+
     # Determine winner
     winner = None
-    if '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction:
+    if '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction and not direction_poisson_divergence:
         winner = r.betfair_hot_side if r.betfair_hot_side else 'home'
+    elif direction_poisson_divergence:
+        winner = 'direction_divergence'  # 🆕 V3.17: 方向分歧
     elif '⚠️ 热门不胜' in r.v26_prediction:
         winner = 'draw_or_underdog'
     elif '客胜' in r.v26_prediction:
@@ -2344,9 +2437,23 @@ def format_report(r: PreMatchReport) -> str:
     # 🆕 V3.2 大小球预测
     tp = r._totals_prediction
     if tp:
-        dir_label = '大球' if tp['direction'] == 'over' else ('小球' if tp['direction'] == 'under' else '均衡')
-        flip_mark = '⚠️翻转' if tp.get('flipped') else ''
-        lines.append(f"  大小球: {dir_label} {flip_mark} (盘口{tp['line']:.1f}|趋势{'📈升' if tp['trend']=='up' else '📉降' if tp['trend']=='down' else '➡️稳'} | 置信度{tp['confidence']}%)")
+        # 🆕 V3.14: 置信度<50%标注"不推荐"·抑制方向输出
+        if tp['confidence'] < 50:
+            dir_label = '⚠️ 不推荐投注大小球'
+            flip_mark = ''
+            _tc = tp['confidence']
+            low_conf_mark = f' (信{_tc}%<50%)'
+        else:
+            dir_label = '大球' if tp['direction'] == 'over' else ('小球' if tp['direction'] == 'under' else '均衡')
+            flip_mark = '⚠️翻转' if tp.get('flipped') else ''
+            low_conf_mark = ' 🔍仅供参考' if tp.get('low_confidence') else ''
+        # 🆕 V3.16: 附加裁判大小球修正
+        ref_ou_mark = ''
+        if r.referee_result and r.referee_result.get('referee'):
+            ref_ou = r.referee_result.get('over_under_adj', 0.0) or 0.0
+            if abs(ref_ou) > 0.005:
+                ref_ou_mark = f' | 裁判修正: {ref_ou:+.2f}'
+        lines.append(f"  大小球: {dir_label} {flip_mark}{low_conf_mark} (盘口{tp['line']:.1f}|趋势{'📈升' if tp['trend']=='up' else '📉降' if tp['trend']=='down' else '➡️稳'} | 置信度{tp['confidence']}%{ref_ou_mark})")
         if tp.get('adjustments'):
             for adj in tp['adjustments']:
                 lines.append(f"    ↳ {adj}")
@@ -2373,7 +2480,15 @@ def format_report(r: PreMatchReport) -> str:
     # 🆕 穿盘率展示
     if r.xls_cover_rate > 0:
         if getattr(r, '_cover_depth_forced', False):
-            cover_label = '🎲 小盘口·穿盘信号不可靠'
+            # 🆕 V3.17: 小盘口量化标注
+            try:
+                hc_str_v17 = getattr(r, 'xls_handicap', '') or ''
+                import re as _re_v17
+                hc_m_v17 = _re_v17.search(r'(\d+\.?\d*)', str(hc_str_v17).replace('让-', '').replace('让', ''))
+                hc_val_v17 = float(hc_m_v17.group(1)) if hc_m_v17 else 0.75
+            except Exception:
+                hc_val_v17 = 0.75
+            cover_label = f'🎲 小盘口(让{hc_val_v17:.2f}球<1.0)·穿盘信号不可靠·仅供参考'
         elif r.xls_cover_rate < 30:
             cover_label = '🔴 大概率不穿盘'
         elif r.xls_cover_rate < 50:
@@ -2525,6 +2640,9 @@ def format_report(r: PreMatchReport) -> str:
 
     if r.referee_result and r.referee_result.get('referee'):
         ref = r.referee_result['referee']
+        conf_adj = r.referee_result.get('confidence_adj', 0)
+        ou_adj = r.referee_result.get('over_under_adj', 0.0)
+        card_risk = r.referee_result.get('card_risk', 'unknown')
         lines += [
             "",
             "── 裁判因素 ──",
@@ -2535,6 +2653,23 @@ def format_report(r: PreMatchReport) -> str:
             for n in r.referee_result['notes'][:2]:
                 if '执法' in n or '出牌' in n or '裁判' in n:
                     lines.append(f"  → {n}")
+        # 🆕 V3.16: 量化调整显式输出
+        if conf_adj != 0 or ou_adj != 0:
+            adj_parts = []
+            if conf_adj != 0:
+                adj_parts.append(f"置信度 {conf_adj:+d}%")
+            if abs(ou_adj) > 0.005:
+                adj_parts.append(f"大小球 {ou_adj:+.2f}")
+            lines.append(f"  📐 调整: {' | '.join(adj_parts)} | 已由 V29 应用 ✅")
+        else:
+            lines.append(f"  📐 调整: 无显著技术/力量差异 | 置信度 0% | 大小球 0.00")
+    elif hasattr(r, 'referee_result') and r.referee_result and not r.referee_result.get('referee'):
+        lines += [
+            "",
+            "── 裁判因素 ──",
+            f"  ⚠️ 裁判数据未获取 | 使用全球均值 (黄牌3.2)",
+            f"  📐 调整: 无特殊调整 (数据缺失)",
+        ]
 
     # 🆕 V2.11 市场心理周期
     if r.market_psychology and r.market_psychology.get('cold_chasing'):

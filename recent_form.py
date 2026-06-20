@@ -289,8 +289,8 @@ def analyze_recent_form(team: str) -> RecentForm:
     official_score = quality_weight * 1.5  # 0-1.5
     player_score = form.key_player_participation * 0.5  # 0-0.5
 
-    form.form_score = pts_score + quality_score + official_score + player_score
-    form.quality_weighted_score = min(10, form.form_score)
+    form.form_score = min(10, pts_score + quality_score + official_score + player_score)  # 🆕 V3.17: 上限10
+    form.quality_weighted_score = form.form_score
 
     # 7. 备注
     if form.points_last5 >= 12:
@@ -312,8 +312,8 @@ def analyze_recent_form(team: str) -> RecentForm:
     adj_score, adj_factor = _adjust_form_for_opponent_quality(form.form_score, form.opponent_quality_avg)
     form.opponent_quality_adjustment = adj_factor
     if adj_factor != 1.0:
-        form.form_score = adj_score
-        form.quality_weighted_score = min(10, adj_score)
+        form.form_score = min(10, adj_score)  # 🆕 V3.17: 上限10
+        form.quality_weighted_score = form.form_score
 
     return form
 

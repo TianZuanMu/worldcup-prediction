@@ -159,7 +159,7 @@ def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
 def _adjust_for_opponent_quality(lam_strong: float, lam_weak: float,
                                   three_conditions_met: int,
                                   underdog_has_attackers: bool,
-                                  underdog_giant_killer: bool,
+                                  underdog_giant_killer: float,  # 🆕 V3.12: float weight 0.0-1.0
                                   hot_team_rank: int,
                                   adjustments: List[str],
                                   weak_team_threat: float = 0.0) -> Tuple[float, float]:  # 🆕 V3.4
@@ -198,9 +198,14 @@ def _adjust_for_opponent_quality(lam_strong: float, lam_weak: float,
             adjustments.append('⚔️ 弱方有五大射手→弱方进球+20%')
 
     # ── 巨人杀手 ──
-    if underdog_giant_killer:
-        lam_weak *= 1.12
-        adjustments.append('💀 弱方巨人杀手血统→弱方进球+12%')
+    # 🆕 V3.12: 时间衰减权重 — >4年仅30%·>2年70%·近2年全额
+    if underdog_giant_killer > 0:
+        gk_pct = underdog_giant_killer * 12  # max 12% * weight
+        lam_weak *= 1.0 + gk_pct / 100
+        if underdog_giant_killer >= 0.9:
+            adjustments.append(f'💀 弱方巨人杀手血统→弱方进球+{gk_pct:.0f}%')
+        else:
+            adjustments.append(f'💀 弱方巨人杀手血统(衰减→{underdog_giant_killer:.0%}权重)→弱方进球+{gk_pct:.0f}%')
 
     # ── 精英队(rank≤5)+温和过热 → 大比分 ──
     if hot_team_rank <= 5:
@@ -333,13 +338,14 @@ def _adjust_for_recent_form(lam_strong: float, lam_weak: float,
 
 
 def _apply_goal_ceiling(lam_home: float, lam_away: float, gap_level: str) -> Tuple[float, float]:
-    """边界约束"""
+    """边界约束 — V3.14: 世界杯正赛球队xG下限≥0.50"""
     if gap_level == 'extreme':
         lam_home = max(0.15, min(6.0, lam_home))
         lam_away = max(0.15, min(5.5, lam_away))
     else:
-        lam_home = max(0.15, min(5.5, lam_home))
-        lam_away = max(0.15, min(5.0, lam_away))
+        # 🆕 V3.14: 世界杯正赛球队下限0.50 (即使最弱队也有定位球/反击机会)
+        lam_home = max(0.50, min(5.5, lam_home))
+        lam_away = max(0.50, min(5.0, lam_away))
     return lam_home, lam_away
 
 
@@ -393,11 +399,12 @@ def predict_score(match_name: str,
                   home_goals_scored: float = 0, home_goals_conceded: float = 0,
                   away_goals_scored: float = 0, away_goals_conceded: float = 0,
                   cover_rate: float = 50,
+                  handicap: float = 0.5,  # 🆕 V3.12: 亚盘让球数(穿盘率一致性校验)
                   prediction_direction: str = '',
                   hot_side: str = 'home',      # 🆕 V3.4: V2.6热方 (用于泊松对齐)
                   three_conditions_met: int = 0,
                   underdog_has_attackers: bool = False,
-                  underdog_giant_killer: bool = False,
+                  underdog_giant_killer: float = 0.0,  # 🆕 V3.12: float weight 0.0-1.0
                   hot_team_rank: int = 50,
                   weak_team_threat: float = 0.0) -> ScorePrediction:  # 🆕 V3.4
     """
@@ -416,7 +423,7 @@ def predict_score(match_name: str,
         prediction_direction: 预测方向文本 ("⚠️ 热门不胜", "热门胜", etc.)
         three_conditions_met: 三条件满足数 (0-3)
         underdog_has_attackers: 弱方是否有五大射手
-        underdog_giant_killer: 弱方是否有巨人杀手血统
+        underdog_giant_killer: 弱方巨人杀手权重(V3.12: >4年衰减至0.3·近2年=1.0)
         hot_team_rank: 热方FIFA排名
     """
     sp = ScorePrediction(match_name=match_name)
@@ -550,6 +557,14 @@ def predict_score(match_name: str,
     else:
         lam_home, lam_away = _apply_goal_ceiling(lam_home, lam_away, gap_level)
 
+    # 🆕 V3.15: 弱队xG反直觉检查 — 弱队预期进球不应超过强队
+    if home_is_strong and lam_away > lam_home:
+        lam_away = lam_home * 0.90
+        adjustments.append(f'⚠️ 反直觉约束: 弱队xG({lam_away:.2f})→强队xG的90%({lam_away:.2f})')
+    elif not home_is_strong and lam_home > lam_away:
+        lam_home = lam_away * 0.90
+        adjustments.append(f'⚠️ 反直觉约束: 弱队xG({lam_home:.2f})→强队xG的90%({lam_home:.2f})')
+
     sp.expected_goals_home = round(lam_home, 2)
     sp.expected_goals_away = round(lam_away, 2)
     sp.total_goals_expected = round(lam_home + lam_away, 2)
@@ -603,6 +618,92 @@ def predict_score(match_name: str,
             blended2[s] = blended2.get(s, 0) + w * 0.12
         scores = sorted(blended2.items(), key=lambda x: x[1], reverse=True)
         adjustments.append('💥 崩盘因子: 三条件全满足+精英队→大比分风险+12%')
+
+    # 🆕 V3.12: 穿盘率-比分一致性校验
+    # 若穿盘率<40%, 穿盘比分(goal_diff > handicap)应被降权
+    cover_penalty_applied = False
+    if cover_rate < 40 and handicap >= 0.5 and len(scores) >= 3:
+        penalized_scores = []
+        for s, p in scores:
+            parts = s.split('-')
+            try:
+                hg, ag = int(parts[0]), int(parts[1])
+            except (ValueError, IndexError):
+                penalized_scores.append((s, p))
+                continue
+            diff = hg - ag
+            # 确定穿盘方向: 主队强方→hg-ag>handicap穿盘; 客队强方→ag-hg>handicap穿盘
+            if home_is_strong:
+                covers = diff > handicap
+            else:
+                covers = (ag - hg) > handicap
+            if covers:
+                # 穿盘比分: 概率×0.65 (降低35%)
+                penalized_scores.append((s, p * 0.65))
+            else:
+                penalized_scores.append((s, p))
+        # 重新归一化
+        total_p = sum(p for _, p in penalized_scores)
+        if total_p > 0:
+            scores = [(s, p / total_p) for s, p in penalized_scores]
+            scores.sort(key=lambda x: x[1], reverse=True)
+            cover_penalty_applied = True
+
+    if cover_penalty_applied:
+        adjustments.append(f'🔗 穿盘率校验: cover={cover_rate:.0f}%<40%→穿盘比分降权·非穿盘比分优先')
+
+    # 🆕 V3.14: 穿盘率-比分分布一致性校验
+    # 当穿盘率与比分中穿盘比分概率总和偏离>15%时触发调整
+    if handicap >= 0.5 and len(scores) >= 3:
+        cover_score_sum = 0.0
+        for s, p in scores:
+            parts = s.split('-')
+            try:
+                hg, ag = int(parts[0]), int(parts[1])
+            except (ValueError, IndexError):
+                continue
+            diff = hg - ag
+            if home_is_strong:
+                covers = diff > handicap
+            else:
+                covers = (ag - hg) > handicap
+            if covers:
+                cover_score_sum += p
+        # 穿盘率(0-1) vs 比分穿盘概率总和
+        cover_rate_decimal = cover_rate / 100.0
+        divergence = abs(cover_rate_decimal - cover_score_sum)
+        if divergence > 0.15:
+            # 偏离>15%: 将比分穿盘概率向穿盘率方向调整30%
+            blend_factor = 0.30
+            target_cover = cover_rate_decimal
+            if cover_score_sum > 0.001:
+                scale = (target_cover * blend_factor + cover_score_sum * (1 - blend_factor)) / cover_score_sum
+            else:
+                scale = 1.0
+            adjusted_scores = []
+            for s, p in scores:
+                parts = s.split('-')
+                try:
+                    hg, ag = int(parts[0]), int(parts[1])
+                except (ValueError, IndexError):
+                    adjusted_scores.append((s, p))
+                    continue
+                diff = hg - ag
+                if home_is_strong:
+                    covers = diff > handicap
+                else:
+                    covers = (ag - hg) > handicap
+                if covers:
+                    adjusted_scores.append((s, p * scale))
+                else:
+                    adjusted_scores.append((s, p))
+            # 重新归一化
+            total_ap = sum(p for _, p in adjusted_scores)
+            if total_ap > 0:
+                scores = [(s, p / total_ap) for s, p in adjusted_scores]
+                scores.sort(key=lambda x: x[1], reverse=True)
+                adjustments.append(
+                    f'🔗 穿盘率一致性: 比分穿盘概率{cover_score_sum:.0%}↔穿盘率{cover_rate:.0f}%偏离{divergence:.0%}>15%→{blend_factor:.0%}向穿盘率靠拢')
 
     sp.top_scores = scores[:8]
     sp.home_win_prob = round(summary['home_win'] * 100, 1)
@@ -686,6 +787,16 @@ def predict_score_from_report(r) -> ScorePrediction:
         away_ga = r.away_recent_form.get('avg_goals_conceded', 0) or 0
 
     cover_rate = r.xls_cover_rate or 50
+    # 🆕 V3.12: 提取亚盘让球数用于穿盘率-比分一致性校验
+    handicap = 0.5  # default
+    try:
+        hc_str = getattr(r, 'xls_handicap', '') or ''
+        import re as _re_hc
+        hc_match = _re_hc.search(r'(\d+\.?\d*)', str(hc_str).replace('让-', '').replace('让', ''))
+        if hc_match:
+            handicap = float(hc_match.group(1))
+    except Exception:
+        pass
     prediction_direction = r.v26_prediction or ''
 
     # 🆕 对手质量数据
@@ -702,7 +813,7 @@ def predict_score_from_report(r) -> ScorePrediction:
             three_conditions_met = 3
 
     underdog_has_attackers = False
-    underdog_giant_killer = False
+    underdog_giant_killer = 0.0  # 🆕 V3.12: float weight (0.0-1.0) 替代bool
     if tc:
         # check conditions
         conds = tc.get('conditions', {})
@@ -720,7 +831,25 @@ def predict_score_from_report(r) -> ScorePrediction:
             underdog_data = opponent_quality(home_cn)
         gk = underdog_data.get('giant_killings', [])
         if gk and len(gk) > 0:
-            underdog_giant_killer = True
+            # 🆕 V3.12: 巨人杀手时间衰减 — >4年仅保留30%权重
+            import re
+            current_year = 2026
+            gk_weights = []
+            for gk_entry in gk:
+                years = re.findall(r'\b(20\d{2})\b', str(gk_entry))
+                for y_str in years:
+                    y = int(y_str)
+                    age = current_year - y
+                    if age <= 2:
+                        gk_weights.append(1.0)    # 近2年: 全额
+                    elif age <= 4:
+                        gk_weights.append(0.7)    # 2-4年: 70%
+                    else:
+                        gk_weights.append(0.3)    # >4年: 30%
+            if gk_weights:
+                underdog_giant_killer = max(gk_weights)  # 取最近事件的权重
+            else:
+                underdog_giant_killer = 0.5  # 无年份标记·默认50%权重
     except Exception:
         pass
 
@@ -741,6 +870,7 @@ def predict_score_from_report(r) -> ScorePrediction:
         home_goals_scored=home_gf, home_goals_conceded=home_ga,
         away_goals_scored=away_gf, away_goals_conceded=away_ga,
         cover_rate=cover_rate,
+        handicap=handicap,  # 🆕 V3.12: 亚盘让球数
         prediction_direction=prediction_direction,
         hot_side=r.betfair_hot_side or 'home',  # 🆕 V3.4
         three_conditions_met=three_conditions_met,
