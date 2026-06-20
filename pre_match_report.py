@@ -1362,11 +1362,27 @@ def _apply_v26_rules(r: PreMatchReport):
 
     # ── EXTREME ──
     if gap == 'extreme':
-        r.v26_rule = 'EXTREME → 强制回避·不预测'
-        r.v26_prediction = '⚠️ 不预测 (EXTREME: 0-0↔7-1随机)'
-        r.v26_confidence = 0
-        r.v26_warnings.append('EXTREME gap: 所有信号降权至0%·结果完全随机')
-        _predict_totals(r); _build_structured(r); return
+        # 🆕 V3.8: 碾压指数>0.80→实力碾压预测·非强制回避
+        try:
+            from v24_optimization import classify_strength_gap
+            _rg = abs(getattr(r, 'fifa_rank_gap', 60))
+            _vr = getattr(r, 'squad_value_ratio', 20)
+            _oi = (_rg / 60.0 * 0.6) + (_vr / 25.0 * 0.4)
+        except Exception:
+            _oi = 0.9
+        if _oi < 1.0:
+            # Near-EXTREME: 实力碾压·直接输出强队胜·不依赖泊松
+            r.v26_rule = 'EXTREME + 碾压指数 → 实力碾压·强队胜'
+            r.v26_prediction = '热门胜 (实力碾压·准EXTREME)'
+            r.v26_confidence = 70
+            r.v26_warnings.append(f'⚡ 碾压指数{_oi:.2f}>0.80→准EXTREME·实力碾压·跳过泊松直接预测')
+            _predict_totals(r); _build_structured(r); return
+        else:
+            r.v26_rule = 'EXTREME → 强制回避·不预测'
+            r.v26_prediction = '⚠️ 不预测 (EXTREME: 0-0↔7-1随机)'
+            r.v26_confidence = 0
+            r.v26_warnings.append('EXTREME gap: 所有信号降权至0%·结果完全随机')
+            _predict_totals(r); _build_structured(r); return
 
     # 🆕 V3.2: 大小球预测 (所有非EXTREME比赛)
     _predict_totals(r)
@@ -1398,9 +1414,9 @@ def _apply_v26_rules(r: PreMatchReport):
                     hot_def_c = _count_defensive_strength(hot_tc)
                     opp_def_c = _count_defensive_strength(opp_tc)
                     def_gap_c = hot_def_c - opp_def_c
-                    from opponent_db import _count_attacking_threat as _cat2
-                    _, _, atk_hot_c, _, _ = _cat2(hot_tc, 'close')
-                    _, _, atk_opp_c, _, _ = _cat2(opp_tc, 'close')
+                    import opponent_db as _odb2
+                    _, _, atk_hot_c, _, _ = _odb2._count_attacking_threat(hot_tc, 'close')
+                    _, _, atk_opp_c, _, _ = _odb2._count_attacking_threat(opp_tc, 'close')
                     atk_gap_c = atk_hot_c - atk_opp_c
                     if (mf_gap_c > 3.0 and def_gap_c > 4.0) or (atk_gap_c > 4.0 and def_gap_c >= 3.0):
                         strength_override_close = True
@@ -1697,8 +1713,9 @@ def _apply_v26_rules(r: PreMatchReport):
                     opp_def2 = _count_defensive_strength(opp_t3)
                     def_gap = hot_def2 - opp_def2
                     # V3.7: (中场>3+防线>4) OR (攻击>4+防线≥3)
-                    _, _, atk_thr_hot, _, _ = _count_attacking_threat(hot_t3, 'big')
-                    _, _, atk_thr_opp, _, _ = _count_attacking_threat(opp_t3, 'big')
+                    import opponent_db as _odb
+                    _, _, atk_thr_hot, _, _ = _odb._count_attacking_threat(hot_t3, 'big')
+                    _, _, atk_thr_opp, _, _ = _odb._count_attacking_threat(opp_t3, 'big')
                     atk_gap2 = atk_thr_hot - atk_thr_opp
                     if (mf_gap > 3.0 and def_gap > 4.0) or (atk_gap2 > 4.0 and def_gap >= 3.0):
                         strength_override = True

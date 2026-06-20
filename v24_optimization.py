@@ -119,7 +119,7 @@ def classify_strength_gap(
     elif extreme_score >= 1:
         # 🆕 V3.8: 碾压指数 — 近EXTREME边界升级
         overwhelm = (rank_gap / 60.0 * 0.6) + (value_ratio / 25.0 * 0.4)
-        if overwhelm > 0.85:
+        if overwhelm > 0.80:
             level = GapLevel.EXTREME
             confidence = 0.5
             evidence.append(f'碾压指数{overwhelm:.2f}>0.85→EXTREME升级')
@@ -129,7 +129,7 @@ def classify_strength_gap(
     elif big_score >= 2:
         # 🆕 V3.8: BIG边界升级 — 接近EXTREME则升级
         overwhelm = (rank_gap / 60.0 * 0.6) + (value_ratio / 25.0 * 0.4)
-        if overwhelm > 0.85:
+        if overwhelm > 0.80:
             level = GapLevel.EXTREME
             confidence = 0.5
             evidence.append(f'碾压指数{overwhelm:.2f}>0.85→EXTREME升级')
@@ -139,7 +139,7 @@ def classify_strength_gap(
     elif big_score >= 1:
         # 🆕 V3.8: 单BIG近边界→升级
         overwhelm = (rank_gap / 60.0 * 0.6) + (value_ratio / 25.0 * 0.4)
-        if overwhelm > 0.85:
+        if overwhelm > 0.80:
             level = GapLevel.EXTREME
             confidence = 0.5
             evidence.append(f'碾压指数{overwhelm:.2f}>0.85→EXTREME升级')
