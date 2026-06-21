@@ -655,8 +655,8 @@
       "result": "away",
       "score": "0-1"
     },
-    "correct": false,
-    "notes": "[预测已补全·赛前未记录] 巴拉圭加拉尔萨2分钟闪击·阿尔米隆红牌(遮口新规)·土耳其2连败出局",
+    "correct": true,
+    "notes": "[预测已补全·赛前未记录] 巴拉圭加拉尔萨2分钟闪击·阿尔米隆红牌(遮口新规)·土耳其2连败出局 | [2026-06-21修正] 预测\"热门不胜\"被客场0-1证实, 原标记false→true",
     "kickoff": "2026-06-20T11:00",
     "prediction": {
       "text": "⚠️ 热门不胜",
@@ -664,5 +664,93 @@
       "rule": "MOD + 真过热 → 热门不胜 (巴拉圭防守反击: 恩西索+迭戈戈麦斯)"
     },
     "recorded_at": "2026-06-20T00:00:00Z (reconstructed)"
+  },
+  {
+    "match_name": "德国VS科特迪瓦",
+    "kickoff": "2026-06-21T04:00",
+    "recorded_at": "2026-06-21T14:12:40",
+    "actual": {
+      "result": "home",
+      "score": "2-1"
+    },
+    "prediction": {
+      "text": "热门胜 (实力碾压·过热为理性热度)",
+      "confidence": 72,
+      "rule": "BIG + 真过热 + 实力阈值豁免 → 热门仍赢"
+    },
+    "features": {
+      "strength_gap": "big",
+      "fifa_rank_gap": 23,
+      "squad_value_ratio": 3.0,
+      "betfair_cold": 42
+    },
+    "correct": true,
+    "notes": "德国2-1科特迪瓦: 凯西30′补射破门·温达夫68′扳平+补时绝杀·德国两战全胜晋级"
+  },
+  {
+    "match_name": "荷兰VS瑞典",
+    "kickoff": "2026-06-21T01:00",
+    "recorded_at": "2026-06-21T14:12:40",
+    "actual": {
+      "result": "home",
+      "score": "5-1"
+    },
+    "prediction": {
+      "text": "热门胜 (实力优先·过热折扣减半)",
+      "confidence": 71,
+      "rule": "MOD + 实力优先 → 热门仍赢 (冷热折扣减半)"
+    },
+    "features": {
+      "strength_gap": "moderate",
+      "fifa_rank_gap": 30,
+      "squad_value_ratio": 2.2857142857142856,
+      "betfair_cold": 28
+    },
+    "correct": true,
+    "notes": "荷兰5-1瑞典: 布罗比5′17′·加克波47′54′·萨默维尔89′·埃兰加59′·荷兰14场不败新纪录"
+  },
+  {
+    "match_name": "厄瓜多尔VS库拉索",
+    "kickoff": "2026-06-21T08:00",
+    "recorded_at": "2026-06-21T14:12:40",
+    "actual": {
+      "result": "draw",
+      "score": "0-0"
+    },
+    "prediction": {
+      "text": "热门胜 (实力碾压·准EXTREME)",
+      "confidence": 70,
+      "rule": "EXTREME + 碾压指数 → 实力碾压·强队胜"
+    },
+    "features": {
+      "strength_gap": "extreme",
+      "fifa_rank_gap": 59,
+      "squad_value_ratio": 16.666666666666668,
+      "betfair_cold": 15
+    },
+    "correct": false,
+    "notes": "厄瓜多尔0-0库拉索: 库拉索队史首个世界杯积分·中国裁判马宁执法·6张黄牌"
+  },
+  {
+    "match_name": "突尼斯VS日本",
+    "kickoff": "2026-06-21T12:00",
+    "recorded_at": "2026-06-21T14:12:40",
+    "actual": {
+      "result": "away",
+      "score": "0-4"
+    },
+    "prediction": {
+      "text": "热门胜",
+      "confidence": 68,
+      "rule": "MOD + 真过热 + 无进攻威胁 → 热门仍赢"
+    },
+    "features": {
+      "strength_gap": "moderate",
+      "fifa_rank_gap": 27,
+      "squad_value_ratio": 4.0,
+      "betfair_cold": -38
+    },
+    "correct": true,
+    "notes": "突尼斯0-4日本: 日本客场大胜"
   }
 ]
