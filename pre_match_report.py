@@ -340,6 +340,22 @@ def generate_report(match_name: str,
     except Exception:
         pass
 
+    # 4g2. 🆕 V3.29: 伤病影响 (从injury_tracker读取)
+    try:
+        from injury_tracker import get_match_injury_impact as _gmii
+        r._injury_impact = _gmii(home_cn, away_cn)
+        if r._injury_impact.get('confidence_adj', 0) != 0:
+            hi = r._injury_impact
+            r.v26_warnings.append(
+                '🏥 伤病: %s(%s) vs %s(%s) → 净影响%+.0f%%' % (
+                    home_cn, hi['home']['overall'],
+                    away_cn, hi['away']['overall'],
+                    hi['confidence_adj']
+                )
+            )
+    except Exception:
+        r._injury_impact = None
+
     # 4h. 🆕 V2.10 近期状态
     try:
         r.home_recent_form = analyze_recent_form(home_cn).__dict__ if analyze_recent_form(home_cn) else None
@@ -1292,6 +1308,11 @@ def _apply_v26_rules(r: PreMatchReport):
             multiplier *= (1.0 + r.lineup_impact.confidence_adj / 100)
             for a in r.lineup_impact.home_adjustments + r.lineup_impact.away_adjustments:
                 r.v26_warnings.append(f'👥 {a}')
+
+        # 3b. 🆕 V3.29: 伤病影响 (injury_tracker) → ×(0.85~1.00)
+        if r._injury_impact and r._injury_impact.get('confidence_adj', 0) != 0:
+            inj_adj = r._injury_impact['confidence_adj']
+            multiplier *= (1.0 + inj_adj / 100)
 
         # 4. 战术优势 (±5%) → ×(0.95~1.05)
         if r.tactical_edge != 0:

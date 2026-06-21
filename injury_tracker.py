@@ -48,6 +48,102 @@ POSITION_WEIGHT = {
 # ══════════════════════════════════════════════════════════
 
 INJURY_DB: Dict[str, dict] = {
+    # ── 6月22日 四场 (H+G组 MD3) ──
+    '西班牙': {
+        'confirmed_out': [
+            {'name': 'Víctor Muñoz', 'position': 'CM', 'status': 'out',
+             'note': '确认缺阵'},
+        ],
+        'doubtful': [
+            {'name': 'Lamine Yamal', 'position': 'WG', 'status': 'doubtful',
+             'note': '从伤病恢复·自认无法踢满全场·可能替补'},
+        ],
+        'notes': '尼科·威廉姆斯已痊愈有望首发·亚马尔未完全康复·穆尼奥斯缺阵',
+        'last_updated': '2026-06-21',
+    },
+    '沙特阿拉伯': {
+        'confirmed_out': [
+            {'name': 'Nawaf Al Abed', 'position': 'WG', 'status': 'out',
+             'note': '落选大名单'},
+        ],
+        'doubtful': [
+            {'name': 'Nawaf Al-Aqidi', 'position': 'GK', 'status': 'doubtful',
+             'note': '主力门将肌肉有伤·出战成疑·奥韦斯大概率首发'},
+        ],
+        'notes': '主力门将伤疑·防线不确定性增加',
+        'last_updated': '2026-06-21',
+    },
+    '沙特': {  # alias
+        'confirmed_out': [
+            {'name': 'Nawaf Al Abed', 'position': 'WG', 'status': 'out',
+             'note': '落选大名单'},
+        ],
+        'doubtful': [
+            {'name': 'Nawaf Al-Aqidi', 'position': 'GK', 'status': 'doubtful',
+             'note': '主力门将肌肉有伤·出战成疑·奥韦斯大概率首发'},
+        ],
+        'notes': '主力门将伤疑·防线不确定性增加',
+        'last_updated': '2026-06-21',
+    },
+    '比利时': {
+        'confirmed_out': [
+            {'name': 'Jérémy Doku', 'position': 'WG', 'status': 'out',
+             'note': '呼吸道感染·确认缺席'},
+            {'name': 'Zeno Debast', 'position': 'CB', 'status': 'out',
+             'note': '因伤缺阵'},
+        ],
+        'doubtful': [],
+        'notes': '多库+德巴斯特缺阵·卢卡库+特罗萨德+CDK已于6/19恢复全面合练·具备出场条件',
+        'last_updated': '2026-06-21',
+    },
+    '伊朗': {
+        'confirmed_out': [
+            {'name': 'Sardar Azmoun', 'position': 'FW', 'status': 'out',
+             'note': '已告别本届赛事·锋线支柱缺阵'},
+        ],
+        'doubtful': [
+            {'name': 'Alireza Jahanbakhsh', 'position': 'WG', 'status': 'doubtful',
+             'note': '队长·出战成疑'},
+        ],
+        'notes': '阿兹蒙告别赛事·贾汉巴赫什存疑·进攻端双重打击',
+        'last_updated': '2026-06-21',
+    },
+    '乌拉圭': {
+        'confirmed_out': [
+            {'name': 'Ronald Araújo', 'position': 'CB', 'status': 'out',
+             'note': '肌肉/小腿伤势·确认缺席'},
+            {'name': 'Giorgian de Arrascaeta', 'position': 'AM', 'status': 'out',
+             'note': '因伤确认缺席'},
+        ],
+        'doubtful': [
+            {'name': 'José Giménez', 'position': 'CB', 'status': 'doubtful',
+             'note': '因伤出战成疑'},
+        ],
+        'notes': '🔴 后防伤病潮: 阿劳霍+德阿拉斯卡埃塔确认缺阵·希门尼斯存疑·双中卫可能同时缺席',
+        'last_updated': '2026-06-21',
+    },
+    '佛得角': {
+        'confirmed_out': [],
+        'doubtful': [],
+        'notes': '阵容齐整·无伤病困扰',
+        'last_updated': '2026-06-21',
+    },
+    '新西兰': {
+        'confirmed_out': [
+            {'name': 'Matt Garbett', 'position': 'CM', 'status': 'out',
+             'note': '腿筋伤势·确认无缘本届世界杯剩余比赛'},
+        ],
+        'doubtful': [],
+        'notes': '加贝特缺阵·中场组织受损',
+        'last_updated': '2026-06-21',
+    },
+    '埃及': {
+        'confirmed_out': [],
+        'doubtful': [],
+        'notes': '阵容齐整·萨拉赫腿筋已康复·全员可用',
+        'last_updated': '2026-06-21',
+    },
+
     # ── 今晚四场 (6/18 K+L组 MD1) ──
     '葡萄牙': {
         'confirmed_out': [],
@@ -299,8 +395,9 @@ def get_match_injury_impact(home: str, away: str) -> dict:
     ai = check_injuries(away)
 
     diff = ai.total_weight_loss - hi.total_weight_loss  # positive = away worse
-    adj = ai.confidence_adj - hi.confidence_adj
-    # Cap at -15 to 0 for the combined adjustment
+    # 🆕 V3.29fix: 取双方伤病调整的最小值 (伤病总是降低置信度)
+    adj = min(hi.confidence_adj, ai.confidence_adj)
+    # Cap at -15 to 0
     adj = max(-15, min(0, adj))
 
     return {
