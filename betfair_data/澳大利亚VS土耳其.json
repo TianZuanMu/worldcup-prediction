@@ -1,0 +1,36 @@
+{
+  "match_name": "澳大利亚VS土耳其",
+  "kickoff": "2026-06-14T12:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 5.2,
+        "draw": 3.67,
+        "away": 1.7
+      },
+      "betfair": {
+        "home_price": 5.7,
+        "draw_price": 3.8,
+        "away_price": 1.78,
+        "home_volume": 1705519,
+        "draw_volume": 1728985,
+        "away_volume": 16197504,
+        "home_pnl": 9.911,
+        "draw_pnl": 13.062,
+        "away_pnl": -9.2,
+        "home_heat": -53,
+        "draw_heat": -66,
+        "away_heat": 47
+      },
+      "big_trades": [],
+      "notes": "谨防客胜过热",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

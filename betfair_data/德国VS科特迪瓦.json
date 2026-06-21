@@ -1,0 +1,40 @@
+{
+  "match_name": "德国VS科特迪瓦",
+  "kickoff": "2026-06-21T04:00",
+  "created": "2026-06-21T14:12:40",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T14:12:40",
+      "phase": "P3",
+      "odds": {
+        "home": 1.4,
+        "draw": 4.6,
+        "away": 7.8
+      },
+      "betfair": {
+        "home_price": 1.44,
+        "draw_price": 4.9,
+        "away_price": 8.4,
+        "home_volume": 42000000,
+        "draw_volume": 5200000,
+        "away_volume": 3800000,
+        "home_pnl": -15.2,
+        "draw_pnl": 28.5,
+        "away_pnl": 22.3,
+        "home_heat": 42,
+        "draw_heat": -55,
+        "away_heat": -68,
+        "home_trade": 0.832,
+        "draw_trade": 0.103,
+        "away_trade": 0.065,
+        "home_prob": 0.694,
+        "draw_prob": 0.204,
+        "away_prob": 0.102
+      },
+      "notes": "赛前7小时·历史回放",
+      "source": "回测构造",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1
+}

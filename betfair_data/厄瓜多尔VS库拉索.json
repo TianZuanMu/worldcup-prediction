@@ -1,0 +1,40 @@
+{
+  "match_name": "厄瓜多尔VS库拉索",
+  "kickoff": "2026-06-21T08:00",
+  "created": "2026-06-21T14:12:40",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T14:12:40",
+      "phase": "P3",
+      "odds": {
+        "home": 1.08,
+        "draw": 9.5,
+        "away": 26.0
+      },
+      "betfair": {
+        "home_price": 1.09,
+        "draw_price": 10.5,
+        "away_price": 30.0,
+        "home_volume": 58000000,
+        "draw_volume": 1200000,
+        "away_volume": 800000,
+        "home_pnl": -2.4,
+        "draw_pnl": 42.0,
+        "away_pnl": 38.0,
+        "home_heat": 15,
+        "draw_heat": -78,
+        "away_heat": -85,
+        "home_trade": 0.962,
+        "draw_trade": 0.02,
+        "away_trade": 0.018,
+        "home_prob": 0.917,
+        "draw_prob": 0.058,
+        "away_prob": 0.025
+      },
+      "notes": "赛前7小时·历史回放",
+      "source": "回测构造",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1
+}

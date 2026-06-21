@@ -180,49 +180,73 @@
       "match_id": "1359207",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 01:07"
+      "last_fetch": "2026-06-21 16:35"
     },
     "新西兰VS埃及": {
       "match_id": "1359243",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 11:37"
+      "last_fetch": "2026-06-21 16:35"
     },
     "乌拉圭VS佛得角": {
       "match_id": "1359246",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 11:37"
+      "last_fetch": "2026-06-21 16:35"
     },
     "西班牙VS沙特": {
       "match_id": "1359210",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 13:37"
+      "last_fetch": "2026-06-21 16:35"
     },
     "法国VS伊拉克": {
       "match_id": "1359213",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-20 19:04"
+      "last_fetch": "2026-06-21 16:40"
     },
     "阿根廷VS奥地利": {
       "match_id": "1359216",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-20 19:04"
+      "last_fetch": "2026-06-21 16:40"
     },
     "挪威VS塞内加尔": {
       "match_id": "1359249",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-20 13:36"
+      "last_fetch": "2026-06-21 16:41"
     },
     "约旦VS阿尔及利亚": {
       "match_id": "1359252",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-20 13:36"
+      "last_fetch": "2026-06-21 16:41"
+    },
+    "葡萄牙VS乌兹别克斯坦": {
+      "match_id": "1359219",
+      "discovered_at": "2026-06-21 15:04",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-21 15:05"
+    },
+    "英格兰VS加纳": {
+      "match_id": "1359222",
+      "discovered_at": "2026-06-21 15:04",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-21 15:05"
+    },
+    "哥伦比亚VS民主刚果": {
+      "match_id": "1359255",
+      "discovered_at": "2026-06-21 15:04",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-21 15:05"
+    },
+    "巴拿马VS克罗地亚": {
+      "match_id": "1359258",
+      "discovered_at": "2026-06-21 15:04",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-21 15:05"
     }
   },
   "cookie_string": "",

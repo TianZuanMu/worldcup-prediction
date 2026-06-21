@@ -1,0 +1,124 @@
+{
+  "match_name": "科特迪瓦VS厄瓜多尔",
+  "kickoff": "2026-06-15T07:00",
+  "created": "2026-06-14T23:37:34",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:37:34",
+      "phase": "P2",
+      "odds": {
+        "home": 3.23,
+        "draw": 2.87,
+        "away": 2.51
+      },
+      "betfair": {
+        "home_price": 3.4,
+        "draw_price": 2.96,
+        "away_price": 2.68,
+        "home_volume": 1038137,
+        "draw_volume": 764115,
+        "away_volume": 1814532,
+        "home_pnl": 0.087,
+        "draw_pnl": 1.355,
+        "away_pnl": -1.246,
+        "home_heat": -3,
+        "draw_heat": -37,
+        "away_heat": 33
+      },
+      "big_trades": [
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 9295,
+          "time": "2026-06-14 23:26"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 189,
+          "time": "2026-06-14 23:26"
+        },
+        {
+          "side": "客",
+          "direction": "卖",
+          "volume": 3092,
+          "time": "2026-06-14 23:23"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 710,
+          "time": "2026-06-14 23:23"
+        },
+        {
+          "side": "主",
+          "direction": "买",
+          "volume": 1247,
+          "time": "2026-06-14 23:23"
+        },
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 1394,
+          "time": "2026-06-14 23:20"
+        },
+        {
+          "side": "平",
+          "direction": "买",
+          "volume": 125,
+          "time": "2026-06-14 23:20"
+        },
+        {
+          "side": "客",
+          "direction": "卖",
+          "volume": 2095,
+          "time": "2026-06-14 23:16"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 2398,
+          "time": "2026-06-14 23:16"
+        },
+        {
+          "side": "主",
+          "direction": "买",
+          "volume": 1714,
+          "time": "2026-06-14 23:16"
+        }
+      ],
+      "notes": "本场比赛必发成交量倾向于客胜,与百家欧赔概率相差不大",
+      "source": "用户手动输入",
+      "index": 1
+    },
+    {
+      "timestamp": "2026-06-15T00:10:34",
+      "phase": "P2",
+      "odds": {
+        "home": 3.24,
+        "draw": 2.87,
+        "away": 2.51
+      },
+      "betfair": {
+        "home_price": 3.45,
+        "draw_price": 2.94,
+        "away_price": 2.68,
+        "home_volume": 1043255,
+        "draw_volume": 768138,
+        "away_volume": 1851845,
+        "home_pnl": 0.064,
+        "draw_pnl": 1.405,
+        "away_pnl": -1.3,
+        "home_heat": -3,
+        "draw_heat": -37,
+        "away_heat": 33
+      },
+      "big_trades": [],
+      "notes": "成交量倾向客胜,与概率相差不大",
+      "source": "用户手动输入(最新)",
+      "index": 2
+    }
+  ],
+  "updated": "2026-06-15T00:10:34",
+  "snapshot_count": 2
+}

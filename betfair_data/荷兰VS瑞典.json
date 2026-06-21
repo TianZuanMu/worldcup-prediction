@@ -1,0 +1,40 @@
+{
+  "match_name": "荷兰VS瑞典",
+  "kickoff": "2026-06-21T01:00",
+  "created": "2026-06-21T14:12:40",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T14:12:40",
+      "phase": "P3",
+      "odds": {
+        "home": 1.55,
+        "draw": 4.1,
+        "away": 5.6
+      },
+      "betfair": {
+        "home_price": 1.6,
+        "draw_price": 4.3,
+        "away_price": 6.0,
+        "home_volume": 35000000,
+        "draw_volume": 4800000,
+        "away_volume": 3200000,
+        "home_pnl": -5.8,
+        "draw_pnl": 18.2,
+        "away_pnl": 14.6,
+        "home_heat": 28,
+        "draw_heat": -35,
+        "away_heat": -52,
+        "home_trade": 0.815,
+        "draw_trade": 0.112,
+        "away_trade": 0.073,
+        "home_prob": 0.625,
+        "draw_prob": 0.233,
+        "away_prob": 0.142
+      },
+      "notes": "赛前7小时·历史回放",
+      "source": "回测构造",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1
+}

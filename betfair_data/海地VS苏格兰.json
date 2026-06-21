@@ -1,0 +1,42 @@
+{
+  "match_name": "海地VS苏格兰",
+  "kickoff": "2026-06-14T09:00",
+  "created": "2026-06-14T02:00:00",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T01:30:00",
+      "phase": "P3",
+      "odds": {
+        "home": 5.56,
+        "draw": 4.33,
+        "away": 1.56
+      },
+      "betfair": {
+        "home_price": 5.8,
+        "draw_price": 4.4,
+        "away_price": 1.67,
+        "home_volume": 2517856,
+        "draw_volume": 2358358,
+        "away_volume": 22190809,
+        "home_pnl": 12.463,
+        "draw_pnl": 16.69,
+        "away_pnl": -9.992,
+        "home_heat": -46,
+        "draw_heat": -61,
+        "away_heat": 34,
+        "home_trade": 0.093,
+        "draw_trade": 0.087,
+        "away_trade": 0.82,
+        "home_prob": 0.176,
+        "draw_prob": 0.227,
+        "away_prob": 0.597
+      },
+      "big_trades": [],
+      "notes": "赛前7小时·P3阶段·谨防客胜过热",
+      "source": "历史数据回放",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1,
+  "updated": "2026-06-14T02:00:00"
+}

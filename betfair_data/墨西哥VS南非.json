@@ -1,0 +1,36 @@
+{
+  "match_name": "墨西哥VS南非",
+  "kickoff": "2026-06-12T03:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 1.43,
+        "draw": 4.29,
+        "away": 8.16
+      },
+      "betfair": {
+        "home_price": 1.45,
+        "draw_price": 4.7,
+        "away_price": 9.4,
+        "home_volume": 34156472,
+        "draw_volume": 2557238,
+        "away_volume": 2366360,
+        "home_pnl": -10.447,
+        "draw_pnl": 27.061,
+        "away_pnl": 16.836,
+        "home_heat": 32,
+        "draw_heat": -71,
+        "away_heat": -48
+      },
+      "big_trades": [],
+      "notes": "谨防主胜过热",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

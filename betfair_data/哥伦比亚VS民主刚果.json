@@ -1,0 +1,45 @@
+{
+  "match_name": "哥伦比亚VS民主刚果",
+  "kickoff": "",
+  "created": "2026-06-21T15:05:35",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T15:05:35",
+      "phase": "P1",
+      "odds": {
+        "home": 1.5,
+        "draw": 4.07,
+        "away": 6.81
+      },
+      "betfair": {
+        "home_price": 0.0,
+        "draw_price": 0.0,
+        "away_price": 0.0,
+        "home_volume": 0.0,
+        "draw_volume": 0.0,
+        "away_volume": 0.0,
+        "home_pnl": 0.0,
+        "draw_pnl": 0.0,
+        "away_pnl": 0.0,
+        "home_heat": 0.0,
+        "draw_heat": 0.0,
+        "away_heat": 0.0,
+        "home_prob": 0.629,
+        "draw_prob": 0.23199999999999998,
+        "away_prob": 0.139,
+        "home_trade": 0.0,
+        "draw_trade": 0.0,
+        "away_trade": 0.0,
+        "home_profit_idx": 0.0,
+        "draw_profit_idx": 0.0,
+        "away_profit_idx": 0.0
+      },
+      "big_trades": [],
+      "notes": "自动抓取 [None] 15:05",
+      "source": "auto_fetch:None",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-21T15:05:35",
+  "snapshot_count": 1
+}

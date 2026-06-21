@@ -1,0 +1,45 @@
+{
+  "match_name": "英格兰VS加纳",
+  "kickoff": "",
+  "created": "2026-06-21T15:05:24",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T15:05:24",
+      "phase": "P1",
+      "odds": {
+        "home": 1.21,
+        "draw": 6.37,
+        "away": 13.67
+      },
+      "betfair": {
+        "home_price": 0.0,
+        "draw_price": 0.0,
+        "away_price": 0.0,
+        "home_volume": 0.0,
+        "draw_volume": 0.0,
+        "away_volume": 0.0,
+        "home_pnl": 0.0,
+        "draw_pnl": 0.0,
+        "away_pnl": 0.0,
+        "home_heat": 0.0,
+        "draw_heat": 0.0,
+        "away_heat": 0.0,
+        "home_prob": 0.7809999999999999,
+        "draw_prob": 0.149,
+        "away_prob": 0.07,
+        "home_trade": 0.0,
+        "draw_trade": 0.0,
+        "away_trade": 0.0,
+        "home_profit_idx": 0.0,
+        "draw_profit_idx": 0.0,
+        "away_profit_idx": 0.0
+      },
+      "big_trades": [],
+      "notes": "自动抓取 [None] 15:05",
+      "source": "auto_fetch:None",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-21T15:05:24",
+  "snapshot_count": 1
+}

@@ -1,0 +1,36 @@
+{
+  "match_name": "韩国VS捷克",
+  "kickoff": "2026-06-12T10:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 2.55,
+        "draw": 3.07,
+        "away": 2.96
+      },
+      "betfair": {
+        "home_price": 2.66,
+        "draw_price": 3.2,
+        "away_price": 3.2,
+        "home_volume": 5797684,
+        "draw_volume": 3601840,
+        "away_volume": 3604535,
+        "home_pnl": -2.418,
+        "draw_pnl": 1.478,
+        "away_pnl": 1.47,
+        "home_heat": 20,
+        "draw_heat": -11,
+        "away_heat": -14
+      },
+      "big_trades": [],
+      "notes": "成交量与概率相差不大",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

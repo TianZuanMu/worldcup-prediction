@@ -1,0 +1,40 @@
+{
+  "match_name": "突尼斯VS日本",
+  "kickoff": "2026-06-21T12:00",
+  "created": "2026-06-21T14:12:40",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-21T14:12:40",
+      "phase": "P3",
+      "odds": {
+        "home": 5.6,
+        "draw": 3.9,
+        "away": 1.58
+      },
+      "betfair": {
+        "home_price": 6.0,
+        "draw_price": 4.1,
+        "away_price": 1.62,
+        "home_volume": 2200000,
+        "draw_volume": 2800000,
+        "away_volume": 32000000,
+        "home_pnl": 18.5,
+        "draw_pnl": 22.3,
+        "away_pnl": -6.8,
+        "home_heat": -52,
+        "draw_heat": -40,
+        "away_heat": 38,
+        "home_trade": 0.06,
+        "draw_trade": 0.076,
+        "away_trade": 0.864,
+        "home_prob": 0.167,
+        "draw_prob": 0.244,
+        "away_prob": 0.589
+      },
+      "notes": "赛前7小时·历史回放",
+      "source": "回测构造",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1
+}

@@ -1,0 +1,42 @@
+{
+  "match_name": "加纳VS巴拿马",
+  "kickoff": "2026-06-18T07:00",
+  "created": "2026-06-18T00:00:00",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-17T23:30:00",
+      "phase": "P3",
+      "odds": {
+        "home": 2.1,
+        "draw": 3.3,
+        "away": 3.8
+      },
+      "betfair": {
+        "home_price": 2.25,
+        "draw_price": 3.5,
+        "away_price": 4.2,
+        "home_volume": 18500000,
+        "draw_volume": 3200000,
+        "away_volume": 2800000,
+        "home_pnl": -8.5,
+        "draw_pnl": 12.3,
+        "away_pnl": 15.2,
+        "home_heat": 30,
+        "draw_heat": -18,
+        "away_heat": -42,
+        "home_trade": 0.755,
+        "draw_trade": 0.131,
+        "away_trade": 0.114,
+        "home_prob": 0.444,
+        "draw_prob": 0.286,
+        "away_prob": 0.27
+      },
+      "big_trades": [],
+      "notes": "赛前7小时·P3阶段·主热·MOD差距·谨防主胜过热",
+      "source": "历史数据回放",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1,
+  "updated": "2026-06-18T00:00:00"
+}

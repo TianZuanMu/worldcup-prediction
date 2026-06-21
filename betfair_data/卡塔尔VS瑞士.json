@@ -1,0 +1,36 @@
+{
+  "match_name": "卡塔尔VS瑞士",
+  "kickoff": "2026-06-14T03:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 15.16,
+        "draw": 6.81,
+        "away": 1.2
+      },
+      "betfair": {
+        "home_price": 19.0,
+        "draw_price": 8.4,
+        "away_price": 1.21,
+        "home_volume": 1521666,
+        "draw_volume": 1848774,
+        "away_volume": 38410243,
+        "home_pnl": 12.869,
+        "draw_pnl": 26.251,
+        "away_pnl": -4.696,
+        "home_heat": -46,
+        "draw_heat": -69,
+        "away_heat": 15
+      },
+      "big_trades": [],
+      "notes": "成交量与概率相差不大",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

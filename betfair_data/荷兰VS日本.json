@@ -1,0 +1,36 @@
+{
+  "match_name": "荷兰VS日本",
+  "kickoff": "2026-06-15T04:00",
+  "created": "2026-06-15T00:10:34",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-15T00:10:34",
+      "phase": "P3",
+      "odds": {
+        "home": 2.04,
+        "draw": 3.43,
+        "away": 3.63
+      },
+      "betfair": {
+        "home_price": 2.16,
+        "draw_price": 3.6,
+        "away_price": 3.95,
+        "home_volume": 4323757,
+        "draw_volume": 1005467,
+        "away_volume": 1298849,
+        "home_pnl": -2.711,
+        "draw_pnl": 3.008,
+        "away_pnl": 1.498,
+        "home_heat": 40,
+        "draw_heat": -45,
+        "away_heat": -25
+      },
+      "big_trades": [],
+      "notes": "成交量倾向主胜,谨防主胜过热",
+      "source": "用户手动输入(最新)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-15T00:10:34",
+  "snapshot_count": 1
+}

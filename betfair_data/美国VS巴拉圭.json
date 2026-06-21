@@ -1,0 +1,36 @@
+{
+  "match_name": "美国VS巴拉圭",
+  "kickoff": "2026-06-13T09:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 2.04,
+        "draw": 3.25,
+        "away": 3.83
+      },
+      "betfair": {
+        "home_price": 2.16,
+        "draw_price": 3.3,
+        "away_price": 4.3,
+        "home_volume": 25920674,
+        "draw_volume": 4187218,
+        "away_volume": 3216944,
+        "home_pnl": -22.664,
+        "draw_pnl": 19.507,
+        "away_pnl": 19.492,
+        "home_heat": 68,
+        "draw_heat": -57,
+        "away_heat": -61
+      },
+      "big_trades": [],
+      "notes": "谨防主胜过热",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

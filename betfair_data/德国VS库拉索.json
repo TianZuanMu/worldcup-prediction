@@ -1,0 +1,124 @@
+{
+  "match_name": "德国VS库拉索",
+  "kickoff": "2026-06-15T01:00",
+  "created": "2026-06-14T23:40:31",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:40:31",
+      "phase": "P4",
+      "odds": {
+        "home": 1.03,
+        "draw": 19.07,
+        "away": 42.02
+      },
+      "betfair": {
+        "home_price": 1.05,
+        "draw_price": 28.0,
+        "away_price": 48.0,
+        "home_volume": 12104718,
+        "draw_volume": 366368,
+        "away_volume": 341000,
+        "home_pnl": 0.102,
+        "draw_pnl": 2.554,
+        "away_pnl": -3.556,
+        "home_heat": 2,
+        "draw_heat": -45,
+        "away_heat": 12
+      },
+      "big_trades": [
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 3802,
+          "time": "23:23"
+        },
+        {
+          "side": "平",
+          "direction": "买",
+          "volume": 848,
+          "time": "23:23"
+        },
+        {
+          "side": "主",
+          "direction": "买",
+          "volume": 282947,
+          "time": "23:23"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 2907,
+          "time": "23:20"
+        },
+        {
+          "side": "主",
+          "direction": "卖",
+          "volume": 40098,
+          "time": "23:20"
+        },
+        {
+          "side": "客",
+          "direction": "卖",
+          "volume": 2552,
+          "time": "23:20"
+        },
+        {
+          "side": "客",
+          "direction": "卖",
+          "volume": 463,
+          "time": "23:18"
+        },
+        {
+          "side": "主",
+          "direction": "买",
+          "volume": 7320,
+          "time": "23:18"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 499,
+          "time": "23:18"
+        },
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 2621,
+          "time": "23:15"
+        }
+      ],
+      "notes": "成交量倾向于主胜,与百家欧赔概率相差不大 → 无过热",
+      "source": "用户手动输入",
+      "index": 1
+    },
+    {
+      "timestamp": "2026-06-15T00:10:34",
+      "phase": "P4",
+      "odds": {
+        "home": 1.03,
+        "draw": 19.1,
+        "away": 42.17
+      },
+      "betfair": {
+        "home_price": 1.05,
+        "draw_price": 29.0,
+        "away_price": 48.0,
+        "home_volume": 12909359,
+        "draw_volume": 437502,
+        "away_volume": 416205,
+        "home_pnl": 0.208,
+        "draw_pnl": 1.076,
+        "away_pnl": -6.215,
+        "home_heat": 1,
+        "draw_heat": -39,
+        "away_heat": 25
+      },
+      "big_trades": [],
+      "notes": "成交量倾向主胜,与概率相差不大",
+      "source": "用户手动输入(最新)",
+      "index": 2
+    }
+  ],
+  "updated": "2026-06-15T00:10:34",
+  "snapshot_count": 2
+}

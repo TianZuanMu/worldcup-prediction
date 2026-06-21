@@ -1,0 +1,63 @@
+{
+  "match_name": "瑞典VS突尼斯",
+  "kickoff": "2026-06-15T10:00",
+  "created": "2026-06-14T23:39:28",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:39:28",
+      "phase": "P2",
+      "odds": {
+        "home": 1.93,
+        "draw": 3.37,
+        "away": 4.15
+      },
+      "betfair": {
+        "home_price": 2.0,
+        "draw_price": 3.55,
+        "away_price": 4.6,
+        "home_volume": 1824756,
+        "draw_volume": 355888,
+        "away_volume": 365292,
+        "home_pnl": -1.104,
+        "draw_pnl": 1.283,
+        "away_pnl": 0.866,
+        "home_heat": 46,
+        "draw_heat": -51,
+        "away_heat": -38
+      },
+      "big_trades": [],
+      "notes": "本场比赛必发成交量倾向于主胜,与百家欧赔概率相差较大，谨防主胜过热",
+      "source": "用户手动输入",
+      "index": 1
+    },
+    {
+      "timestamp": "2026-06-15T00:10:34",
+      "phase": "P2",
+      "odds": {
+        "home": 1.93,
+        "draw": 3.37,
+        "away": 4.15
+      },
+      "betfair": {
+        "home_price": 2.0,
+        "draw_price": 3.5,
+        "away_price": 4.6,
+        "home_volume": 1840029,
+        "draw_volume": 357835,
+        "away_volume": 367726,
+        "home_pnl": -1.114,
+        "draw_pnl": 1.313,
+        "away_pnl": 0.874,
+        "home_heat": 46,
+        "draw_heat": -51,
+        "away_heat": -38
+      },
+      "big_trades": [],
+      "notes": "成交量倾向主胜,谨防主胜过热",
+      "source": "用户手动输入(最新)",
+      "index": 2
+    }
+  ],
+  "updated": "2026-06-15T00:10:34",
+  "snapshot_count": 2
+}

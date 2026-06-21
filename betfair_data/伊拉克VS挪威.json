@@ -1,0 +1,42 @@
+{
+  "match_name": "伊拉克VS挪威",
+  "kickoff": "2026-06-17T06:00",
+  "created": "2026-06-16T23:00:00",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-16T22:30:00",
+      "phase": "P3",
+      "odds": {
+        "home": 8.5,
+        "draw": 5.0,
+        "away": 1.35
+      },
+      "betfair": {
+        "home_price": 8.8,
+        "draw_price": 5.2,
+        "away_price": 1.38,
+        "home_volume": 1520000,
+        "draw_volume": 1180000,
+        "away_volume": 24800000,
+        "home_pnl": 8.52,
+        "draw_pnl": 5.15,
+        "away_pnl": 3.48,
+        "home_heat": -44,
+        "draw_heat": -52,
+        "away_heat": 44,
+        "home_trade": 0.055,
+        "draw_trade": 0.043,
+        "away_trade": 0.902,
+        "home_prob": 0.114,
+        "draw_prob": 0.192,
+        "away_prob": 0.694
+      },
+      "big_trades": [],
+      "notes": "赛前7小时·P3阶段·客热但庄盈→理性热度·无过热",
+      "source": "历史数据回放",
+      "index": 1
+    }
+  ],
+  "snapshot_count": 1,
+  "updated": "2026-06-16T23:00:00"
+}

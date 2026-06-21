@@ -1,0 +1,36 @@
+{
+  "match_name": "巴西VS摩洛哥",
+  "kickoff": "2026-06-14T06:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 1.66,
+        "draw": 3.72,
+        "away": 5.44
+      },
+      "betfair": {
+        "home_price": 1.74,
+        "draw_price": 3.9,
+        "away_price": 6.2,
+        "home_volume": 27400620,
+        "draw_volume": 2564968,
+        "away_volume": 1974564,
+        "home_pnl": -15.737,
+        "draw_pnl": 21.937,
+        "away_pnl": 19.698,
+        "home_heat": 50,
+        "draw_heat": -69,
+        "away_heat": -65
+      },
+      "big_trades": [],
+      "notes": "谨防主胜过热",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}

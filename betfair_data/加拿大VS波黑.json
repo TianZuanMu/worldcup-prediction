@@ -1,0 +1,36 @@
+{
+  "match_name": "加拿大VS波黑",
+  "kickoff": "2026-06-13T03:00",
+  "created": "2026-06-14T23:53:10",
+  "snapshots": [
+    {
+      "timestamp": "2026-06-14T23:53:10",
+      "phase": "POST",
+      "odds": {
+        "home": 1.84,
+        "draw": 3.46,
+        "away": 4.55
+      },
+      "betfair": {
+        "home_price": 1.92,
+        "draw_price": 3.7,
+        "away_price": 4.9,
+        "home_volume": 38629268,
+        "draw_volume": 3290420,
+        "away_volume": 3928787,
+        "home_pnl": -28.32,
+        "draw_pnl": 33.674,
+        "away_pnl": 26.597,
+        "home_heat": 63,
+        "draw_heat": -74,
+        "away_heat": -60
+      },
+      "big_trades": [],
+      "notes": "谨防主胜过热",
+      "source": "用户手动输入(完赛复盘)",
+      "index": 1
+    }
+  ],
+  "updated": "2026-06-14T23:53:10",
+  "snapshot_count": 1
+}
