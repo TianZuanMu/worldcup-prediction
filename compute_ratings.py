@@ -116,7 +116,7 @@ def compute_all_ratings():
                 else: tier = 0.7
                 weighted = val * combined_mult * tier * fb_bonus * caps_bonus
                 def_weighted += weighted
-                if elite_mult >= 1.15 and val >= 30: def_elite += 1
+                if val >= 30: def_elite += 1
             elif pos == 'GK':
                 if val > gk_best_val:
                     gk_best_val = val; gk_best_mult = league_mult * elite_mult
