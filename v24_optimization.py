@@ -39,6 +39,11 @@ class GapClassification:
     wc_experience_gap: int
     confidence: float  # 0-1, how confident we are in the classification
     evidence: List[str] = field(default_factory=list)
+    # 🆕 V3.28: 三维评分差距
+    v328_overall_gap: float = 0.0
+    v328_max_dim_gap: float = 0.0
+    v328_blended_gap: float = 0.0
+    v328_source: str = ""  # 'v328' | 'legacy' | 'fallback'
 
 
 def classify_strength_gap(
@@ -50,9 +55,15 @@ def classify_strength_gap(
     wc_appearances_away: int = 0,
     wc_best_home: str = "",      # 'champion','final','semifinal','quarterfinal','group','debut'
     wc_best_away: str = "",
+    # 🆕 V3.28: 三维评分参数
+    home_team: str = "",
+    away_team: str = "",
 ) -> GapClassification:
     """
     将实力差距分为四级，用于信号可靠性调整。
+
+    V3.28: 优先使用48队三维评分 (质量加权·已收敛) 作为主分类器。
+    旧版三维等权投票作为fallback。
 
     回测依据:
       - Extreme: 德国7-1库拉索 → 降盘/退盘信号完全失效
@@ -61,6 +72,65 @@ def classify_strength_gap(
       - Close:    科特迪瓦1-0厄瓜多尔 → 退盘信号最可靠
     """
     evidence = []
+    v328_overall_gap = 0.0
+    v328_max_dim_gap = 0.0
+    v328_blended_gap = 0.0
+    v328_source = "legacy"
+
+    # ═══ V3.28 主分类器: 48队三维评分 ═══
+    if home_team and away_team:
+        try:
+            from team_ratings import get_team_rating
+            h_r = get_team_rating(home_team)
+            a_r = get_team_rating(away_team)
+            if h_r and a_r:
+                atk_gap = abs(h_r.attack - a_r.attack)
+                mf_gap = abs(h_r.midfield - a_r.midfield)
+                def_gap = abs(h_r.defense - a_r.defense)
+                overall_gap = abs(h_r.overall - a_r.overall)
+                v328_overall_gap = round(overall_gap, 1)
+                v328_max_dim_gap = round(max(atk_gap, mf_gap, def_gap), 1)
+                # 混合: 综合差距60% + 最大维度差距40% (防止单维极端误导)
+                v328_blended_gap = round(overall_gap * 0.6 + v328_max_dim_gap * 0.4, 1)
+                v328_source = "v328"
+
+                # 阈值映射 (V3.28校准)
+                if v328_blended_gap >= 5.0:
+                    level = GapLevel.EXTREME
+                    confidence = 0.95
+                elif v328_blended_gap >= 2.5:
+                    level = GapLevel.BIG
+                    confidence = 0.70
+                elif v328_blended_gap >= 1.0:
+                    level = GapLevel.MODERATE
+                    confidence = 0.65
+                else:
+                    level = GapLevel.CLOSE
+                    confidence = 0.80
+
+                evidence.append(
+                    f"V3.28: {h_r.team}({h_r.overall:.1f}/{h_r.tier}) vs "
+                    f"{a_r.team}({a_r.overall:.1f}/{a_r.tier}) → "
+                    f"综合差{overall_gap:.1f}·最大维差{v328_max_dim_gap:.1f}·混合{v328_blended_gap:.1f}→{level.value.upper()}"
+                )
+
+                # 提取排名/身价数据 (从team_ratings已有字段)
+                rank_gap = abs(h_r.fifa_rank - a_r.fifa_rank)
+                value_ratio = max(h_r.total_value_m, a_r.total_value_m) / min(h_r.total_value_m, a_r.total_value_m) if min(h_r.total_value_m, a_r.total_value_m) > 0 else 1.0
+                wc_gap = 0  # V3.28暂不追踪WC经验
+
+                return GapClassification(
+                    level=level, fifa_rank_gap=rank_gap, squad_value_ratio=round(value_ratio, 1),
+                    wc_experience_gap=wc_gap, confidence=confidence, evidence=evidence,
+                    v328_overall_gap=v328_overall_gap, v328_max_dim_gap=v328_max_dim_gap,
+                    v328_blended_gap=v328_blended_gap, v328_source=v328_source,
+                )
+        except ImportError:
+            evidence.append("V3.28 team_ratings 未安装·回退旧分类器")
+        except Exception as e:
+            evidence.append(f"V3.28 查询异常({e})·回退旧分类器")
+
+    # ═══ 旧版分类器 (fallback): 三维等权投票 ═══
     extreme_score = 0
     big_score = 0
     moderate_score = 0  # 🆕 V2.7: 追踪moderate级别
@@ -165,6 +235,10 @@ def classify_strength_gap(
         wc_experience_gap=wc_gap,
         confidence=confidence,
         evidence=evidence,
+        v328_overall_gap=v328_overall_gap,
+        v328_max_dim_gap=v328_max_dim_gap,
+        v328_blended_gap=v328_blended_gap,
+        v328_source=v328_source,
     )
 
 

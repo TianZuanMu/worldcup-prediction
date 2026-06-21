@@ -256,11 +256,23 @@ def generate_report(match_name: str,
             squad_value_away=squad_value_away,
             wc_appearances_home=wc_apps_home,
             wc_appearances_away=wc_apps_away,
+            # 🆕 V3.28: 传入队名以启用三维评分分类器
+            home_team=home_cn,
+            away_team=away_cn,
         )
         r.gap_level = gap.level.value
         r.fifa_rank_gap = gap.fifa_rank_gap
         r.squad_value_ratio = gap.squad_value_ratio
         r.gap_detail = str(gap.level)
+        # 🆕 V3.28: 记录三维评分差距来源
+        r._v328_source = gap.v328_source
+        r._v328_blended_gap = gap.v328_blended_gap
+        r._v328_max_dim_gap = gap.v328_max_dim_gap
+        if gap.v328_source == "v328":
+            r.v26_warnings.append(
+                f'📐 V3.28分类: 混合差{gap.v328_blended_gap:.1f}'
+                f'(综合{gap.v328_overall_gap:.1f}·最大维{gap.v328_max_dim_gap:.1f})→{gap.level.value.upper()}'
+            )
         # 🆕 V3.2: 记录热方FIFA排名 (精英队过热例外)
         if r.betfair_hot_side == 'home':
             r.hot_team_fifa_rank = fifa_rank_home
@@ -1057,20 +1069,35 @@ def _apply_v26_rules(r: PreMatchReport):
         if diverge:
             adj -= 15; r.v26_warnings.append('XLS-必发背离: 市场分歧→置信度降级')
         # 🆕 V3.15: 平赔暴跌权重提升 — 跌幅越大·平局风险越高
+        # 🆕 V3.20→V3.21 风险2: 平赔暴跌分场景封顶 (三条件路径更紧)
+        # 平赔暴跌=平局预警·热门仍赢时不应完全转化为信心加成
         if dc_triggered:
             dc_severity = r.draw_collapse.get('severity', 'moderate')
             dc_avg = abs(r.draw_collapse.get('avg_change', 0))
             if dc_severity == 'critical' or dc_avg >= 7:
-                dc_adj = 20  # 严重暴跌: 强平局信号
-                dc_label = '🔴🔴 严重'
+                dc_adj_raw = 20; dc_label = '🔴🔴 严重'
             elif dc_severity == 'strong' or dc_avg >= 5:
-                dc_adj = 12
-                dc_label = '🔴 强'
+                dc_adj_raw = 12; dc_label = '🔴 强'
             else:
-                dc_adj = 7
-                dc_label = '🟡'
+                dc_adj_raw = 7; dc_label = '🟡'
+            # V3.21: 三级分场景封顶
+            _pred_is_hotwin_dc = any(kw in r.v26_prediction for kw in
+                ['热门仍赢', '热门胜', '实力碾压', '三条件全满足', '理性热度'])
+            _three_cond_pass = r.three_conditions and r.three_conditions.get('all_pass')
+            if _pred_is_hotwin_dc and _three_cond_pass and dc_adj_raw > 6:
+                # 三条件路径最紧: 例外预测+平局预警=高度矛盾·封顶6%
+                dc_adj = 6; _scenario = '三条件例外·封顶6%'
+            elif _pred_is_hotwin_dc and dc_adj_raw > CONF.draw_collapse_hotwin_cap:
+                # 其他热门仍赢: 封顶8%
+                dc_adj = CONF.draw_collapse_hotwin_cap; _scenario = f'热门仍赢·封顶{CONF.draw_collapse_hotwin_cap}%'
+            else:
+                # 非热门仍赢: 平局预警与预测方向一致·全额加成
+                dc_adj = dc_adj_raw; _scenario = '方向一致·全额'
+            r.v26_warnings.append(
+                f'{dc_label} 平赔暴跌: {r.draw_collapse.get("avg_change",0):.1f}% → '
+                f'{_scenario}({dc_adj}%·原{dc_adj_raw}%)'
+            )
             adj += dc_adj
-            r.v26_warnings.append(f'{dc_label} 平赔暴跌: {r.draw_collapse.get("avg_change",0):.1f}% → 平局风险+{dc_adj}%')
         # 共识污染: 必发不可信
         if r.betfair_pollution:
             adj -= 10; r.v26_warnings.append('共识污染: 必发信号可靠性下降')
@@ -1109,6 +1136,124 @@ def _apply_v26_rules(r: PreMatchReport):
                 r.v26_warnings.append(
                     f'📈 冷热上升(早期{r._late_surge_early:.0f}→晚期{r._late_surge_late:.0f})·精英强队→不降信')
         return max(5, min(95, base_conf + adj))
+
+    # ── 🆕 V3.20 深度审计后处理 (海地VS苏格兰审计·5项结构性风险修复) ──
+    def apply_v320_post_checks(base_conf, prediction_text, gap_level):
+        """
+        V3.20: 在所有gap级别的预测确定后·校准前执行。
+        修复5项审计发现的结构性风险。
+        Returns: (adjusted_base_conf, list_of_warnings)
+        """
+        warnings = []
+        adj = base_conf
+
+        # ── 风险1: 赔率方向背离检测 ──
+        # 热方赔率↑(市场抛售热方) + XLS-必发背离 + 模型预测热门仍赢 = 三重矛盾
+        _hot_odds_moving_wrong = False
+        _contradiction_detail = ''
+        if r.betfair_hot_side == 'away' and r.odds_away_chg > CONF.odds_contradiction_threshold:
+            _hot_odds_moving_wrong = True
+            _contradiction_detail = f'客胜赔率↑{r.odds_away_chg:+.1f}%(市场抛售客队)'
+        elif r.betfair_hot_side == 'home' and r.odds_home_chg > CONF.odds_contradiction_threshold:
+            _hot_odds_moving_wrong = True
+            _contradiction_detail = f'主胜赔率↑{r.odds_home_chg:+.1f}%(市场抛售主队)'
+        _xls_bf_diverged = r.xls_bf_divergence.get('divergence', False) if r.xls_bf_divergence else False
+        _pred_is_hotwin = any(kw in prediction_text for kw in
+            ['热门仍赢', '热门胜', '实力碾压', '三条件全满足', '理性热度'])
+
+        if _hot_odds_moving_wrong and _xls_bf_diverged and _pred_is_hotwin:
+            adj -= CONF.odds_consensus_contradiction_penalty
+            warnings.append(
+                f'⚠️ V3.20 赔率背离: {_contradiction_detail}·'
+                f'XLS-必发已背离·与"{prediction_text[:20]}"逻辑矛盾→信-{CONF.odds_consensus_contradiction_penalty}%'
+            )
+        elif _hot_odds_moving_wrong and _pred_is_hotwin:
+            adj -= int(CONF.odds_consensus_contradiction_penalty * 0.5)
+            warnings.append(
+                f'🟡 V3.20 赔率反向: {_contradiction_detail}·'
+                f'热方赔率不降反升→信-{int(CONF.odds_consensus_contradiction_penalty*0.5)}%'
+            )
+
+        # ── 风险3: 三条件近阈值检测 (🆕 V3.21: 动态校准·球员实际产出替代固定-5%) ──
+        # 对手球员距阈值差<20%时·查实际进球/助攻/联赛级别·动态定价威胁
+        if r.three_conditions and r.three_conditions.get('all_pass'):
+            _near_threshold_players = []
+            _dynamic_penalty = 0
+            for s in r.three_conditions.get('scorers', []):
+                for part in s.split('/'):
+                    if part.startswith('Euro') and 'M' in part:
+                        try:
+                            v = float(part.replace('Euro','').replace('M','').replace(')','').strip())
+                            _threshold = 20 if 'FW' in s else 40
+                            _gap_ratio = (_threshold - v) / _threshold
+                            if _gap_ratio <= CONF.three_conditions_near_threshold_ratio:
+                                # 近阈值: 查球员实际产出动态校准
+                                _player_name = s.split('(')[0].strip()
+                                _threat_bonus = 0
+                                try:
+                                    # 从opponent_db获取球员实际数据
+                                    _underdog_team = (r.match_name.split('VS')[-1].strip()
+                                        if r.betfair_hot_side == 'home'
+                                        else r.match_name.split('VS')[0].strip())
+                                    from opponent_db import opponent_quality as _oq321
+                                    _ud_data = _oq321(_underdog_team)
+                                    for _pp in _ud_data.get('players', []):
+                                        if (isinstance(_pp, dict) and _pp.get('name') == _player_name):
+                                            _sg = _pp.get('season_goals', 0) or 0
+                                            _sa = _pp.get('season_assists', 0) or 0
+                                            _ig = _pp.get('intl_goals', 0) or 0
+                                            _top5 = _pp.get('top5', False)
+                                            # 动态威胁系数: 赛季进球×0.8 + 助攻×0.4 + 国家队进球×1.2
+                                            _raw_threat = _sg * 0.8 + _sa * 0.4 + _ig * 1.2
+                                            # 非五大联赛打8折
+                                            if not _top5:
+                                                _raw_threat *= 0.8
+                                            # 威胁系数→惩罚调整: 0-5分→3-8%惩罚
+                                            _threat_bonus = min(8, max(3, _raw_threat * 0.5))
+                                            break
+                                except Exception:
+                                    _threat_bonus = 0
+                                # 基础惩罚=距阈值比例×CONF惩罚, 加上动态威胁加成
+                                _base_penalty = int(CONF.three_conditions_near_threshold_penalty * (1 - _gap_ratio))
+                                _total_penalty = min(10, _base_penalty + int(_threat_bonus))
+                                _dynamic_penalty += _total_penalty
+                                _detail = f'{_player_name}(€{v:.0f}M·距阈值{_threshold-v:.0f}M'
+                                if _threat_bonus > 0:
+                                    _detail += f'·产出威胁+{_threat_bonus}'
+                                _detail += ')'
+                                _near_threshold_players.append(_detail)
+                        except: pass
+            if _near_threshold_players:
+                _dynamic_penalty = min(12, _dynamic_penalty)  # 多人叠加封顶12%
+                adj -= _dynamic_penalty
+                warnings.append(
+                    f'🔺 V3.21 近阈值动态: {"; ".join(_near_threshold_players[:2])}·'
+                    f'三条件边缘豁免→信-{_dynamic_penalty}%'
+                )
+
+        # ── 风险4: 关键维度数据缺失不确定性 ──
+        _missing_count = 0
+        _missing_dims = []
+        if not r.home_recent_form or getattr(r.home_recent_form, 'get', lambda x: None)('summary') in (None, 'N/A'):
+            _missing_count += 1; _missing_dims.append('近期状态')
+        if not r.referee_result or not (r.referee_result.get('referee') if isinstance(r.referee_result, dict) else getattr(r.referee_result, 'referee', None)):
+            _missing_count += 1; _missing_dims.append('裁判')
+        if not r.h2h_result or (isinstance(r.h2h_result, dict) and r.h2h_result.get('h2h') is None):
+            pass  # 无交锋记录不算缺失
+        if _missing_count > 0:
+            factor = CONF.data_missing_uncertainty_factor ** _missing_count
+            adj = int(adj * factor)
+            warnings.append(
+                f'📭 V3.20 数据缺失: {", ".join(_missing_dims)}无数据·'
+                f'不确定性×{factor:.2f}→信={adj}%'
+            )
+
+        # 🆕 V3.22→V3.24: 标记V3.20惩罚链激活状态 + 存储惩罚后信度(供熔断封顶公式)
+        _penalties_active = (adj < base_conf * 0.85)  # 惩罚使信度下降>15%→视为惩罚链激活
+        r._v320_penalties_active = _penalties_active
+        r._v320_penalized_conf = adj  # 🆕 V3.24: 供熔断封顶公式使用
+
+        return max(5, adj), warnings
 
     # ── V3.0 乘法调整链 (P1#5: 加法→乘法·防触顶) ──
     def apply_v29_adjustments(base_conf):
@@ -1504,6 +1649,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5  # half the discount as boost
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.20 深度审计后处理
+        base_conf, v320_warns = apply_v320_post_checks(base_conf, r.v26_prediction, gap)
+        r.v26_warnings.extend(v320_warns)
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1519,6 +1667,13 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.20 风险5: 低穿盘率+高置信度悖论天花板
+        if r.xls_cover_rate > 0 and r.xls_cover_rate < CONF.low_cover_threshold and r.v26_confidence > CONF.low_cover_high_conf_ceiling:
+            r.v26_confidence = CONF.low_cover_high_conf_ceiling
+            r.v26_warnings.append(
+                f'🔺 V3.20 穿盘悖论: 穿盘率仅{r.xls_cover_rate:.0f}%<{CONF.low_cover_threshold:.0f}%·'
+                f'高信不可靠→天花板{CONF.low_cover_high_conf_ceiling}%'
+            )
         # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
         if getattr(r, '_near_threshold', False):
             r.v26_confidence = max(5, r.v26_confidence - 10)
@@ -1536,6 +1691,19 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_prediction = '热门胜 (实力碾压)'
             base_conf = 70
             r.v26_warnings.append(f'顶级强队(FIFA#{r.hot_team_fifa_rank})·温和过热(|cold|={abs(cold):.0f}<{CONF.elite_moderate_cold_max:.0f})→实力碾压覆盖')
+            # 🆕 V3.29: 冷热趋势风险 — 若冷热快速上升可能赛前突破精英阈值
+            if hasattr(r, '_late_surge_early') and hasattr(r, '_late_surge_late'):
+                early_c = abs(r._late_surge_early)
+                late_c = abs(r._late_surge_late)
+                # 计算冷热上升速度 (点/小时) — 基于首末快照时间差估算
+                cold_trend = (late_c - early_c) / max(1, (len(getattr(r, '_betfair_trend', '')) or 1))
+                if late_c > early_c and late_c >= 30:
+                    # 晚期冷热>30且仍在上升 → 赛前可能突破55阈值
+                    r.v26_warnings.append(
+                        f'🌡️ 冷热上升中(早期{early_c:.0f}→晚期{late_c:.0f})·'
+                        f'若赛前突破{CONF.elite_moderate_cold_max:.0f}精英例外将失效→临场需复核'
+                    )
+                    r.v26_confidence_risk = 'cold_trend'  # 标记风险类型
         elif is_real_hot and r.moderate_threat:
             if r.moderate_threat.get('has_goal_threat'):
                 # 🆕 V3.9: 实力优先 — 攻击差>4+防线差>2.5时冷热惩罚减半
@@ -1644,6 +1812,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.20 深度审计后处理
+        base_conf, v320_warns = apply_v320_post_checks(base_conf, r.v26_prediction, gap)
+        r.v26_warnings.extend(v320_warns)
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1659,6 +1830,13 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.20 风险5: 低穿盘率+高置信度悖论天花板
+        if r.xls_cover_rate > 0 and r.xls_cover_rate < CONF.low_cover_threshold and r.v26_confidence > CONF.low_cover_high_conf_ceiling:
+            r.v26_confidence = CONF.low_cover_high_conf_ceiling
+            r.v26_warnings.append(
+                f'🔺 V3.20 穿盘悖论: 穿盘率仅{r.xls_cover_rate:.0f}%<{CONF.low_cover_threshold:.0f}%·'
+                f'高信不可靠→天花板{CONF.low_cover_high_conf_ceiling}%'
+            )
         # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
         if getattr(r, '_near_threshold', False):
             r.v26_confidence = max(5, r.v26_confidence - 10)
@@ -1824,7 +2002,7 @@ def _apply_v26_rules(r: PreMatchReport):
                 if r.three_conditions:
                     r.v26_warnings.append(f"三条件缺{3-cond_pass}: {r.three_conditions.get('fail_reason','')}")
         else:
-            r.v26_rule = 'BIG + 无过热 → 模糊·需额外信号'
+            # 🆕 V3.23: 无过热分支细化·每子路径独立命名(不再统一标"模糊")
             # V3.6: 提前计算热方攻击力(供后续判断)
             try:
                 _mp = r.match_name.split('VS')
@@ -1835,10 +2013,12 @@ def _apply_v26_rules(r: PreMatchReport):
                 _hthr = 0
             # 🆕 V3.2: 客队热+排名差距大→客队实力碾压
             if hot_side == 'away' and rank_gap >= CONF.big_no_overheat_rank_gap:
+                r.v26_rule = f'BIG + 无过热 + 排名差{rank_gap}≥{CONF.big_no_overheat_rank_gap} → 客胜倾向'
                 r.v26_prediction = '客胜倾向 (实力优势)'
                 base_conf = 60
                 r.v26_warnings.append(f'客队实力优势·排名差{rank_gap}≥{CONF.big_no_overheat_rank_gap}')
             elif uni_triggered and uni_dir == 'bullish':
+                r.v26_rule = 'BIG + 无过热 + 全票通过 → 热门胜'
                 r.v26_prediction = '热门胜 (全票看好)'
                 base_conf = 65
             elif r.xls_consensus_direction == 'bearish' and abs(r.xls_consensus_pct) > 50:
@@ -1853,10 +2033,12 @@ def _apply_v26_rules(r: PreMatchReport):
                             _has_elite_fw2 = True; break
                 except: pass
                 if _hthr > 5.0 and _has_elite_fw2:
+                    r.v26_rule = f'BIG + 无过热 + 攻击碾压(thr={_hthr:.1f}>5.0) → 热门胜·无视XLS'
                     r.v26_prediction = '热门胜 (攻击碾压·无视XLS看衰)'
                     base_conf = 60
                     r.v26_warnings.append(f'热方攻击强(thr={_hthr:.1f}>5.0)+精英FW≥50M·XLS看衰可能误判')
                 else:
+                    r.v26_rule = 'BIG + 无过热 + XLS强力看衰 → 热门不胜风险'
                     r.v26_prediction = '⚠️ 热门可能不胜 (XLS强力看衰)'
                     base_conf = 55
             else:
@@ -1872,10 +2054,12 @@ def _apply_v26_rules(r: PreMatchReport):
                 except Exception:
                     pass
                 if _rational_heat:
+                    r.v26_rule = 'BIG + 无过热 + 理性热度 → 热门胜'
                     r.v26_prediction = '热门胜 (理性热度·市场定价合理)'
                     base_conf = 62
                     r.v26_warnings.append(f'💡 理性热度: 赔率{_hot_odds:.2f}(隐含>85%)+冷热{abs(cold):.0f}<20→市场理性定价·无过热陷阱')
                 else:
+                    r.v26_rule = 'BIG + 无过热 → 模糊·需额外信号'
                     r.v26_prediction = '信号不足·偏向热门'
                     base_conf = 55
         # V2.8: 东道主因子调整置信度 (BIG级别)
@@ -1890,6 +2074,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.6
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号(BIG): 严重看衰·东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.20 深度审计后处理
+        base_conf, v320_warns = apply_v320_post_checks(base_conf, r.v26_prediction, gap)
+        r.v26_warnings.extend(v320_warns)
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1905,6 +2092,13 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.20 风险5: 低穿盘率+高置信度悖论天花板
+        if r.xls_cover_rate > 0 and r.xls_cover_rate < CONF.low_cover_threshold and r.v26_confidence > CONF.low_cover_high_conf_ceiling:
+            r.v26_confidence = CONF.low_cover_high_conf_ceiling
+            r.v26_warnings.append(
+                f'🔺 V3.20 穿盘悖论: 穿盘率仅{r.xls_cover_rate:.0f}%<{CONF.low_cover_threshold:.0f}%·'
+                f'高信不可靠→天花板{CONF.low_cover_high_conf_ceiling}%'
+            )
         # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
         if getattr(r, '_near_threshold', False):
             r.v26_confidence = max(5, r.v26_confidence - 10)
@@ -2196,9 +2390,7 @@ def _cross_validate_cover_rate(r: PreMatchReport):
 
 def _build_structured(r: PreMatchReport):
     """V3.0: 生成结构化的预测输出"""
-    # 🆕 V3.4: 交叉验证 (必须在structured构建前执行)
-    _cross_validate_score_vs_rules(r)
-    _cross_validate_cover_rate(r)
+    # 🆕 V3.4→V3.24: 交叉验证移至熔断之后 (避免+3%被硬上限截断)
 
     # 🆕 V3.7: 三行置信度输出 (模型信号·泊松胜率·市场隐含)
     try:
@@ -2229,15 +2421,34 @@ def _build_structured(r: PreMatchReport):
         else:
             market_imp = 0
         # 🆕 V3.8: 市场锚定熔断 — 模型与市场背离>25点时均值回拨
+        # 🆕 V3.22→V3.24: 惩罚链激活时动态封顶 (max(50, 当前信度+5)·防一刀切)
         melt_applied = False
         if market_imp > 0 and poisson_win > 0 and r.v26_confidence > 0:
             divergence = abs(r.v26_confidence - market_imp)
             if divergence > 25:
                 original_conf = r.v26_confidence
-                r.v26_confidence = int((r.v26_confidence + market_imp) / 2)
-                melt_applied = True
-                r.v26_warnings.insert(0,
-                    f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
+                _melt_target = int((r.v26_confidence + market_imp) / 2)
+                _penalties_active = getattr(r, '_v320_penalties_active', False)
+                if _penalties_active:
+                    # V3.24: 动态封顶 = max(50, 当前信度+5)·惩罚越重封顶越紧
+                    _penalized_ref = getattr(r, '_v320_penalized_conf', r.v26_confidence)
+                    _dynamic_cap = max(CONF.meltdown_cap_with_penalties, _penalized_ref + 5)
+                    if _melt_target > _dynamic_cap:
+                        r.v26_confidence = _dynamic_cap
+                        melt_applied = True
+                        r.v26_warnings.insert(0,
+                            f'🌊 V3.24 熔断封顶: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25·'
+                            f'惩罚链激活(衰减至{_penalized_ref}%)→动态封顶{_dynamic_cap}%(自由均值={_melt_target}%)')
+                    else:
+                        r.v26_confidence = _melt_target
+                        melt_applied = True
+                        r.v26_warnings.insert(0,
+                            f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
+                else:
+                    r.v26_confidence = _melt_target
+                    melt_applied = True
+                    r.v26_warnings.insert(0,
+                        f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
         # 🆕 V3.15: 泊松-市场背离熔断 — 赔率市场定价扭曲检测
         poisson_melt = False
         if market_imp > 0 and poisson_win > 0:
@@ -2250,6 +2461,21 @@ def _build_structured(r: PreMatchReport):
                     r.v26_warnings.insert(0,
                         f'🌊🌊 泊松-市场熔断: 泊松胜率{poisson_win:.0f}%与市场{market_imp:.0f}%背离{poisson_divergence:.0f}点>35→置信度强制≤50%')
                 poisson_melt = True
+        # 🆕 V3.25: 模型-泊松背离熔断 — 决策树说热门胜·泊松说热门不胜→强制降信
+        _pred_is_hotwin_v325 = any(kw in (r.v26_prediction or '') for kw in
+            ['热门胜', '热门仍赢', '实力碾压'])
+        if _pred_is_hotwin_v325 and poisson_win > 0 and r.v26_confidence > 0:
+            _pm_divergence = r.v26_confidence - poisson_win
+            if (_pm_divergence > CONF.poisson_model_divergence_threshold
+                and poisson_win < CONF.poisson_hotwin_min_threshold):
+                _orig_v325 = r.v26_confidence
+                if r.v26_confidence > CONF.poisson_model_cap:
+                    r.v26_confidence = CONF.poisson_model_cap
+                    r.v26_warnings.insert(0,
+                        f'🌊🌊 V3.25 模型-泊松熔断: 决策树{_orig_v325}%与泊松{poisson_win:.0f}%背离'
+                        f'{_pm_divergence:.0f}点>{CONF.poisson_model_divergence_threshold}·'
+                        f'泊松看衰热门→置信度强制≤{CONF.poisson_model_cap}%')
+
         if r.v26_confidence > 0:
             melt_note = ' [熔断]' if melt_applied else ''
             poisson_note = ' [收敛]' if poisson_melt else ''
@@ -2257,6 +2483,10 @@ def _build_structured(r: PreMatchReport):
                 f'📊 三行置信: 模型信号{r.v26_confidence:.0f}%{melt_note} | 泊松胜率{poisson_win:.0f}%{poisson_note} | 市场隐含{market_imp:.0f}%')
     except Exception:
         pass
+
+    # 🆕 V3.24: 交叉验证移至熔断之后执行 (不受硬上限截断)
+    _cross_validate_score_vs_rules(r)
+    _cross_validate_cover_rate(r)
 
     # 🆕 V3.10: 方向-概率对齐 — 热门胜但对手不败率更高时追加警告
     try:
