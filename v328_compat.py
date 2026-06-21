@@ -48,6 +48,10 @@ def get_midfield_rating(team: str):
     return r.midfield
 
 
+# 别名：兼容 _count_attacking_threat 和 _count_defensive_strength 旧名称
+_count_attacking_threat = count_attacking_threat
+_count_defensive_strength = count_defensive_strength
+
 # ═══════════════════════════════════════════════════════════════
 # 阈值映射参考 (旧版 → V3.28)
 # ═══════════════════════════════════════════════════════════════
