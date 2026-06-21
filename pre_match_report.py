@@ -1969,7 +1969,18 @@ def _apply_v26_rules(r: PreMatchReport):
                     _, _, atk_thr_hot, _, _ = _odb._count_attacking_threat(hot_t3, 'big')
                     _, _, atk_thr_opp, _, _ = _odb._count_attacking_threat(opp_t3, 'big')
                     atk_gap2 = atk_thr_hot - atk_thr_opp
-                    if (mf_gap > 3.0 and def_gap > 4.0) or (atk_gap2 > 4.0 and def_gap >= 3.0):
+                    # 🆕 V3.29: 用V3.28校准评分验证攻击差·防止旧版威胁值虚高
+                    _v328_atk_gap = 0.0
+                    try:
+                        from team_ratings import get_team_rating as _gtr
+                        _hr = _gtr(hot_t3); _ar = _gtr(opp_t3)
+                        if _hr and _ar:
+                            _v328_atk_gap = abs(_hr.attack - _ar.attack)
+                    except Exception:
+                        _v328_atk_gap = atk_gap2  # fallback
+                    # 双轨校验: 旧版威胁值 AND V3.28评分 都确认攻击差距大→才豁免
+                    _atk_confirmed = (atk_gap2 > 4.0) and (_v328_atk_gap >= 1.5)
+                    if (mf_gap > 3.0 and def_gap > 4.0) or (_atk_confirmed and def_gap >= 3.0):
                         # 🆕 V3.29: 对手有精英攻击手时·实力豁免不可靠 (比利时VS埃及教训)
                         if has_elite_attacker:
                             r.v26_warnings.append(
