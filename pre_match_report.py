@@ -2020,11 +2020,27 @@ def _apply_v26_rules(r: PreMatchReport):
         elif r.big_weak_overheat:
             # 🆕 V3.3: BIG弱过热 (冷热20-29) → 方向信号保留·权重降低
             cond_pass = r.three_conditions.get('passed', 0) if r.three_conditions else 0
+            # 🆕 V3.29: 实力优先检查 — 即使弱过热·实力碾压也应保留热门胜
+            v328_strength_override = False
+            try:
+                _v328_gap = getattr(r, '_v328_blended_gap', 0)
+                _v328_def_gap = getattr(r, '_v328_max_dim_gap', 0)
+                if _v328_gap >= 2.5 and _v328_def_gap >= 4.0:
+                    v328_strength_override = True
+            except Exception:
+                pass
             if cond_pass >= 3:
                 r.v26_rule = 'BIG + 弱过热 → 三条件全满足·热门仍赢倾向'
                 r.v26_prediction = '热门仍赢·弱信号 (三条件全满足)'
                 base_conf = 55
                 r.v26_warnings.append('⚠️ 弱过热: 信号保留但权重降低·三条件全满足·倾向热门')
+            elif v328_strength_override:
+                r.v26_rule = 'BIG + 弱过热 + 实力优先 → 热门仍赢'
+                r.v26_prediction = '热门仍赢 (实力优先·弱过热折扣减半)'
+                base_conf = 58
+                r.v26_warnings.append(
+                    '⚡ V3.29实力优先: 混合差%.1f≥2.5+最大维差%.1f≥4.0→弱过热信号降权·实力说话' % (
+                        _v328_gap, _v328_def_gap))
             else:
                 r.v26_rule = 'BIG + 弱过热 → 热门不胜倾向'
                 r.v26_prediction = '⚠️ 热门不胜·弱信号'
