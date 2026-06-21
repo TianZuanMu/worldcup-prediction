@@ -917,15 +917,19 @@ def _apply_v26_rules(r: PreMatchReport):
     if gap == 'big':
         big_threshold = get_overheat_threshold('big')  # 30
         if is_real_hot and abs(cold) < big_threshold:
-            if abs(cold) >= 20:
+            # 🆕 V3.31: 精英队豁免弱过热降级 (阿根廷FIFA#1·cold=20是正常热度)
+            elite_exempt = (r.hot_team_fifa_rank <= CONF.elite_team_max_rank)
+            if abs(cold) >= 20 and not elite_exempt:
                 # 🆕 V3.3: 冷热20-29 → 弱过热 (保留部分信号, 降低权重)
                 is_real_hot = False
                 r.big_weak_overheat = True
                 r.v26_warnings.append(f'BIG级别·弱过热(冷热{abs(cold):.0f}∈[20,{big_threshold}))→方向信号保留·权重降低')
-            else:
+            elif abs(cold) < 20:
                 # 冷热<20 → 完全无过热
                 is_real_hot = False
                 r.v26_warnings.append(f'BIG级别·过热阈值提高至{big_threshold}→冷热{abs(cold):.0f}不足·降级')
+            elif elite_exempt:
+                r.v26_warnings.append(f'BIG级别·精英豁免(FIFA#{r.hot_team_fifa_rank})·冷热{abs(cold):.0f}保留真过热信号')
     has_bf = r.betfair_cold != 0 or r.betfair_hot_side != ''  # 是否有有效必发数据
     # 🆕 V3.3 P0-2: 必发数据质量评估 (无JSON或fallback→数据不足)
     betfair_weak = not has_bf or getattr(r, '_betfair_from_fallback', True)
