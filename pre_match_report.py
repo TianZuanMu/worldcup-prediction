@@ -342,8 +342,11 @@ def generate_report(match_name: str,
 
     # 4g2. 🆕 V3.29: 伤病影响 (从injury_tracker读取)
     try:
-        from injury_tracker import get_match_injury_impact as _gmii
+        from injury_tracker import get_match_injury_impact as _gmii, check_injuries as _ci
         r._injury_impact = _gmii(home_cn, away_cn)
+        # 🆕 V3.30: 存储原始伤病数据供决策树使用
+        r._injury_home = _ci(home_cn)
+        r._injury_away = _ci(away_cn)
         if r._injury_impact.get('confidence_adj', 0) != 0:
             hi = r._injury_impact
             r.v26_warnings.append(
@@ -1762,7 +1765,9 @@ def _apply_v26_rules(r: PreMatchReport):
                     opp_t = away_t if r.betfair_hot_side == 'home' else home_t
                     from v328_compat import count_attacking_threat as _count_attacking_threat, count_defensive_strength as _count_defensive_strength
                     hfw, hmf, hthreat, _, _ = _count_attacking_threat(hot_t, r.gap_level)
+                    hthreat = _inj_adj_atk(hot_t, hthreat)  # 🆕 V3.30: 伤病调整
                     hot_def = _count_defensive_strength(hot_t)
+                    hot_def = _inj_adj_def(hot_t, hot_def)   # 🆕 V3.30
                     opp_def = _count_defensive_strength(opp_t)
                     # V3.6: 防线翻盘检测 (ratio≥0.78 + 无prime-age精英FW)
                     ratio = opp_def / hthreat if hthreat > 0 else 0
@@ -1869,6 +1874,43 @@ def _apply_v26_rules(r: PreMatchReport):
         r.v26_score_predictions = [format_score_output_compact(r.score_prediction)]
         _build_structured(r); return
 
+    # ── 🆕 V3.30: 伤病调整辅助函数 ──
+    def _inj_adj_atk(team_name, raw_atk):
+        """伤病调整后的有效攻击力 (用于决策树判断)"""
+        home_t = r.match_name.split('VS')[0].strip() if 'VS' in r.match_name else ''
+        away_t = r.match_name.split('VS')[-1].strip() if 'VS' in r.match_name else ''
+        inj_obj = r._injury_home if team_name == home_t else (r._injury_away if team_name == away_t else None)
+        if not inj_obj:
+            return raw_atk
+        try:
+            atk_loss = 0.0
+            for p in inj_obj.confirmed_out:
+                if p.get('position','') in ('FW','WG','ST','CF','LW','RW','AM'): atk_loss += 1.0
+            for p in inj_obj.doubtful:
+                if p.get('position','') in ('FW','WG','ST','CF','LW','RW','AM'): atk_loss += 0.5
+            factor = max(0.70, 1.0 - atk_loss * 0.18)
+            return raw_atk * factor
+        except Exception:
+            return raw_atk
+
+    def _inj_adj_def(team_name, raw_def):
+        """伤病调整后的有效防守力"""
+        home_t = r.match_name.split('VS')[0].strip() if 'VS' in r.match_name else ''
+        away_t = r.match_name.split('VS')[-1].strip() if 'VS' in r.match_name else ''
+        inj_obj = r._injury_home if team_name == home_t else (r._injury_away if team_name == away_t else None)
+        if not inj_obj:
+            return raw_def
+        try:
+            def_loss = 0.0
+            for p in inj_obj.confirmed_out:
+                if p.get('position','') in ('CB','RB','LB','DF','GK'): def_loss += 1.0
+            for p in inj_obj.doubtful:
+                if p.get('position','') in ('CB','RB','LB','DF','GK'): def_loss += 0.5
+            factor = max(0.70, 1.0 - def_loss * 0.18)
+            return raw_def * factor
+        except Exception:
+            return raw_def
+
     # ── BIG ──
     if gap == 'big':
         hot_side = r.betfair_hot_side
@@ -1905,6 +1947,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
                     from v328_compat import count_attacking_threat as _count_attacking_threat
                     hfw2, hmf2, hthreat2, _, _ = _count_attacking_threat(_hot_t, 'big')
+                    hthreat2 = _inj_adj_atk(_hot_t, hthreat2)  # 🆕 V3.30: 伤病调整
                     is_hot_host2 = (r.betfair_hot_side == 'home' and home_host) or \
                                    (r.betfair_hot_side == 'away' and away_host)
                     if is_hot_host2 or hthreat2 >= 5.0:
@@ -1933,6 +1976,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     _hot_t = _parts[0].strip() if r.betfair_hot_side == 'home' else _parts[-1].strip()
                     from v328_compat import count_attacking_threat as _count_attacking_threat
                     hfw, hmf, hthreat, _, _ = _count_attacking_threat(_hot_t, 'big')
+                    hthreat = _inj_adj_atk(_hot_t, hthreat)  # 🆕 V3.30: 伤病调整
                     if hthreat <= 5.0:  # V3.29: V3.28 attack阈值·攻击不足·但热门精英攻击手豁免
                         # 检查热门自身是否有FW≥25M或MF≥40M(如哥伦比亚Diaz€70M)
                         _parts = r.match_name.split('VS')
@@ -2056,6 +2100,7 @@ def _apply_v26_rules(r: PreMatchReport):
                 _ht = _mp[0].strip() if hot_side == 'home' else _mp[-1].strip()
                 from v328_compat import count_attacking_threat as _count_attacking_threat
                 _hfw, _hmf, _hthr, _, _ = _count_attacking_threat(_ht, 'big')
+                _hthr = _inj_adj_atk(_ht, _hthr)  # 🆕 V3.30: 伤病调整
             except Exception:
                 _hthr = 0
             # 🆕 V3.2: 客队热+排名差距大→客队实力碾压
