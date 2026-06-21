@@ -129,13 +129,25 @@ def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
             adjustments.append('🎯 热门仍赢(不穿盘)→热方-8%对手+5%')
 
     elif '热门胜' in prediction_text or '实力碾压' in prediction_text:
+        # 🆕 V3.18: 实力优先检查 — 市场看衰但实力占优时需更强方向注入
+        is_strength_priority = '实力优先' in prediction_text
         new_hot = lam_hot * 1.10; new_opp = lam_opp * 0.90
         if new_opp > new_hot:
-            avg = (new_hot + new_opp) / 2
-            new_hot = avg * 1.08; new_opp = avg * 0.92
-            adjustments.append('🎯 热门胜(逆市场)→泊松对齐V2.6')
+            if is_strength_priority:
+                # 实力优先+泊松背离: 均值锚定但倾斜热方 (60%热方/40%对手)
+                avg = (new_hot + new_opp) / 2
+                new_hot = avg * 1.12  # 热方+12% (vs 原+8%)
+                new_opp = avg * 0.88  # 对手-12% (vs 原-8%)
+                adjustments.append('🎯 实力优先→均值锚定·热方60%权重·跳过回归均值')
+            else:
+                avg = (new_hot + new_opp) / 2
+                new_hot = avg * 1.08; new_opp = avg * 0.92
+                adjustments.append('🎯 热门胜(逆市场)→泊松对齐V2.6')
         else:
-            adjustments.append('🎯 热门胜/实力碾压→热方+10%对手-10%')
+            if is_strength_priority:
+                adjustments.append('🎯 实力优先→热方+10%对手-10%·方向一致')
+            else:
+                adjustments.append('🎯 热门胜/实力碾压→热方+10%对手-10%')
 
     elif '客胜倾向' in prediction_text or ('客胜' in prediction_text and '⚠️' not in prediction_text):
         new_hot = lam_hot * 1.08; new_opp = lam_opp * 0.92
@@ -565,6 +577,17 @@ def predict_score(match_name: str,
         lam_home = lam_away * 0.90
         adjustments.append(f'⚠️ 反直觉约束: 弱队xG({lam_home:.2f})→强队xG的90%({lam_home:.2f})')
 
+    # 🆕 V3.19: xG软约束 — >4.0时截断+平滑化防过拟合
+    xg_soft_capped = False
+    if lam_home > 4.0:
+        lam_home = 4.0 + (lam_home - 4.0) * 0.3  # 4.0以上只保留30%
+        xg_soft_capped = True
+    if lam_away > 4.0:
+        lam_away = 4.0 + (lam_away - 4.0) * 0.3
+        xg_soft_capped = True
+    if xg_soft_capped:
+        adjustments.append('⚠️ xG软约束: >4.0截断30%·防乘法链过拟合·比分仅供参考')
+
     sp.expected_goals_home = round(lam_home, 2)
     sp.expected_goals_away = round(lam_away, 2)
     sp.total_goals_expected = round(lam_home + lam_away, 2)
@@ -768,6 +791,10 @@ def predict_score_from_report(r) -> ScorePrediction:
     home_is_strong = True
     if r.betfair_hot_side == 'away' or r.xls_consensus_direction == 'bearish':
         home_is_strong = False
+    # 🆕 V3.18: 实力优先时以热方为准·覆盖共识方向
+    v26_pred = r.v26_prediction or ''
+    if '实力优先' in v26_pred:
+        home_is_strong = (r.betfair_hot_side == 'home')
 
     # FIFA排名
     home_rank = r.hot_team_fifa_rank if r.betfair_hot_side == 'home' else getattr(r, 'underdog_fifa_rank', 50)

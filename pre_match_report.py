@@ -535,11 +535,12 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
             if data.get('snapshots'):
                 snap = data['snapshots'][-1]
                 bf = snap['betfair']
-                r.betfair_cold = bf.get('home_heat', 0)
                 # 找出热方: 取最大值 (正=热, 负=冷)
                 colds = [bf.get('home_heat',0), bf.get('draw_heat',0), bf.get('away_heat',0)]
                 max_c = max(colds)  # 最正=最热
                 r.betfair_hot_side = ['home','draw','away'][colds.index(max_c)]
+                # 🆕 V3.17fix: 冷热值取热方的实际热度, 保留方向约定(正=主热·负=客热)
+                r.betfair_cold = max_c if r.betfair_hot_side == 'home' else -max_c
                 r.betfair_is_real_hot = (max_c >= 20 and
                     [bf.get('home_pnl',0), bf.get('draw_pnl',0), bf.get('away_pnl',0)][colds.index(max_c)] < 0)
                 # 共识污染
@@ -884,6 +885,10 @@ def _apply_v26_rules(r: PreMatchReport):
     gap = r.gap_level
     cold = r.betfair_cold
     is_real_hot = r.betfair_is_real_hot
+    # 🆕 V3.19: 冷热模糊带 — 18-22区间为临界值·降信10%
+    r._near_threshold = 18 <= abs(cold) < 22
+    if r._near_threshold:
+        r.v26_warnings.append(f'🔺 冷热临界({abs(cold):.0f}∈[18,22))·阈值敏感区间·不确定性+10%')
     # 🆕 V3.0 P0#1: CLOSE级别使用更高过热阈值 (25 vs 20)
     if gap == 'close' and not is_real_hot:
         close_threshold = get_overheat_threshold('close')
@@ -1514,6 +1519,9 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
+        if getattr(r, '_near_threshold', False):
+            r.v26_confidence = max(5, r.v26_confidence - 10)
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
@@ -1651,6 +1659,9 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
+        if getattr(r, '_near_threshold', False):
+            r.v26_confidence = max(5, r.v26_confidence - 10)
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
@@ -1849,8 +1860,24 @@ def _apply_v26_rules(r: PreMatchReport):
                     r.v26_prediction = '⚠️ 热门可能不胜 (XLS强力看衰)'
                     base_conf = 55
             else:
-                r.v26_prediction = '信号不足·偏向热门'
-                base_conf = 55
+                # 🆕 V3.19: 理性热度检查 — 市场极度看好+冷热正常→理性热度
+                _rational_heat = False
+                try:
+                    _bf_odds = r._bf_raw_odds if hasattr(r, '_bf_raw_odds') else {}
+                    _home_odds = _bf_odds.get('home', 0) or 0
+                    _away_odds = _bf_odds.get('away', 0) or 0
+                    _hot_odds = _home_odds if hot_side == 'home' else _away_odds
+                    if 1.0 < _hot_odds < 1.35 and abs(cold) < 20:
+                        _rational_heat = True
+                except Exception:
+                    pass
+                if _rational_heat:
+                    r.v26_prediction = '热门胜 (理性热度·市场定价合理)'
+                    base_conf = 62
+                    r.v26_warnings.append(f'💡 理性热度: 赔率{_hot_odds:.2f}(隐含>85%)+冷热{abs(cold):.0f}<20→市场理性定价·无过热陷阱')
+                else:
+                    r.v26_prediction = '信号不足·偏向热门'
+                    base_conf = 55
         # V2.8: 东道主因子调整置信度 (BIG级别)
         if is_host_match and host_side == 'home' and host_faded:
             host_mult = host_discount.get('consensus_mult', 1.0)
@@ -1878,6 +1905,9 @@ def _apply_v26_rules(r: PreMatchReport):
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
             r.v26_confidence = 75
             r.v26_warnings.append('🔺 金三角约束: 缺全票通过/低冷热/高穿盘→置信度上限75%')
+        # 🆕 V3.19: 冷热模糊带惩罚 — 临界值(18-22)降信10%
+        if getattr(r, '_near_threshold', False):
+            r.v26_confidence = max(5, r.v26_confidence - 10)
         # 🆕 V3.3 P0-2: 无必发数据置信度限制
         if betfair_weak and r.v26_confidence > CONF.no_betfair_confidence_cap:
             r.v26_confidence = int(CONF.no_betfair_confidence_cap)
