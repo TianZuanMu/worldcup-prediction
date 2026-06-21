@@ -1899,7 +1899,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     _home_odds = _bf_odds.get('home', 0) or 0
                     _away_odds = _bf_odds.get('away', 0) or 0
                     _hot_odds = _home_odds if hot_side == 'home' else _away_odds
-                    if 1.0 < _hot_odds < 1.35 and abs(cold) < 20:
+                    if 1.0 < _hot_odds < 1.35 and abs(cold) < 18:
                         _rational_heat = True
                 except Exception:
                     pass
