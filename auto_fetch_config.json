@@ -180,7 +180,7 @@
       "match_id": "1359207",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 16:49"
+      "last_fetch": "2026-06-21 19:08"
     },
     "新西兰VS埃及": {
       "match_id": "1359243",
@@ -192,13 +192,13 @@
       "match_id": "1359246",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 16:49"
+      "last_fetch": "2026-06-21 19:09"
     },
     "西班牙VS沙特": {
       "match_id": "1359210",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 16:49"
+      "last_fetch": "2026-06-21 19:07"
     },
     "法国VS伊拉克": {
       "match_id": "1359213",
@@ -253,6 +253,6 @@
   "download_delay": 2.0,
   "timeout": 30,
   "max_retries": 3,
-  "last_discovery": "2026-06-20 19:37:02",
+  "last_discovery": "2026-06-21 18:37:02",
   "preferred_source": "500com"
 }
