@@ -153,6 +153,29 @@ class Config:
     knockout_score_dampen: float = 0.85       # 淘汰赛总进球衰减15%
 
     # ══════════════════════════════════════════════════════════
+    # 🆕 V3.20 深度审计修复 (海地VS苏格兰审计·5项结构性风险)
+    # ══════════════════════════════════════════════════════════
+    # 风险1: 赔率变动与XLS共识方向矛盾 → 强制扣减
+    odds_consensus_contradiction_penalty: int = 12  # 赔率反向变动+XLS背离同时存在时扣减
+    odds_contradiction_threshold: float = 5.0       # 赔率变动>5%触发方向矛盾检测
+    # 风险2: 平赔暴跌+热门仍赢 → 平局信号不应被完全压制
+    draw_collapse_hotwin_cap: int = 8               # 热门仍赢时平赔暴跌置信度加成上限(原12-20)
+    # 风险3: 三条件近阈值检测 (球员差<20%过线)
+    three_conditions_near_threshold_ratio: float = 0.20  # 差<20%视为近阈值
+    three_conditions_near_threshold_penalty: int = 5     # 近阈值扣减
+    # 风险4: 关键维度数据缺失不确定性惩罚
+    data_missing_uncertainty_factor: float = 0.97   # 每缺失一个关键维度×0.97
+    # 风险5: 低穿盘率+高置信度悖论天花板
+    low_cover_high_conf_ceiling: int = 65           # 穿盘率<50%时置信度上限
+    low_cover_threshold: float = 50.0               # 低穿盘率阈值
+    # 🆕 V3.22: 市场熔断封顶 — 惩罚链激活时回拨上限(防止熔断覆盖风险定价)
+    meltdown_cap_with_penalties: int = 50           # V3.20惩罚激活时·均值回拨上限50%
+    # 🆕 V3.25: 模型-泊松背离熔断 — 决策树与泊松对立时强制定墙
+    poisson_model_divergence_threshold: int = 30    # 模型信度-泊松胜率>30点触发
+    poisson_model_cap: int = 55                     # 背离触发时置信度上限
+    poisson_hotwin_min_threshold: float = 38.0      # 泊松热方胜率<38%视为严重看衰
+
+    # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════
     backtest_dir: str = r"C:\Users\A\PyCharmMiscProject\backtest"

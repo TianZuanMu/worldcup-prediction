@@ -728,6 +728,82 @@ def predict_score(match_name: str,
                 adjustments.append(
                     f'🔗 穿盘率一致性: 比分穿盘概率{cover_score_sum:.0%}↔穿盘率{cover_rate:.0f}%偏离{divergence:.0%}>15%→{blend_factor:.0%}向穿盘率靠拢')
 
+    # 🆕 V3.21 P0: 比分分布平滑 — BIG差距+低穿盘场景净胜1球独立估计
+    # 问题: 海地VS苏格兰·穿盘45%→净胜1球仅15.1%·远低于BIG差距历史基线(~28%)
+    # 修复: 当分布形态极端时·泊松+经验基线混合平滑
+    _v321_smoothed = False
+    if gap_level == 'big' and 30 <= cover_rate < 55 and len(scores) >= 5:
+        # 计算当前净胜1球概率 (仅计入≥0.5%的有意义概率·排除泊松尾部分布噪声)
+        _win_by_1 = 0.0
+        _win_by_2plus = 0.0
+        _prob_threshold = 0.005  # 0.5%以下忽略(尾部分布会系统性地放大净胜2+)
+        for s, p in scores:
+            if p < _prob_threshold:
+                continue
+            parts = s.split('-')
+            try:
+                hg, ag = int(parts[0]), int(parts[1])
+            except (ValueError, IndexError):
+                continue
+            diff = hg - ag
+            if home_is_strong:
+                if diff == 1: _win_by_1 += p
+                elif diff >= 2: _win_by_2plus += p
+            else:
+                if diff == -1: _win_by_1 += p
+                elif diff <= -2: _win_by_2plus += p
+        _total_win_visible = _win_by_1 + _win_by_2plus
+        # 使用可见概率(排除尾部)判断分布是否极端
+        if _total_win_visible > 0.25 and _win_by_1 / max(_total_win_visible, 0.01) < 0.35:
+            # 净胜1球占比<30%→分布过于极端·平滑纠正
+            # 经验基线: BIG差距净胜1球约占胜场的28-35%
+            _baseline_by1_ratio = 0.30  # 目标: 净胜1球≥30%胜场(可见概率)
+            _target_by1 = _total_win_visible * _baseline_by1_ratio
+            _deficit = _target_by1 - _win_by_1
+            if _deficit > 0.015:
+                # 从穿盘比分(净胜2+)转移概率到净胜1球比分
+                _transfer_ratio = min(0.35, _deficit / max(_win_by_2plus, 0.01))
+                _redistributed = []
+                for s, p in scores:
+                    parts = s.split('-')
+                    try:
+                        hg, ag = int(parts[0]), int(parts[1])
+                    except (ValueError, IndexError):
+                        _redistributed.append((s, p)); continue
+                    diff = hg - ag
+                    if home_is_strong:
+                        _is_by1 = (diff == 1)
+                        _is_by2plus = (diff >= 2)
+                    else:
+                        _is_by1 = (diff == -1)
+                        _is_by2plus = (diff <= -2)
+                    if _is_by2plus:
+                        _redistributed.append((s, p * (1 - _transfer_ratio)))
+                    elif _is_by1 and _win_by_1 > 0.001:
+                        # 按净胜1球各比分当前比例分配转移量
+                        _boost = _win_by_2plus * _transfer_ratio * (p / _win_by_1)
+                        _redistributed.append((s, p + _boost))
+                    else:
+                        _redistributed.append((s, p))
+                # 归一化
+                _total_rp = sum(p for _, p in _redistributed)
+                if _total_rp > 0:
+                    scores = [(s, p / _total_rp) for s, p in _redistributed]
+                    scores.sort(key=lambda x: x[1], reverse=True)
+                    # 重算summary
+                    _hw = _dr = _aw = 0.0
+                    for s, p in scores:
+                        h, a = s.split('-')
+                        if int(h) > int(a): _hw += p
+                        elif int(h) == int(a): _dr += p
+                        else: _aw += p
+                    summary = {'home_win': _hw, 'draw': _dr, 'away_win': _aw}
+                    _v321_smoothed = True
+                    adjustments.append(
+                        f'🔗 V3.21 分布平滑: 可见净胜1球{_win_by_1:.0%}→{_win_by_1+_deficit:.0%}'
+                        f'(BIG基线30%·转移{_transfer_ratio:.0%}穿盘→净胜1球)'
+                    )
+
     sp.top_scores = scores[:8]
     sp.home_win_prob = round(summary['home_win'] * 100, 1)
     sp.draw_prob = round(summary['draw'] * 100, 1)
