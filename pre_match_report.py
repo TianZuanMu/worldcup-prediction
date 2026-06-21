@@ -1951,6 +1951,7 @@ def _apply_v26_rules(r: PreMatchReport):
                         r.v26_warnings.append('三条件全满足: 唯一例外')
             else:
                 # 🆕 V3.7: 实力阈值豁免 — 中场+防线双碾压时市场热度可能是理性的
+                # 🆕 V3.29: 对手有精英攻击手时·豁免不生效(比利时VS埃及教训)
                 strength_override = False
                 try:
                     from midfield_quality import MIDFIELD_RATING as _MR
@@ -1969,11 +1970,18 @@ def _apply_v26_rules(r: PreMatchReport):
                     _, _, atk_thr_opp, _, _ = _odb._count_attacking_threat(opp_t3, 'big')
                     atk_gap2 = atk_thr_hot - atk_thr_opp
                     if (mf_gap > 3.0 and def_gap > 4.0) or (atk_gap2 > 4.0 and def_gap >= 3.0):
-                        strength_override = True
-                        r.v26_rule = 'BIG + 真过热 + 实力阈值豁免 → 热门仍赢'
-                        r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
-                        base_conf = 65
-                        r.v26_warnings.append(f'🏆 实力豁免: 中场{mf_gap:.1f}/攻击{atk_gap2:.1f}/防线{def_gap:.1f}→推翻默认热门不胜')
+                        # 🆕 V3.29: 对手有精英攻击手时·实力豁免不可靠 (比利时VS埃及教训)
+                        if has_elite_attacker:
+                            r.v26_warnings.append(
+                                f'🛡️ V3.29精英拦截: 对手有精英攻击手·实力豁免不生效'
+                                f'(中场{mf_gap:.1f}/攻击{atk_gap2:.1f}/防线{def_gap:.1f})→回退默认热门不胜'
+                            )
+                        else:
+                            strength_override = True
+                            r.v26_rule = 'BIG + 真过热 + 实力阈值豁免 → 热门仍赢'
+                            r.v26_prediction = '热门胜 (实力碾压·过热为理性热度)'
+                            base_conf = 65
+                            r.v26_warnings.append(f'🏆 实力豁免: 中场{mf_gap:.1f}/攻击{atk_gap2:.1f}/防线{def_gap:.1f}→推翻默认热门不胜')
                 except Exception as e2:
                     r.v26_warnings.append(f'[V3.7豁免异常: {e2}]')
                 if not strength_override:
