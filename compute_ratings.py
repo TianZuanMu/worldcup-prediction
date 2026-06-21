@@ -106,15 +106,13 @@ def compute_all_ratings():
                 elif gc >= 10:
                     atk_weighted += gc*combined_mult*0.5
             elif pos in ('CB','RB','LB','DF'):
-                # P1: 顶级边卫攻防双贡献 — FB身价≥20M+精英俱乐部→轻量加成
-                fb_bonus = 1.10 if (pos in ('RB','LB') and val >= 20 and league_mult >= 0.85) else 1.0
                 # P2: 国家队出场经验加权 (caps>=80→+12%, caps>=50→+8%)
                 caps_bonus = 1.12 if caps >= 80 else (1.08 if caps >= 50 else 1.0)
-                # 身价分层
+                # 身价分层 (所有后卫统一·不再区分CB/FB)
                 if val >= 30: tier = 1.3
                 elif val >= 15: tier = 1.0
                 else: tier = 0.7
-                weighted = val * combined_mult * tier * fb_bonus * caps_bonus
+                weighted = val * combined_mult * tier * caps_bonus
                 def_weighted += weighted
                 if val >= 30: def_elite += 1
             elif pos == 'GK':
