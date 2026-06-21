@@ -84,23 +84,49 @@ def _implied_goals_from_odds(home_odds: float, draw_odds: float, away_odds: floa
 def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
                                       prediction_text: str, gap_level: str,
                                       hot_side: str,
-                                      adjustments: List[str]) -> Tuple[float, float]:
+                                      home_odds: float = 0, away_odds: float = 0,  # 🆕 V3.33
+                                      weak_team_threat: float = 1.0,  # 🆕 V3.33
+                                      adjustments: List[str] = None) -> Tuple[float, float]:
+    if adjustments is None:
+        adjustments = []
     """
     🆕 V3.4: 根据V2.6规则预测方向调整λ
 
-    核心: 使用hot_side确定哪个队是V2.6的热门, 而非市场赔率的"强方".
-    当V2.6预测"热门胜"时, 调整热方的λ增加, 对手减少.
+    核心: V3.33修正 — 当hot_side≠favorite时, "热门胜"应提升favorite的λ而非hot_side.
+    西班牙VS沙特: hot_side=沙特(客), 预测=热门胜, 但favorite=西班牙(主)
+    → 应提升西班牙λ, 而非旧逻辑提升沙特λ.
     """
     pred = prediction_text.lower() if prediction_text else ''
 
-    # 确定热方/对手的λ (以V2.6热方为准, 非市场赔率"强方")
-    if hot_side == 'home':
-        lam_hot, lam_opp = lam_home, lam_away
-    else:
-        lam_hot, lam_opp = lam_away, lam_home
+    # 🆕 V3.33: 确定预测赢家(赔率判定), 而非热方
+    fav_is_home = (home_odds > 0 and away_odds > 0 and home_odds < away_odds)
+    predicted_winner = 'home' if fav_is_home else ('away' if away_odds > 0 and home_odds > away_odds else hot_side)
 
-    # 🆕 V3.4: 所有调整基于V2.6热方 (lam_hot=热门)
-    if '⚠️ 热门不胜' in prediction_text or '热门不胜' in prediction_text:
+    # 🆕 V3.33: 确定调整目标 — "热门胜"应提升预测赢家(favorite)的λ
+    # 而非旧逻辑提升hot_side(可能是弱队, 如沙特)
+    is_hot_win = '热门胜' in prediction_text or '实力碾压' in prediction_text
+    is_hot_lose = '热门不胜' in prediction_text and '⚠️' not in prediction_text
+    is_hot_still_win = '热门仍赢' in prediction_text
+
+    if is_hot_win:
+        # 热门胜: 提升预测赢家的λ
+        if predicted_winner == 'home':
+            lam_winner, lam_loser = lam_home, lam_away
+            winner_side = 'home'
+        else:
+            lam_winner, lam_loser = lam_away, lam_home
+            winner_side = 'away'
+    else:
+        # 热门不胜/热门仍赢: 仍使用hot_side作为调整目标
+        if hot_side == 'home':
+            lam_hot, lam_opp = lam_home, lam_away
+        else:
+            lam_hot, lam_opp = lam_away, lam_home
+
+    # 🆕 V3.4: 所有调整基于调整目标方
+    if '⚠️ 热门不胜' in prediction_text or ('热门不胜' in prediction_text and not is_hot_lose):
+        pass  # handled below
+    if '热门不胜' in prediction_text:
         # 热门不胜 → 热方进球减少, 对手进球增加
         if gap_level == 'close':
             f_hot, f_opp = 0.80, 1.15; note = '热门不胜(CLOSE)→热方-20%对手+15%'
@@ -118,8 +144,13 @@ def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
             adjustments.append(f'🎯 {note}+逆市场修正·泊松对齐V2.6')
         else:
             adjustments.append(f'🎯 {note}')
+        if hot_side == 'home':
+            new_home, new_away = new_hot, new_opp
+        else:
+            new_home, new_away = new_opp, new_hot
+        return new_home, new_away
 
-    elif '热门仍赢' in prediction_text:
+    elif is_hot_still_win:
         new_hot = lam_hot * 0.92; new_opp = lam_opp * 1.05
         if new_opp > new_hot:
             avg = (new_hot + new_opp) / 2
@@ -127,45 +158,67 @@ def _adjust_for_prediction_direction(lam_home: float, lam_away: float,
             adjustments.append('🎯 热门仍赢(逆市场)→泊松对齐V2.6')
         else:
             adjustments.append('🎯 热门仍赢(不穿盘)→热方-8%对手+5%')
-
-    elif '热门胜' in prediction_text or '实力碾压' in prediction_text:
-        # 🆕 V3.18: 实力优先检查 — 市场看衰但实力占优时需更强方向注入
-        is_strength_priority = '实力优先' in prediction_text
-        new_hot = lam_hot * 1.10; new_opp = lam_opp * 0.90
-        if new_opp > new_hot:
-            if is_strength_priority:
-                # 实力优先+泊松背离: 均值锚定但倾斜热方 (60%热方/40%对手)
-                avg = (new_hot + new_opp) / 2
-                new_hot = avg * 1.12  # 热方+12% (vs 原+8%)
-                new_opp = avg * 0.88  # 对手-12% (vs 原-8%)
-                adjustments.append('🎯 实力优先→均值锚定·热方60%权重·跳过回归均值')
-            else:
-                avg = (new_hot + new_opp) / 2
-                new_hot = avg * 1.08; new_opp = avg * 0.92
-                adjustments.append('🎯 热门胜(逆市场)→泊松对齐V2.6')
+        if hot_side == 'home':
+            new_home, new_away = new_hot, new_opp
         else:
+            new_home, new_away = new_opp, new_hot
+        return new_home, new_away
+
+    elif is_hot_win:
+        # 🆕 V3.33: 热门胜 → 提升预测赢家(favorite)的λ
+        is_strength_priority = '实力优先' in prediction_text
+        # 🆕 V3.33: BIG差距+弱方攻击枯竭 → 增强强方加成
+        if gap_level == 'big' and weak_team_threat < 1.0:
+            factor_up = 1.25; factor_down = 0.75
+            boost_note = 'BIG攻击枯竭→'
+        elif gap_level == 'big':
+            factor_up = 1.15; factor_down = 0.85
+            boost_note = 'BIG→'
+        else:
+            factor_up = 1.10; factor_down = 0.90
+            boost_note = ''
+        new_winner = lam_winner * factor_up; new_loser = lam_loser * factor_down
+        if new_loser > new_winner:
+            # 泊松与方向背离 → 均值锚定
             if is_strength_priority:
-                adjustments.append('🎯 实力优先→热方+10%对手-10%·方向一致')
+                avg = (new_winner + new_loser) / 2
+                new_winner = avg * 1.12; new_loser = avg * 0.88
+                adjustments.append(f'🎯 {boost_note}实力优先→均值锚定·预测赢家60%权重')
             else:
-                adjustments.append('🎯 热门胜/实力碾压→热方+10%对手-10%')
+                avg = (new_winner + new_loser) / 2
+                new_winner = avg * 1.08; new_loser = avg * 0.92
+                adjustments.append(f'🎯 {boost_note}热门胜(逆市场·预测赢家={predicted_winner})→泊松对齐V3.33')
+        else:
+            pct_up = int((factor_up - 1) * 100); pct_down = int((1 - factor_down) * 100)
+            if is_strength_priority:
+                adjustments.append(f'🎯 {boost_note}实力优先→预测赢家+{pct_up}%对手-{pct_down}%·方向一致')
+            else:
+                adjustments.append(f'🎯 {boost_note}热门胜→预测赢家({predicted_winner})+{pct_up}%对手-{pct_down}%')
+        # 还原为主/客视角
+        if predicted_winner == 'home':
+            return new_winner, new_loser
+        else:
+            return new_loser, new_winner
 
     elif '客胜倾向' in prediction_text or ('客胜' in prediction_text and '⚠️' not in prediction_text):
         new_hot = lam_hot * 1.08; new_opp = lam_opp * 0.92
         adjustments.append('🎯 客胜倾向→客队(热方)+8%')
+        if hot_side == 'home':
+            return new_hot, new_opp
+        else:
+            return new_opp, new_hot
 
     elif '平局' in prediction_text or 'draw' in pred:
         avg = (lam_hot + lam_opp) / 2.0
         new_hot = avg * 1.05; new_opp = avg * 0.95
         adjustments.append('🎯 平局倾向→两队λ拉近')
+        if hot_side == 'home':
+            return new_hot, new_opp
+        else:
+            return new_opp, new_hot
 
     else:
-        new_hot, new_opp = lam_hot, lam_opp
-
-    # 还原为主/客视角
-    if hot_side == 'home':
-        return new_hot, new_opp
-    else:
-        return new_opp, new_hot
+        return lam_home, lam_away
 
 
 def _adjust_for_opponent_quality(lam_strong: float, lam_weak: float,
@@ -463,7 +516,9 @@ def predict_score(match_name: str,
     # 3. 🆕 预测方向接入 (最重要·V3.4: 基于V2.6热方而非市场强方)
     lam_home, lam_away = _adjust_for_prediction_direction(
         lam_home, lam_away, prediction_direction, gap_level,
-        hot_side, adjustments
+        hot_side, home_odds, away_odds,  # 🆕 V3.33
+        weak_team_threat,  # 🆕 V3.33
+        adjustments
     )
     # 更新强/弱方映射 (调整后可能反转)
     if home_is_strong:
@@ -863,18 +918,20 @@ def predict_score_from_report(r) -> ScorePrediction:
     totals_line = float(getattr(r, '_totals_line', 2.5) or 2.5)
     gap_level = r.gap_level or 'moderate'
 
-    # 判断主队是否为强方
-    home_is_strong = True
-    if r.betfair_hot_side == 'away' or r.xls_consensus_direction == 'bearish':
-        home_is_strong = False
-    # 🆕 V3.18: 实力优先时以热方为准·覆盖共识方向
+    # 🆕 V3.33: 按赔率判定强方 (热方≠强方, 如西班牙VS沙特热方=沙特但强方=西班牙)
+    home_odds_val = float(getattr(r, '_home_odds', 2.0) or 2.0)
+    away_odds_val = float(getattr(r, '_away_odds', 2.0) or 2.0)
+    home_is_strong = (home_odds_val < away_odds_val) if (home_odds_val > 0 and away_odds_val > 0) else True
+    # 🆕 V3.18: 实力优先时维持赔率判定
     v26_pred = r.v26_prediction or ''
-    if '实力优先' in v26_pred:
-        home_is_strong = (r.betfair_hot_side == 'home')
 
-    # FIFA排名
-    home_rank = r.hot_team_fifa_rank if r.betfair_hot_side == 'home' else getattr(r, 'underdog_fifa_rank', 50)
-    away_rank = getattr(r, 'underdog_fifa_rank', 50) if r.betfair_hot_side == 'home' else r.hot_team_fifa_rank
+    # FIFA排名 (🆕 V3.33: 按赔率强方分配, 非热方)
+    if home_is_strong:
+        home_rank = r.hot_team_fifa_rank if r.betfair_hot_side == 'home' else getattr(r, 'underdog_fifa_rank', 50)
+        away_rank = getattr(r, 'underdog_fifa_rank', 50) if r.betfair_hot_side == 'home' else r.hot_team_fifa_rank
+    else:
+        home_rank = getattr(r, 'underdog_fifa_rank', 50) if r.betfair_hot_side == 'home' else r.hot_team_fifa_rank
+        away_rank = r.hot_team_fifa_rank if r.betfair_hot_side == 'home' else getattr(r, 'underdog_fifa_rank', 50)
     home_rank = home_rank or 50
     away_rank = away_rank or 50
     hot_rank = r.hot_team_fifa_rank or 50

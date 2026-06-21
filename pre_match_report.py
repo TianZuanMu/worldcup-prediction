@@ -351,6 +351,13 @@ def generate_report(match_name: str,
         r.home_recent_form = analyze_recent_form(home_cn).__dict__ if analyze_recent_form(home_cn) else None
         r.away_recent_form = analyze_recent_form(away_cn).__dict__ if analyze_recent_form(away_cn) else None
         r.form_diff = get_form_diff(home_cn, away_cn)
+        # 🆕 V3.32: 样本不足告警 — 提示人工补充数据
+        for side, rf in [('主', r.home_recent_form), ('客', r.away_recent_form)]:
+            if rf and len(rf.get('matches', [])) < 3:
+                team_name = rf.get('team', side)
+                r.v26_warnings.append(
+                    f'📋 状态数据不足: {team_name}仅{len(rf["matches"])}场近期数据·'
+                    f'状态分{rf.get("form_score",5):.1f}不可靠·建议手动补充{team_name}赛前友谊赛/预选赛')
     except Exception:
         pass
 
@@ -973,27 +980,84 @@ def _apply_v26_rules(r: PreMatchReport):
                 'draw_signal': bs.draw_signal,
                 'summary': bs.summary,
             }
-            # 交叉验证: 若dimension12与内置判定不一致, 追加警告
+            # 交叉验证: 若dimension12与内置判定不一致
             if bs.is_real_hot != is_real_hot and gap != 'extreme':
-                r.v26_warnings.append(
-                    f'📚 庄家结构交叉验证: dimension12判定{"真过热" if bs.is_real_hot else "假过热"}'
-                    f' vs 内置判定{"真过热" if is_real_hot else "假过热"}'
-                    f' → {bs.summary[:80]}'
-                )
+                # V3.32fix: BIG差距时dimension12覆盖内置过热判定
+                # V3.33 P0: 区分真过热(高PnL损失)vs假过热(虚高冷热值)
+                # 西班牙冷热-112·d12 hot=4.4 → 假过热·完全覆盖
+                # 乌拉圭冷热+38·d12 hot=23·PnL=-1.86M → 真过热·保留惩罚
+                if gap == 'big' and not bs.is_real_hot:
+                    is_real_hot = False
+                    # 检测是否是真过热(即使d12说不热, betfair PnL损失仍显著)
+                    bf_pnl_loss = abs(min(r._bf_raw_pnls.get('home',0), r._bf_raw_pnls.get('away',0)))
+                    d12_hot = abs(bs.hot_index)
+                    if abs(cold) >= 30 and bf_pnl_loss > 1000000 and d12_hot >= 15:
+                        # 真过热: betfair+d12都确认过热信号 (乌拉圭type)
+                        r._big_real_hot_warning = True
+                        hot_reason = f'真过热(冷热{cold:+.0f}·d12 hot={d12_hot:.0f}·PnL=-{bf_pnl_loss/1e6:.1f}M)'
+                        r.v26_warnings.append(
+                            f'📚 BIG真过热·实力碾压: {hot_reason}→热门仍赢但置信度降级')
+                    else:
+                        # 假过热: betfair虚高,d12确认无热 (西班牙type)
+                        hot_reason = '假过热' if bs.is_false_hot else f'无过热(hot={bs.hot_index:.0f}<{CONF.overheat_threshold:.0f})'
+                        r.v26_warnings.append(
+                            f'📚 dimension12覆盖: BIG差距庄家判{hot_reason}→热门仍赢 '
+                            f'(betfair冷热被降级·{bs.summary[:50]})')
+                else:
+                    r.v26_warnings.append(
+                        f'📚 庄家结构交叉验证: dimension12判定{"真过热" if bs.is_real_hot else "假过热"}'
+                        f' vs 内置判定{"真过热" if is_real_hot else "假过热"}'
+                        f' → {bs.summary[:80]}'
+                    )
             # 平局信号检测
             if bs.draw_signal:
                 r.v26_warnings.append(f'📚 庄家盈亏平局信号: 平局PNL突出→平局概率上升')
+
         except Exception:
             pass
 
-    # 对手质量检查 (检查热门的对手=弱势方, 而非固定检查客队)
+    # 🆕 V3.33: 场外因素 — 伊朗受政治限制·美国境内比赛需当日往返
+    # 影响: 无赛前适应+舟车劳顿→体能劣势·对手优势提升
+    IRAN_TRAVEL_DISADVANTAGE = True  # 全局开关
+    if IRAN_TRAVEL_DISADVANTAGE:
+        iran_team = None
+        opponent_team = None
+        _parts = r.match_name.replace('vs', 'VS').replace('Vs', 'VS').split('VS')
+        _hc = _parts[0].strip() if len(_parts) == 2 else ''
+        _ac = _parts[-1].strip() if len(_parts) == 2 else ''
+        if _hc and '伊朗' in _hc:
+            iran_team = _hc; opponent_team = _ac
+        elif _ac and '伊朗' in _ac:
+            iran_team = _ac; opponent_team = _hc
+        if iran_team:
+            r.v26_warnings.append(
+                f'✈️ 伊朗场外劣势: 美国境内比赛需当日往返·无赛前适应·舟车劳顿→'
+                f'{opponent_team}优势+8%')
+            # 对手置信度加成 (伊朗体能劣势→对手更易取胜)
+            r._iran_travel_boost = True
+
+    # 对手质量检查: 按实际实力判定弱势方(赔率优先), 而非热方对面
+    # V3.32fix: 热方≠强方 (弱队被热捧时"热方对面=强队"导致三条件检查错对象)
     # (away_team/home_team 已在交叉验证之前提取)
-    # 确定弱势方: 热方对面的队伍
-    underdog_team = away_team  # 默认
-    if r.betfair_hot_side == 'away' and home_team:
-        underdog_team = home_team  # 热方=客, 弱势方=主
-    elif r.betfair_hot_side == 'home' and away_team:
-        underdog_team = away_team  # 热方=主, 弱势方=客
+    home_odds_val = float(getattr(r, '_home_odds', 2.0) or 2.0)
+    away_odds_val = float(getattr(r, '_away_odds', 2.0) or 2.0)
+    if home_odds_val > 0 and away_odds_val > 0:
+        # 赔率低=强队, 赔率高=弱队 → 三条件检查弱队
+        if home_odds_val < away_odds_val:
+            underdog_team = away_team  # 主队强 → 客队弱
+        else:
+            underdog_team = home_team  # 客队强 → 主队弱
+    else:
+        # 回退: 用FIFA排名 (排名大=弱队)
+        try:
+            from fifa_rank_db import get_team_info
+            h_info = get_team_info(home_team) if home_team else {}
+            a_info = get_team_info(away_team) if away_team else {}
+            h_rank = h_info.get('rank', 50) if h_info else 50
+            a_rank = a_info.get('rank', 50) if a_info else 50
+            underdog_team = home_team if h_rank > a_rank else away_team
+        except Exception:
+            underdog_team = away_team  # 最终回退
     if underdog_team:
         r.three_conditions = check_three_conditions(underdog_team, gap)
         r.moderate_threat = check_moderate_opponent(underdog_team, gap, getattr(r, 'hot_team_fifa_rank', 99))
@@ -1530,6 +1594,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5  # half the discount as boost
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
+        if getattr(r, '_iran_travel_boost', False):
+            base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1670,6 +1737,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
+        if getattr(r, '_iran_travel_boost', False):
+            base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1701,7 +1771,17 @@ def _apply_v26_rules(r: PreMatchReport):
         hot_side = r.betfair_hot_side
         rank_gap = r.fifa_rank_gap
 
-        if is_real_hot:
+        # 🆕 V3.32fix: BIG差距dimension12否定betfair过热 → 实力碾压
+        # dimension12用实际成交量vs概率计算热度, 可能与betfair cold严重背离
+        # 当dimension12不确认真过热时, betfair热度虚高→降级处理
+        dim12_no_real_hot = (r.books_structure and
+                             not r.books_structure.get('is_real_hot', False))
+        if dim12_no_real_hot and not is_real_hot:
+            r.v26_rule = 'BIG + 庄家结构无过热 → 热度虚高·实力优先'
+            r.v26_prediction = '热门胜'
+            base_conf = 60
+            r.v26_warnings.append('📚 庄家结构: betfair热度虚高·dimension12否定→热门胜')
+        elif is_real_hot:
             # 🆕 V3.2: 顶级强队 + 温和过热 → 实力碾压 (市场理性定价)
             # V3.5: BIG级别额外检查对手是否有精英攻击手 (防止巴西/比利时过度触发)
             big_elite_ok = True
@@ -1922,6 +2002,14 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.6
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号(BIG): 严重看衰·东道主溢价+{int((boost-1)*100)}%')
+        # 🆕 V3.33 P0: BIG真过热降信 (乌拉圭type: betfair PnL真实亏损+dim12确认)
+        # 区别于西班牙type假过热(虚高冷热值,d12 hot<15)
+        if getattr(r, '_big_real_hot_warning', False):
+            base_conf = max(30, int(base_conf * 0.85))
+            r.v26_warnings.append('🔺 BIG真过热·实力碾压: 置信度-15% (市场实际过热但实力占优)')
+        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
+        if getattr(r, '_iran_travel_boost', False):
+            base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -2215,15 +2303,36 @@ def _cross_validate_cover_rate(r: PreMatchReport):
         # 🆕 V3.15: 方向-穿盘率一致性校验
         # 热门不胜 + 穿盘率>40% → 数学矛盾 (P(穿盘) = P(净胜≥2|赢) × P(赢))
         if cr > 40:
-            original_cr = cr
-            cr = cr * 0.70  # 强制下调
-            r.xls_cover_rate = cr
-            r.v26_warnings.append(
-                f'🔗 方向-穿盘冲突: 热门不胜+穿盘率{original_cr:.0f}%>40%→数学矛盾·强制下调至{cr:.0f}%')
+            # V3.32fix: 仅高置信度(≥65%)时下调穿盘率, 低置信度保留独立信号
+            # 避免预测方向错误时循环污染穿盘率 (西班牙VS沙特: 33%→49%→实际穿盘)
+            if r.v26_confidence >= 65:
+                original_cr = cr
+                cr = cr * 0.70  # 强制下调
+                r.xls_cover_rate = cr
+                r.v26_warnings.append(
+                    f'🔗 方向-穿盘冲突: 热门不胜(信{r.v26_confidence:.0f}%≥65%)+穿盘率{original_cr:.0f}%>40%→强制下调至{cr:.0f}%')
+            else:
+                r.v26_warnings.append(
+                    f'🔗 方向-穿盘存疑: 热门不胜(信仅{r.v26_confidence:.0f}%)+穿盘率{cr:.0f}%>40%→低信不调·保留穿盘信号')
         # V3.7: 双轨输出 — 欧指和亚指是不同维度，不强制对立
         if cr >= 60:
             r.v26_warnings.append(
                 f'🔗 双轨: 欧指→热门不胜 | 亚指→穿盘率{cr:.0f}%高→可能赢球输盘 (如1-0小胜既正路又输盘)')
+
+    # 🆕 V3.33 P1: 穿盘率-泊松矛盾检测
+    # 预测热门胜+穿盘率<40%+泊松xG>3.0 → 逻辑矛盾 (比利时VS伊朗type)
+    if hot_wins and cr < 40:
+        try:
+            sp = r.score_prediction
+            strong_xg = max(getattr(sp, 'expected_goals_home', 0) or 0,
+                           getattr(sp, 'expected_goals_away', 0) or 0)
+            if strong_xg > 3.0:
+                r.v26_warnings.append(
+                    f'🔗 穿盘-泊松矛盾: 穿盘率仅{cr:.0f}%<40%但泊松xG={strong_xg:.1f}>3.0→'
+                    f'预测大胜与低穿盘矛盾·置信度-5')
+                r.v26_confidence = max(30, r.v26_confidence - 5)
+        except Exception:
+            pass
 
 
 def _build_structured(r: PreMatchReport):
@@ -2235,29 +2344,37 @@ def _build_structured(r: PreMatchReport):
     # 🆕 V3.7: 三行置信度输出 (模型信号·泊松胜率·市场隐含)
     try:
         poisson_win = 0
+        home_wp = 0; away_wp = 0
         if r.score_prediction:
-            hot_side = r.betfair_hot_side if r.betfair_hot_side else 'home'
-            if hot_side == 'home':
-                poisson_win = getattr(r.score_prediction, 'home_win_prob', 0) or 0
-            else:
-                poisson_win = getattr(r.score_prediction, 'away_win_prob', 0) or 0
+            home_wp = getattr(r.score_prediction, 'home_win_prob', 0) or 0
+            away_wp = getattr(r.score_prediction, 'away_win_prob', 0) or 0
         bf = r._bf_raw_odds if hasattr(r, '_bf_raw_odds') else {}
         bf_home = bf.get('home', 0) or 0; bf_away = bf.get('away', 0) or 0
         bf_draw = bf.get('draw', 0) or 0
+
+        # V3.32fix: 确定预测赢家(按预测方向+赔率), 而非热方
+        # 热方≠预测赢家 (西班牙VS沙特: 热方=沙特, 预测=热门胜=西班牙)
+        pred = r.v26_prediction or ''
+        hot_wins = any(w in pred for w in ['热门胜', '热门仍赢', '实力碾压'])
+        hot_loses = any(w in pred for w in ['热门不胜', '热门可能不胜'])
+        home_is_fav = (bf_home > 1.0 and bf_away > 1.0 and bf_home < bf_away)
+
+        if hot_wins:
+            # 预测热门胜 → 赢家=赔率低的强队(通常=热方, 但热方≠强队时例外)
+            predicted_side = 'home' if home_is_fav else 'away'
+        elif hot_loses:
+            # 预测热门不胜 → 赢家=赔率高的弱队
+            predicted_side = 'away' if home_is_fav else 'home'
+        else:
+            # 模糊预测 → 回退到热方
+            predicted_side = r.betfair_hot_side if r.betfair_hot_side else 'home'
+
+        poisson_win = home_wp if predicted_side == 'home' else away_wp
+
         if bf_home > 1.0 and bf_away > 1.0 and bf_draw > 1.0:
-            # V3.11: 去水分—去除庄家margin(假设5%)得到真实隐含概率
-            fair_home = 1 / (bf_home * 0.95); fair_away = 1 / (bf_away * 0.95)
-            fair_draw = 1 / (bf_draw * 0.95)
-            total_fair = fair_home + fair_away + fair_draw
-            hot_price = bf_home if (r.betfair_hot_side == 'home') else bf_away
-            market_imp = (1/hot_price) / (total_fair / 3) * 33.3
-            # 简化: 直接用1/odds归一化
-            if bf_home < 1.15 or bf_away < 1.15 or bf_home > 5.0 or bf_away > 5.0:
-                # 极端赔率: 去掉平局影响·直接两方归一
-                imp_h = 1/bf_home; imp_a = 1/bf_away
-                market_imp = (imp_h / (imp_h + imp_a) * 100) if (r.betfair_hot_side == 'home') else (imp_a / (imp_h + imp_a) * 100)
-            else:
-                market_imp = (1/hot_price) / (1/bf_home + 1/bf_draw + 1/bf_away) * 100
+            # 极端赔率: 去掉平局影响·直接两方归一
+            imp_h = 1/bf_home; imp_a = 1/bf_away
+            market_imp = (imp_h / (imp_h + imp_a) * 100) if predicted_side == 'home' else (imp_a / (imp_h + imp_a) * 100)
         else:
             market_imp = 0
         # 🆕 V3.8: 市场锚定熔断 — 模型与市场背离>25点时均值回拨
@@ -2266,10 +2383,16 @@ def _build_structured(r: PreMatchReport):
             divergence = abs(r.v26_confidence - market_imp)
             if divergence > 25:
                 original_conf = r.v26_confidence
-                r.v26_confidence = int((r.v26_confidence + market_imp) / 2)
+                # 🆕 V3.33: 市场极端值上限 — market_imp>90%时不以极端赔率过度拉升模型
+                if market_imp > 90:
+                    r.v26_confidence = min(int((r.v26_confidence + market_imp) / 2),
+                                          original_conf + 10)
+                else:
+                    r.v26_confidence = int((r.v26_confidence + market_imp) / 2)
                 melt_applied = True
                 r.v26_warnings.insert(0,
-                    f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→均值回拨至{r.v26_confidence}%')
+                    f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→'
+                    f'{"上限" if market_imp > 90 else ""}回拨至{r.v26_confidence}%')
         # 🆕 V3.15: 泊松-市场背离熔断 — 赔率市场定价扭曲检测
         poisson_melt = False
         if market_imp > 0 and poisson_win > 0:
@@ -2292,7 +2415,7 @@ def _build_structured(r: PreMatchReport):
 
     # 🆕 V3.10: 方向-概率对齐 — 热门胜但对手不败率更高时追加警告
     try:
-        is_hot_win = '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction
+        is_hot_win = any(w in (r.v26_prediction or '') for w in ['热门胜', '热门仍赢', '实力碾压']) and '⚠️' not in (r.v26_prediction or '')
         if is_hot_win and poisson_win > 0:
             underdog_no_lose = 100 - poisson_win
             if underdog_no_lose > poisson_win + 10:
@@ -2305,14 +2428,19 @@ def _build_structured(r: PreMatchReport):
     direction_poisson_divergence = False
     if r.score_prediction and r.v26_prediction:
         sp = r.score_prediction
-        hot_wins = any(w in r.v26_prediction for w in ['热门胜', '热门仍赢', '实力碾压'])
-        hot_side = r.betfair_hot_side if r.betfair_hot_side else 'home'
-        if hot_wins and '⚠️' not in r.v26_prediction:
-            if hot_side == 'home' and sp.away_win_prob > sp.home_win_prob + 5:
+        hot_wins_v17 = any(w in r.v26_prediction for w in ['热门胜', '热门仍赢', '实力碾压'])
+        if hot_wins_v17 and '⚠️' not in r.v26_prediction:
+            # V3.32fix: 使用赔率判定预测赢家, 而非热方
+            # 变量来自上方三行置信度try块 (Python函数作用域)
+            try:
+                _is_home_pred = home_is_fav if (bf_home > 0 and bf_away > 0) else (r.betfair_hot_side == 'home')
+            except Exception:
+                _is_home_pred = (r.betfair_hot_side == 'home')
+            if _is_home_pred and sp.away_win_prob > sp.home_win_prob + 5:
                 direction_poisson_divergence = True
                 r.v26_warnings.insert(0,
                     f'⚠️⚠️ 方向-泊松冲突: 预测热门胜但泊松客胜{sp.away_win_prob:.0f}%>主胜{sp.home_win_prob:.0f}%→降级处理')
-            elif hot_side == 'away' and sp.home_win_prob > sp.away_win_prob + 5:
+            elif not _is_home_pred and sp.home_win_prob > sp.away_win_prob + 5:
                 direction_poisson_divergence = True
                 r.v26_warnings.insert(0,
                     f'⚠️⚠️ 方向-泊松冲突: 预测热门胜但泊松主胜{sp.home_win_prob:.0f}%>客胜{sp.away_win_prob:.0f}%→降级处理')
@@ -2480,12 +2608,24 @@ def format_report(r: PreMatchReport) -> str:
     # 三条件检查
     if r.three_conditions:
         tc = r.three_conditions
+        # V3.32fix: 区分近期爆冷(阻断c)与历史爆冷(已过期·不阻断)
+        c_pass = tc['conditions']['c_no_giant_killing']
+        recent = tc.get('recent_killings', [])
+        old = tc.get('old_killings', [])
+        if recent:
+            c_detail = f"❌ 近5年: {', '.join(recent)}"
+        elif old:
+            c_detail = f"✅ (5年外·已过期: {', '.join(old)})"
+        elif tc['data']['giant_killings']:
+            c_detail = f"✅ ({', '.join(tc['data']['giant_killings'])})"
+        else:
+            c_detail = "✅ (无)"
         lines += [
             "",
             "── BIG三条件 (对手质量) ──",
             f"  (a) 排名60+: {'✅' if tc['conditions']['a_rank60plus'] else '❌'} (排名{tc['data']['rank']})",
             f"  (b) 无五大射手: {'✅' if tc['conditions']['b_no_top5_scorer'] else '❌'} ({', '.join(tc.get('scorers', tc['data']['top5_players'])) or '无'})",
-            f"  (c) 无爆冷史: {'✅' if tc['conditions']['c_no_giant_killing'] else '❌'} ({', '.join(tc['data']['giant_killings']) or '无'})",
+            f"  (c) 无爆冷史(3年): {c_detail}",
             f"  结果: {tc['passed']}/3 → {tc['rule']}",
         ]
         if tc['data'].get('notes'):

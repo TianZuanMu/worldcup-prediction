@@ -1951,11 +1951,11 @@ def check_three_conditions(team_name: str, gap_level: str = "moderate") -> dict:
         digits = ''.join(c for c in str(gk) if c.isdigit())
         years = [int(digits[i:i+4]) for i in range(0, len(digits), 4)] if len(digits) >= 4 else []
         # If any year is within 3 years, it's recent
-        has_recent = any(y > current_year - 3 for y in years) if years else False
+        has_recent = any(y > current_year - 5 for y in years) if years else False  # 🆕 V3.33: 3→5年
         if has_recent: recent_killings.append(gk)
         elif years: old_killings.append(gk)
         else: old_killings.append(gk)  # no year = assume old
-    # V3.5: Only RECENT giant killings block condition c (old ones expired)
+    # 🆕 V3.33: 5年窗口 (原V3.5用3年, 但2022世界杯距今4年仍具参考价值)
     c_pass = len(recent_killings) == 0
     passed = sum([a_pass, b_pass, c_pass])
     fail_reasons = []
@@ -1971,7 +1971,8 @@ def check_three_conditions(team_name: str, gap_level: str = "moderate") -> dict:
         'conditions': {'a_rank60plus': a_pass, 'b_no_top5_scorer': b_pass, 'c_no_giant_killing': c_pass},
         'fail_reason': ' | '.join(fail_reasons) if fail_reasons else 'all_pass',
         'rule': rule, 'quality_score': 3 - passed, 'scorers': scorers,
-        'threat_level': threat_level, 'data': data}
+        'threat_level': threat_level, 'data': data,
+        'recent_killings': recent_killings, 'old_killings': old_killings}  # 🆕 V3.32
 
 
 def check_moderate_opponent(team_name: str, gap_level: str = "moderate", fav_rank: int = 99) -> dict:
