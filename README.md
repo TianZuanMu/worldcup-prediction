@@ -1,43 +1,32 @@
-# 2026 FIFA World Cup Prediction Model V3.4
+# 2026 FIFA World Cup Prediction Model V3.34
 
-A multi-dimensional machine learning prediction system for the 2026 FIFA World Cup, combining 12 analytical dimensions with Poisson score modeling, Over/Under integration, and cross-validation.
+Multi-dimensional prediction system combining decision tree rules, Poisson score modeling, dimension12 bookmaker analysis, and cross-validation.
 
-**Backtest: 20/28 = 71%** (MD1: 19/24 = 79% · MD2: 1/4)
-
-## Features
-
-- **12-Dimensional Analysis**: Strength gap, market consensus, betting heat, team quality, venue, weather, timezone, recent form, head-to-head, referee, tactics, lineup
-- **Overheat Detection**: True/false/weak overheat classification with BIG/MOD/CLOSE-level thresholds
-- **Poisson Score Prediction**: Top-3 score probabilities with integrated Over/Under model feedback
-- **Cross-Validation**: Dual-model consistency check between rule engine and Poisson model
-- **Jet Lag Decay**: Matchday-aware timezone impact (MD1=30% → MD2=10% → MD3=0%)
-- **48-Team Player Database**: Real player values, clubs, positions, and top-5 league classification
-- **Auto Data Pipeline**: XLS odds + Betfair data auto-fetch via Playwright
+**Backtest: 28/31 = 90.3%** · 决策树11路径 · 46队状态DB
 
 ## Quick Start
 
 ```bash
 cd "C:/Users/A/PyCharmMiscProject"
 
-# 1. Auto-fetch XLS + Betfair data
+# 1. Fetch XLS + Betfair
 PYTHONIOENCODING=utf-8 python auto_fetch.py --all
 
-# 2. Odds pipeline
-PYTHONIOENCODING=utf-8 python "赔率获取.py" && PYTHONIOENCODING=utf-8 python "赔率变化.py"
-
-# 3. Predict
+# 2. Predict
 PYTHONIOENCODING=utf-8 python -c "
 from pre_match_report import batch_report
-print(batch_report(['捷克VS南非', '瑞士VS波黑', '加拿大VS卡塔尔', '墨西哥VS韩国']))
+print(batch_report(['阿根廷VS奥地利', '法国VS伊拉克', '挪威VS塞内加尔', '约旦VS阿尔及利亚']))
 "
 ```
 
-## Dependencies
+## Features
 
-```bash
-pip install playwright beautifulsoup4 lxml xlrd requests
-# Playwright uses system Edge browser, no extra install needed
-```
+- **11-Path Decision Tree**: Overheat detection (true/false/weak) across CLOSE/MOD/BIG/EXTREME levels
+- **Poisson Score Prediction**: 7-layer λ adjustment chain (odds → gap → direction → quality → form → cover → totals)
+- **dimension12 Cross-Validation**: Betfair bookmaker PnL analysis · true vs false overheat distinction
+- **48-Team Player Database**: Real values, clubs, positions, top-5 league classification
+- **Auto Data Pipeline**: XLS (500.com) + Betfair (必发) via Playwright
+- **Chinese Lottery Integration**: 竞彩 handicap odds auto-extracted · totals odds manual config
 
 ## Architecture
 
@@ -46,18 +35,18 @@ XLS Data (500.com)          Betfair Data (必发)
        │                          │
        └──────────┬───────────────┘
                   │
-         pre_match_report.py  ←── V2.6 Rule Engine
-                  │                  • Overheat detection
+         pre_match_report.py  ←── Rule Engine (11 paths)
+                  │                  • Overheat classification
                   │                  • Three-condition check
-                  │                  • Strength gap classification
        ┌──────────┼──────────┐
        │          │          │
-  score_prediction.py   _predict_totals()
-  (Poisson model)       (Over/Under model)
+  score_prediction.py   dimension12_books.py
+  (Poisson 7-layer λ)   (Bookmaker PnL)
        │          │          │
        └──────────┼──────────┘
                   │
           Cross-Validation
+          (direction-score-cover)
                   │
             Final Report
 ```
@@ -66,62 +55,44 @@ XLS Data (500.com)          Betfair Data (必发)
 
 | Module | Description |
 |--------|-------------|
-| `pre_match_report.py` | **Main engine** — one-click pre-match report with all factors |
-| `score_prediction.py` | Poisson score probabilities · Over/Under integration |
-| `match_time_impact.py` | Venue · timezone (with matchday decay) · altitude · indoor/outdoor |
-| `opponent_db.py` | 48-team quality DB · three-condition checker · player values |
-| `dimension12_books.py` | Betfair bookmaker PnL · true/false overheat classification |
-| `config.py` | Centralized thresholds (30+ config values) |
-| `market_psychology.py` | Bearish sentiment detection · cold streak discount |
-| `confidence_calibration.py` | Bayesian smoothing calibration |
-| `knockout_motivation.py` | Group standings · advancement scenarios · rotation risk |
-| `discipline_risk.py` | Referee + team discipline · red card probability |
-| `recent_form.py` | Last-5 match form · opponent-strength weighted |
-| `head_to_head.py` | Historical matchups · rivalry level |
-| `referee_analysis.py` | Referee style · card frequency |
-| `weather_tracking.py` | 16-city real-time weather · impact matrix |
-| `team_profiles.py` | Tactical profiles · coach impact · style matchups |
-| `auto_fetch.py` | One-click XLS + Betfair data pipeline |
-| `backtest_runner.py` | Backtesting suite · gap-level statistics |
+| `pre_match_report.py` | Main engine · report generation · confidence chain |
+| `score_prediction.py` | Poisson λ adjustment · predicted-winner targeting |
+| `opponent_db.py` | 48-team quality · three-condition · V3.34 FW≥5M check |
+| `dimension12_books.py` | Betfair PnL · true/false overheat · draw signal |
+| `config.py` | Centralized thresholds |
+| `recent_form.py` | 46-team last-5 · sample-size warning |
+| `knockout_motivation.py` | Group standings · advancement scenarios |
+| `injury_tracker.py` | Injury impact · position-weighted |
+| `auto_fetch.py` | XLS + Betfair pipeline |
+| `weather_tracking.py` | 16-city weather · impact matrix |
 
-## Strength Gap Classification
+## Strength Gap
 
-| Level | FIFA Rank Gap | Value Ratio | Signal Reliability |
-|:-----:|:------------:|:----------:|:------------------:|
+| Level | FIFA Gap | Value Ratio | Reliability |
+|:-----:|:--------:|:----------:|:----------:|
 | CLOSE | <10 | <3x | 85-90% |
 | MODERATE | 10-25 | 3-12x | 60-80% |
 | BIG | 25-60 | 12-25x | 30-50% |
-| EXTREME | >60 | >25x | **0%** |
+| EXTREME | >60 | >25x | **0%** (skip) |
 
-## Overheat Tiers (BIG Level)
+## Odds Sources
 
-| Range | Classification | Action |
-|:-----:|:-------------:|--------|
-| ≥30 | True Overheat | Full weight |
-| 20-29 | Weak Overheat | Direction preserved · weight reduced |
-| <20 | No Overheat | Signal insufficient |
-
-## Prediction Output
-
-```
-比赛                   | 差距     | 共识    | 冷热 | 三条件 | 预测              | 信  | 比分
-捷克VS南非             | big     | -52%  | +58 | 3/3  | 热门仍赢·不穿盘    | 75% | 1-0(15%) 2-0(13%)
-瑞士VS波黑             | big     | -37%  | +42 | 2/3  | ⚠️ 热门不胜       | 85% | 1-1(13%) 1-0(11%)
-加拿大VS卡塔尔          | moderate| -71%  | +16 | 3/3  | 热门胜            | 88% | 1-0(14%) 2-0(13%)
-墨西哥VS韩国            | moderate| +98%  | +48 | 0/3  | ⚠️ 热门不胜       | 40% | 1-1(11%) 2-1(10%)
-```
+| Market | Source | Method |
+|--------|--------|--------|
+| 胜平负 | 百家欧赔 (52 companies) | XLS auto |
+| 让球胜平负 | 竞彩官方 (竞*官*) | XLS handicap_index auto |
+| 总进球 | 竞彩** | `totals_odds_config.json` manual |
+| 比分 | Estimated | — |
 
 ## Version History
 
-| Version | Date | Changes | Accuracy |
-|---------|------|---------|:-------:|
-| V2.8 | 6/17 | 8 optimizations · host factor · XLS fallback | 85.7% |
-| V2.14 | 6/17 | Dynamic cover rate | **90.5%** |
-| V3.0 | 6/17 | 18 optimizations · CLOSE threshold · structured output | 82.4% |
-| V3.1 | 6/18 | 22 optimizations · 48-team form · injury tracking | 68.4% |
-| V3.2 | 6/18 | BIG overheat grading · elite exception · 13 bugfixes | **90.5%** |
-| V3.3 | 6/18 | 9 optimizations · knockout rules · discipline risk | **90.5%** |
-| **V3.4** | **6/19** | **Jet lag decay · BIG weak overheat · O/U ↔ Score link** | **71%** |
+| Ver | Date | Key Changes |
+|-----|------|-------------|
+| V3.2 | 06-18 | BIG overheat grading · 13 bugfixes | 
+| V3.31 | 06-21 | BIG弱过热精英豁免 · 28/31=90.3% |
+| **V3.32** | 06-21 | 三条件赔率判定 · dimension12覆盖 · market引用修正 |
+| **V3.33** | 06-22 | λ预测赢家修正 · BIG攻击枯竭 · 真/假过热 · 5年爆冷 · 46队DB |
+| **V3.34** | 06-22 | 六轮审计: 三条件FW收紧 · 过热标签 · 穿盘区间 · 精英例外透明 · 赢球输盘 · 竞彩接入 |
 
 ## License
 
