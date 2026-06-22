@@ -27,6 +27,8 @@ print(batch_report(['阿根廷VS奥地利', '法国VS伊拉克', '挪威VS塞内
 - **48-Team Player Database**: Real values, clubs, positions, top-5 league classification
 - **Auto Data Pipeline**: XLS (500.com) + Betfair (必发) via Playwright
 - **Chinese Lottery Integration**: 竞彩 handicap odds auto-extracted · totals odds manual config
+- **Group Standings Prediction**: 🆕 Auto-load results → strength-based unplayed → 12-group final ranking
+- **Knockout Path Analysis**: 🆕 Real R32 bracket difficulty · alt_path_better detection · motivation asymmetry
 
 ## Architecture
 
@@ -61,7 +63,8 @@ XLS Data (500.com)          Betfair Data (必发)
 | `dimension12_books.py` | Betfair PnL · true/false overheat · draw signal |
 | `config.py` | Centralized thresholds |
 | `recent_form.py` | 46-team last-5 · sample-size warning |
-| `knockout_motivation.py` | Group standings · advancement scenarios |
+| `knockout_motivation.py` | 🆕 R32真实对阵 · 淘汰赛路径动机 · 战意分析 |
+| `update_group_predictions.py` | 🆕 12组排名自动预测 · --save --web |
 | `injury_tracker.py` | Injury impact · position-weighted |
 | `auto_fetch.py` | XLS + Betfair pipeline |
 | `weather_tracking.py` | 16-city weather · impact matrix |
@@ -92,7 +95,7 @@ XLS Data (500.com)          Betfair Data (必发)
 | V3.31 | 06-21 | BIG弱过热精英豁免 · 28/31=90.3% |
 | **V3.32** | 06-21 | 三条件赔率判定 · dimension12覆盖 · market引用修正 |
 | **V3.33** | 06-22 | λ预测赢家修正 · BIG攻击枯竭 · 真/假过热 · 5年爆冷 · 46队DB |
-| **V3.34** | 06-22 | 六轮审计: 三条件FW收紧 · 过热标签 · 穿盘区间 · 精英例外透明 · 赢球输盘 · 竞彩接入 |
+| **V3.34** | 06-23 | 淘汰赛路径标注修复 · R32对阵真实难度 · 小组排名预测 · motivation方向性修正 |
 
 ## License
 
