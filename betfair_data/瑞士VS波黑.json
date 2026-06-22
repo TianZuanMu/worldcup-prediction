@@ -1493,8 +1493,105 @@
       "notes": "本场比赛必发成交量倾向于主胜,与百家欧赔概率相差较大，谨防主胜过热",
       "source": "auto_fetch:None",
       "index": 16
+    },
+    {
+      "timestamp": "2026-06-23T00:18:32",
+      "phase": "P1",
+      "odds": {
+        "home": 1.54,
+        "draw": 4.11,
+        "away": 6.2
+      },
+      "betfair": {
+        "home_price": 1.59,
+        "draw_price": 4.3,
+        "away_price": 7.0,
+        "home_volume": 18216544.0,
+        "draw_volume": 1037092.0,
+        "away_volume": 955887.0,
+        "home_pnl": -8754782.0,
+        "draw_pnl": 15750027.0,
+        "away_pnl": 13518314.0,
+        "home_heat": 46.0,
+        "draw_heat": -78.0,
+        "away_heat": -70.0,
+        "home_prob": 0.617,
+        "draw_prob": 0.231,
+        "away_prob": 0.153,
+        "home_trade": 0.9009999999999999,
+        "draw_trade": 0.051,
+        "away_trade": 0.047,
+        "home_profit_idx": -44.0,
+        "draw_profit_idx": 77.0,
+        "away_profit_idx": 66.0
+      },
+      "big_trades": [
+        {
+          "side": "平",
+          "direction": "买",
+          "volume": 11404.0,
+          "time": "2026-06-19 02:58"
+        },
+        {
+          "side": "主",
+          "direction": "买",
+          "volume": 154627.0,
+          "time": "2026-06-19 02:58"
+        },
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 14227.0,
+          "time": "2026-06-19 02:58"
+        },
+        {
+          "side": "平",
+          "direction": "卖",
+          "volume": 14554.0,
+          "time": "2026-06-19 02:57"
+        },
+        {
+          "side": "主",
+          "direction": "卖",
+          "volume": 870209.0,
+          "time": "2026-06-19 02:57"
+        },
+        {
+          "side": "客",
+          "direction": "买",
+          "volume": 29664.0,
+          "time": "2026-06-19 02:57"
+        },
+        {
+          "side": "主",
+          "direction": "卖",
+          "volume": 349205.0,
+          "time": "2026-06-19 02:56"
+        },
+        {
+          "side": "客",
+          "direction": "卖",
+          "volume": 6585.0,
+          "time": "2026-06-19 02:56"
+        },
+        {
+          "side": "平",
+          "direction": "买",
+          "volume": 18401.0,
+          "time": "2026-06-19 02:56"
+        },
+        {
+          "side": "主",
+          "direction": "卖",
+          "volume": 98437.0,
+          "time": "2026-06-19 02:55"
+        }
+      ],
+      "notes": "本场比赛必发成交量倾向于主胜,与百家欧赔概率相差较大，谨防主胜过热",
+      "source": "auto_fetch:None",
+      "index": 17
     }
   ],
-  "updated": "2026-06-20T13:36:36",
-  "snapshot_count": 16
+  "updated": "2026-06-23T00:18:32",
+  "snapshot_count": 17
 }

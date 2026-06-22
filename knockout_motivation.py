@@ -30,17 +30,34 @@ MATCHES_FILE = BACKTEST_DIR / "matches.json"
 # 淘汰赛路径
 # ══════════════════════════════════════════════════════════════
 
+# 🆕 V3.34: 基于真实R32对阵规则更新 (来源: FIFA 2026官方 bracket)
 KNOCKOUT_PATH = {
-    'A1': '3rd(C/E/F/H/I)', 'B1': '3rd(E/F/G/I/J)',
-    'C1': 'F2',             'D1': '3rd(B/E/F/I/J)',
-    'E1': '3rd(A/B/C/D/F)', 'F1': 'C2',
-    'G1': '3rd(D/E/H/I/J)', 'H1': '3rd(A/B/C/D/E)',
-    'I1': '3rd(A/B/C/D/E)', 'J1': '3rd(B/C/F/G/H)',
-    'K1': '3rd(E/F/H/I/J)', 'L1': '3rd(C/D/G/H/I)',
-    'A2': 'B2', 'B2': 'A2', 'C2': 'F1',
-    'D2': 'G2', 'E2': 'H2', 'F2': 'C1',
-    'G2': 'D2', 'H2': 'E2', 'I2': 'J2',
-    'J2': 'I2', 'K2': 'L2', 'L2': 'K2',
+    # 头名 → 对手 (Match 74,75,76,77,79,80,81,82,84 + 推断)
+    'A1': '3rd(C/E/F/H/I)',   # Match 79: A1 vs 3rd
+    'B1': '3rd(?)',            # 缺失·暂用通用3rd
+    'C1': 'F2',                # Match 76: C1 vs F2
+    'D1': '3rd(B/E/F/I/J)',   # Match 81: D1 vs 3rd
+    'E1': '3rd(A/B/C/D/F)',   # Match 74: E1 vs 3rd
+    'F1': 'C2',                # Match 75: F1 vs C2
+    'G1': '3rd(A/E/H/I/J)',   # Match 82: G1 vs 3rd
+    'H1': 'J2',                # Match 84: H1 vs J2
+    'I1': '3rd(C/D/F/G/H)',   # Match 77: I1 vs 3rd
+    'J1': '3rd(?)',            # 缺失·暂用通用3rd
+    'K1': 'H2',                # 推断: K1 vs H2
+    'L1': '3rd(E/H/I/J/K)',   # Match 80: L1 vs 3rd
+    # 次名 → 对手
+    'A2': 'B2',                # Match 73: A2 vs B2
+    'B2': 'A2',                # Match 73
+    'C2': 'F1',                # Match 75: F1 vs C2 → C2 vs F1
+    'D2': 'G2',                # 推断: D2 vs G2
+    'E2': 'I2',                # Match 78: E2 vs I2
+    'F2': 'C1',                # Match 76: C1 vs F2 → F2 vs C1
+    'G2': 'D2',                # 推断: G2 vs D2
+    'H2': 'K1',                # 推断: H2 vs K1
+    'I2': 'E2',                # Match 78: I2 vs E2
+    'J2': 'H1',                # Match 84: H1 vs J2 → J2 vs H1
+    'K2': 'L2',                # Match 83: K2 vs L2
+    'L2': 'K2',                # Match 83
 }
 
 # 强队列表 (用于评估淘汰赛对手强度)
@@ -49,12 +66,25 @@ STRONG_KNOCKOUT_TEAMS = {
     '意大利', '比利时', '克罗地亚', '乌拉圭',
 }
 
-# 小组: 路径难度评级 (小组第一 vs 小组第二)
+# 🆕 V3.34: 基于真实R32对手难度重算 (对手越强分越高)
+# A1→3rd(2) A2→瑞士(6.5) | B1→3rd(2) B2→韩国(5) | C1→日本(6.5) C2→荷兰(8.5)
+# D1→3rd(2) D2→伊朗(4.5) | E1→3rd(2) E2→挪威(5.5) | F1→摩洛哥(7) F2→巴西(10)
+# G1→3rd(2) G2→澳大利亚(4) | H1→奥地利(6) H2→哥伦比亚(7.5) | I1→3rd(2) I2→科特迪瓦(5)
+# J1→3rd(2) J2→西班牙(9.5) | K1→佛得角(3) K2→克罗地亚(7) | L1→3rd(2) L2→葡萄牙(8.5)
 GROUP_PATH_RATING = {
     # (pos1_difficulty, pos2_difficulty) — 0=easy, 10=hard
-    'A': (3, 5), 'B': (3, 5), 'C': (5, 8), 'D': (5, 6),
-    'E': (4, 6), 'F': (5, 8), 'G': (5, 7), 'H': (4, 6),
-    'I': (4, 6), 'J': (4, 6), 'K': (3, 5), 'L': (3, 5),
+    'A': (2, 7),   # 3rd vs 瑞士 — 头名显著更优
+    'B': (2, 5),   # 3rd vs 韩国
+    'C': (7, 9),   # 日本 vs 荷兰 — 头名更优
+    'D': (2, 5),   # 3rd vs 伊朗
+    'E': (2, 6),   # 3rd vs 挪威
+    'F': (7, 10),  # 摩洛哥 vs 巴西 — 次名极其凶险!
+    'G': (2, 4),   # 3rd vs 澳大利亚
+    'H': (6, 8),   # 奥地利 vs 哥伦比亚 — 头名略优
+    'I': (2, 5),   # 3rd vs 科特迪瓦
+    'J': (2, 10),  # 3rd vs 西班牙 — 🔥次名极其凶险! 最大头名动机
+    'K': (3, 7),   # 佛得角 vs 克罗地亚 — 头名显著更优
+    'L': (2, 9),   # 3rd vs 葡萄牙 — 次名极其凶险!
 }
 
 
@@ -488,7 +518,12 @@ def get_match_motivation(match_name: str) -> Optional[MatchMotivation]:
         risk_team = home if home_mot.rotation_risk > 0.3 else away
         tournament_note = f'⚠️ {risk_team}可能轮换 (已确保出线)'
     if home_mot.alt_path_better or away_mot.alt_path_better:
-        tournament_note += ' | 🔀 淘汰赛路径有更优选择'
+        alt_teams = []
+        if home_mot.alt_path_better:
+            alt_teams.append(f'{home}({home_mot.knockout_opponent})')
+        if away_mot.alt_path_better:
+            alt_teams.append(f'{away}({away_mot.knockout_opponent})')
+        tournament_note += f' | 🔀 淘汰赛路径更优: {", ".join(alt_teams)}'
 
     return MatchMotivation(
         home_motivation=home_mot,

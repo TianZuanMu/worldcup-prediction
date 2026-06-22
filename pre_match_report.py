@@ -1244,7 +1244,13 @@ def _apply_v26_rules(r: PreMatchReport):
                 risk_team = hm.team if hm.rotation_risk > 0.3 else am.team
                 r.v26_warnings.append(f'🔄 {risk_team}可能轮换→×0.95')
             if mot.tournament_note and '淘汰赛路径' in mot.tournament_note:
-                r.v26_warnings.append(f'🔀 淘汰赛路径有更优选择→战意可能受影响')
+                # 🆕 V3.34: 明确标注哪一方有更优路径·战意方向
+                if hm.alt_path_better and not am.alt_path_better:
+                    r.v26_warnings.append(f'🔀 {hm.team}淘汰赛路径更优({hm.knockout_opponent})·战意↑·争排名动力增强')
+                elif am.alt_path_better and not hm.alt_path_better:
+                    r.v26_warnings.append(f'🔀 {am.team}淘汰赛路径更优({am.knockout_opponent})·战意↑·争排名动力增强')
+                else:
+                    r.v26_warnings.append(f'🔀 双方淘汰赛路径均有更优选择·战意影响抵消')
 
         # 3. 首发阵容 (仅-15~0%) → ×(0.85~1.00)
         if r.lineup_impact and r.lineup_impact.confidence_adj != 0:
@@ -2848,8 +2854,10 @@ def format_report(r: PreMatchReport) -> str:
             lines.append(f"  🔄 {hm.team}轮换风险{hm.rotation_risk:.0%}")
         if am.rotation_risk > 0.2:
             lines.append(f"  🔄 {am.team}轮换风险{am.rotation_risk:.0%}")
-        if hm.alt_path_better or am.alt_path_better:
-            lines.append(f"  🔀 淘汰赛路径有更优选择")
+        if hm.alt_path_better:
+            lines.append(f"  🔀 {hm.team}淘汰赛路径更优: {hm.knockout_opponent}")
+        if am.alt_path_better:
+            lines.append(f"  🔀 {am.team}淘汰赛路径更优: {am.knockout_opponent}")
         if r.match_motivation.tournament_note:
             lines.append(f"  📋 {r.match_motivation.tournament_note}")
 
