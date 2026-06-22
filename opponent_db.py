@@ -1941,7 +1941,12 @@ def check_three_conditions(team_name: str, gap_level: str = "moderate") -> dict:
     data = opponent_quality(team_name)
     a_pass = data['rank'] >= 50
     fw_count, mf_count, threat_level, scorers, pre_goals = _count_attacking_threat(team_name, gap_level)
-    if len(scorers) == 0: b_pass = True
+    # 🆕 V3.34: 任何五大联赛FW≥5M → 条件(b)不通过
+    # 约旦·穆萨·塔马里(FW/Euro10M/法甲欧塞尔)威胁虽低但仍是五大射手
+    has_top5_fw = any('FW' in s and 'ex-5' not in s for s in scorers)
+    if has_top5_fw:
+        b_pass = False  # 存在五大联赛前锋→对手有爆冷核心点
+    elif len(scorers) == 0: b_pass = True
     elif threat_level < 1.0: b_pass = True
     elif threat_level < 1.5 and pre_goals < 1.2: b_pass = True
     else: b_pass = False

@@ -1288,8 +1288,18 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_warnings.append(cold_streak['discount_note'])
 
         # 11. 🆕 V2.15 XLS跨版本历史趋势 (-5% to +5%) → ×(0.95~1.05)
-        if r.xls_trend and r.xls_trend.analyzed and r.xls_trend.confidence_adjustment != 0:
-            multiplier *= (1.0 + r.xls_trend.confidence_adjustment / 100)
+        if r.xls_trend and r.xls_trend.analyzed:
+            # 🆕 V3.34: 共识急剧翻转(>50pp+方向反转)→惩罚而非奖励
+            # 乌拉圭: +56→+15→-75(132pp翻转)·赛前误导·实际2-2平局
+            cons_change = abs(r.xls_trend.consensus_last - r.xls_trend.consensus_first)
+            cons_flipped = (r.xls_trend.consensus_first > 0) != (r.xls_trend.consensus_last > 0)
+            if cons_change > 50 and cons_flipped:
+                r.v26_warnings.append(
+                    f'⚠️ 共识急剧翻转({r.xls_trend.consensus_first:+.0f}→{r.xls_trend.consensus_last:+.0f}·'
+                    f'{cons_change:.0f}pp)·信号不可靠→置信度-8')
+                multiplier *= 0.92
+            elif r.xls_trend.confidence_adjustment != 0:
+                multiplier *= (1.0 + r.xls_trend.confidence_adjustment / 100)
             for sig in r.xls_trend.signals:
                 r.v26_warnings.append(f'📊 {sig}')
 
@@ -1594,9 +1604,6 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5  # half the discount as boost
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
-        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
-        if getattr(r, '_iran_travel_boost', False):
-            base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -1623,10 +1630,10 @@ def _apply_v26_rules(r: PreMatchReport):
 
     # ── MODERATE ──
     if gap == 'moderate':
-        # 🆕 V3.2: 顶级强队 + 温和过热 → 实力碾压 (市场理性定价)
+        # 🆕 V3.2: 顶级强队 + 温和过热 → 精英例外覆盖 (市场理性定价)
         if is_real_hot and r.hot_team_fifa_rank <= CONF.elite_team_max_rank and abs(cold) < CONF.elite_moderate_cold_max:
-            r.v26_rule = 'MOD + 真过热 + 顶级强队 → 实力碾压'
-            r.v26_prediction = '热门胜 (实力碾压)'
+            r.v26_rule = 'MOD + 真过热 → 默认热门不胜 | ⚠️ FIFA精英例外覆盖 → 热门胜'
+            r.v26_prediction = '热门胜 (精英例外·过热覆盖)'
             base_conf = 70
             r.v26_warnings.append(f'顶级强队(FIFA#{r.hot_team_fifa_rank})·温和过热(|cold|={abs(cold):.0f}<{CONF.elite_moderate_cold_max:.0f})→实力碾压覆盖')
         elif is_real_hot and r.moderate_threat:
@@ -1737,9 +1744,6 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
-        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
-        if getattr(r, '_iran_travel_boost', False):
-            base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
@@ -2005,9 +2009,8 @@ def _apply_v26_rules(r: PreMatchReport):
         # 🆕 V3.33 P0: BIG真过热降信 (乌拉圭type: betfair PnL真实亏损+dim12确认)
         # 区别于西班牙type假过热(虚高冷热值,d12 hot<15)
         if getattr(r, '_big_real_hot_warning', False):
-            base_conf = max(30, int(base_conf * 0.85))
-            r.v26_warnings.append('🔺 BIG真过热·实力碾压: 置信度-15% (市场实际过热但实力占优)')
-        # 🆕 V3.33: 伊朗场外劣势→对手置信度+8%
+            base_conf = max(25, int(base_conf * 0.70))
+            r.v26_warnings.append('🔺 BIG真过热·实力碾压: 置信度-30% (市场实际过热·回测警示)')
         if getattr(r, '_iran_travel_boost', False):
             base_conf = min(95, int(base_conf * 1.08))
         base_conf = apply_v29_adjustments(base_conf)
@@ -2291,6 +2294,16 @@ def _cross_validate_cover_rate(r: PreMatchReport):
         # 热门赢 + 小盘口强制边缘 → 正常跳过
         if getattr(r, '_cover_depth_forced', False):
             return
+        # 🆕 V3.34: 赢球输盘风险 (先于穿盘交叉检查·用原始值避免动态遮蔽)
+        raw_cr = getattr(r, 'xls_cover_rate_raw', cr) or cr
+        sp = r.score_prediction
+        win_pct = 0
+        if sp:
+            win_pct = max(sp.home_win_prob or 0, sp.away_win_prob or 0)
+        if win_pct > 60 and raw_cr < 45:
+            r.v26_warnings.append(
+                f'⚠️ 赢球输盘风险: 胜率{win_pct:.0f}%但原始穿盘仅{raw_cr:.0f}%→'
+                f'约{100-win_pct+raw_cr:.0f}%概率赢球输盘·慎追让球盘·大额卖单狙击')
         # 热门赢 + 穿盘率≥50% → 穿盘信号强 → 一致
         if cr >= 50:
             r.v26_warnings.append(
@@ -2329,8 +2342,8 @@ def _cross_validate_cover_rate(r: PreMatchReport):
             if strong_xg > 3.0:
                 r.v26_warnings.append(
                     f'🔗 穿盘-泊松矛盾: 穿盘率仅{cr:.0f}%<40%但泊松xG={strong_xg:.1f}>3.0→'
-                    f'预测大胜与低穿盘矛盾·置信度-5')
-                r.v26_confidence = max(30, r.v26_confidence - 5)
+                    f'预测大胜与低穿盘矛盾·可能不胜·置信度-10')
+                r.v26_confidence = max(25, r.v26_confidence - 10)
         except Exception:
             pass
 
@@ -2591,7 +2604,8 @@ def format_report(r: PreMatchReport) -> str:
         "",
         "── 必发数据 ──",
         f"  冷热: {r.betfair_cold:+.0f}  热方: {r.betfair_hot_side}",
-        f"  真过热: {'是' if r.betfair_is_real_hot else '否'}",
+        f"  真过热: {'是' if r.betfair_is_real_hot else '否'}" +
+        (f" → dimension12覆盖·假过热" if r.betfair_is_real_hot and r.books_structure and not r.books_structure.get('is_real_hot', True) else ""),
         f"  共识污染: {'⚠️ 是' if r.betfair_pollution else '✅ 否'} (差{r.betfair_pollution_gap:.1f}%)",
     ]
     if r.betfair_big_sell:
@@ -2699,6 +2713,8 @@ def format_report(r: PreMatchReport) -> str:
             cover_label = '🟢 可能穿盘'
         adj_note = f' (原始{r.xls_cover_rate_raw:.0f}%→动态{r.xls_cover_rate:.0f}%)' if r.xls_cover_rate_raw > 0 and abs(r.xls_cover_rate_raw - r.xls_cover_rate) > 1 else ''
         lines.append(f"  穿盘率: {r.xls_cover_rate:.0f}%{adj_note} → {cover_label}")
+        # 🆕 V3.34: 标注穿盘率基于竞彩让球盘口(非亚盘)
+        lines.append(f"    ↳ 基于竞彩让球盘口·与亚盘属不同维度")
         # 🆕 V3.4: 小盘口V2.6方向提示
         if getattr(r, '_cover_depth_forced', False):
             pred = r.v26_prediction or ''

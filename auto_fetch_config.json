@@ -180,49 +180,49 @@
       "match_id": "1359207",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-22 00:37"
+      "last_fetch": "2026-06-22 18:28"
     },
     "新西兰VS埃及": {
       "match_id": "1359243",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:43"
+      "last_fetch": "2026-06-22 18:35"
     },
     "乌拉圭VS佛得角": {
       "match_id": "1359246",
       "discovered_at": "2026-06-19 15:26",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:39"
+      "last_fetch": "2026-06-22 18:29"
     },
     "西班牙VS沙特": {
       "match_id": "1359210",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:36"
+      "last_fetch": "2026-06-22 18:34"
     },
     "法国VS伊拉克": {
       "match_id": "1359213",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:51"
+      "last_fetch": "2026-06-22 21:06"
     },
     "阿根廷VS奥地利": {
       "match_id": "1359216",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:45"
+      "last_fetch": "2026-06-22 21:05"
     },
     "挪威VS塞内加尔": {
       "match_id": "1359249",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:52"
+      "last_fetch": "2026-06-22 21:07"
     },
     "约旦VS阿尔及利亚": {
       "match_id": "1359252",
       "discovered_at": "2026-06-20 13:31",
       "source": "live.500.com",
-      "last_fetch": "2026-06-21 23:58"
+      "last_fetch": "2026-06-22 21:08"
     },
     "葡萄牙VS乌兹别克斯坦": {
       "match_id": "1359219",
@@ -253,6 +253,6 @@
   "download_delay": 2.0,
   "timeout": 30,
   "max_retries": 3,
-  "last_discovery": "2026-06-21 18:37:02",
+  "last_discovery": "2026-06-22 18:07:02",
   "preferred_source": "500com"
 }

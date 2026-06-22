@@ -296,15 +296,15 @@ def _adjust_for_cover_rate(lam_strong: float, lam_weak: float, cover_rate: float
     if cover_rate < 20:
         factor_strong = 0.82
         factor_weak = 1.12
-        label = '极低穿盘(<20%)'
+        label = f'极低穿盘({cover_rate:.0f}%<20%)'
     elif cover_rate < 30:
         factor_strong = 0.88
         factor_weak = 1.08
-        label = '低穿盘(20-30%)'
+        label = f'低穿盘({cover_rate:.0f}%∈[20,30))'
     elif cover_rate < 40:
         factor_strong = 0.94
         factor_weak = 1.04
-        label = '中低穿盘(30-40%)'
+        label = f'中低穿盘({cover_rate:.0f}%∈[30,40))'
     elif cover_rate < 50:
         factor_strong = 0.97
         factor_weak = 1.02
