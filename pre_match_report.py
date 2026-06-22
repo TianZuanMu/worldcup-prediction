@@ -462,13 +462,31 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
                 else:
                     r.xls_consensus_direction = 'neutral'
 
-        # 提取穿盘率
+        # 提取穿盘率 + 竞彩官方赔率
         if data and 'handicap_index' in data:
             hi = data['handicap_index']
             by_line = hi.get('by_line', {})
             primary = hi.get('primary_line', None)
             if primary and primary in by_line:
                 r.xls_cover_rate = by_line[primary].get('avg_win_prob', 0)
+            # 🆕 提取竞彩官方赔率 (公司名含"竞")
+            # 注意: 让球指数XLS含的是让球胜平负赔率·非直胜平负
+            r.jingcai_handicap_odds = {}
+            for comp in hi.get('companies', []):
+                name = comp.get('name', '')
+                if '竞' in name:
+                    line = comp.get('line', '')
+                    try:
+                        r.jingcai_handicap_odds = {
+                            'line': line,
+                            'win': float(comp.get('win_odds', 0)),
+                            'draw': float(comp.get('draw_odds', 0)),
+                            'lose': float(comp.get('lose_odds', 0)),
+                            'source': name,
+                        }
+                    except (ValueError, TypeError):
+                        pass
+                    break  # 只取第一个竞彩行
 
         # 提取亚盘/大小球方向
         if data and 'asian' in data:
@@ -2591,6 +2609,12 @@ def format_report(r: PreMatchReport) -> str:
         f"  {r.xls_summary or '(无XLS数据)'}",
         f"  共识: {r.xls_consensus_direction} {r.xls_consensus_pct:+.1f}% [{r.xls_consensus_source}/{r.xls_consensus_confidence}]",
         f"  博彩公司: {r.xls_bookmakers}家",
+    ]
+    # 🆕 V3.34: 竞彩赔率栏 (与百家欧赔并列)
+    jh = getattr(r, 'jingcai_handicap_odds', {}) or {}
+    if jh.get('win'):
+        lines.append(f"  🎫 竞彩让球({jh.get('line','?')}): W{jh['win']:.2f}/D{jh['draw']:.2f}/L{jh['lose']:.2f} ({jh.get('source','')})")
+    lines += [
         "",
         "── 赔率趋势 (20家) ──",
         f"  主: {r.odds_home_chg:+.2f}%  平: {r.odds_draw_chg:+.2f}%  客: {r.odds_away_chg:+.2f}%",
@@ -2599,6 +2623,27 @@ def format_report(r: PreMatchReport) -> str:
     if r.odds_signals:
         for s in r.odds_signals:
             lines.append(f"  ⚡ {s}")
+
+    # 🆕 V3.34: 竞彩总进球赔率 (手动配置)
+    _totals_json = Path(r'C:\Users\A\PyCharmMiscProject\totals_odds_config.json')
+    _totals_cfg = {}
+    if _totals_json.exists():
+        try:
+            import json as _json
+            with open(_totals_json, 'r', encoding='utf-8') as _f:
+                _totals_cfg = _json.load(_f)
+        except Exception:
+            pass
+    _totals_entry = _totals_cfg.get(r.match_name, {})
+    if _totals_entry.get('goals'):
+        _goals = _totals_entry['goals']
+        lines += [
+            "",
+            "── 竞彩总进球 ──",
+            f"  0球:{_goals.get('0','?')} | 1球:{_goals.get('1','?')} | 2球:{_goals.get('2','?')} | 3球:{_goals.get('3','?')}",
+            f"  4球:{_goals.get('4','?')} | 5球:{_goals.get('5','?')} | 6球:{_goals.get('6','?')} | 7+:{_goals.get('7+','?')}",
+            f"  ({_totals_entry.get('source','竞彩')}·{_totals_entry.get('updated','手动')})",
+        ]
 
     lines += [
         "",
@@ -2713,7 +2758,7 @@ def format_report(r: PreMatchReport) -> str:
             cover_label = '🟢 可能穿盘'
         adj_note = f' (原始{r.xls_cover_rate_raw:.0f}%→动态{r.xls_cover_rate:.0f}%)' if r.xls_cover_rate_raw > 0 and abs(r.xls_cover_rate_raw - r.xls_cover_rate) > 1 else ''
         lines.append(f"  穿盘率: {r.xls_cover_rate:.0f}%{adj_note} → {cover_label}")
-        # 🆕 V3.34: 标注穿盘率基于竞彩让球盘口(非亚盘)
+        # 🆕 V3.34: 竞彩让球赔率
         lines.append(f"    ↳ 基于竞彩让球盘口·与亚盘属不同维度")
         # 🆕 V3.4: 小盘口V2.6方向提示
         if getattr(r, '_cover_depth_forced', False):
