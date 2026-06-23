@@ -116,9 +116,10 @@ class PreMatchReport:
 
     # 必发 (来自 betfair_parser)
     betfair_cold: float = 0.0
-    betfair_hot_side: str = ""
+    betfair_hot_side: str = ""           # 资金热方 (必发成交量)
     betfair_is_real_hot: bool = False
     big_weak_overheat: bool = False      # 🆕 V3.3: BIG级别弱过热 (冷热20-29)
+    odds_favorite: str = ""              # 🆕 V3.35: 赔率热门 (低赔方·实力强队·与资金热方不同概念)
     _late_surge: bool = False            # 🆕 V3.6: 冷热真实飙升(早期<25→晚期≥40)
     _late_surge_early: float = 0.0       # 早期平均冷热
     _late_surge_late: float = 0.0        # 晚期平均冷热
@@ -140,6 +141,7 @@ class PreMatchReport:
     v26_rule: str = ""
     v26_prediction: str = ""
     v26_confidence: int = 0
+    _confidence_trace: list = field(default_factory=list)  # 🆕 V3.35: 置信度计算履历
     v26_score_predictions: list = field(default_factory=list)
     v26_warnings: list = field(default_factory=list)
     score_prediction: Optional[ScorePrediction] = None  # 🆕 V3.3: 泊松比分概率
@@ -266,6 +268,14 @@ def generate_report(match_name: str,
             r.hot_team_fifa_rank = fifa_rank_home
         elif r.betfair_hot_side == 'away':
             r.hot_team_fifa_rank = fifa_rank_away
+        # 🆕 V3.35: 赔率热门 (从实际赔率判定·与资金热方区分)
+        try:
+            ho = float(getattr(r, '_home_odds', 0) or 0)
+            ao = float(getattr(r, '_away_odds', 0) or 0)
+            if ho > 0 and ao > 0:
+                r.odds_favorite = 'home' if ho < ao else 'away'
+        except Exception:
+            r.odds_favorite = r.betfair_hot_side  # 回退
 
     # 4b. 🆕 V2.9 场地与赛程上下文
     try:
@@ -923,6 +933,13 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
         r.xls_cover_rate_raw = raw
 
 
+# 🆕 V3.35 P2-7: 置信度计算履历 (模块级·跨函数可用)
+def _ctrace(rpt, reason: str, value=None):
+    if value is None:
+        value = rpt.v26_confidence
+    rpt._confidence_trace.append((reason, value))
+
+
 def _apply_v26_rules(r: PreMatchReport):
     """V2.7 规则引擎: 信号矩阵 + 动态置信度 + 比分预测"""
     gap = r.gap_level
@@ -1000,27 +1017,36 @@ def _apply_v26_rules(r: PreMatchReport):
             }
             # 交叉验证: 若dimension12与内置判定不一致
             if bs.is_real_hot != is_real_hot and gap != 'extreme':
-                # V3.32fix: BIG差距时dimension12覆盖内置过热判定
-                # V3.33 P0: 区分真过热(高PnL损失)vs假过热(虚高冷热值)
-                # 西班牙冷热-112·d12 hot=4.4 → 假过热·完全覆盖
-                # 乌拉圭冷热+38·d12 hot=23·PnL=-1.86M → 真过热·保留惩罚
+                # 🆕 V3.35 P0: BIG级别dimension12分歧→弱过热降权
+                # 修复前: d12一律覆盖betfair·丢失"热门不胜"保护→6场BIG错误
+                # 修复后: d12仅在高置信(热指<15+PnL信>0.8)时覆盖·其余分歧区降权+平局预警
                 if gap == 'big' and not bs.is_real_hot:
-                    is_real_hot = False
-                    # 检测是否是真过热(即使d12说不热, betfair PnL损失仍显著)
                     bf_pnl_loss = abs(min(r._bf_raw_pnls.get('home',0), r._bf_raw_pnls.get('away',0)))
                     d12_hot = abs(bs.hot_index)
-                    if abs(cold) >= 30 and bf_pnl_loss > 1000000 and d12_hot >= 15:
-                        # 真过热: betfair+d12都确认过热信号 (乌拉圭type)
-                        r._big_real_hot_warning = True
-                        hot_reason = f'真过热(冷热{cold:+.0f}·d12 hot={d12_hot:.0f}·PnL=-{bf_pnl_loss/1e6:.1f}M)'
+                    d12_pnl_conf = bs.pnl_confidence if hasattr(bs, 'pnl_confidence') else bs.get('pnl_confidence', 0.5)
+
+                    # 条件1: d12高置信判假过热 → 信任d12, 维持热门胜
+                    if d12_hot < 15 and d12_pnl_conf > 0.8:
+                        is_real_hot = False
                         r.v26_warnings.append(
-                            f'📚 BIG真过热·实力碾压: {hot_reason}→热门仍赢但置信度降级')
+                            f'📚 dimension12覆盖: BIG差距·d12高信判假过热'
+                            f'(热指{d12_hot:.0f}<15·PnL信{d12_pnl_conf:.1f}>0.8)→热门仍赢'
+                        )
+                    # 条件2+3: betfair判热但d12不确认 → 统一分歧降权
+                    # 不翻盘(保持热门胜方向), 仅降权×0.8+平局预警
                     else:
-                        # 假过热: betfair虚高,d12确认无热 (西班牙type)
-                        hot_reason = '假过热' if bs.is_false_hot else f'无过热(hot={bs.hot_index:.0f}<{CONF.overheat_threshold:.0f})'
-                        r.v26_warnings.append(
-                            f'📚 dimension12覆盖: BIG差距庄家判{hot_reason}→热门仍赢 '
-                            f'(betfair冷热被降级·{bs.summary[:50]})')
+                        is_real_hot = False
+                        r._big_divergence_weak = True
+                        if abs(cold) >= 30 and bf_pnl_loss > 1000000 and d12_hot >= 15:
+                            r.v26_warnings.append(
+                                f'📚 BIG三方确认但d12分歧: 冷热{cold:+.0f}·d12热指{d12_hot:.0f}·PnL=-{bf_pnl_loss/1e6:.1f}M'
+                                f'→降权×0.8·平局风险'
+                            )
+                        else:
+                            r.v26_warnings.append(
+                                f'⚠️ BIG过热分歧: betfair判热(cold{cold:+.0f}) vs d12判冷(热指{d12_hot:.0f}·PnL信{d12_pnl_conf:.1f})'
+                                f'→降权×0.8·平局风险'
+                            )
                 else:
                     r.v26_warnings.append(
                         f'📚 庄家结构交叉验证: dimension12判定{"真过热" if bs.is_real_hot else "假过热"}'
@@ -1529,6 +1555,7 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_rule = 'EXTREME + 碾压指数 → 实力碾压·强队胜'
             r.v26_prediction = '热门胜 (实力碾压·准EXTREME)'
             r.v26_confidence = 70
+            _ctrace(r, '碾压指数·直设70%')
             r.gap_level = 'extreme'  # V3.11: 确保gap_level与规则一致
             r.v26_warnings.append(f'⚡ 碾压指数{_oi:.2f}>0.80→准EXTREME·实力碾压·跳过泊松直接预测')
             _predict_totals(r); _build_structured(r); return
@@ -1628,15 +1655,20 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5  # half the discount as boost
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        _ctrace(r, '基础值', base_conf)
         base_conf = apply_v29_adjustments(base_conf)
+        _ctrace(r, '乘法链后', base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
+        _ctrace(r, '信号调整后', raw_conf)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
+        _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
         # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
             old_conf = r.v26_confidence
             r.v26_confidence = int(r.v26_confidence * 0.80)
+            _ctrace(r, f'高信惩罚(×0.80)')
             r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
@@ -1768,15 +1800,20 @@ def _apply_v26_rules(r: PreMatchReport):
                 boost = 1.0 + (1.0 - host_mult) * 0.5
                 base_conf = min(95, int(base_conf * boost))
                 r.v26_warnings.append(f'🏠 东道主逆市信号: 市场看衰但模型看好→东道主溢价+{int((boost-1)*100)}%')
+        _ctrace(r, '基础值', base_conf)
         base_conf = apply_v29_adjustments(base_conf)
+        _ctrace(r, '乘法链后', base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
+        _ctrace(r, '信号调整后', raw_conf)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
+        _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
         # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
             old_conf = r.v26_confidence
             r.v26_confidence = int(r.v26_confidence * 0.80)
+            _ctrace(r, f'高信惩罚(×0.80)')
             r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
@@ -1808,7 +1845,13 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_rule = 'BIG + 庄家结构无过热 → 热度虚高·实力优先'
             r.v26_prediction = '热门胜'
             base_conf = 60
-            r.v26_warnings.append('📚 庄家结构: betfair热度虚高·dimension12否定→热门胜')
+            # 🆕 V3.35: BIG过热分歧降权 — betfair判热 vs d12判冷 → ×0.8+平局预警
+            if getattr(r, '_big_divergence_weak', False):
+                base_conf = int(base_conf * 0.8)  # 60→48
+                r.v26_prediction = '热门胜 (过热分歧·平局风险)'
+                r.v26_warnings.append('⚠️ BIG过热分歧: 降权至×0.8·平局风险不可忽视')
+            else:
+                r.v26_warnings.append('📚 庄家结构: betfair热度虚高·dimension12否定→热门胜')
         elif is_real_hot:
             # 🆕 V3.2: 顶级强队 + 温和过热 → 实力碾压 (市场理性定价)
             # V3.5: BIG级别额外检查对手是否有精英攻击手 (防止巴西/比利时过度触发)
@@ -2037,15 +2080,20 @@ def _apply_v26_rules(r: PreMatchReport):
             r.v26_warnings.append('🔺 BIG真过热·实力碾压: 置信度-30% (市场实际过热·回测警示)')
         if getattr(r, '_iran_travel_boost', False):
             base_conf = min(95, int(base_conf * 1.08))
+        _ctrace(r, '基础值', base_conf)
         base_conf = apply_v29_adjustments(base_conf)
+        _ctrace(r, '乘法链后', base_conf)
         raw_conf = apply_signals(base_conf, r.xls_consensus_direction)
+        _ctrace(r, '信号调整后', raw_conf)
         r.v26_confidence, cal_note = calibrate_confidence(raw_conf)
+        _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
         # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
         if r.v26_confidence > 80:
             old_conf = r.v26_confidence
             r.v26_confidence = int(r.v26_confidence * 0.80)
+            _ctrace(r, f'高信惩罚(×0.80)')
             r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
@@ -2239,61 +2287,71 @@ def _cross_validate_score_vs_rules(r: PreMatchReport):
     if not sp:
         return  # 无泊松模型输出, 跳过
 
-    hot = r.betfair_hot_side
-    if not hot:
+    # 🆕 V3.35: 使用赔率热门(低赔方)而非资金热方做交叉验证
+    fav = r.odds_favorite or r.betfair_hot_side
+    if not fav:
         return
 
     v26 = r.v26_prediction or ''
     conf = r.v26_confidence
 
-    # 确定V2.6对热方的判断
-    v26_hot_wins = any(w in v26 for w in ['热门胜', '热门仍赢', '实力碾压'])
-    v26_hot_loses = any(w in v26 for w in ['热门不胜', '热门可能不胜'])
-    v26_lean_hot = '偏向热门' in v26
+    # 确定V2.6对赔率热门的判断
+    v26_fav_wins = any(w in v26 for w in ['热门胜', '热门仍赢', '实力碾压'])
+    v26_fav_loses = any(w in v26 for w in ['热门不胜', '热门可能不胜'])
 
-    if not v26_hot_wins and not v26_hot_loses:
+    if not v26_fav_wins and not v26_fav_loses:
         return  # 信号不足/模糊, 不验证
 
-    # 泊松热方胜率
-    if hot == 'home':
-        poisson_hot_win = sp.home_win_prob
+    # 获取赔率热门方的队伍名
+    fav_team = (r._home_team if fav == 'home' else r._away_team) if hasattr(r, '_home_team') else ''
+    if not fav_team:
+        # 从match_name解析
+        parts = r.match_name.replace('vs', 'VS').replace('Vs', 'VS').split('VS')
+        if len(parts) == 2:
+            fav_team = parts[0].strip() if fav == 'home' else parts[1].strip()
+
+    # 泊松赔率热门方胜率
+    if fav == 'home':
+        poisson_fav_win = sp.home_win_prob
         poisson_opp_win = sp.away_win_prob
     else:
-        poisson_hot_win = sp.away_win_prob
+        poisson_fav_win = sp.away_win_prob
         poisson_opp_win = sp.home_win_prob
 
-    poisson_draw = sp.draw_prob
+    # 🆕 V3.35: 术语声明 — 当赔率热门≠资金热方时提醒
+    odds_vs_bf_note = ''
+    if r.betfair_hot_side and r.betfair_hot_side != fav:
+        odds_vs_bf_note = f' (注: 赔率热门≠资金热方·资金涌向{ "客队" if r.betfair_hot_side == "away" else "主队"})'
 
-    # ── 一致性判定 (泊松概率为百分比值, 如60=60%) ──
-    # 核心原则: 泊松从市场赔率推导, V2.6的核心价值恰在于逆市场发现。
-    # 一致时互相印证→适度加分; 分歧时仅标注警告→不扣分(分歧可能是V2.6正确逆势)
-    if v26_hot_wins:
-        # V2.6说热门赢 → 泊松热方胜率应偏高
-        if poisson_hot_win >= 50:
+    # ── 一致性判定 ──
+    if v26_fav_wins:
+        # V2.6说赔率热门赢 → 泊松热门方胜率应偏高
+        if poisson_fav_win >= 50:
             boost = 3
             r.v26_warnings.append(
-                f'🔗 交叉验证✅: 泊松热方胜率{poisson_hot_win:.0f}%≥50%·两模型一致→置信度+{boost}')
+                f'🔗 交叉验证✅: 泊松赔率热门({fav_team})胜率{poisson_fav_win:.0f}%≥50%·两模型一致→置信度+{boost}{odds_vs_bf_note}')
             r.v26_confidence = min(92, conf + boost)
-        elif poisson_hot_win >= 38:
+            _ctrace(r, f'交叉验证✅+{boost}')
+        elif poisson_fav_win >= 38:
             r.v26_warnings.append(
-                f'🔗 交叉验证🟡: 泊松热方胜率{poisson_hot_win:.0f}%∈[38,50)%·市场未完全定价热门')
+                f'🔗 交叉验证🟡: 泊松赔率热门({fav_team})胜率{poisson_fav_win:.0f}%∈[38,50)%·市场未完全定价{odds_vs_bf_note}')
         else:
             r.v26_warnings.append(
-                f'🔗 交叉验证⚠️: 泊松热方胜率仅{poisson_hot_win:.0f}%<38%·市场看衰热门→V2.6逆势看好·注意风险')
+                f'🔗 交叉验证⚠️: 泊松赔率热门({fav_team})胜率仅{poisson_fav_win:.0f}%<38%·市场看衰·V2.6逆势·注意风险{odds_vs_bf_note}')
 
-    elif v26_hot_loses:
-        # V2.6说热门不胜 → 泊松热方胜率应偏低
-        if poisson_hot_win <= 38:
+    elif v26_fav_loses:
+        # V2.6说赔率热门不胜 → 泊松热门方胜率应偏低
+        if poisson_fav_win <= 38:
             boost = 5
             r.v26_warnings.append(
-                f'🔗 交叉验证✅: 泊松热方胜率仅{poisson_hot_win:.0f}%≤38%·两模型一致→置信度+{boost}')
+                f'🔗 交叉验证✅: 泊松赔率热门({fav_team})胜率仅{poisson_fav_win:.0f}%≤38%·两模型一致→置信度+{boost}{odds_vs_bf_note}')
             r.v26_confidence = min(92, conf + boost)
-        elif poisson_hot_win <= 50:
+        elif poisson_fav_win <= 50:
             r.v26_warnings.append(
-                f'🔗 交叉验证⚠️: 泊松热方胜率{poisson_hot_win:.0f}%∈(38,50]%·市场仍倾向热门→V2.6逆势信号·注意风险')
+                f'🔗 交叉验证⚠️: 泊松赔率热门({fav_team})胜率{poisson_fav_win:.0f}%∈(38,50]%·市场仍倾向→V2.6逆势{odds_vs_bf_note}')
         else:
             r.v26_warnings.append(
-                f'🔗 交叉验证⚠️: 泊松热方胜率{poisson_hot_win:.0f}%>50%·市场强烈看好热门→V2.6逆势信号·高风险')
+                f'🔗 交叉验证⚠️: 泊松赔率热门({fav_team})胜率{poisson_fav_win:.0f}%>50%·市场强烈看好→V2.6逆势·高风险{odds_vs_bf_note}')
 
 
 def _cross_validate_cover_rate(r: PreMatchReport):
@@ -2418,18 +2476,47 @@ def _build_structured(r: PreMatchReport):
         melt_applied = False
         if market_imp > 0 and poisson_win > 0 and r.v26_confidence > 0:
             divergence = abs(r.v26_confidence - market_imp)
-            if divergence > 25:
-                original_conf = r.v26_confidence
-                # 🆕 V3.33: 市场极端值上限 — market_imp>90%时不以极端赔率过度拉升模型
-                if market_imp > 90:
-                    r.v26_confidence = min(int((r.v26_confidence + market_imp) / 2),
-                                          original_conf + 10)
+            original_conf = r.v26_confidence
+            # 🆕 V3.35 P2修正: 渐进式熔断 — 方向性修复+平滑过渡+低信保护
+            if market_imp > original_conf:
+                # ── 市场比模型乐观 ──
+                if divergence >= 25:
+                    # 严重背离: 模型不信任市场 → 维持原值(不跟庄)
+                    r.v26_confidence = original_conf
+                    melt_note_label = '模型保守·完全拒绝市场'
+                elif divergence >= 15:
+                    # 中度背离: 模型占70%权重·市场占30%(平滑过渡·避免断崖)
+                    r.v26_confidence = int(original_conf * 0.7 + market_imp * 0.3)
+                    melt_note_label = '中度分歧·偏向模型'
                 else:
-                    r.v26_confidence = int((r.v26_confidence + market_imp) / 2)
+                    # 轻度背离(<15): 正常范围·不触发熔断
+                    melt_note_label = ''
+                # 🆕 陷阱3: 模型低信(<50%)+市场极端(>85%)+严重背离(>30) → 冷门预警
+                if original_conf < 50 and market_imp > 85 and divergence > 30:
+                    r._meltdown_caution = True
+                    r.v26_warnings.append(
+                        f'⚠️ 熔断保护: 模型低信({original_conf}%)+市场极端({market_imp:.0f}%)+背离{divergence:.0f}'
+                        f'→置信维持{original_conf}%·建议人工判断冷门风险'
+                    )
+            elif original_conf > market_imp:
+                # ── 模型比市场乐观 → 向市场靠拢(合理下调) ──
+                if divergence >= 25:
+                    r.v26_confidence = int((original_conf + market_imp) / 2)
+                    melt_note_label = '模型乐观·向市场靠拢'
+                elif divergence >= 15:
+                    r.v26_confidence = int(original_conf * 0.7 + market_imp * 0.3)
+                    melt_note_label = '中度分歧·偏向市场'
+                else:
+                    melt_note_label = ''
+            else:
+                melt_note_label = ''
+
+            if melt_note_label:
                 melt_applied = True
+                _ctrace(r, f'熔断({original_conf}%→{r.v26_confidence}%)')
                 r.v26_warnings.insert(0,
-                    f'🌊 市场熔断: 模型{original_conf}%与市场{market_imp:.0f}%背离{divergence:.0f}点>25→'
-                    f'{"上限" if market_imp > 90 else ""}回拨至{r.v26_confidence}%')
+                    f'🌊 市场熔断: 模型{original_conf}%↔市场{market_imp:.0f}%背离{divergence:.0f}点→'
+                    f'{melt_note_label}→锁定{r.v26_confidence}%')
         # 🆕 V3.15: 泊松-市场背离熔断 — 赔率市场定价扭曲检测
         poisson_melt = False
         if market_imp > 0 and poisson_win > 0:
@@ -2447,6 +2534,12 @@ def _build_structured(r: PreMatchReport):
             poisson_note = ' [收敛]' if poisson_melt else ''
             r.v26_warnings.insert(0,
                 f'📊 三行置信: 模型信号{r.v26_confidence:.0f}%{melt_note} | 泊松胜率{poisson_win:.0f}%{poisson_note} | 市场隐含{market_imp:.0f}%')
+            # 🆕 V3.35 P2-7: 置信度计算履历
+            if r._confidence_trace:
+                trace_parts = []
+                for reason, val in r._confidence_trace:
+                    trace_parts.append(f'{reason}={val}%')
+                r.v26_warnings.insert(1, '📐 置信履历: ' + ' → '.join(trace_parts))
     except Exception:
         pass
 
@@ -2654,7 +2747,8 @@ def format_report(r: PreMatchReport) -> str:
     lines += [
         "",
         "── 必发数据 ──",
-        f"  冷热: {r.betfair_cold:+.0f}  热方: {r.betfair_hot_side}",
+        f"  冷热: {r.betfair_cold:+.0f}  资金热方: {r.betfair_hot_side}" +
+        (f" ⚠️赔率热门为{r.odds_favorite}" if r.odds_favorite and r.odds_favorite != r.betfair_hot_side else ""),
         f"  真过热: {'是' if r.betfair_is_real_hot else '否'}" +
         (f" → dimension12覆盖·假过热" if r.betfair_is_real_hot and r.books_structure and not r.books_structure.get('is_real_hot', True) else ""),
         f"  共识污染: {'⚠️ 是' if r.betfair_pollution else '✅ 否'} (差{r.betfair_pollution_gap:.1f}%)",

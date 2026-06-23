@@ -1,4 +1,4 @@
-# 2026 FIFA World Cup Prediction Model V3.34
+# 2026 FIFA World Cup Prediction Model V3.35
 
 Multi-dimensional prediction system combining decision tree rules, Poisson score modeling, dimension12 bookmaker analysis, and cross-validation.
 
@@ -96,6 +96,7 @@ XLS Data (500.com)          Betfair Data (必发)
 | **V3.32** | 06-21 | 三条件赔率判定 · dimension12覆盖 · market引用修正 |
 | **V3.33** | 06-22 | λ预测赢家修正 · BIG攻击枯竭 · 真/假过热 · 5年爆冷 · 46队DB |
 | **V3.34** | 06-23 | 淘汰赛路径标注修复 · R32对阵真实难度 · 小组排名预测 · motivation方向性修正 |
+| **V3.35** | 06-23 | 🆕 置信度履历公开 · 熔断渐进式修复 · BIG分歧降权 · 术语统一(赔率热门≠资金热方) |
 
 ## License
 

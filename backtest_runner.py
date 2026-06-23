@@ -89,7 +89,8 @@ def run_backtest(verbose: bool = False) -> Dict:
 
         # Score prediction
         pred_text = r.v26_prediction
-        hot = r.betfair_hot_side
+        # 🆕 V3.35: 使用赔率热门(低赔方)判定胜负·与资金热方区分
+        hot = r.odds_favorite or r.betfair_hot_side
 
         if '⚠️ 不预测' in pred_text:
             br.skipped = True

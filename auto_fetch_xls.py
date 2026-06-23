@@ -165,11 +165,14 @@ def discover_match_ids() -> Dict[str, str]:
                 if r.status_code == 200:
                     # 500.com 使用 GB2312 编码, 必须显式解码
                     html = r.content.decode('gb2312', errors='ignore')
-                    title_match = re.search(r'<title>(.+?)\(2026', html)
+                    title_match = re.search(r'<title>(.+?)\(2026世界杯', html)
                     if title_match:
                         match_name = title_match.group(1).strip()
                         matches[match_name] = mid
                         print(f"    [{i+1}/{len(match_ids)}] {mid}: {match_name} ✅")
+                    else:
+                        # 非世界杯比赛 (如芬兰联赛2026赛季) → 静默跳过
+                        pass
 
             except Exception as e:
                 print(f"    [{i+1}/{len(match_ids)}] {mid}: ⚠️ {e}")
