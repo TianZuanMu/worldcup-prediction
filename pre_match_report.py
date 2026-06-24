@@ -1606,7 +1606,7 @@ def _apply_v26_rules(r: PreMatchReport):
 
     # ── EXTREME ──
     if gap == 'extreme':
-        # 🆕 V3.8: 碾压指数>0.80→实力碾压预测·非强制回避
+        # 🆕 V3.42: 碾压指数三级体系 — 真碾压(≥0.85)/准碾压(0.80-0.85)/真EXTREME(≥1.0)
         try:
             from v24_optimization import classify_strength_gap
             _rg = abs(getattr(r, 'fifa_rank_gap', 60))
@@ -1615,14 +1615,24 @@ def _apply_v26_rules(r: PreMatchReport):
         except Exception:
             _oi = 0.9
         if _oi < 1.0:
-            # Near-EXTREME: 实力碾压·直接输出强队胜·不依赖泊松
-            r.v26_rule = 'EXTREME + 碾压指数 → 实力碾压·强队胜'
-            r.v26_prediction = '热门胜 (实力碾压·准EXTREME)'
-            r.v26_confidence = 70
-            _ctrace(r, '碾压指数·直设70%')
-            r.gap_level = 'extreme'  # V3.11: 确保gap_level与规则一致
-            r.v26_warnings.append(f'⚡ 碾压指数{_oi:.2f}>0.80→准EXTREME·实力碾压·跳过泊松直接预测')
-            _predict_totals(r); _build_structured(r); return
+            if _oi >= CONF.crush_true_threshold:
+                # 🆕 V3.42: 真碾压(0.85-1.0) → 跳过泊松·实力碾压
+                r.v26_rule = 'EXTREME + 碾压指数 → 实力碾压·强队胜'
+                r.v26_prediction = '热门胜 (实力碾压·真EXTREME)'
+                r.v26_confidence = 70
+                _ctrace(r, '真碾压·直设70%')
+                r.gap_level = 'extreme'
+                r.v26_warnings.append(f'⚡ 碾压指数{_oi:.2f}≥{CONF.crush_true_threshold}→真碾压·跳过泊松直接预测')
+                _predict_totals(r); _build_structured(r); return
+            else:
+                # 🆕 V3.42: 准EXTREME带(0.80-0.85) → 不跳过泊松·走BIG路径+强制熔断
+                r.v26_warnings.append(
+                    f'🆕 碾压指数{_oi:.2f}∈[{CONF.crush_near_lower},{CONF.crush_near_upper})→'
+                    f'准EXTREME·不跳过泊松·走BIG路径+熔断检测'
+                )
+                gap = 'big'  # 降级为BIG处理·不return·继续走下方BIG路径
+                # 标记准EXTREME以便BIG路径识别
+                r._near_extreme = True
         else:
             r.v26_rule = 'EXTREME → 强制回避·不预测'
             r.v26_prediction = '⚠️ 不预测 (EXTREME: 0-0↔7-1随机)'
@@ -2979,6 +2989,17 @@ def _build_structured(r: PreMatchReport):
             'most_likely_prob': sp.most_likely_prob,
             'top_scores': [{'score': s, 'prob': round(p * 100, 1)} for s, p in sp.top_scores[:6]],
         }
+
+    # 🆕 V3.42: 大额卖单硬限制 — 单方向>1M卖单→置信度上限60%
+    # 无论什么路径·只要检测到大额卖单就触发
+    if getattr(r, 'betfair_big_sell', False) and getattr(r, 'betfair_big_sell_volume', 0) >= CONF.big_sell_hard_cap:
+        if r.v26_confidence > CONF.big_sell_confidence_ceiling:
+            r.v26_warnings.append(
+                f'🔴 大额卖单{r.betfair_big_sell_volume/1e6:.1f}M检测'
+                f'→置信度上限{CONF.big_sell_confidence_ceiling}%'
+                f'(原{r.v26_confidence}%→{CONF.big_sell_confidence_ceiling}%)'
+            )
+            r.v26_confidence = CONF.big_sell_confidence_ceiling
 
     r.structured = {
         'winner': winner or 'unknown',

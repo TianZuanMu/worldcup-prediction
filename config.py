@@ -199,6 +199,15 @@ class Config:
     trap_confidence_adj_range: Tuple[float, float] = (-15, 5)  # 诱盘置信度调整范围
 
     # ══════════════════════════════════════════════════════════
+    # 🆕 V3.42: 碾压指数分级 + 大额卖单硬限制
+    # ══════════════════════════════════════════════════════════
+    crush_true_threshold: float = 0.85      # ≥0.85真碾压→跳过泊松(原0.80)
+    crush_near_lower: float = 0.80          # 准EXTREME带下限
+    crush_near_upper: float = 0.85          # 准EXTREME带上限→走泊松+熔断
+    big_sell_hard_cap: float = 1_000_000    # 单方向大额卖单>1M→置信度上限60%
+    big_sell_confidence_ceiling: int = 60   # 大额卖单触发后的置信度天花板
+
+    # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════
     backtest_dir: str = r"C:\Users\A\PyCharmMiscProject\backtest"
