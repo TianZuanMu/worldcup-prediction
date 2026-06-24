@@ -175,6 +175,15 @@ class Config:
     poisson_model_cap: int = 55                     # 背离触发时置信度上限
     poisson_hotwin_min_threshold: float = 38.0      # 泊松热方胜率<38%视为严重看衰
 
+    # 🆕 V3.36: 大小球-泊松xG背离仲裁
+    totals_xg_divergence_critical: float = 0.30     # 背离>30% → 严重·大幅降信
+    totals_xg_divergence_moderate: float = 0.15     # 背离>15% → 中度·降信
+    totals_xg_divergence_hard_reject: float = 0.50  # 背离>50% → 硬拒绝·放弃预测
+    totals_xg_diverge_conf_penalty_critical: int = 25  # 严重背离扣信
+    totals_xg_diverge_conf_penalty_moderate: int = 12  # 中度背离扣信
+    totals_xg_diverge_conf_ceiling: int = 50           # 方向冲突时上限
+    totals_line_move_significant: float = 0.05         # 盘口变动>5%视为主动行为
+
     # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════

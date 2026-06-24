@@ -103,6 +103,9 @@ class PreMatchReport:
     xls_handicap: str = ""
     xls_totals: str = ""
     _totals_line: float = 2.5  # 🆕 大小球实际数值
+    _totals_line_init: float = 2.5  # 🆕 V3.36: 初盘数值·用于背离动态加权
+    _draw_risk: str = 'none'        # 🆕 V3.37: 平局风险评估
+    _draw_risk_score: int = 0       # 🆕 V3.37: 平局风险评分
     xls_cover_rate: float = 0.0
     xls_cover_rate_raw: float = 0.0  # V2.14 原始XLS值
     xls_bookmakers: int = 0
@@ -509,6 +512,7 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
             r.xls_totals = la.get('direction', '')
             # 🆕 存储实际大小球数值
             r._totals_line = la.get('instant_line', 2.5)
+            r._totals_line_init = la.get('init_line', r._totals_line)  # 🆕 V3.36: 初盘用于背离加权
 
     except Exception as e:
         r.xls_summary = f"XLS加载失败: {e}"
@@ -1664,12 +1668,7 @@ def _apply_v26_rules(r: PreMatchReport):
         _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
-        if r.v26_confidence > 80:
-            old_conf = r.v26_confidence
-            r.v26_confidence = int(r.v26_confidence * 0.80)
-            _ctrace(r, f'高信惩罚(×0.80)')
-            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        _apply_high_confidence_penalty(r)
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
@@ -1809,12 +1808,7 @@ def _apply_v26_rules(r: PreMatchReport):
         _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
-        if r.v26_confidence > 80:
-            old_conf = r.v26_confidence
-            r.v26_confidence = int(r.v26_confidence * 0.80)
-            _ctrace(r, f'高信惩罚(×0.80)')
-            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        _apply_high_confidence_penalty(r)
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
@@ -2089,12 +2083,7 @@ def _apply_v26_rules(r: PreMatchReport):
         _ctrace(r, 'Bayes校准后')
         if '📐' in cal_note:
             r.v26_warnings.append(cal_note)
-        # 🆕 V3.13: 高置信度惩罚校准 (>80%历史准确率仅20%→自动降信×0.80)
-        if r.v26_confidence > 80:
-            old_conf = r.v26_confidence
-            r.v26_confidence = int(r.v26_confidence * 0.80)
-            _ctrace(r, f'高信惩罚(×0.80)')
-            r.v26_warnings.append(f'🔴 高置信度惩罚: {old_conf}%→{r.v26_confidence}% (历史>80%准确率仅20%)')
+        _apply_high_confidence_penalty(r)
         # 🆕 V3.13: 金三角约束 — 置信度>75%需三信号齐备
         _uni_triggered = r.unanimity.get('triggered', False) if r.unanimity else False
         if r.v26_confidence > 75 and not (_uni_triggered and abs(cold) <= 35 and r.xls_cover_rate >= 50):
@@ -2151,11 +2140,22 @@ def _predict_totals(r: PreMatchReport):
         }
         return
 
-    # 基础预测
+    # 🆕 V3.38: 退盘强度分级 + 基础预测
+    init_line = getattr(r, '_totals_line_init', line) or line
+    line_move_pct = abs(line - init_line) / max(init_line, 2.0) if init_line > 0.5 else 0.0
+    is_downgrade = line < init_line
+    downgrade_level = 'none'
+
     if trend == 'up':
         base_dir = 'over'; base_conf = 65
     elif trend == 'down':
-        base_dir = 'under'; base_conf = 60
+        base_dir = 'under'
+        if line_move_pct >= 0.08:
+            downgrade_level = 'severe'; base_conf = 72
+        elif line_move_pct >= 0.04:
+            downgrade_level = 'moderate'; base_conf = 68
+        else:
+            downgrade_level = 'mild'; base_conf = 63
     else:
         base_dir = 'neutral'; base_conf = 50
 
@@ -2244,7 +2244,92 @@ def _predict_totals(r: PreMatchReport):
         conf_delta -= 7
         adjustments.append(f'低盘口({line:.1f}<2.5)升盘信号弱→大球风险')
 
-    # 计算最终
+    # ── 🆕 V3.36: 泊松xG背离检测与仲裁 ──
+    diverge_level = 'none'
+    diverge_conf_penalty = 0  # 单独追踪·不影响方向翻转判定
+    try:
+        from score_prediction import _calc_pure_xg
+        if hasattr(r, '_bf_raw_odds') and r._bf_raw_odds:
+            bf_odds = r._bf_raw_odds
+            raw_home_prob = 1.0 / max(bf_odds.get('home', 2.0), 1.01)
+            raw_away_prob = 1.0 / max(bf_odds.get('away', 3.0), 1.01)
+        else:
+            raw_home_prob = 0.40; raw_away_prob = 0.30
+        pure_home_xg, pure_away_xg = _calc_pure_xg(
+            home_cn, away_cn, raw_home_prob, raw_away_prob, gap
+        )
+        raw_total = pure_home_xg + pure_away_xg
+
+        if line > 0.5:
+            divergence = abs(raw_total - line) / line
+        else:
+            divergence = 0.0
+        xg_direction = 'over' if raw_total > line else 'under'
+
+        # 🆕 硬拒绝红线: >50%
+        if divergence > CONF.totals_xg_divergence_hard_reject:
+            diverge_level = 'hard_reject'
+            adjustments.append(
+                f'🚫 极端背离{divergence*100:.0f}%(xG{raw_total:.1f} vs 盘口{line:.1f})→放弃预测'
+            )
+            r._totals_prediction = {
+                'direction': 'skip', 'confidence': 0, 'line': line, 'trend': trend,
+                'adjustments': adjustments,
+                'flipped': False, 'flip_note': '🚫 大小球与泊松极端背离·无法判断',
+                'both_dangerous': both_dangerous, 'low_confidence': True,
+                'diverge_level': diverge_level,
+            }
+            return
+        elif divergence > CONF.totals_xg_divergence_critical:
+            diverge_level = 'critical'
+            # 🆕 V3.38: 退盘优先规则 — 中度以上退盘+严重背离 → 信任市场
+            if is_downgrade and downgrade_level in ('severe', 'moderate'):
+                diverge_conf_penalty = CONF.totals_xg_diverge_conf_penalty_critical // 2
+                adjustments.append(
+                    f'🔴 严重背离{divergence*100:.0f}%但中度以上退盘({line_move_pct*100:.0f}%)→退盘优先·降信减半至{diverge_conf_penalty}'
+                )
+            else:
+                diverge_conf_penalty = CONF.totals_xg_diverge_conf_penalty_critical
+                adjustments.append(
+                    f'🔴 泊松xG({raw_total:.1f}球)与盘口({line:.1f}球)严重背离{divergence*100:.0f}%→降信{diverge_conf_penalty}'
+                )
+            if xg_direction != base_dir:
+                try:
+                    line_move = abs(line - (getattr(r, '_totals_line_init', line) or line)) / max(line, 0.5)
+                except Exception:
+                    line_move = 0.0
+                if line_move > CONF.totals_line_move_significant:
+                    base_conf = min(base_conf, CONF.totals_xg_diverge_conf_ceiling)
+                    adjustments.append(f'盘口变动{line_move*100:.0f}%>阈值→信市场·上限{CONF.totals_xg_diverge_conf_ceiling}%')
+                else:
+                    base_conf = max(base_conf, 55)
+                    adjustments.append(f'盘口稳定但xG大幅偏离→微幅偏向实力')
+        elif divergence > CONF.totals_xg_divergence_moderate:
+            diverge_level = 'moderate'
+            diverge_conf_penalty = CONF.totals_xg_diverge_conf_penalty_moderate
+            adjustments.append(
+                f'🟡 泊松xG({raw_total:.1f}球)与盘口({line:.1f}球)中度背离{divergence*100:.0f}%→降信{diverge_conf_penalty}'
+            )
+    except Exception as e:
+        adjustments.append(f'⚠️ 背离检测异常: {str(e)[:80]}')
+
+    # 🆕 V3.38: 一致性加成 — 退盘方向与xG方向对齐时额外奖励
+    if is_downgrade and downgrade_level != 'none':
+        try:
+            xg_dir_local = 'over' if raw_total > line else 'under'
+        except Exception:
+            xg_dir_local = 'neutral'
+        if xg_dir_local == 'under':
+            bonus_map = {'severe': 8, 'moderate': 5, 'mild': 3}
+            consistency_bonus = bonus_map.get(downgrade_level, 0)
+            conf_delta += consistency_bonus
+            adjustments.append(
+                f'🟢 退盘({downgrade_level})与xG看小一致→一致性加成+{consistency_bonus}'
+            )
+        elif xg_dir_local == 'over':
+            adjustments.append('🟡 退盘与xG看大背离→不追加退盘权重')
+
+    # 计算最终 (背离罚分在翻转判定后应用)
     final_conf = max(25, min(90, base_conf + conf_delta))
 
     # 🆕 V3.12: 低置信度标记 — <40%的预测标注"仅供参考"
@@ -2262,12 +2347,200 @@ def _predict_totals(r: PreMatchReport):
     if low_confidence and flip_note:
         flip_note += f' [低置信度{final_conf:.0f}%·仅供参考]'
 
+    # 🆕 V3.36: 背离罚分在方向确定后应用 (不影响翻转判定)
+    if diverge_conf_penalty > 0:
+        final_conf = max(25, final_conf - diverge_conf_penalty)
+
     r._totals_prediction = {
         'direction': final_dir, 'confidence': final_conf, 'line': line, 'trend': trend,
         'adjustments': adjustments, 'flipped': final_dir != base_dir,
         'flip_note': flip_note, 'both_dangerous': both_dangerous,
         'low_confidence': low_confidence,  # 🆕 V3.12
+        'diverge_level': diverge_level,     # 🆕 V3.36
     }
+
+
+def _apply_high_confidence_penalty(r: PreMatchReport):
+    """
+    🆕 V3.39: 分段线性插值高信惩罚 — 替代粗暴×0.80
+
+    锚点: 80%→×1.00, 90%→×0.82, 100%→×0.75
+    调制: 交叉验证通过→+0.05(减轻) / 风险信号→-0.05(加重)
+    """
+    x = r.v26_confidence
+    if x <= 80:
+        return
+
+    # 1. 分段线性插值
+    if x <= 90:
+        factor = 1.0 - (x - 80) * 0.018   # 80%→1.00, 90%→0.82
+    else:
+        factor = 0.82 - (x - 90) * 0.007  # 90%→0.82, 100%→0.75
+
+    # 2. 调制: 交叉验证通过 → 减轻惩罚
+    try:
+        sp = r.score_prediction
+        poisson_fav = max(getattr(sp, 'home_win_prob', 0) or 0,
+                        getattr(sp, 'away_win_prob', 0) or 0)
+        market_imp = 0
+        bf = getattr(r, '_bf_raw_odds', {}) or {}
+        if bf:
+            bf_h = bf.get('home', 0) or 0; bf_a = bf.get('away', 0) or 0
+            if bf_h > 1.0 and bf_a > 1.0:
+                market_imp = max(1/bf_h, 1/bf_a) * 100
+        if poisson_fav >= 50 and market_imp >= 50:
+            factor = min(factor + 0.05, 1.0)
+            r.v26_warnings.append('✅ 交叉验证支撑→高信惩罚减轻+0.05')
+    except Exception:
+        pass
+
+    # 3. 调制: 多重风险信号 → 加重惩罚
+    risk_count = 0
+    if getattr(r, '_draw_risk', 'none') in ('critical', 'high'):
+        risk_count += 1
+    if getattr(r, 'betfair_is_real_hot', False):
+        risk_count += 1
+    tp = getattr(r, '_totals_prediction', {}) or {}
+    if tp.get('diverge_level', 'none') == 'critical':
+        risk_count += 1
+    if risk_count >= 2:
+        factor = max(factor - 0.05, 0.65)
+        r.v26_warnings.append(f'⚠️ 多重风险信号({risk_count}项)→高信惩罚加重-0.05')
+
+    # 应用
+    old_conf = x
+    r.v26_confidence = max(55, min(95, int(x * factor)))
+    r.v26_warnings.append(
+        f'📐 高信惩罚: {old_conf}%→{r.v26_confidence}% '
+        f'(线性插值×{factor:.3f})'
+    )
+    _ctrace(r, f'高信惩罚(×{factor:.3f})')
+
+
+def _assess_draw_risk(r: PreMatchReport):
+    """
+    🆕 V3.37: 独立平局风险评估
+
+    两级结构:
+      硬约束: 任一触发 → draw_risk='critical'·置信度上限≤55%
+      加权评分: 累积触发 → draw_risk='high'(≥30)→上限60% / 'moderate'(≥15)→上限70%
+
+    最终作用: 裁剪v26_confidence·强制插入平局概率(泊松×1.5重新归一化)
+    """
+    score = 0
+    hard_triggers = []
+    soft_factors = []
+    draw_risk = 'none'
+
+    # ═══ 硬约束检查 ═══
+    # 1. 双方平局即同时出线
+    try:
+        home_mot = r.match_motivation.home_motivation
+        away_mot = r.match_motivation.away_motivation
+        home_ok = '平局即可出线' in str(getattr(home_mot, 'scenario_detail', ''))
+        away_ok = '平局即可出线' in str(getattr(away_mot, 'scenario_detail', ''))
+        if home_ok and away_ok:
+            hard_triggers.append('双方平局即同时出线')
+            score += 30
+    except Exception:
+        pass
+
+    # 2. 双方均无出线希望 (荣誉战)
+    try:
+        home_elim = '濒临淘汰' in str(getattr(home_mot, 'scenario_detail', ''))
+        away_elim = '濒临淘汰' in str(getattr(away_mot, 'scenario_detail', ''))
+        # 双方都已淘汰且本场不影响任何出线 → 可能都无出线希望
+        home_pts = getattr(home_mot, 'pts', 99)
+        away_pts = getattr(away_mot, 'pts', 99)
+        if home_elim and away_elim and home_pts == 0 and away_pts == 0:
+            hard_triggers.append('双方均出线无望·荣誉战')
+            score += 25
+    except Exception:
+        pass
+
+    # 3. 赔率平赔48h内下降>5% (真金白银押平局)
+    if getattr(r, 'odds_draw_chg', 0) < -5.0:
+        hard_triggers.append(f'平赔48h下降{r.odds_draw_chg:.1f}%')
+        score += 20
+
+    # ═══ 加权评分 ═══
+    # 双方攻击疲软
+    try:
+        home_gpg = r.home_recent_form.get('avg_goals_scored', 1.5) or 1.5
+        away_gpg = r.away_recent_form.get('avg_goals_scored', 1.5) or 1.5
+        if home_gpg + away_gpg < 2.5:
+            soft_factors.append(f'双方攻击疲软(合计{home_gpg+away_gpg:.1f}球)')
+            score += 15
+    except Exception:
+        pass
+
+    # 淘汰赛路径无差异
+    try:
+        home_path = getattr(home_mot, 'alt_path_better', None)
+        away_path = getattr(away_mot, 'alt_path_better', None)
+        if home_path is False and away_path is False:
+            soft_factors.append('淘汰赛路径无差异·输赢不影响对手')
+            score += 12
+    except Exception:
+        pass
+
+    # 差距级别≤MODERATE (实力接近)
+    if r.gap_level in ('close', 'moderate'):
+        soft_factors.append(f'{r.gap_level}级别·实力接近')
+        score += 10
+
+    # 必发热度分歧 (过热+分歧→不确定性低→平局可能)
+    if r.betfair_is_real_hot and r.books_structure.get('is_real_hot') != r.books_structure.get('is_false_hot'):
+        soft_factors.append('必发热度分歧·市场方向不明确')
+        score += 8
+
+    # 平赔在XLS趋势中上升 (机构主动调高平赔=反指放平)
+    if getattr(r, 'odds_draw_chg', 0) > 5.0:
+        soft_factors.append('平赔上升·机构看淡平局')
+        score -= 5
+
+    # ═══ 风险定级 ═══
+    if hard_triggers or score >= 45:
+        draw_risk = 'critical'
+        max_conf = 50
+    elif score >= 30:
+        draw_risk = 'high'
+        max_conf = 60
+    elif score >= 15:
+        draw_risk = 'moderate'
+        max_conf = 70
+    else:
+        max_conf = 100  # 无限制
+
+    # 应用置信度上限
+    if draw_risk != 'none':
+        r.v26_confidence = min(r.v26_confidence, max_conf)
+        reasons = '; '.join(hard_triggers + soft_factors[:3])
+        r.v26_warnings.append(
+            f'🎯 平局风险评估: {draw_risk}(分{score})·置信度上限{max_conf}% [{reasons}]'
+        )
+
+        # 🆕 critical: 强行提升泊松平局概率
+        if draw_risk == 'critical' and r.score_prediction:
+            try:
+                sp = r.score_prediction
+                old_draw = sp.draw_prob
+                old_home = sp.home_win_prob
+                old_away = sp.away_win_prob
+                # 平局概率×1.5后重新归一化
+                new_draw = old_draw * 1.5
+                total = old_home + new_draw + old_away
+                sp.home_win_prob = old_home / total * 100
+                sp.draw_prob = new_draw / total * 100
+                sp.away_win_prob = old_away / total * 100
+                r.v26_warnings.append(
+                    f'🎯 平局critical→泊松平局概率{old_draw:.0f}%→{sp.draw_prob:.0f}% (×1.5归一化)'
+                )
+            except Exception:
+                pass
+
+    r._draw_risk = draw_risk
+    r._draw_risk_score = score
 
 
 def _cross_validate_score_vs_rules(r: PreMatchReport):
@@ -2432,9 +2705,44 @@ def _cross_validate_cover_rate(r: PreMatchReport):
 
 def _build_structured(r: PreMatchReport):
     """V3.0: 生成结构化的预测输出"""
+    # 🆕 V3.37: 平局风险评估 (必须在交叉验证前执行)
+    _assess_draw_risk(r)
+
     # 🆕 V3.4: 交叉验证 (必须在structured构建前执行)
     _cross_validate_score_vs_rules(r)
     _cross_validate_cover_rate(r)
+
+    # 🆕 V3.37: BIG级别动态置信度上限
+    if r.gap_level == 'big':
+        big_ceiling = 55  # 基础上限
+        # 向上修正: 交叉验证支撑
+        try:
+            sp = r.score_prediction
+            poisson_fav = max(getattr(sp, 'home_win_prob', 0) or 0,
+                            getattr(sp, 'away_win_prob', 0) or 0)
+            market_imp = 0
+            bf = getattr(r, '_bf_raw_odds', {}) or {}
+            if bf:
+                bf_h = bf.get('home', 0) or 0
+                bf_a = bf.get('away', 0) or 0
+                if bf_h > 1.0 and bf_a > 1.0:
+                    market_imp = max(1/bf_h, 1/bf_a) * 100
+            if poisson_fav >= 75 and market_imp >= 80:
+                big_ceiling += 10  # → 65%
+                r.v26_warnings.append(f'📈 BIG动态上限: 泊松{poisson_fav:.0f}%+市场{market_imp:.0f}%双支撑→上限+10')
+        except Exception:
+            pass
+        # 向下修正: 过热/分歧/信号冲突
+        if getattr(r, 'betfair_is_real_hot', False):
+            big_ceiling -= 10
+            r.v26_warnings.append(f'📉 BIG真过热→上限-10')
+        if getattr(r, '_draw_risk', 'none') in ('critical', 'high'):
+            big_ceiling -= 10
+            r.v26_warnings.append(f'📉 平局风险{r._draw_risk}→上限-10')
+        # 应用
+        if r.v26_confidence > big_ceiling:
+            r.v26_warnings.append(f'🔒 BIG上限裁剪: {r.v26_confidence}%→{big_ceiling}%')
+            r.v26_confidence = max(25, big_ceiling)
 
     # 🆕 V3.7: 三行置信度输出 (模型信号·泊松胜率·市场隐含)
     try:
@@ -2479,24 +2787,24 @@ def _build_structured(r: PreMatchReport):
             original_conf = r.v26_confidence
             # 🆕 V3.35 P2修正: 渐进式熔断 — 方向性修复+平滑过渡+低信保护
             if market_imp > original_conf:
-                # ── 市场比模型乐观 ──
+                # ── 🆕 V3.40: 市场比模型乐观 → 熔断=刹车·不跟庄·禁止向上修正 ──
                 if divergence >= 25:
-                    # 严重背离: 模型不信任市场 → 维持原值(不跟庄)
                     r.v26_confidence = original_conf
-                    melt_note_label = '模型保守·完全拒绝市场'
+                    melt_note_label = '市场过热·模型拒绝跟庄'
+                    r.v26_warnings.append(
+                        f'🚨 市场隐含{market_imp:.0f}%显著高于模型{original_conf:.0f}%({divergence:.0f}点)'
+                        f'→ 市场可能存在过度乐观/跟风泡沫'
+                    )
                 elif divergence >= 15:
-                    # 中度背离: 模型占70%权重·市场占30%(平滑过渡·避免断崖)
-                    r.v26_confidence = int(original_conf * 0.7 + market_imp * 0.3)
-                    melt_note_label = '中度分歧·偏向模型'
+                    r.v26_confidence = original_conf
+                    melt_note_label = '市场过度乐观·模型维持原值'
                 else:
-                    # 轻度背离(<15): 正常范围·不触发熔断
-                    melt_note_label = ''
-                # 🆕 陷阱3: 模型低信(<50%)+市场极端(>85%)+严重背离(>30) → 冷门预警
+                    melt_note_label = '市场略乐观·分歧在容忍范围'
+                # 低信+市场极端 → 冷门预警
                 if original_conf < 50 and market_imp > 85 and divergence > 30:
                     r._meltdown_caution = True
                     r.v26_warnings.append(
-                        f'⚠️ 熔断保护: 模型低信({original_conf}%)+市场极端({market_imp:.0f}%)+背离{divergence:.0f}'
-                        f'→置信维持{original_conf}%·建议人工判断冷门风险'
+                        f'⚠️ 熔断保护: 模型低信({original_conf}%)+市场极端({market_imp:.0f}%)→冷门风险'
                     )
             elif original_conf > market_imp:
                 # ── 模型比市场乐观 → 向市场靠拢(合理下调) ──

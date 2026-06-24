@@ -932,5 +932,93 @@
     },
     "correct": false,
     "evaluated_at": "2026-06-23T22:46:47.955383"
+  },
+  {
+    "match_name": "葡萄牙VS乌兹别克斯坦",
+    "kickoff": "2026-06-24T01:00",
+    "recorded_at": "2026-06-24T19:26:42.475673",
+    "actual": {
+      "result": "home",
+      "score": "5-0"
+    },
+    "prediction": {
+      "text": "热门胜",
+      "confidence": 80,
+      "rule": "BIG + 庄家结构无过热 → 热度虚高·实力优先"
+    },
+    "features": {
+      "strength_gap": "big",
+      "fifa_rank_gap": 45,
+      "squad_value_ratio": 13.8,
+      "betfair_cold": 7
+    },
+    "correct": true,
+    "evaluated_at": "2026-06-24T19:26:42.475673"
+  },
+  {
+    "match_name": "英格兰VS加纳",
+    "kickoff": "2026-06-24T04:00",
+    "recorded_at": "2026-06-24T19:26:42.475673",
+    "actual": {
+      "result": "draw",
+      "score": "0-0"
+    },
+    "prediction": {
+      "text": "热门胜 (实力碾压·准EXTREME)",
+      "confidence": 70,
+      "rule": "EXTREME + 碾压指数 → 实力碾压·强队胜"
+    },
+    "features": {
+      "strength_gap": "extreme",
+      "fifa_rank_gap": 69,
+      "squad_value_ratio": 5.1,
+      "betfair_cold": -23
+    },
+    "correct": false,
+    "evaluated_at": "2026-06-24T19:26:42.475673"
+  },
+  {
+    "match_name": "巴拿马VS克罗地亚",
+    "kickoff": "2026-06-24T07:00",
+    "recorded_at": "2026-06-24T19:26:42.475673",
+    "actual": {
+      "result": "away",
+      "score": "0-1"
+    },
+    "prediction": {
+      "text": "热门胜",
+      "confidence": 69,
+      "rule": "MOD + 真过热 + 无进攻威胁 → 热门仍赢"
+    },
+    "features": {
+      "strength_gap": "moderate",
+      "fifa_rank_gap": 23,
+      "squad_value_ratio": 13.9,
+      "betfair_cold": -22
+    },
+    "correct": true,
+    "evaluated_at": "2026-06-24T19:26:42.475673"
+  },
+  {
+    "match_name": "哥伦比亚VS民主刚果",
+    "kickoff": "2026-06-24T10:00",
+    "recorded_at": "2026-06-24T19:26:42.475673",
+    "actual": {
+      "result": "home",
+      "score": "1-0"
+    },
+    "prediction": {
+      "text": "热门胜 (过热分歧·平局风险)",
+      "confidence": 72,
+      "rule": "BIG + 庄家结构无过热 → 热度虚高·实力优先"
+    },
+    "features": {
+      "strength_gap": "big",
+      "fifa_rank_gap": 33,
+      "squad_value_ratio": 2.3,
+      "betfair_cold": 31
+    },
+    "correct": true,
+    "evaluated_at": "2026-06-24T19:26:42.475673"
   }
 ]

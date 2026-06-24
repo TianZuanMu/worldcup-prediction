@@ -318,11 +318,44 @@ def _adjust_for_cover_rate(lam_strong: float, lam_weak: float, cover_rate: float
     return new_strong, new_weak
 
 
+def _calc_pure_xg(home_team: str, away_team: str, market_home_prob: float,
+                  market_away_prob: float, gap_level: str) -> Tuple[float, float]:
+    """
+    🆕 V3.36: 纯净xG估算 — 仅基于实力+赔率·不读取任何大小球变量
+
+    用途: 大小球背离检测时的参照基准。必须保持绝对纯净，避免递归。
+    输入: 球队名·赔率隐含概率·差距级别
+    输出: (home_raw_xg, away_raw_xg)
+    """
+    from opponent_db import opponent_quality
+    home_data = opponent_quality(home_team)
+    away_data = opponent_quality(away_team)
+
+    home_gpg = home_data.get('pre_goals_per_game', 1.2) or 1.2
+    away_gpg = away_data.get('pre_goals_per_game', 1.2) or 1.2
+
+    # 基础λ = 实力场均 × 0.7 + 赔率隐含 × 0.3
+    home_lam = home_gpg * 0.7 + market_home_prob * 3.0 * 0.3
+    away_lam = away_gpg * 0.7 + market_away_prob * 3.0 * 0.3
+
+    # BIG差距轻微调整
+    if gap_level == 'big':
+        home_lam *= 1.05
+        away_lam *= 0.95
+    elif gap_level == 'extreme':
+        home_lam *= 1.10
+        away_lam *= 0.90
+
+    return max(0.15, home_lam), max(0.15, away_lam)
+
+
 def _adjust_for_totals_prediction(lam_strong: float, lam_weak: float,
                                    totals_direction: str, totals_confidence: float,
-                                   adjustments: List[str]) -> Tuple[float, float]:
+                                   adjustments: List[str],
+                                   diverge_level: str = 'none') -> Tuple[float, float]:
     """
     🆕 V3.4: 大小球预测联动比分
+    🆕 V3.36: 背离仲裁 — 严重背离时跳过缩放·中度背离时缩放减半
 
     将独立的大小球模型结论反馈到泊松比分模型:
     - 大小球预测 ≠ 仅用原始盘口; 它综合了XLS趋势+6项修正因子
@@ -333,16 +366,24 @@ def _adjust_for_totals_prediction(lam_strong: float, lam_weak: float,
     if not totals_direction or totals_confidence < 60:
         return lam_strong, lam_weak
 
+    # 🆕 V3.36: 背离时缩放力度控制
+    if diverge_level == 'critical':
+        adjustments.append('🔴 大小球与泊松严重背离→跳过大小球缩放')
+        return lam_strong, lam_weak
+    elif diverge_level == 'moderate':
+        scale_mod = 0.5  # 缩放减半
+        adjustments.append('🟡 大小球与泊松中度背离→缩放减半')
+    else:
+        scale_mod = 1.0
+
     if totals_direction == 'under':
-        # 小球信号 → 双方λ同时缩减
-        factor = 1.0 - (totals_confidence / 100) * 0.15  # 60%信→-9%, 90%信→-13.5%
+        factor = 1.0 - (totals_confidence / 100) * 0.15 * scale_mod
         factor = max(0.82, factor)
         lam_strong *= factor
         lam_weak *= factor
         adjustments.append(f'⚽ 大小球模型→小球(信{totals_confidence:.0f}%)→总进球×{factor:.2f}')
     elif totals_direction == 'over':
-        # 大球信号 → 双方λ同时放大
-        factor = 1.0 + (totals_confidence / 100) * 0.12  # 60%信→+7.2%, 90%信→+10.8%
+        factor = 1.0 + (totals_confidence / 100) * 0.12 * scale_mod
         factor = min(1.15, factor)
         lam_strong *= factor
         lam_weak *= factor
@@ -458,6 +499,7 @@ def predict_score(match_name: str,
                   totals_line: float = 2.5,
                   totals_direction: str = '',      # 🆕 V3.4: 大小球预测方向
                   totals_confidence: float = 50,   # 🆕 V3.4: 大小球预测置信度
+                  totals_diverge_level: str = 'none',  # 🆕 V3.36: 背离级别
                   gap_level: str = 'moderate',
                   home_is_strong: bool = True,
                   home_fifa_rank: int = 50, away_fifa_rank: int = 50,
@@ -538,9 +580,10 @@ def predict_score(match_name: str,
         lam_strong, lam_weak, cover_rate, gap_level, adjustments
     )
 
-    # 5b. 🆕 V3.4: 大小球预测联动 (独立模型结论反馈到比分)
+    # 5b. 🆕 V3.4/V3.36: 大小球预测联动 (独立模型结论反馈到比分)
     lam_strong, lam_weak = _adjust_for_totals_prediction(
-        lam_strong, lam_weak, totals_direction, totals_confidence, adjustments
+        lam_strong, lam_weak, totals_direction, totals_confidence, adjustments,
+        diverge_level=totals_diverge_level  # 🆕 V3.36
     )
 
     # 6. 近期状态调整 (强/弱方视角)
@@ -1024,6 +1067,7 @@ def predict_score_from_report(r) -> ScorePrediction:
         totals_line=totals_line,
         totals_direction=totals_dir,          # 🆕 V3.4
         totals_confidence=totals_conf,        # 🆕 V3.4
+        totals_diverge_level=totals_pred.get('diverge_level', 'none'),  # 🆕 V3.36
         gap_level=gap_level,
         home_is_strong=home_is_strong,
         home_fifa_rank=home_rank, away_fifa_rank=away_rank,
