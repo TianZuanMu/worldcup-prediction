@@ -447,7 +447,7 @@ def calculate_motivation(team: str, matchday: int = 2) -> TeamMotivation:
     if enhanced['alt_path_better'] and pos == 1:
         avoidance_bonus = -0.5  # 小组第一反而路径更硬 → 保头名动力稍降
     elif enhanced['alt_path_better'] and pos == 2:
-        avoidance_bonus = 1.0   # 小组第二路径更优 → 维持第二动力
+        avoidance_bonus = 1.5   # 小组第一路径更优 → 争胜动力 (alt_path_better=第一比第二容易得多)
 
     # 净胜球动力
     gd_bonus = 1.0 if enhanced['need_goals'] else 0
@@ -523,7 +523,7 @@ def get_match_motivation(match_name: str) -> Optional[MatchMotivation]:
             alt_teams.append(f'{home}({home_mot.knockout_opponent})')
         if away_mot.alt_path_better:
             alt_teams.append(f'{away}({away_mot.knockout_opponent})')
-        tournament_note += f' | 🔀 淘汰赛路径更优: {", ".join(alt_teams)}'
+        tournament_note += f' | 🔀 争第一路径更优: {", ".join(alt_teams)}'
 
     return MatchMotivation(
         home_motivation=home_mot,

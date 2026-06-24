@@ -185,6 +185,20 @@ class Config:
     totals_line_move_significant: float = 0.05         # 盘口变动>5%视为主动行为
 
     # ══════════════════════════════════════════════════════════
+    # 🆕 V3.41: 诱盘检测 (Trap Odds Detection)
+    # ══════════════════════════════════════════════════════════
+    trap_enabled: bool = True
+    trap_severe_threshold: float = 70.0       # 严重诱盘→强制降信
+    trap_moderate_threshold: float = 40.0     # 中度诱盘→警告+降信
+    trap_mild_threshold: float = 20.0         # 轻度→仅警告
+    trap_jingcai_divergence_threshold: float = 5.0    # 竞彩与市场均值偏离>5%触发
+    trap_pinnacle_divergence_threshold: float = 15.0  # Pinnacle偏离市场>15%触发
+    trap_pnl_contradiction_threshold: float = 1_000_000  # 庄家亏损>1M触发PnL矛盾
+    trap_volume_odds_divergence_min: float = 10.0  # 赔率变动>10%+成交量急升触发
+    trap_narrative_heat_divergence: float = 15.0     # 热度变动>15点触发叙事矛盾
+    trap_confidence_adj_range: Tuple[float, float] = (-15, 5)  # 诱盘置信度调整范围
+
+    # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════
     backtest_dir: str = r"C:\Users\A\PyCharmMiscProject\backtest"

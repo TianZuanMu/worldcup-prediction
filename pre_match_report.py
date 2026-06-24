@@ -428,6 +428,36 @@ def generate_report(match_name: str,
     # 5b. 🆕 V2.14 动态穿盘率修正
     _adjust_cover_rate(r, home_cn, away_cn)
 
+    # 5c. 🆕 V3.41: 诱盘检测
+    try:
+        from trap_odds_detection import detect_trap_odds
+        # 判断双方是否均可平局出线
+        draw_advance_both = False
+        if r.match_motivation:
+            hm = r.match_motivation.home_motivation
+            am = r.match_motivation.away_motivation
+            if (hm.scenario == 'draw_enough' and am.scenario == 'draw_enough'):
+                draw_advance_both = True
+
+        r.trap_odds = detect_trap_odds(
+            euro_bookmakers=getattr(r, '_euro_bookmakers', []) or [],
+            betfair_snapshots=getattr(r, '_betfair_snapshots', []) or [],
+            xls_consensus_direction=r.xls_consensus_direction or 'neutral',
+            hot_side=r.betfair_hot_side if hasattr(r, 'betfair_hot_side') else 'home',
+            asian_companies=getattr(r, '_asian_companies', []) or [],
+            jingcai_euro=getattr(r, '_jingcai_euro', None),
+            match_context={
+                'home': home_cn,
+                'away': away_cn,
+                'gap_level': r.gap_level if hasattr(r, 'gap_level') else 'moderate',
+                'draw_advance_both': draw_advance_both,
+            },
+        )
+        if r.trap_odds.trap_level in ('severe', 'moderate'):
+            r.v26_warnings.append(r.trap_odds.warning)
+    except Exception:
+        r.trap_odds = None
+
     # 6. V2.6规则匹配
     _apply_v26_rules(r)
 
@@ -446,6 +476,28 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
         # 提取欧赔共识
         if data and 'european' in data:
             euro = data['european']
+            # 🆕 V3.41: 存储逐家公司数据供诱盘检测使用
+            r._euro_bookmakers = euro.get('bookmakers', [])
+            # 提取竞彩官方欧赔 (从欧赔列表中, 非让球指数)
+            r._jingcai_euro = None
+            for bk in r._euro_bookmakers:
+                if '竞' in bk.get('name', ''):
+                    try:
+                        r._jingcai_euro = {
+                            'name': bk.get('name', ''),
+                            'init_win': float(bk.get('init_win', 0) or 0),
+                            'init_draw': float(bk.get('init_draw', 0) or 0),
+                            'init_lose': float(bk.get('init_lose', 0) or 0),
+                            'now_win': float(bk.get('now_win', 0) or 0),
+                            'now_draw': float(bk.get('now_draw', 0) or 0),
+                            'now_lose': float(bk.get('now_lose', 0) or 0),
+                            'win_change': float(bk.get('win_change', 0) or 0),
+                            'draw_change': float(bk.get('draw_change', 0) or 0),
+                            'lose_change': float(bk.get('lose_change', 0) or 0),
+                        }
+                    except (ValueError, TypeError):
+                        pass
+                    break
             # V2.14: 存储即时赔率供穿盘率计算使用
             inst = euro.get('summary', {}).get('instant', {})
             if inst:
@@ -504,6 +556,8 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
         # 提取亚盘/大小球方向
         if data and 'asian' in data:
             asian = data['asian']
+            # 🆕 V3.41: 存储亚盘逐家公司数据供诱盘检测
+            r._asian_companies = asian.get('companies', [])
             la = asian.get('line_analysis', {})
             r.xls_handicap = la.get('direction', '')
         if data and 'totals' in data:
@@ -590,6 +644,8 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
             with open(bf_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
             if data.get('snapshots'):
+                # 🆕 V3.41: 存储完整快照序列供诱盘检测
+                r._betfair_snapshots = data['snapshots']
                 snap = data['snapshots'][-1]
                 bf = snap['betfair']
                 # 找出热方: 取最大值 (正=热, 负=冷)
@@ -1276,11 +1332,11 @@ def _apply_v26_rules(r: PreMatchReport):
             if mot.tournament_note and '淘汰赛路径' in mot.tournament_note:
                 # 🆕 V3.34: 明确标注哪一方有更优路径·战意方向
                 if hm.alt_path_better and not am.alt_path_better:
-                    r.v26_warnings.append(f'🔀 {hm.team}淘汰赛路径更优({hm.knockout_opponent})·战意↑·争排名动力增强')
+                    r.v26_warnings.append(f'🔀 {hm.team}当前路径{hm.knockout_opponent}·争第一可获更优淘汰赛路径·战意↑')
                 elif am.alt_path_better and not hm.alt_path_better:
-                    r.v26_warnings.append(f'🔀 {am.team}淘汰赛路径更优({am.knockout_opponent})·战意↑·争排名动力增强')
+                    r.v26_warnings.append(f'🔀 {am.team}当前路径{am.knockout_opponent}·争第一可获更优淘汰赛路径·战意↑')
                 else:
-                    r.v26_warnings.append(f'🔀 双方淘汰赛路径均有更优选择·战意影响抵消')
+                    r.v26_warnings.append(f'🔀 双方淘汰赛路径均非最优·争胜动力均增强')
 
         # 3. 首发阵容 (仅-15~0%) → ×(0.85~1.00)
         if r.lineup_impact and r.lineup_impact.confidence_adj != 0:
@@ -1495,6 +1551,10 @@ def _apply_v26_rules(r: PreMatchReport):
                     r.v26_warnings.append(note)
         except Exception:
             pass
+
+        # 19. 🆕 V3.41: 诱盘检测 (-15% to +5%)
+        if r.trap_odds and r.trap_odds.confidence_adj != 0:
+            multiplier *= (1.0 + r.trap_odds.confidence_adj / 100)
 
         # V3.0 乘法链最终输出
         result = base_conf * multiplier
@@ -3257,11 +3317,33 @@ def format_report(r: PreMatchReport) -> str:
         if am.rotation_risk > 0.2:
             lines.append(f"  🔄 {am.team}轮换风险{am.rotation_risk:.0%}")
         if hm.alt_path_better:
-            lines.append(f"  🔀 {hm.team}淘汰赛路径更优: {hm.knockout_opponent}")
+            lines.append(f"  🔀 {hm.team}淘汰赛争胜动力: 当前{hm.knockout_opponent}·争第一可获更优路径")
         if am.alt_path_better:
-            lines.append(f"  🔀 {am.team}淘汰赛路径更优: {am.knockout_opponent}")
+            lines.append(f"  🔀 {am.team}淘汰赛争胜动力: 当前{am.knockout_opponent}·争第一可获更优路径")
         if r.match_motivation.tournament_note:
             lines.append(f"  📋 {r.match_motivation.tournament_note}")
+
+    # 🆕 V3.41: 诱盘检测结果
+    if r.trap_odds and r.trap_odds.trap_level != 'none':
+        lines += [
+            "",
+            "── 诱盘检测 (V3.41) ──",
+            f"  综合评分: {r.trap_odds.trap_score:.0f}/100 ({r.trap_odds.trap_level})",
+            f"  诱盘方向: {r.trap_odds.trap_direction}",
+            f"  置信度调整: {r.trap_odds.confidence_adj:+d}%",
+        ]
+        active = [(n, s) for n, s in r.trap_odds.signals.items() if s['score'] >= 20]
+        active.sort(key=lambda x: x[1]['score'], reverse=True)
+        for name, s in active[:5]:
+            signal_cn = {
+                'jingcai_divergence': '竞彩背离',
+                'pnl_contradiction': 'PnL矛盾',
+                'volume_odds_divergence': '资金背离',
+                'pinnacle_divergence': 'Pinnacle偏离',
+                'narrative_divergence': '叙事矛盾',
+                'asian_water_contradiction': '水位异常',
+            }.get(name, name)
+            lines.append(f"  🔍 {signal_cn}({s['score']:.0f}分·权重{s['weight']}%): {s['detail']}")
 
     if r.lineup_impact and r.lineup_impact.confidence_adj != 0:
         lines += [

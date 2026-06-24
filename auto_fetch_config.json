@@ -258,7 +258,7 @@
       "match_id": "1359188",
       "discovered_at": "2026-06-22 23:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-24 22:27"
+      "last_fetch": "2026-06-24 23:41"
     },
     "苏格兰VS巴西": {
       "match_id": "1359199",
@@ -276,7 +276,7 @@
       "match_id": "1359229",
       "discovered_at": "2026-06-22 23:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-24 23:07"
+      "last_fetch": "2026-06-25 00:07"
     },
     "摩洛哥VS海地": {
       "match_id": "1359232",
@@ -353,6 +353,36 @@
       "discovered_at": "2026-06-23 19:24",
       "source": "live.500.com",
       "last_fetch": "2026-06-23 19:45"
+    },
+    "新西兰VS比利时": {
+      "match_id": "1359208",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
+    },
+    "乌拉圭VS西班牙": {
+      "match_id": "1359211",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
+    },
+    "挪威VS法国": {
+      "match_id": "1359214",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
+    },
+    "埃及VS伊朗": {
+      "match_id": "1359244",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
+    },
+    "佛得角VS沙特": {
+      "match_id": "1359247",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
+    },
+    "塞内加尔VS伊拉克": {
+      "match_id": "1359250",
+      "discovered_at": "2026-06-24 23:41",
+      "source": "live.500.com"
     }
   },
   "cookie_string": "",
