@@ -135,6 +135,27 @@ def get_team_rating(team_name: str) -> Optional[TeamRating]:
     return TEAM_RATINGS.get(cn)
 
 
+# ═══ V4.2 P1: 差距级动态权重 — 消除中场双重折扣 ═══
+# 问题: 静态0.35/0.35/0.30 + 预测管道×0.25→有效权重0.0875
+# 修复: 动态权重·差距越大中场权重越低·只在一处加权
+
+GAP_WEIGHTS = {
+    'close':    {'attack': 0.30, 'midfield': 0.40, 'defense': 0.30},  # 中场定胜负
+    'moderate': {'attack': 0.33, 'midfield': 0.33, 'defense': 0.33},  # 均衡
+    'big':      {'attack': 0.40, 'midfield': 0.25, 'defense': 0.35},  # 攻击主导
+    'extreme':  {'attack': 0.50, 'midfield': 0.15, 'defense': 0.35},  # 碾压看攻击
+}
+
+
+def get_overall_rating(team_name: str, gap_level: str = 'moderate') -> float:
+    """差距级动态综合评分 (替代静态 overall)"""
+    r = get_team_rating(team_name)
+    if not r:
+        return 5.0
+    w = GAP_WEIGHTS.get(gap_level, GAP_WEIGHTS['moderate'])
+    return round(r.attack * w['attack'] + r.midfield * w['midfield'] + r.defense * w['defense'], 1)
+
+
 def get_gap_analysis(home: str, away: str) -> dict:
     """两队三维差距分析"""
     h = get_team_rating(home)

@@ -87,23 +87,54 @@ MIDFIELD_RATING: dict = {
 }
 
 
-def get_midfield_rating(team_name: str) -> float:
-    """V3.11: 中场评分·静态表为主·自动计算为fallback"""
-    if team_name in MIDFIELD_RATING:
-        return MIDFIELD_RATING[team_name]
-    from match_context import normalize_team_name
-    cn = normalize_team_name(team_name)
-    if cn in MIDFIELD_RATING:
-        return MIDFIELD_RATING[cn]
-    # 🆕 V3.11: 自动推算 — 从球员DB的MF威胁值映射到1-10评分
+def _auto_compute_midfield(team_name: str) -> float:
+    """🆕 V4.2: 从球员DB自动推演中场评分 (0-10)
+
+    MF威胁值仅捕获攻击型MF贡献, 缺防守型MF信息。
+    映射公式: base 3.0 + mf_val×0.5 → 覆盖2.0-9.5范围。
+    法国(mf≈6.5)→6.3·日本(mf≈4.2)→5.1·库拉索(mf≈0)→3.0
+    """
     try:
         from opponent_db import _count_attacking_threat
         _, mf_val, _, _, _ = _count_attacking_threat(team_name, 'moderate')
-        # MF威胁值(0-15) → 评分(2-9.5): 评分 = mf_val * 0.7
-        auto_rating = min(9.5, max(2.0, mf_val * 0.7))
+        # 基础3.0(任何队都有中场) + MF攻击威胁贡献(上限6.5)
+        auto_rating = min(9.5, max(2.0, 3.0 + mf_val * 0.5))
         return round(auto_rating, 1)
     except Exception:
-        pass
+        return 0.0  # signal "unavailable"
+
+
+def get_midfield_rating(team_name: str) -> float:
+    """
+    🆕 V4.2 P1: 中场混合评分 — DB×0.6 + static×0.4
+
+    数据源统一: DB自动推演(实时身价·年龄·联赛) + 静态表锚定(欧冠经验·创造力)
+    差异>2.0 → 标记为需人工复核
+    """
+    from match_context import normalize_team_name
+    cn = normalize_team_name(team_name)
+
+    # Layer 1: DB auto (weight 0.6)
+    db_rating = _auto_compute_midfield(team_name)
+    if db_rating == 0.0:
+        db_rating = _auto_compute_midfield(cn)
+
+    # Layer 2: Static table (weight 0.4)
+    static_rating = MIDFIELD_RATING.get(team_name) or MIDFIELD_RATING.get(cn)
+
+    # Blend
+    if db_rating > 0 and static_rating is not None:
+        blend = db_rating * 0.6 + static_rating * 0.4
+        diff = abs(db_rating - static_rating)
+        if diff > 2.0:
+            print(f'⚠️ 中场评级差异: {team_name} DB={db_rating:.1f} vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
+        return round(blend, 1)
+    elif db_rating > 0:
+        return db_rating
+    elif static_rating is not None:
+        return static_rating
+
+    # Fallback
     from fifa_rank_db import get_team_info
     info = get_team_info(team_name)
     if info.get('conf', 'Unknown') != 'Unknown':

@@ -1,13 +1,17 @@
 """
-V3.4 比分概率预测模块
+V4.2 比分概率预测模块
 基于泊松分布 + 预测方向 + 对手质量 + 三条件 + 实力差距 + 近期进球
 
-V3.4 新增:
-  - 预测方向接入: "热门不胜" → 大幅降低强方λ, 提升弱方λ
-  - 对手质量: 三条件/五大射手/巨人杀手 → 调整弱方进球
-  - EXTREME特殊处理: 中立模型+高方差
-  - 穿盘率四级联动
-  - 回测目标: Top5命中率 40%→55%+
+⚠️ 重要: 本模块输出的 xG 是"模型校准后的预期进球",
+  包含预测方向调整(Step 3), 不是"独立客观的预期进球"。
+  用于交叉验证时, 使用 _calc_pure_xg() 获取未受预测标签污染的纯净 xG。
+
+V4.2 重构 (vs V3.4):
+  - P0: 饱和保护 — 累计调整上限30%·防多步叠加过度
+  - P1: 穿盘率移除xG → 独立 cover_risk 输出
+  - P3: sigmoid动态权重 — 替代硬阈值30%泊松融合
+  - P4: 污染标记 — 明确区分"校准xG"与"纯净xG"
+  - 管道从9步减为8步
 """
 
 from dataclasses import dataclass, field
@@ -30,6 +34,9 @@ class ScorePrediction:
     away_win_prob: float = 0.0     # 客胜总概率
     total_goals_expected: float = 0.0
     adjustments: List[str] = field(default_factory=list)  # 🆕 调整日志
+    # 🆕 V4.2 P1: 独立穿盘风险评估 (不修改xG)
+    cover_risk: str = ''           # 'win_but_lose_spread' | 'cover_likely' | 'neutral'
+    cover_risk_prob: float = 0.0   # 赢球输盘概率 0-100%
 
 
 def _poisson_pmf(k: int, lam: float) -> float:
@@ -392,6 +399,45 @@ def _adjust_for_totals_prediction(lam_strong: float, lam_weak: float,
     return lam_strong, lam_weak
 
 
+# 🆕 V4.2 P1: 独立穿盘风险评估 (不修改xG)
+def _calc_cover_risk(spread_rate: float, handicap: float,
+                     xg_home: float, xg_away: float,
+                     gap_level: str, prediction_direction: str) -> Tuple[str, float]:
+    """
+    独立计算赢球输盘风险。
+
+    输入: 穿盘率 + 让球盘口 + xG差 + 差距级别 + 预测方向
+    输出: (risk_label, risk_probability)
+      - 'win_but_lose_spread': 大概率赢球输盘
+      - 'cover_likely': 大概率穿盘
+      - 'neutral': 无明显倾向
+    """
+    if not spread_rate or spread_rate <= 0:
+        return 'neutral', 0.0
+
+    # 赢球输盘概率 = 1 - 穿盘率 (简化模型)
+    win_but_lose_prob = max(0, 100 - spread_rate)
+
+    # xG修正: 如果预期进球差大但穿盘率低 → 赢球输盘风险更高
+    xg_diff = abs(xg_home - xg_away)
+    if xg_diff > 2.0 and spread_rate < 40:
+        win_but_lose_prob = min(95, win_but_lose_prob + 10)
+    elif xg_diff > 1.5 and spread_rate < 50:
+        win_but_lose_prob = min(90, win_but_lose_prob + 5)
+
+    # 小盘口(<1.0)信号不可靠 → 降级为neutral
+    if abs(handicap) < 1.0:
+        if win_but_lose_prob > 70:
+            return 'win_but_lose_spread', win_but_lose_prob
+        return 'neutral', win_but_lose_prob
+
+    if win_but_lose_prob >= 60:
+        return 'win_but_lose_spread', win_but_lose_prob
+    elif spread_rate >= 60:
+        return 'cover_likely', win_but_lose_prob
+    return 'neutral', win_but_lose_prob
+
+
 def _adjust_for_gap_level(lam_strong: float, lam_weak: float, gap_level: str,
                            adjustments: List[str]) -> Tuple[float, float]:
     """根据实力差距级别调整预期进球"""
@@ -552,6 +598,10 @@ def predict_score(match_name: str,
     else:
         lam_strong, lam_weak = lam_away, lam_home
 
+    # 🆕 V4.2: 保存初始λ快照 (供饱和保护使用)
+    lam_home_initial = lam_home
+    lam_away_initial = lam_away
+
     # 2. 实力差距调整
     lam_strong, lam_weak = _adjust_for_gap_level(lam_strong, lam_weak, gap_level, adjustments)
 
@@ -575,10 +625,8 @@ def predict_score(match_name: str,
         hot_team_rank, adjustments, weak_team_threat
     )
 
-    # 5. 🆕 穿盘率四级联动 (放在预测方向之后, 进一步微调)
-    lam_strong, lam_weak = _adjust_for_cover_rate(
-        lam_strong, lam_weak, cover_rate, gap_level, adjustments
-    )
+    # 5. 🆕 V4.2: 穿盘率不再修改xG → 独立输出 cover_risk
+    # (原 _adjust_for_cover_rate 已移除, 替换为独立 _calc_cover_risk)
 
     # 5b. 🆕 V3.4/V3.36: 大小球预测联动 (独立模型结论反馈到比分)
     lam_strong, lam_weak = _adjust_for_totals_prediction(
@@ -643,21 +691,31 @@ def predict_score(match_name: str,
         if away_thr < 0.5:
             lam_away = min(lam_away, 0.3)
             adjustments.append(f'🛡️ {_an}攻击枯竭(thr={away_thr:.1f})→预期进球封顶0.3')
-        # 🆕 V3.11: 泊松-实力融合 — 40%实力λ+60%市场λ
+        # 🆕 V4.2 P3: 泊松-实力融合 — sigmoid动态权重 (替代硬阈值30%)
         from opponent_db import _count_defensive_strength
         home_def = _count_defensive_strength(_hn); away_def = _count_defensive_strength(_an)
         # 实力λ: 攻击/对手防线 × 联赛均值1.4
         str_lam_home = (home_thr / max(away_def, 1.0)) * 1.4 if home_thr > 0 else lam_home
         str_lam_away = (away_thr / max(home_def, 1.0)) * 1.4 if away_thr > 0 else lam_away
-        # 融合: 60%市场 + 40%实力 (仅当两者差距>30%时触发)
-        if abs(lam_home - str_lam_home) / max(lam_home, 0.1) > 0.3:
-            old_lam_home = lam_home
-            lam_home = lam_home * 0.6 + str_lam_home * 0.4
-            adjustments.append(f'⚡ 泊松融合: 主λ {old_lam_home:.2f}→{lam_home:.2f}(市场60%+实力40%)')
-        if abs(lam_away - str_lam_away) / max(lam_away, 0.1) > 0.3:
-            old_lam_away = lam_away
-            lam_away = lam_away * 0.6 + str_lam_away * 0.4
-            adjustments.append(f'⚡ 泊松融合: 客λ {old_lam_away:.2f}→{lam_away:.2f}(市场60%+实力40%)')
+        # sigmoid动态融合: 偏离越大, 实力权重越高 (连续·无硬边界)
+        for lam_key, lam_market, lam_strength in [('主', lam_home, str_lam_home),
+                                                   ('客', lam_away, str_lam_away)]:
+            if lam_market > 0.05:
+                deviation = abs(lam_market - lam_strength) / lam_market
+                # sigmoid: 偏离30%→市场73%·偏离40%→市场50%·偏离50%→市场27%
+                weight_market = 1.0 / (1.0 + math.exp((deviation - 0.4) * 10))
+                weight_strength = max(0.05, 1.0 - weight_market)  # 5%最小实力权重
+                if weight_strength > 0.06:  # 仅当实力模型有实质贡献时记录
+                    old_lam = lam_market
+                    new_lam = lam_market * weight_market + lam_strength * weight_strength
+                    adjustments.append(
+                        f'⚡ 泊松融合: {lam_key}λ {old_lam:.2f}→{new_lam:.2f}'
+                        f'(市场{weight_market:.0%}+实力{weight_strength:.0%}·偏离{deviation:.0%})'
+                    )
+                    if lam_key == '主':
+                        lam_home = new_lam
+                    else:
+                        lam_away = new_lam
     except Exception:
         pass
 
@@ -686,10 +744,34 @@ def predict_score(match_name: str,
     if xg_soft_capped:
         adjustments.append('⚠️ xG软约束: >4.0截断30%·防乘法链过拟合·比分仅供参考')
 
+    # 🆕 V4.2 P0: 饱和保护 — 累计调整幅度上限30%
+    MAX_TOTAL_ADJUSTMENT = 0.30
+    for lam_key, lam_val, initial in [('主', lam_home, lam_home_initial),
+                                       ('客', lam_away, lam_away_initial)]:
+        if initial > 0:
+            change = abs(lam_val / initial - 1.0)
+            if change > MAX_TOTAL_ADJUSTMENT:
+                sign = 1 if lam_val > initial else -1
+                capped = initial * (1.0 + MAX_TOTAL_ADJUSTMENT * sign)
+                adjustments.append(
+                    f'🛑 饱和保护: {lam_key}λ累计调整{change:.0%}>{MAX_TOTAL_ADJUSTMENT:.0%}'
+                    f'·{lam_val:.2f}→截断至{capped:.2f}'
+                )
+                if lam_key == '主':
+                    lam_home = capped
+                else:
+                    lam_away = capped
+
     sp.expected_goals_home = round(lam_home, 2)
     sp.expected_goals_away = round(lam_away, 2)
     sp.total_goals_expected = round(lam_home + lam_away, 2)
     sp.adjustments = adjustments
+
+    # 🆕 V4.2 P1: 独立穿盘风险评估 (不修改xG)
+    sp.cover_risk, sp.cover_risk_prob = _calc_cover_risk(
+        cover_rate, handicap, lam_home, lam_away,
+        gap_level, prediction_direction
+    )
 
     # 8. 计算泊松概率 (EXTREME用更大范围+混合模型)
     max_g = 8 if gap_level == 'extreme' else 6
@@ -917,7 +999,10 @@ def predict_score(match_name: str,
 def format_score_output(sp: ScorePrediction) -> str:
     """格式化比分预测输出"""
     lines = []
-    lines.append(f"  📊 预期进球: 主 {sp.expected_goals_home} - {sp.expected_goals_away} 客 (总 {sp.total_goals_expected})")
+    lines.append(f"  📊 模型校准xG: 主 {sp.expected_goals_home} - {sp.expected_goals_away} 客 (总 {sp.total_goals_expected}) ⚠️含方向调整")
+    if sp.cover_risk and sp.cover_risk != 'neutral':
+        risk_label = '⚠️ 赢球输盘风险' if sp.cover_risk == 'win_but_lose_spread' else '🟢 大概率穿盘'
+        lines.append(f"  🎲 穿盘风险: {risk_label} ({sp.cover_risk_prob:.0f}%) [独立评估·不修改xG]")
     lines.append(f"  🎯 胜负概率: 主胜 {sp.home_win_prob}% / 平 {sp.draw_prob}% / 客胜 {sp.away_win_prob}%")
 
     if sp.top_scores:

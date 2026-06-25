@@ -468,8 +468,8 @@ def analyze_recent_form(team: str) -> RecentForm:
     # 3. 对手质量 (排名越低=越强, 时间衰减加权)
     weighted_rank = sum(m['opponent_rank'] * w for m, w in zip(recent5, decay_weights))
     form.opponent_quality_avg = weighted_rank / total_weight if total_weight > 0 else 50.0
-    # 对手强(低排名) → 质量分高
-    quality_bonus = max(0, (80 - form.opponent_quality_avg) / 15)  # 0-3分
+    # 🆕 V4.2 P0: quality_bonus 已移除 — 对手质量调整统一由 _adjust_form_for_opponent_quality 处理
+    # (原: quality_bonus = max(0, (80 - form.opponent_quality_avg) / 15)  # 0-3分)
 
     # 4. 含金量加权 (正式比赛=1.0, 友谊赛=0.5, 时间衰减加权)
     weighted_official = sum(
@@ -485,17 +485,24 @@ def analyze_recent_form(team: str) -> RecentForm:
     )
     form.key_player_participation = weighted_participation / total_weight if total_weight > 0 else 1.0
 
-    # 6. 综合分: 积分(50%) + 对手质量(20%) + 含金量(15%) + 主力率(15%)
-    pts_score = (form.points_last5 / 15) * 5  # 0-5
-    quality_score = quality_bonus  # 0-3
-    official_score = quality_weight * 1.5  # 0-1.5
-    player_score = form.key_player_participation * 0.5  # 0-0.5
+    # 6. 综合分: 积分(70%) + 含金量(20%) + 主力率(10%)
+    # 🆕 V4.2 P0: 删除 quality_bonus (对手质量已由 _adjust_form_for_opponent_quality 独立处理)
+    # 原权重 50/20/15/15 → 重归一化为 70/20/10 (维持0-10范围)
+    pts_score = (form.points_last5 / 15) * 7        # 0-7 (70%)
+    official_score = quality_weight * 2.0             # 0-2 (20%)
+    player_score = form.key_player_participation * 1.0  # 0-1 (10%)
 
-    form.form_score = min(10, pts_score + quality_score + official_score + player_score)  # 🆕 V3.17: 上限10
+    form.form_score = min(10, pts_score + official_score + player_score)  # 🆕 V3.17: 上限10
+
+    # 🆕 V4.2 P0: 样本量惩罚 — 比赛数<5时每少一场扣0.4分
+    n_matches = len(recent5)
+    if n_matches < 5:
+        sample_penalty = (5 - n_matches) * 0.4
+        form.form_score = max(0, form.form_score - sample_penalty)
+        form.notes.append(f'📉 仅{n_matches}场样本·扣{sample_penalty:.1f}分→{form.form_score:.1f}/10')
 
     # 🆕 V3.32fix: 样本不足时向均值5.0回归
     # 🆕 V3.32: 样本不足标记 (不自动修正·提示人工补充)
-    n_matches = len(recent5)
     if n_matches < 3:
         form.notes.append(f'⚠️ 仅{n_matches}场样本·状态分{form.form_score:.1f}不可靠·建议人工补充赛前数据')
 
@@ -529,27 +536,20 @@ def analyze_recent_form(team: str) -> RecentForm:
 
 def _adjust_form_for_opponent_quality(form_score: float, opponent_quality_avg: float) -> tuple:
     """
-    🆕 V3.3 P0-3: 按对手平均排名调整状态分
+    🆕 V3.3 P0-3 + V4.2 P0: 按对手平均排名调整状态分
 
     问题: 巴拿马9.2(虐菜)vs加纳7.2(对手强), 状态分反向
     修复: 对手越弱→状态分打折, 对手越强→状态分溢价
+    V4.2 P0: 乘性折扣改为加性修正, 避免超调和截断
 
     Returns:
-        (adjusted_form_score, adjustment_factor)
+        (adjusted_form_score, bonus_applied)
     """
-    if opponent_quality_avg > 50:       # weak opponents (rank 50+ = weaker)
-        factor = 0.75
-    elif opponent_quality_avg > 35:
-        factor = 0.85
-    elif opponent_quality_avg < 20:     # elite opponents (rank <20)
-        factor = 1.15
-    elif opponent_quality_avg < 30:
-        factor = 1.05
-    else:
-        factor = 1.0
+    # V4.2: 加性修正, 范围 -0.6 ~ +0.5
+    opponent_bonus = (80 - opponent_quality_avg) * 0.008  # rank50→+0.24, rank20→+0.48, rank80→0
 
-    adjusted = form_score * factor
-    return adjusted, factor
+    adjusted = form_score + opponent_bonus
+    return adjusted, opponent_bonus
 
 
 def get_form_diff(home: str, away: str) -> dict:

@@ -1822,6 +1822,7 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
                     '萨格勒布迪纳摩', '贝尔格莱德红星', '布拉格'}
     fw_count = 0; mf_count = 0; ex_star_count = 0; scorers = []
     MF_VALUE_THRESHOLD = 12  # V3.5: MF需>=12M才计为攻击威胁(过滤DM)
+    # 🆕 V4.2 P0: 5-12M MF记录于scorers(lo-5标记)·不影响threat计算
 
     # 🆕 V3.12: 大赛经验系数 — 老将身价贬值≠能力丧失
     giant_killings = data.get('giant_killings', [])
@@ -1874,11 +1875,14 @@ def _count_attacking_threat(team_name: str, gap_level: str = "moderate") -> tupl
                 elif value_m >= mf_val_thresh:  # V3.5: MF质量过滤
                     scorers.append(f"{p['name']}({pos}/Euro{value_m:.0f}M)")
                     # V3.6: MF分级权重 (精英MF打破"一律半折")
-                    if value_m >= 50: mf_weight = 1.0      # Musiala/Wirtz/Bellingham级
-                    elif value_m >= 25: mf_weight = 0.75   # 优质攻击MF
-                    else: mf_weight = 0.5                   # 普通MF/DM
-                    mf_count += 1 * age_factor * (mf_weight / 0.5)  # 标准化到原0.5基准
-                # else: low-value MF silently skipped (likely DM)
+                    if value_m >= 50: mf_weight = 1.0
+                    elif value_m >= 25: mf_weight = 0.75
+                    else: mf_weight = 0.5
+                    mf_count += 1 * age_factor * (mf_weight / 0.5)
+                elif value_m >= 5:  # 🆕 V4.2: 5-12M·记录但不计入threat
+                    scorers.append(f"{p['name']}({pos}/lo-5/Euro{value_m:.0f}M)")
+                    # 不计入mf_count·避免弱队攻击威胁虚增
+                    # else: low-value MF silently skipped (likely DM)
 
             elif pos not in DEFENSIVE_POS and not top5 and pos in FORWARD_POS and value_m >= fw_val_thresh:
                 discount = 0.5 * age_factor
@@ -1936,6 +1940,25 @@ def _count_defensive_strength(team_name: str) -> float:
     gk_count = sum(1 for p in data.get('players', []) if isinstance(p, dict) and p.get('pos') == 'GK' and p.get('top5'))
     score += gk_count * 0.5
     return score
+
+
+# ═══ V4.2 P0: 归一化包装器 — 攻击/防守统一到0-10量纲 ═══
+# 问题: attack_threat(0-20+)和 defense_count(0-10)量纲不一致
+# 修复: 归一化到0-10, 使TEAM_RATINGS中三维评分可直接对比
+
+def get_normalized_attack(team_name: str, gap_level: str = "moderate") -> float:
+    """0-10归一化攻击评分 (基于球员DB自动计算)"""
+    _, _, threat, _, _ = _count_attacking_threat(team_name, gap_level)
+    MAX_THREAT = 20.0  # 法国级别 (~18-20)
+    return round(min(10, threat / MAX_THREAT * 10), 1)
+
+
+def get_normalized_defense(team_name: str) -> float:
+    """0-10归一化防守评分 (基于球员DB自动计算)"""
+    score = _count_defensive_strength(team_name)
+    MAX_DEFENSE = 10.0  # 全五大后卫+GK (~9-10)
+    return round(min(10, score / MAX_DEFENSE * 10), 1)
+
 
 def check_three_conditions(team_name: str, gap_level: str = "moderate") -> dict:
     data = opponent_quality(team_name)

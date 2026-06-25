@@ -1715,13 +1715,9 @@ def _apply_v26_rules(r: PreMatchReport):
                 mf = compare_midfield(h_cn, a_cn)
                 r.midfield_comparison = mf
                 if mf['confidence_adj'] != 0:
-                    # 🆕 V3.3: 按差距级别分级权重
-                    if gap == 'close':
-                        weight = 1.0    # CLOSE: 中场差距可定胜负
-                    elif gap == 'moderate':
-                        weight = 0.5    # MOD: 中场影响减半
-                    else:
-                        weight = 0.25   # BIG: 实力碾压为主·中场为辅
+                    # 🆕 V4.2 P1: 差距级权重已移至 team_ratings.GAP_WEIGHTS
+                    # 此处不再二次折扣 (消除中场双重调整)
+                    weight = 1.0
                     adj = mf['confidence_adj'] * weight
                     multiplier *= (1.0 + adj / 100)
                     hmr = mf['home_rating']
@@ -1730,7 +1726,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     level_tag = {'close': '[CLOSE]', 'moderate': '[MOD]', 'big': '[BIG]'}.get(gap, '')
                     r.v26_warnings.append(
                         f'🎮 中场{level_tag}: {h_cn}({hmr:.1f}) vs {a_cn}({amr:.1f}) → {mf_note} '
-                        f'(权重×{weight:.0%}→调整{adj:+.1f}%)'
+                        f'(调整{adj:+.1f}%·差距权重已由GAP_WEIGHTS统一处理)'
                     )
             except Exception:
                 pass
@@ -3246,6 +3242,8 @@ def _build_structured(r: PreMatchReport):
             'most_likely': sp.most_likely,
             'most_likely_prob': sp.most_likely_prob,
             'top_scores': [{'score': s, 'prob': round(p * 100, 1)} for s, p in sp.top_scores[:6]],
+            'cover_risk': sp.cover_risk,           # 🆕 V4.2 P1
+            'cover_risk_prob': sp.cover_risk_prob,  # 🆕 V4.2 P1
         }
 
     # 🆕 V3.42: 大额卖单硬限制 — 单方向>1M卖单→置信度上限60%
