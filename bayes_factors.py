@@ -242,9 +242,15 @@ def calc_d12_factor(books_structure: dict, is_real_hot: bool,
     if d12_is_real == is_real_hot:
         return FactorResult.no_effect('d12', f'd12与内置一致(热指{d12_hot_idx:.0f})')
 
-    # 分歧: d12说不热，内置说热 → 降权
-    bf_win = clamp_bf(0.92 if pnl_conf > 0.6 else 0.95)
-    bf_draw = clamp_bf(1.05)
+    # 分歧: d12说不热，内置说热 → 按严重度分级
+    d12_gap = abs(d12_hot_idx - 15)  # 热指偏离基准的程度
+    d12_mild = getattr(CONF, '_calib_d12_mild_draw', 1.02)
+    if d12_gap > 20 and pnl_conf > 0.7:
+        bf_win = clamp_bf(0.88); bf_draw = clamp_bf(1.08)  # 严重分歧
+    elif d12_gap > 10:
+        bf_win = clamp_bf(0.92); bf_draw = clamp_bf(1.05)  # 中度分歧
+    else:
+        bf_win = clamp_bf(0.96); bf_draw = clamp_bf(d12_mild)  # 轻度分歧·可校准
     bf_lose = 1.0
 
     return FactorResult(
@@ -258,26 +264,56 @@ def calc_d12_factor(books_structure: dict, is_real_hot: bool,
 def calc_context_factor(motivation_diff: float, home_mot: float, away_mot: float,
                         rotation_risk: float = 0, draw_advance_both: bool = False,
                         travel_disadvantage: bool = False, matchday: int = 2,
+                        rank_gap: float = 0, is_strong_favorite: bool = False,
                         data_age_hours: float = 0.0) -> FactorResult:
     """
-    赛事性质因子: 战意差·轮换·远征·比赛日·平局出线。
-    这是足球特有的博弈结构，权重最高 (1.2)。
+    赛事性质因子 V4.1: 战意差·轮换·远征·比赛日·平局出线·弱队生死战·强队放水。
+    足球特有的博弈结构，权重最高 (1.2)。
+
+    🆕 新增场景:
+    - 弱队必须赢(rank_gap>20 + 弱队mot=10 + MD3): bf_underdog += 15%
+    - 强队已出线+大幅轮换(rot>0.4 + rank_gap>25): bf_fav *= 0.85
+    - 远征劣势: bf_away *= 0.92
     """
     bf_win = 1.0; bf_draw = 1.0; bf_lose = 1.0
     notes = []
     conf = 0.95
 
-    # 平局出线 — 唯一允许突破上界的因子
+    # 1. 平局出线 — 唯一允许突破上界的因子
     if draw_advance_both:
         bf_win = 0.85
         bf_draw = clamp(1.35, CONF.factor_bf_single_min, CONF.factor_bf_draw_advance_max)
         bf_lose = 0.85
-        notes.append('双方平局出线·不冒险')
+        notes.append('双方平局出线')
         conf = 0.98
 
-    # 战意极端分化
-    if abs(motivation_diff) >= 5:
-        if motivation_diff > 0:  # 主队更想赢
+    # 2. 🆕 弱队生死战 (排名低20+·弱队mot=10·MD3必须赢)
+    if abs(rank_gap) > 20 and matchday >= 2:
+        # 判断哪边是弱队
+        if motivation_diff > 5 and home_mot >= 9:
+            # 主队是弱队但必须赢 → 主队爆冷概率上升
+            bf_win = clamp_bf(bf_win * 1.12)
+            bf_lose = clamp_bf(bf_lose * 0.88)
+            notes.append('主队生死战·弱队爆发')
+            conf = 0.80
+        elif motivation_diff < -5 and away_mot >= 9:
+            # 客队是弱队但必须赢
+            bf_lose = clamp_bf(bf_lose * 1.12)
+            bf_win = clamp_bf(bf_win * 0.88)
+            notes.append('客队生死战·弱队爆发')
+            conf = 0.80
+
+    # 3. 🆕 强队放水 (rank_gap>25 + 强队轮换>40% + 强队mot≤5)
+    if abs(rank_gap) > 25 and rotation_risk > 0.4 and is_strong_favorite:
+        bf_win = clamp_bf(bf_win * 0.82)
+        bf_draw = clamp_bf(bf_draw * 1.18)
+        bf_lose = clamp_bf(bf_lose * 1.12)
+        notes.append(f'强队大幅轮换{rotation_risk:.0%}')
+        conf = 0.85
+
+    # 4. 战意极端分化 (通用)
+    if abs(motivation_diff) >= 5 and not notes:  # 避免与生死战重复
+        if motivation_diff > 0:
             bf_win = clamp_bf(bf_win * 1.08)
             bf_lose = clamp_bf(bf_lose * 0.92)
         else:
@@ -286,22 +322,22 @@ def calc_context_factor(motivation_diff: float, home_mot: float, away_mot: float
         notes.append(f'战意差{motivation_diff:+.0f}')
         conf = 0.85
 
-    # 强队轮换
-    if rotation_risk > 0.4:
-        bf_win = clamp_bf(bf_win * 0.85)
-        bf_draw = clamp_bf(bf_draw * 1.15)
-        bf_lose = clamp_bf(bf_lose * 1.10)
+    # 5. 一般轮换 (非强队放水场景)
+    if rotation_risk > 0.4 and not notes:
+        bf_win = clamp_bf(bf_win * 0.88)
+        bf_draw = clamp_bf(bf_draw * 1.10)
         notes.append(f'轮换风险{rotation_risk:.0%}')
 
-    # 远征劣势
+    # 6. 远征劣势
     if travel_disadvantage:
         bf_win = clamp_bf(bf_win * 0.92)
         bf_draw = clamp_bf(bf_draw * 1.05)
         notes.append('远征疲劳')
 
-    # MD3 特殊性
-    if matchday == 3:
-        bf_draw = clamp_bf(bf_draw * 1.05)
+    # 7. MD3 不确定性 (可校准参数·仅当无更强信号时)
+    if matchday == 3 and len(notes) <= 1:
+        md3_boost = getattr(CONF, '_calib_md3_draw_boost', 1.02)
+        bf_draw = clamp_bf(bf_draw * md3_boost)
         notes.append('小组末轮')
 
     if not notes:
@@ -357,18 +393,22 @@ def calc_threat_factor(has_elite_fw: bool, threat_count: int = 0,
 
 
 def calc_trap_factor(trap_score: float, trap_level: str) -> FactorResult:
-    """市场异常因子(原诱盘·V4.0降权为0.3)"""
-    if trap_level not in ('severe', 'moderate'):
-        return FactorResult.no_effect('trap', '无市场异常')
+    """
+    市场异常因子 V4.1: 仅≥70分触发·仅放大平局概率(方差放大器)。
+    不改变胜负方向——异常信号太嘈杂，不能用于翻转预测。
+    """
+    if trap_score < 70:
+        return FactorResult.no_effect('trap', f'异常{trap_score:.0f}分<70·跳过')
 
-    intensity = trap_score / 100
-    bf_draw = clamp_bf(1.0 + intensity * 0.10)  # 仅平局预警
-    bf_win = clamp_bf(1.0 - intensity * 0.05)
+    # ≥70分: 仅增加平局不确定性·不改胜负方向
+    bf_draw = clamp_bf(1.0 + (trap_score - 70) / 100 * 0.15)  # 最多+4.5%
+    bf_win = 1.0   # 不碰胜负
+    bf_lose = 1.0
 
     return FactorResult(
-        name='trap', bf_win=bf_win, bf_draw=bf_draw, bf_lose=1.0,
+        name='trap', bf_win=bf_win, bf_draw=bf_draw, bf_lose=bf_lose,
         weight=CONF.factor_weight_trap, group='anomaly',
-        confidence=0.4, detail=f'市场异常{trap_score:.0f}分',
+        confidence=0.3, detail=f'极端异常{trap_score:.0f}分·仅平局预警',
     )
 
 
@@ -402,21 +442,27 @@ def group_factors(factors: List[FactorResult]) -> List[FactorResult]:
         if not gfactors:
             continue
         if gname in ('flow', 'context'):
-            # 组内加权几何平均合并
+            # 组内加权几何平均合并 (置信度²加权)
             values_w = [gf.bf_win for gf in gfactors]
             values_d = [gf.bf_draw for gf in gfactors]
             values_l = [gf.bf_lose for gf in gfactors]
-            confs = [gf.confidence for gf in gfactors]
+            confs_sq = [gf.confidence ** 2 for gf in gfactors]  # 平方降权低置信因子
 
-            merged_bf_win = weighted_geo_mean(values_w, confs)
-            merged_bf_draw = weighted_geo_mean(values_d, confs)
-            merged_bf_lose = weighted_geo_mean(values_l, confs)
+            merged_bf_win = weighted_geo_mean(values_w, confs_sq)
+            merged_bf_draw = weighted_geo_mean(values_d, confs_sq)
+            merged_bf_lose = weighted_geo_mean(values_l, confs_sq)
+
+            # 🆕 Context组平局收缩: 多个平局提升因子→防止级联放大
+            if gname == 'context':
+                draw_boosters = [gf for gf in gfactors if gf.bf_draw > 1.02]
+                if len(draw_boosters) >= 2:
+                    merged_bf_draw = 1.0 + (merged_bf_draw - 1.0) * 0.90
 
             merged.append(FactorResult(
                 name=f'{gname}_combined',
                 bf_win=merged_bf_win, bf_draw=merged_bf_draw, bf_lose=merged_bf_lose,
                 weight=1.0, group=gname,
-                confidence=max(confs) if confs else 0.5,
+                confidence=max(gf.confidence for gf in gfactors),
                 detail=' + '.join(gf.name for gf in gfactors),
             ))
         else:
@@ -521,16 +567,32 @@ def apply_factor_chain(prior: Tuple[float, float, float],
             lose += excess * 0.4
             posterior = (win, draw, lose)
 
-    # ── Step 5: 预测方向 + 熵锐度置信度 ──
+    # ── Step 5: 预测方向 + 弃权检测 + 熵锐度置信度 ──
     max_prob = max(posterior)
-    if posterior[2] == max_prob:
-        prediction = '客胜'
-    elif posterior[1] == max_prob:
-        prediction = '平局倾向'
-    else:
-        prediction = '主胜'
+    margin = max_prob - sorted(posterior)[1]
 
-    confidence = entropy_sharpness(posterior)
+    # 🆕 V4.1: 动态弃权阈值 — 早期小组赛更自信·MD3+淘汰赛更谨慎
+    # matchday从raw_factors中推断(取context因子的matchday)
+    _matchday = 2  # default
+    for f in raw_factors:
+        if f.name == 'context' and hasattr(f, 'detail'):
+            # detail可能包含'小组末轮'→MD3
+            _matchday = 3 if '末轮' in f.detail else _matchday
+
+    abstain_margin = 7.0 if _matchday == 3 else 4.0  # MD3更宽松
+
+    # 弃权条件: margin<阈值 且 最大概率<45% (双重保险)
+    if margin < abstain_margin and max_prob < 45.0:
+        prediction = 'ABSTAIN'
+        confidence = 0
+    else:
+        if posterior[2] == max_prob:
+            prediction = '客胜'
+        elif posterior[1] == max_prob:
+            prediction = '平局倾向'
+        else:
+            prediction = '主胜'
+        confidence = entropy_sharpness(posterior)
 
     # 总BF (胜率方向·供诊断)
     prior_win = prior[0]

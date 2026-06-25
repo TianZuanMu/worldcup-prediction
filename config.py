@@ -226,14 +226,16 @@ class Config:
     # 🆕 V4.0: 因子乘法链 (Bayesian Factor Chain)
     # ══════════════════════════════════════════════════════════
     # 因子权重 (1.0=标准, 0=关闭)
-    factor_weight_hot: float = 1.0
-    factor_weight_pnl: float = 1.0
-    factor_weight_consensus: float = 0.8
+    # V4.1 校准最优: Flow=0.8, Context=1.0(精确开关), Anomaly=0.5
+    factor_weight_hot: float = 0.8
+    factor_weight_pnl: float = 0.8
+    factor_weight_consensus: float = 0.64   # 0.8 * 0.8
     factor_weight_d12: float = 0.9
-    factor_weight_context: float = 1.2
+    factor_weight_context: float = 1.0       # 精确开关·不搜索
     factor_weight_form: float = 0.7
     factor_weight_threat: float = 0.6
     factor_weight_trap: float = 0.3
+    factor_weight_anomaly: float = 0.5       # 校准最优
     # 因子边界
     factor_bf_single_min: float = 0.70      # 单因子bf下界
     factor_bf_single_max: float = 1.30      # 单因子bf上界

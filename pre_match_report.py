@@ -490,9 +490,11 @@ def generate_report(match_name: str,
             _has_elite_fw = r.moderate_threat.get('has_elite_fw', False)
             _threat_count = len(r.moderate_threat.get('top_players', []))
 
-        # 战意
+        # 战意 + 赛事性质
         _mot_diff = 0; _home_mot = 7; _away_mot = 7
         _rotation_risk = 0; _draw_advance = False; _matchday = 3
+        _rank_gap = abs(getattr(r, 'fifa_rank_gap', 10))
+        _is_strong_fav = False
         if r.match_motivation:
             _mot_diff = r.match_motivation.differential
             _home_mot = r.match_motivation.home_motivation.motivation_score
@@ -502,6 +504,10 @@ def generate_report(match_name: str,
             _draw_advance = (r.match_motivation.home_motivation.scenario == 'draw_enough' and
                             r.match_motivation.away_motivation.scenario == 'draw_enough')
             _matchday = getattr(r.match_motivation, 'matchday', 3) or 3
+            # 强队放水检测: 排名差>25 + 强队mot≤5 + 轮换>40%
+            if _rank_gap > 25:
+                strong_mot = _home_mot if _rank_gap > 0 else _away_mot
+                _is_strong_fav = (strong_mot <= 5 and _rotation_risk > 0.3)
 
         # 共识方向
         _cons_dir = r.xls_consensus_direction if hasattr(r, 'xls_consensus_direction') else 'neutral'
@@ -566,7 +572,8 @@ def generate_report(match_name: str,
             calc_d12_factor(books_structure=_books_struct, is_real_hot=_is_real_hot),
             calc_context_factor(motivation_diff=_mot_diff, home_mot=_home_mot, away_mot=_away_mot,
                                rotation_risk=_rotation_risk, draw_advance_both=_draw_advance,
-                               matchday=_matchday),
+                               matchday=_matchday, rank_gap=_rank_gap,
+                               is_strong_favorite=_is_strong_fav),
             calc_form_factor(form_diff=_form_diff),
             calc_threat_factor(has_elite_fw=_has_elite_fw, threat_count=_threat_count),
             calc_trap_factor(trap_score=_trap_score, trap_level=_trap_level),
