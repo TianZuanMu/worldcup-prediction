@@ -382,7 +382,7 @@ print(format_report(report))
 # XLS和必发变化慢, 按阶段设定合理的刷新间隔
 PHASE_STALENESS = {
     'P1': {'xls': 6.0, 'betfair': 6.0},    # 赛前24h+: 每6小时刷新
-    'P2': {'xls': 2.0, 'betfair': 2.0},    # 赛前4-12h: 每2小时刷新
+    'P2': {'xls': 1.0, 'betfair': 1.0},    # 赛前4-12h: 每1小时刷新
     'P3': {'xls': 1.0, 'betfair': 1.0},    # 赛前1.5-4h: 每1小时刷新
     'P4': {'xls': 0.5, 'betfair': 0.5},    # 赛前<90min: 每30分钟刷新
     'POST': {'xls': 99, 'betfair': 99},     # 已开赛: 不再拉取
