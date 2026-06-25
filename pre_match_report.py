@@ -1000,6 +1000,87 @@ def _ctrace(rpt, reason: str, value=None):
     rpt._confidence_trace.append((reason, value))
 
 
+# ── 🆕 V3.43: 概率偏移 — 替代二元硬切 ──
+
+def _consensus_agrees_with_heat(r) -> bool:
+    """检测共识方向是否与热度方向一致。一致=理性热度·不一致=需警惕"""
+    cons_dir = getattr(r, 'xls_consensus_direction', 'neutral')
+    hot_side = getattr(r, 'betfair_hot_side', '')
+    # bearish共识=看衰主队, home热=主队热 → 分歧(共识看衰+资金追捧=矛盾)
+    # bullish共识=看好主队, home热=主队热 → 一致(共识看好+资金追捧=理性)
+    if cons_dir == 'bullish' and hot_side == 'home':
+        return True
+    if cons_dir == 'bearish' and hot_side == 'away':
+        return True
+    return False
+
+
+def _apply_heat_probability_shift(r, gap_level: str, cold: float, is_real_hot: bool) -> dict:
+    """
+    V3.43: 将过热信号转换为概率偏移，而非二元翻转"热门胜/不胜"。
+
+    返回: {'favorite': float, 'draw': float, 'underdog': float} (百分点偏移)
+    """
+    if not is_real_hot:
+        return {'favorite': 0, 'draw': 0, 'underdog': 0}
+
+    # 热度强度: |cold|越大 → 偏移越大, 上限60归一化
+    intensity = min(abs(cold), CONF.heat_shift_intensity_cap) / CONF.heat_shift_intensity_cap
+    base_shift = intensity * CONF.heat_shift_max  # 最多20pp
+
+    # 按差距级别缩放
+    scale_map = {
+        'close': CONF.heat_shift_scale_close,
+        'moderate': CONF.heat_shift_scale_moderate,
+        'big': CONF.heat_shift_scale_big,
+    }
+    scale = scale_map.get(gap_level, 0.5)
+
+    # 共识一致 → 热度是理性的 → 减半
+    if _consensus_agrees_with_heat(r):
+        scale *= CONF.heat_consensus_agree_scale
+        r.v26_warnings.append(f'📊 共识与热度同向→热度理性·偏移减半(×{CONF.heat_consensus_agree_scale})')
+
+    shift = base_shift * scale
+
+    # 分配: 热门胜率下调 → 60%给平局, 40%给冷门
+    result = {
+        'favorite': -shift,
+        'draw': shift * CONF.heat_shift_draw_split,
+        'underdog': shift * (1 - CONF.heat_shift_draw_split),
+    }
+
+    r.v26_warnings.append(
+        f'🌡️ 热度偏移: |cold|={abs(cold):.0f}→热门{result["favorite"]:+.1f}pp·'
+        f'平{result["draw"]:+.1f}pp·冷门{result["underdog"]:+.1f}pp'
+    )
+
+    return result
+
+
+def get_dynamic_heat_threshold(gap_level: str, rank_gap: float = 0, form_diff: float = 0) -> float:
+    """
+    🆕 V3.43: 动态冷热阈值 — 根据实力差和状态差调整"合理热度"基线。
+    实力碾压→热度合理(阈值↑)·状态倒挂→热度可疑(阈值↓)
+    """
+    from config import get_overheat_threshold
+    base = get_overheat_threshold(gap_level)  # 20/32/30
+
+    # 实力差距越大 → 热度阈值越高 (热度更可能是理性的)
+    if abs(rank_gap) > 30:
+        base += CONF.heat_dynamic_rank_bonus  # +8
+    elif abs(rank_gap) > 15:
+        base += CONF.heat_dynamic_rank_mod    # +4
+
+    # 状态优势大 → 热度合理
+    if form_diff > 2.0:
+        base += CONF.heat_dynamic_form_bonus  # +5
+    elif form_diff < -2.0:
+        base -= CONF.heat_dynamic_form_penalty  # -3
+
+    return max(15, min(45, base))
+
+
 def _apply_v26_rules(r: PreMatchReport):
     """V2.7 规则引擎: 信号矩阵 + 动态置信度 + 比分预测"""
     gap = r.gap_level
@@ -1009,15 +1090,23 @@ def _apply_v26_rules(r: PreMatchReport):
     r._near_threshold = 18 <= abs(cold) < 22
     if r._near_threshold:
         r.v26_warnings.append(f'🔺 冷热临界({abs(cold):.0f}∈[18,22))·阈值敏感区间·不确定性+10%')
-    # 🆕 V3.0 P0#1: CLOSE级别使用更高过热阈值 (25 vs 20)
+    # 🆕 V3.43: 动态冷热基线参数
+    _rank_gap = abs(getattr(r, 'fifa_rank_gap', 10))
+    _form_diff = 0
+    try:
+        _form_diff = (getattr(r.home_recent_form, 'form_score', 5) or 5) - (getattr(r.away_recent_form, 'form_score', 5) or 5)
+    except Exception:
+        pass
+    _dyn_thresh = get_dynamic_heat_threshold(gap, _rank_gap, _form_diff)
+    r._dynamic_heat_threshold = _dyn_thresh  # 存储供报告使用
+    # 🆕 V3.0 P0#1→V3.43: CLOSE动态阈值
     if gap == 'close' and not is_real_hot:
-        close_threshold = get_overheat_threshold('close')
-        if cold >= CONF.overheat_threshold and cold < close_threshold:
+        if abs(cold) >= CONF.overheat_threshold and abs(cold) < _dyn_thresh:
             is_real_hot = False  # 确认不触发真过热
-            r.v26_warnings.append(f'CLOSE级别·过热阈值提高至{close_threshold}→不触发真过热')
-    # 🆕 V3.2→V3.3: BIG级别过热分级 (30=真过热, 20-29=弱过热, <20=无)
+            r.v26_warnings.append(f'CLOSE动态阈值{_dyn_thresh:.0f}(基32·排名{_rank_gap}·状态{_form_diff:+.0f})→不触发真过热')
+    # 🆕 V3.2→V3.43: BIG级别过热分级(动态阈值)
     if gap == 'big':
-        big_threshold = get_overheat_threshold('big')  # 30
+        big_threshold = max(_dyn_thresh, 25)  # 动态但不低于25
         if is_real_hot and abs(cold) < big_threshold:
             # 🆕 V3.31: 精英队豁免弱过热降级 (阿根廷FIFA#1·cold=20是正常热度)
             elite_exempt = (r.hot_team_fifa_rank <= CONF.elite_team_max_rank)
@@ -1683,9 +1772,19 @@ def _apply_v26_rules(r: PreMatchReport):
                 except Exception:
                     pass
                 if not strength_override_close:
-                    r.v26_rule = 'CLOSE + 真过热 → 热门不胜'
-                    r.v26_prediction = '⚠️ 热门不胜'
-                    base_conf = 85
+                    # 🆕 V3.43: 概率偏移替代硬切
+                    r._heat_shift = _apply_heat_probability_shift(r, 'close', cold, True)
+                    shift_fav = r._heat_shift['favorite']  # 负数
+                    # 基础热门胜率 ≈ 100-85=15%(热门不胜)→偏移后判断
+                    # 仅极端热度(|cold|≥50)或大偏移(>12pp)才翻转方向
+                    if abs(cold) >= 50 or abs(shift_fav) > 12:
+                        r.v26_rule = 'CLOSE + 真过热(极端) → 热门不胜'
+                        r.v26_prediction = '⚠️ 热门不胜 (极端热度)'
+                        base_conf = 65
+                    else:
+                        r.v26_rule = 'CLOSE + 真过热(温和) → 热门胜·热度调整'
+                        r.v26_prediction = '热门胜 (热度调整·CLOSE)'
+                        base_conf = 60 + int(shift_fav)  # 下调置信度
             # 🆕 V3.4: CLOSE防线检查
             try:
                 home_t = r.match_name.split('VS')[0].strip()
@@ -1785,9 +1884,17 @@ def _apply_v26_rules(r: PreMatchReport):
                 except Exception:
                     pass
                 if not mod_flip:
-                    r.v26_rule = 'MOD + 真过热 + 顶级攻击手 → 热门不胜'
-                    r.v26_prediction = '⚠️ 热门不胜'
-                    base_conf = 75
+                    # 🆕 V3.43: 概率偏移替代硬切
+                    r._heat_shift = _apply_heat_probability_shift(r, 'moderate', cold, True)
+                    shift_fav = r._heat_shift['favorite']
+                    if abs(cold) >= 50 or abs(shift_fav) > 14:
+                        r.v26_rule = 'MOD + 真过热(极端) + 顶级攻击手 → 热门不胜'
+                        r.v26_prediction = '⚠️ 热门不胜 (极端热度)'
+                        base_conf = 55
+                    else:
+                        r.v26_rule = 'MOD + 真过热(温和) + 顶级攻击手 → 热门胜·热度调整'
+                        r.v26_prediction = '热门胜 (热度调整·MOD)'
+                        base_conf = 58 + int(shift_fav)
                 r.v26_warnings.append(f"对手: {', '.join(r.moderate_threat.get('top_players', []))}")
             else:
                 # 🆕 V3.5: 防线-攻击对比·对手防守强时翻转预测
@@ -1850,9 +1957,10 @@ def _apply_v26_rules(r: PreMatchReport):
                 elif r.xls_cover_rate >= 50:
                     r.v26_prediction += '·可能穿盘'
         elif is_real_hot:
-            r.v26_rule = 'MOD + 真过热 (无威胁数据) → 偏向热门不胜'
-            r.v26_prediction = '⚠️ 热门不胜'
-            base_conf = 70
+            r.v26_rule = 'MOD + 真过热(温和) → 热门胜·热度调整'
+            r._heat_shift = _apply_heat_probability_shift(r, 'moderate', cold, True)
+            r.v26_prediction = '热门胜 (热度调整·MOD)'
+            base_conf = 55 + int(r._heat_shift['favorite'])
         else:
             r.v26_rule = 'MOD: 按共识方向'
             r.v26_prediction = '热门胜' if r.xls_consensus_direction in ('bullish', 'neutral') else '客胜倾向'
@@ -2046,9 +2154,17 @@ def _apply_v26_rules(r: PreMatchReport):
                 except Exception as e2:
                     r.v26_warnings.append(f'[V3.7豁免异常: {e2}]')
                 if not strength_override:
-                    r.v26_rule = 'BIG + 真过热 → 默认热门不胜'
-                    r.v26_prediction = '⚠️ 热门不胜'
-                    base_conf = 70
+                    # 🆕 V3.43: 概率偏移替代硬切·BIG级别仅极端热度才翻转
+                    r._heat_shift = _apply_heat_probability_shift(r, 'big', cold, True)
+                    shift_fav = r._heat_shift['favorite']
+                    if abs(cold) >= 55 or abs(shift_fav) > 10:
+                        r.v26_rule = 'BIG + 真过热(极端) → 热门不胜'
+                        r.v26_prediction = '⚠️ 热门不胜 (极端热度)'
+                        base_conf = 55
+                    else:
+                        r.v26_rule = 'BIG + 真过热(温和) → 热门胜·热度调整'
+                        r.v26_prediction = '热门胜 (热度调整·BIG)'
+                        base_conf = 50 + int(shift_fav)
                 # 🆕 V3.2: BIG客队热时置信度折扣 (客队往往是真正强队)
                 if hot_side == 'away':
                     base_conf -= CONF.big_away_hot_conf_discount
@@ -2457,7 +2573,9 @@ def _apply_high_confidence_penalty(r: PreMatchReport):
         if bf:
             bf_h = bf.get('home', 0) or 0; bf_a = bf.get('away', 0) or 0
             if bf_h > 1.0 and bf_a > 1.0:
-                market_imp = max(1/bf_h, 1/bf_a) * 100
+                # V3.43: 归一化热门方隐含概率
+                imp_h = 1/bf_h; imp_a = 1/bf_away if bf_a > 1.0 else 0.01
+                market_imp = max(imp_h, imp_a) / (imp_h + imp_a) * 100
         if poisson_fav >= 50 and market_imp >= 50:
             factor = min(factor + 0.05, 1.0)
             r.v26_warnings.append('✅ 交叉验证支撑→高信惩罚减轻+0.05')
@@ -2796,7 +2914,8 @@ def _build_structured(r: PreMatchReport):
                 bf_h = bf.get('home', 0) or 0
                 bf_a = bf.get('away', 0) or 0
                 if bf_h > 1.0 and bf_a > 1.0:
-                    market_imp = max(1/bf_h, 1/bf_a) * 100
+                    imp_h = 1/bf_h; imp_a2 = 1/bf_a
+                    market_imp = max(imp_h, imp_a2) / (imp_h + imp_a2) * 100
             if poisson_fav >= 75 and market_imp >= 80:
                 big_ceiling += 10  # → 65%
                 r.v26_warnings.append(f'📈 BIG动态上限: 泊松{poisson_fav:.0f}%+市场{market_imp:.0f}%双支撑→上限+10')
@@ -2845,18 +2964,28 @@ def _build_structured(r: PreMatchReport):
         poisson_win = home_wp if predicted_side == 'home' else away_wp
 
         if bf_home > 1.0 and bf_away > 1.0 and bf_draw > 1.0:
-            # 极端赔率: 去掉平局影响·直接两方归一
+            # 🆕 V3.43fix: 市场隐含概率始终基于热门方(赔率低者)计算
+            # 旧逻辑在hot_loses时取弱队概率(1/8.20=12%)→制造虚假背离
             imp_h = 1/bf_home; imp_a = 1/bf_away
-            market_imp = (imp_h / (imp_h + imp_a) * 100) if predicted_side == 'home' else (imp_a / (imp_h + imp_a) * 100)
+            fav_imp = (imp_h / (imp_h + imp_a) * 100) if home_is_fav else (imp_a / (imp_h + imp_a) * 100)
+            # fav_imp = 热门方赢球的市场隐含概率
+            if hot_wins:
+                market_imp = fav_imp        # 热门胜 → 热门方赢球概率
+            elif hot_loses:
+                market_imp = 100 - fav_imp  # 热门不胜 → 热门方不赢的概率(1-赢球概率)
+            else:
+                market_imp = max(fav_imp, 100 - fav_imp)  # 模糊→取较大值
         else:
             market_imp = 0
-        # 🆕 V3.8: 市场锚定熔断 — 模型与市场背离>25点时均值回拨
+        # 🆕 V3.8→V3.43: 市场锚定熔断 — 仅模型过于乐观时触发
         melt_applied = False
         if market_imp > 0 and poisson_win > 0 and r.v26_confidence > 0:
             divergence = abs(r.v26_confidence - market_imp)
             original_conf = r.v26_confidence
-            # 🆕 V3.35 P2修正: 渐进式熔断 — 方向性修复+平滑过渡+低信保护
-            if market_imp > original_conf:
+            # 🆕 V3.43: hot_loses场景下模型在看衰热门→不是"乐观"→不触发熔断
+            if hot_loses:
+                melt_note_label = '模型看衰热门·跳过熔断'
+            elif market_imp > original_conf:
                 # ── 🆕 V3.40: 市场比模型乐观 → 熔断=刹车·不跟庄·禁止向上修正 ──
                 if divergence >= 25:
                     r.v26_confidence = original_conf

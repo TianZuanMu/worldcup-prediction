@@ -532,12 +532,13 @@ def detect_trap_odds(
 
     # ── 置信度调整 ──
     # 诱盘 → 市场信号不可靠 → 降低置信度
+    # 🆕 V3.43: 仅severe触发降信·moderate/mild仅作为平局预警
     if trap_level == 'severe':
-        confidence_adj = -15
-    elif trap_level == 'moderate':
         confidence_adj = -10
+    elif trap_level == 'moderate':
+        confidence_adj = 0   # 不再降信·仅输出平局预警
     elif trap_level == 'mild':
-        confidence_adj = -5
+        confidence_adj = 0   # 仅信息提示
     else:
         confidence_adj = 0
 
@@ -570,7 +571,7 @@ def detect_trap_odds(
         warning_parts.append(f'{signal_cn}({s["score"]:.0f})')
 
     if trap_level == 'severe':
-        warning = (f'🚨 诱盘警报(严重·{trap_score:.0f}分): '
+        warning = (f'🚨 市场异常(严重·{trap_score:.0f}分): '
                    + ' | '.join(warning_parts)
                    + f' → 市场信号可信度严重降低·置信度{confidence_adj:+d}%')
     elif trap_level == 'moderate':

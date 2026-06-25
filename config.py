@@ -208,6 +208,21 @@ class Config:
     big_sell_confidence_ceiling: int = 60   # 大额卖单触发后的置信度天花板
 
     # ══════════════════════════════════════════════════════════
+    # 🆕 V3.43: 概率偏移 — 替代二元硬切
+    # ══════════════════════════════════════════════════════════
+    heat_shift_max: float = 20.0             # 过热最大下调热门胜率(pp)
+    heat_shift_intensity_cap: float = 60.0   # 冷热归一化上限(|cold|>=60→1.0)
+    heat_shift_draw_split: float = 0.6       # 下调胜率的60%分配给平局
+    heat_shift_scale_close: float = 1.2      # CLOSE: 热度最有预测力
+    heat_shift_scale_moderate: float = 0.8   # MOD: 中等
+    heat_shift_scale_big: float = 0.5        # BIG: 实力主导
+    heat_consensus_agree_scale: float = 0.5  # 共识与热度同向→降权减半
+    heat_dynamic_rank_bonus: float = 8.0     # 排名差>30→阈值+8(热度更理性)
+    heat_dynamic_rank_mod: float = 4.0       # 排名差>15→阈值+4
+    heat_dynamic_form_bonus: float = 5.0     # 状态差>2→阈值+5
+    heat_dynamic_form_penalty: float = 3.0   # 状态倒挂>2→阈值-3
+
+    # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════
     backtest_dir: str = r"C:\Users\A\PyCharmMiscProject\backtest"
