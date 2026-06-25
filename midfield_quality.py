@@ -106,28 +106,30 @@ def _auto_compute_midfield(team_name: str) -> float:
 
 def get_midfield_rating(team_name: str) -> float:
     """
-    🆕 V4.2 P1: 中场混合评分 — DB×0.6 + static×0.4
+    🆕 V4.2 P1: 中场混合评分 — DB归一化×0.5 + static×0.5
 
     数据源统一: DB自动推演(实时身价·年龄·联赛) + 静态表锚定(欧冠经验·创造力)
-    差异>2.0 → 标记为需人工复核
+    DB先归一化(×1.5·上限9.5)对齐Static量纲·再等权混合。
+    差异>3.0 → 标记为需人工复核。
     """
     from match_context import normalize_team_name
     cn = normalize_team_name(team_name)
 
-    # Layer 1: DB auto (weight 0.6)
-    db_rating = _auto_compute_midfield(team_name)
-    if db_rating == 0.0:
-        db_rating = _auto_compute_midfield(cn)
+    # Layer 1: DB auto (归一化到Static量纲)
+    db_raw = _auto_compute_midfield(team_name)
+    if db_raw == 0.0:
+        db_raw = _auto_compute_midfield(cn)
+    db_rating = min(9.5, db_raw * 1.5) if db_raw > 0 else 0.0  # 归一化×1.5·上限9.5
 
-    # Layer 2: Static table (weight 0.4)
+    # Layer 2: Static table
     static_rating = MIDFIELD_RATING.get(team_name) or MIDFIELD_RATING.get(cn)
 
-    # Blend
+    # Blend (等权)
     if db_rating > 0 and static_rating is not None:
-        blend = db_rating * 0.6 + static_rating * 0.4
-        diff = abs(db_rating - static_rating)
-        if diff > 2.0:
-            print(f'⚠️ 中场评级差异: {team_name} DB={db_rating:.1f} vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
+        blend = db_rating * 0.5 + static_rating * 0.5
+        diff = abs(db_raw - static_rating)  # 用原始DB值计算差异(更诚实)
+        if diff > 3.0:
+            print(f'⚠️ 中场评级差异: {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
         return round(blend, 1)
     elif db_rating > 0:
         return db_rating
