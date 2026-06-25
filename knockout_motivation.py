@@ -15,7 +15,7 @@ V2.13新增:
 """
 
 from dataclasses import dataclass, field
-from typing import Optional, List, Dict, Tuple
+from typing import Optional, List, Dict, Tuple  # noqa: F401
 import json
 from pathlib import Path
 from config import CONF
@@ -255,9 +255,96 @@ def _count_matchup(group: str, team1: str, team2: str) -> int:
     return min_played
 
 
+# ═══ V4.2: H2H锁定检测 — 世界杯小组赛同分先比H2H ═══
+_H2H_CACHE: Dict[str, Dict[str, str]] = {}  # {group: {team_pair: 'win'|'draw'|'loss'}}
+
+
+def _build_h2h_cache():
+    """从回测DB构建H2H结果缓存"""
+    global _H2H_CACHE
+    if _H2H_CACHE:
+        return
+    if not MATCHES_FILE.exists():
+        return
+    with open(MATCHES_FILE, 'r', encoding='utf-8') as f:
+        matches = json.load(f)
+    for m in matches:
+        if m['actual']['result'] == 'pending':
+            continue
+        name = m['match_name']
+        parts = name.replace('vs', 'VS').replace('Vs', 'VS').split('VS')
+        if len(parts) != 2:
+            continue
+        home, away = parts[0].strip(), parts[1].strip()
+        grp = _find_group(home, away)
+        if not grp:
+            continue
+        try:
+            hg, ag = map(int, m['actual']['score'].split('-'))
+        except (ValueError, AttributeError):
+            continue
+        if grp not in _H2H_CACHE:
+            _H2H_CACHE[grp] = {}
+        if hg > ag:
+            _H2H_CACHE[grp][f'{home}>{away}'] = 'win'
+            _H2H_CACHE[grp][f'{away}<{home}'] = 'loss'
+        elif ag > hg:
+            _H2H_CACHE[grp][f'{away}>{home}'] = 'win'
+            _H2H_CACHE[grp][f'{home}<{away}'] = 'loss'
+        else:
+            _H2H_CACHE[grp][f'{home}={away}'] = 'draw'
+            _H2H_CACHE[grp][f'{away}={home}'] = 'draw'
+
+
+def _check_position_locked(team: str, group: str, pos: int, pts: int) -> Tuple[bool, str]:
+    """
+    🆕 V4.2: 检查球队是否已通过H2H锁定当前排名。
+
+    世界杯小组赛同分先比H2H(胜负关系), 再比GD。
+    如果一队H2H胜所有可能追平积分的对手, 则排名已锁定。
+    """
+    _build_h2h_cache()
+    h2h = _H2H_CACHE.get(group, {})
+    standings = _get_standings_sorted(group)
+    reason = ''
+
+    # 收集可能追平积分的对手 (pts差≤3)
+    threats = []
+    for t, st in standings:
+        if t == team:
+            continue
+        if st['pts'] + 3 >= pts:  # 最后一轮可追3分
+            threats.append((t, st))
+
+    if not threats:
+        return True, '无对手可追平积分'
+
+    # 检查H2H是否全胜所有威胁
+    all_h2h_win = True
+    for t, st in threats:
+        key = f'{team}>{t}'
+        result = h2h.get(key, '')
+        if result != 'win':
+            all_h2h_win = False
+            if st['pts'] + 3 == pts:  # 可能同分
+                if result == 'loss':
+                    return False, f'H2H负于{t}·若同分排名会掉'
+                elif result == 'draw':
+                    return False, f'H2H平{t}·若同分需比GD'
+                else:
+                    return False, f'未与{t}交手或结果未知'
+
+    if all_h2h_win and threats:
+        threat_names = ', '.join(t for t, _ in threats)
+        reason = f'H2H胜{threat_names}→排名已锁定'
+        return True, reason
+
+    return False, ''
+
+
 def determine_scenario_enhanced(team: str, group: str, matchday: int) -> dict:
     """
-    增强版场景分析 (V2.13)
+    增强版场景分析 (V2.13 + V4.2 H2H锁定)
 
     Returns:
         {
@@ -336,10 +423,18 @@ def determine_scenario_enhanced(team: str, group: str, matchday: int) -> dict:
             max_other_pts = max(st['pts'] for _, st in others)
 
             if pts >= 6 and pts > max_other_pts + 2:
-                result['scenario'] = 'already_qualified'
-                result['motivation_base'] = 2.5
-                result['rotation_risk'] = 0.6
-                result['detail'] = f'{team}: 已确保出线·可能轮换 ({pos}位·{pts}分)'
+                # 🆕 V4.2: 检查是否已通过H2H锁定当前排名
+                pos_locked, lock_reason = _check_position_locked(team, group, pos, pts)
+                if pos_locked:
+                    result['scenario'] = 'position_locked'
+                    result['motivation_base'] = 2.0
+                    result['rotation_risk'] = 0.8
+                    result['detail'] = f'{team}: 已锁定第{pos}名·可全轮换 ({lock_reason})'
+                else:
+                    result['scenario'] = 'already_qualified'
+                    result['motivation_base'] = 3.5
+                    result['rotation_risk'] = 0.5
+                    result['detail'] = f"{team}: 已确保出线·需保排名 ({pos}位·{pts}分·{lock_reason or 'H2H未锁定'})"
             elif pts == 0 and max_other_pts >= 6:
                 result['scenario'] = 'eliminated'
                 result['motivation_base'] = 2
