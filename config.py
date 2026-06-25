@@ -223,6 +223,42 @@ class Config:
     heat_dynamic_form_penalty: float = 3.0   # 状态倒挂>2→阈值-3
 
     # ══════════════════════════════════════════════════════════
+    # 🆕 V4.0: 因子乘法链 (Bayesian Factor Chain)
+    # ══════════════════════════════════════════════════════════
+    # 因子权重 (1.0=标准, 0=关闭)
+    factor_weight_hot: float = 1.0
+    factor_weight_pnl: float = 1.0
+    factor_weight_consensus: float = 0.8
+    factor_weight_d12: float = 0.9
+    factor_weight_context: float = 1.2
+    factor_weight_form: float = 0.7
+    factor_weight_threat: float = 0.6
+    factor_weight_trap: float = 0.3
+    # 因子边界
+    factor_bf_single_min: float = 0.70      # 单因子bf下界
+    factor_bf_single_max: float = 1.30      # 单因子bf上界
+    factor_bf_draw_advance_max: float = 1.50 # 平局出线bf_draw例外上限
+    factor_chain_bf_min: float = 0.50       # 总链bf下界
+    factor_chain_bf_max: float = 1.50       # 总链bf上界
+    factor_min_confidence: float = 0.3      # 因子自身置信度<此值跳过
+    factor_prior_shrinkage: float = 1.0     # 先验收缩(1.0=关闭, 0.90=激活)
+    # 因子分组
+    factor_group_flow: tuple = ('hot', 'pnl', 'consensus')
+    factor_group_context: tuple = ('context',)
+    factor_group_quality: tuple = ('d12', 'threat', 'form')
+    factor_group_anomaly: tuple = ('trap_odds',)
+    # 时效衰减 (半衰期·小时)
+    factor_decay_market_half_life: float = 6.0    # 冷热/赔率
+    factor_decay_form_half_life: float = 168.0    # 状态 (7天)
+    factor_decay_static_half_life: float = 1e9    # 排名/赛事·永不衰减
+    # EXTREME分级
+    factor_extreme_full_crush: float = 0.90       # 碾压指数≥此值跳过市场因子
+    factor_extreme_context_boost: float = 2.0     # 赛事因子权重加倍
+    # 熵锐度置信度
+    factor_sharpness_floor: float = 5.0
+    factor_sharpness_ceiling: float = 90.0
+
+    # ══════════════════════════════════════════════════════════
     # 回测 & 数据
     # ══════════════════════════════════════════════════════════
     backtest_dir: str = r"C:\Users\A\PyCharmMiscProject\backtest"

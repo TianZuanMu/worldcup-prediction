@@ -458,8 +458,130 @@ def generate_report(match_name: str,
     except Exception:
         r.trap_odds = None
 
-    # 6. V2.6规则匹配
+    # 6. V2.6规则匹配 (旧决策树)
     _apply_v26_rules(r)
+
+    # 6b. 🆕 V4.0: 因子乘法链 (并行运行·尚未切换为主输出)
+    try:
+        from bayes_factors import (
+            FactorResult, apply_factor_chain,
+            calc_hot_factor, calc_pnl_factor, calc_consensus_factor,
+            calc_d12_factor, calc_context_factor, calc_form_factor,
+            calc_threat_factor, calc_trap_factor,
+        )
+        # 构建因子链上下文
+        _cold = r.betfair_cold if hasattr(r, 'betfair_cold') else 0
+        _gap = r.gap_level if hasattr(r, 'gap_level') else 'moderate'
+        _hot_side = r.betfair_hot_side if hasattr(r, 'betfair_hot_side') else 'home'
+
+        # 状态差
+        _form_diff = 0.0
+        try:
+            _hf = getattr(r.home_recent_form, 'form_score', 5) or 5
+            _af = getattr(r.away_recent_form, 'form_score', 5) or 5
+            _form_diff = _hf - _af
+        except Exception:
+            pass
+
+        # 对手攻击威胁
+        _has_elite_fw = False
+        _threat_count = 0
+        if hasattr(r, 'moderate_threat') and r.moderate_threat:
+            _has_elite_fw = r.moderate_threat.get('has_elite_fw', False)
+            _threat_count = len(r.moderate_threat.get('top_players', []))
+
+        # 战意
+        _mot_diff = 0; _home_mot = 7; _away_mot = 7
+        _rotation_risk = 0; _draw_advance = False; _matchday = 3
+        if r.match_motivation:
+            _mot_diff = r.match_motivation.differential
+            _home_mot = r.match_motivation.home_motivation.motivation_score
+            _away_mot = r.match_motivation.away_motivation.motivation_score
+            _rotation_risk = max(r.match_motivation.home_motivation.rotation_risk,
+                                r.match_motivation.away_motivation.rotation_risk)
+            _draw_advance = (r.match_motivation.home_motivation.scenario == 'draw_enough' and
+                            r.match_motivation.away_motivation.scenario == 'draw_enough')
+            _matchday = getattr(r.match_motivation, 'matchday', 3) or 3
+
+        # 共识方向
+        _cons_dir = r.xls_consensus_direction if hasattr(r, 'xls_consensus_direction') else 'neutral'
+        _cons_pct = r.xls_consensus_pct if hasattr(r, 'xls_consensus_pct') else 0
+        _unanimity = r.xls_bookmakers / 52 if hasattr(r, 'xls_bookmakers') and r.xls_bookmakers else 0
+
+        # d12
+        _books_struct = r.books_structure if hasattr(r, 'books_structure') and r.books_structure else {}
+        _is_real_hot = r.betfair_is_real_hot if hasattr(r, 'betfair_is_real_hot') else False
+
+        # 庄家PnL
+        _home_pnl = r._bf_raw_pnls.get('home', 0) if hasattr(r, '_bf_raw_pnls') else 0
+        _away_pnl = r._bf_raw_pnls.get('away', 0) if hasattr(r, '_bf_raw_pnls') else 0
+        _draw_pnl = r._bf_raw_pnls.get('draw', 0) if hasattr(r, '_bf_raw_pnls') else 0
+
+        # 大单
+        _big_sell_vol = r.betfair_big_sell_volume if hasattr(r, 'betfair_big_sell_volume') else 0
+
+        # 诱盘
+        _trap_score = r.trap_odds.trap_score if r.trap_odds else 0
+        _trap_level = r.trap_odds.trap_level if r.trap_odds else 'none'
+
+        # 泊松先验 (from score_probabilities.win_probs, or odds fallback)
+        _prior_win = 50; _prior_draw = 25; _prior_lose = 25
+        if hasattr(r, 'structured') and r.structured:
+            sp = r.structured.get('score_probabilities') or {}
+            wp = sp.get('win_probs', {}) if sp else {}
+            if wp:
+                _prior_win = float(wp.get('home', 0) or 0)
+                _prior_draw = float(wp.get('draw', 0) or 0)
+                _prior_lose = float(wp.get('away', 0) or 0)
+        # Fallback: use odds for prior if Poisson unavailable (EXTREME matches)
+        if _prior_win == 0 and _prior_lose == 0:
+            bf_odds = getattr(r, '_bf_raw_odds', {}) or {}
+            bf_h = bf_odds.get('home', 0) or 0
+            bf_a = bf_odds.get('away', 0) or 0
+            bf_d = bf_odds.get('draw', 0) or 0
+            if bf_h > 1.0 and bf_a > 1.0:
+                imp_h = 1/bf_h; imp_a = 1/bf_a; imp_d = 1/bf_d if bf_d > 1.0 else 0.05
+                total = imp_h + imp_a + imp_d
+                _prior_win = imp_h / total * 100
+                _prior_lose = imp_a / total * 100
+                _prior_draw = imp_d / total * 100
+
+        # 碾压指数
+        _crush_idx = 0.0
+        try:
+            _rg = abs(getattr(r, 'fifa_rank_gap', 10))
+            _vr = getattr(r, 'squad_value_ratio', 5)
+            _crush_idx = (_rg / 60.0 * 0.6) + (_vr / 25.0 * 0.4)
+        except Exception:
+            pass
+        _is_extreme = _gap == 'extreme'
+
+        raw_factors = [
+            calc_hot_factor(cold=_cold, gap_level=_gap, form_diff=_form_diff,
+                           hot_side=_hot_side, data_age_hours=2.0),
+            calc_pnl_factor(home_pnl=_home_pnl, away_pnl=_away_pnl, draw_pnl=_draw_pnl,
+                           hot_side=_hot_side, cold=_cold),
+            calc_consensus_factor(consensus_pct=_cons_pct, consensus_direction=_cons_dir,
+                                  hot_side=_hot_side, unanimity=_unanimity),
+            calc_d12_factor(books_structure=_books_struct, is_real_hot=_is_real_hot),
+            calc_context_factor(motivation_diff=_mot_diff, home_mot=_home_mot, away_mot=_away_mot,
+                               rotation_risk=_rotation_risk, draw_advance_both=_draw_advance,
+                               matchday=_matchday),
+            calc_form_factor(form_diff=_form_diff),
+            calc_threat_factor(has_elite_fw=_has_elite_fw, threat_count=_threat_count),
+            calc_trap_factor(trap_score=_trap_score, trap_level=_trap_level),
+        ]
+
+        r._v40_posterior = apply_factor_chain(
+            prior=(_prior_win, _prior_draw, _prior_lose),
+            raw_factors=raw_factors,
+            is_extreme=_is_extreme,
+            crush_index=_crush_idx,
+            big_sell_volume=_big_sell_vol,
+        )
+    except Exception as e:
+        r._v40_posterior = None
+        r.v26_warnings.append(f'V4.0因子链异常: {e}')
 
     return r
 
