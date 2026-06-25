@@ -2442,14 +2442,28 @@ def _predict_totals(r: PreMatchReport):
     gap = r.gap_level
     cold = abs(r.betfair_cold)
 
-    # EXTREME强制中立
+    adjustments = []
+    conf_delta = 0
+    both_dangerous = False
+
+    # 🆕 V4.2: EXTREME穿盘率-大小球联动 (不再全跳过)
     if gap == 'extreme':
-        r._totals_prediction = {
-            'direction': 'neutral', 'confidence': 0, 'line': line, 'trend': trend,
-            'adjustments': ['EXTREME差距·大小球完全随机·不预测'],
-            'flipped': False, 'flip_note': '', 'both_dangerous': False,
-        }
-        return
+        spread_rate = getattr(r, 'xls_cover_rate', 0) or 0
+        if spread_rate >= 60:
+            base_dir = 'over'; base_conf = 55
+            adjustments.append(f'EXTREME+高穿盘({spread_rate:.0f}%)→弱队防线崩溃·倾向大球')
+            over_support_signals.add('weak_defense')
+        elif spread_rate < 40:
+            base_dir = 'under'; base_conf = 55
+            adjustments.append(f'EXTREME+低穿盘({spread_rate:.0f}%)→强队无需大胜·倾向小球')
+        else:
+            r._totals_prediction = {
+                'direction': 'neutral', 'confidence': 0, 'line': line, 'trend': trend,
+                'adjustments': [f'EXTREME+穿盘{spread_rate:.0f}%∈[40,60)→无明确信号·跳过'],
+                'flipped': False, 'flip_note': '', 'both_dangerous': False,
+            }
+            return
+        # 不return — 继续走修正因子管道
 
     # 🆕 V3.38: 退盘强度分级 + 基础预测
     init_line = getattr(r, '_totals_line_init', line) or line
@@ -2470,10 +2484,6 @@ def _predict_totals(r: PreMatchReport):
     else:
         base_dir = 'neutral'; base_conf = 50
 
-    adjustments = []
-    conf_delta = 0
-    both_dangerous = False
-
     # 获取两队数据
     home_cn = r.match_name.split('VS')[0].strip()
     away_cn = r.match_name.split('VS')[-1].strip() if 'VS' in r.match_name else ''
@@ -2489,6 +2499,9 @@ def _predict_totals(r: PreMatchReport):
     hot_goals = hot_data.get('pre_goals_per_game', 1.0)
     underdog_gk = underdog_data.get('giant_killings', [])
 
+    # 🆕 V4.2: 信号标签集合 (供翻转验证使用)
+    over_support_signals = set()
+
     # ── 修正1: 双方进攻火力 ──
     home_attack = len(home_data.get('top5_players', [])) > 0 and home_data.get('pre_goals_per_game', 0) >= 1.5
     away_attack = len(away_data.get('top5_players', [])) > 0 and away_data.get('pre_goals_per_game', 0) >= 1.5
@@ -2496,41 +2509,43 @@ def _predict_totals(r: PreMatchReport):
     if home_attack and away_attack:
         both_dangerous = True
         if base_dir == 'under':
-            conf_delta -= 15
+            conf_delta += CONF.totals_factor_both_attack_under
             adjustments.append('双方均有进攻火力→小球风险')
         elif base_dir == 'over':
-            conf_delta += 8
+            conf_delta += CONF.totals_factor_both_attack_over
             adjustments.append('双方均有进攻火力→大球支撑')
+            over_support_signals.add('both_attack')
 
     # ── 修正2: 精英队火力 ──
     if r.hot_team_fifa_rank <= 5 and cold < 50:
         if base_dir == 'under':
-            conf_delta -= 10
+            conf_delta += CONF.totals_factor_elite_attack_under
             adjustments.append(f'精英队(FIFA#{r.hot_team_fifa_rank})火力强劲→小球风险')
 
     # ── 修正3: 热方进攻力 ──
     if hot_goals >= 2.0:
         if base_dir == 'under':
-            conf_delta -= 10
+            conf_delta += CONF.totals_factor_hot_goals_under
             adjustments.append(f'热方场均{hot_goals:.1f}球(≥2.0)→大球倾向')
         elif base_dir == 'over':
-            conf_delta += 5
+            conf_delta += CONF.totals_factor_hot_goals_over
             adjustments.append(f'热方场均{hot_goals:.1f}球(≥2.0)→大球支撑')
+            over_support_signals.add('hot_goals')
 
     # ── 修正4: 弱势方爆冷基因 ──
     if len(underdog_gk) > 0 and base_dir == 'under':
-        conf_delta -= 10
+        conf_delta += CONF.totals_factor_giant_killer_under
         adjustments.append(f'弱势方巨人杀手血统→双方进球风险')
 
     # ── 修正5: 低盘口风险 ──
     if line < 2.0 and base_dir == 'under':
-        conf_delta -= 15
+        conf_delta += CONF.totals_factor_low_line_under
         adjustments.append(f'开盘{line:.1f}球过低→易被击穿')
 
     # ── 修正6: 东道主加成 ──
     host_side = 'home' if home_cn in ('加拿大', '美国', '墨西哥') else None
     if host_side and base_dir == 'under':
-        conf_delta -= 5
+        conf_delta += CONF.totals_factor_host_under
         adjustments.append('东道主比赛→倾向大球')
 
     # 🆕 V3.4: 大球方向对称防护 (MD2捷克1-1复盘)
@@ -2539,20 +2554,19 @@ def _predict_totals(r: PreMatchReport):
     underdog_gpg = underdog_data.get('pre_goals_per_game', 1.0) or 1.0
 
     # ── 修正7: 双方进攻疲软 → 大球风险 ──
-    # 用两队合计 vs 盘口判断: 总进球预期不足盘口→大球不可靠
     combined_gpg = home_gpg + away_gpg
     if base_dir == 'over' and combined_gpg < line:
-        conf_delta -= 10
+        conf_delta += CONF.totals_factor_tired_attack_over
         adjustments.append(f'双方进攻疲软(合计{combined_gpg:.1f}球<盘口{line:.1f})→大球风险')
 
     # ── 修正8: BIG差距+弱队死守 → 大球风险 ──
     if base_dir == 'over' and gap == 'big' and underdog_gpg < 1.0:
-        conf_delta -= 7
+        conf_delta += CONF.totals_factor_big_bus_over
         adjustments.append(f'BIG差距+弱队场均仅{underdog_gpg:.1f}球→大巴战术·大球风险')
 
     # ── 修正9: 低盘口升盘信号不可靠 → 大球风险 ──
     if base_dir == 'over' and line < 2.5:
-        conf_delta -= 7
+        conf_delta += CONF.totals_factor_low_line_up_over
         adjustments.append(f'低盘口({line:.1f}<2.5)升盘信号弱→大球风险')
 
     # ── 🆕 V3.36: 泊松xG背离检测与仲裁 ──
@@ -2646,11 +2660,36 @@ def _predict_totals(r: PreMatchReport):
     # 🆕 V3.12: 低置信度标记 — <40%的预测标注"仅供参考"
     low_confidence = final_conf < 40
 
-    # 方向翻转检测: conf_delta ≤ -20
-    if base_dir == 'under' and conf_delta <= -20:
-        final_dir = 'over'; flip_note = '⚠️ 降盘信号被多项因子削弱·翻转预测大球'
-    elif base_dir == 'over' and conf_delta <= -20:
-        final_dir = 'under'; flip_note = '⚠️ 升盘信号被多项因子削弱·翻转预测小球'
+    # 🆕 V4.2: 方向翻转检测 — 双阈值 + 翻转验证
+    STRONG = CONF.totals_flip_threshold_strong   # -25
+    WEAK   = CONF.totals_flip_threshold_weak     # -15
+    # 🆕 V4.2 Phase 3: MODERATE弱翻转阈值收紧至-18 (边际预测准确率低)
+    if gap == 'moderate':
+        WEAK = -18
+
+    if base_dir == 'under' and conf_delta <= STRONG:
+        # 强翻转: 需大球方向独立验证
+        if over_support_signals:
+            final_dir = 'over'; flip_note = '⚠️ 强翻转·降盘信号被多项因子削弱→预测大球'
+        else:
+            final_dir = 'neutral'; final_conf = 45
+            flip_note = '⚠️ 降盘信号削弱但无大球独立支撑→降级neutral'
+            adjustments.append('🟡 翻转验证失败: 无大球方向独立信号·降级neutral')
+    elif base_dir == 'under' and conf_delta <= WEAK:
+        # 弱翻转: 降信但不一定翻转
+        if over_support_signals:
+            final_dir = 'over'; final_conf = int(final_conf * 0.75)
+            flip_note = f'⚠️ 弱翻转·降盘信号被削弱(conf_delta={conf_delta})·降信至{final_conf}%'
+            adjustments.append(f'🟡 弱翻转(conf_delta={conf_delta}∈[{WEAK},{STRONG}])·降信×0.75')
+        else:
+            final_dir = base_dir; final_conf = int(final_conf * 0.80)
+            flip_note = f'⚠️ 边际削弱(conf_delta={conf_delta})·无大球支撑·维持原方向·降信至{final_conf}%'
+    elif base_dir == 'over' and conf_delta <= STRONG:
+        final_dir = 'under'; flip_note = '⚠️ 强翻转·升盘信号被多项因子削弱→预测小球'
+    elif base_dir == 'over' and conf_delta <= WEAK:
+        final_dir = 'under'; final_conf = int(final_conf * 0.75)
+        flip_note = f'⚠️ 弱翻转·升盘信号被削弱(conf_delta={conf_delta})·降信至{final_conf}%'
+        adjustments.append(f'🟡 弱翻转(conf_delta={conf_delta}∈[{WEAK},{STRONG}])·降信×0.75')
     else:
         final_dir = base_dir; flip_note = ''
 
@@ -2668,6 +2707,7 @@ def _predict_totals(r: PreMatchReport):
         'flip_note': flip_note, 'both_dangerous': both_dangerous,
         'low_confidence': low_confidence,  # 🆕 V3.12
         'diverge_level': diverge_level,     # 🆕 V3.36
+        'over_support_signals': list(over_support_signals),  # 🆕 V4.2
     }
 
 

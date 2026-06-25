@@ -184,6 +184,21 @@ class Config:
     totals_xg_diverge_conf_ceiling: int = 50           # 方向冲突时上限
     totals_line_move_significant: float = 0.05         # 盘口变动>5%视为主动行为
 
+    # 🆕 V4.2: 大小球修正因子权重 (可配置·供网格搜索校准)
+    totals_flip_threshold_strong: int = -25   # 强翻转阈值
+    totals_flip_threshold_weak: int = -15     # 弱翻转阈值 (×0.75降信)
+    totals_factor_both_attack_over: int = 8       # 双方进攻→大球支撑
+    totals_factor_both_attack_under: int = -15    # 双方进攻→小球风险
+    totals_factor_elite_attack_under: int = -10   # 精英火力→小球风险
+    totals_factor_hot_goals_over: int = 5         # 热方火力→大球支撑
+    totals_factor_hot_goals_under: int = -10      # 热方火力→小球风险
+    totals_factor_giant_killer_under: int = -10   # 爆冷基因→小球风险
+    totals_factor_low_line_under: int = -15       # 低盘口→易击穿
+    totals_factor_host_under: int = -5            # 东道主→大球倾向
+    totals_factor_tired_attack_over: int = -7     # 进攻疲软→大球风险 (校准-10→-7·+0.5pp)
+    totals_factor_big_bus_over: int = -4          # BIG+大巴→大球风险 (校准-7→-4·+2.9pp)
+    totals_factor_low_line_up_over: int = -7      # 低盘升盘→信号弱
+
     # ══════════════════════════════════════════════════════════
     # 🆕 V3.41: 诱盘检测 (Trap Odds Detection)
     # ══════════════════════════════════════════════════════════
