@@ -17,7 +17,7 @@ MIDFIELD_RATING: dict = {
     '巴西':      8.0,   # Guimaraes(7000万纽卡)+Casemiro+内马尔(AM)
     '荷兰':      7.0,   # Gravenberch(9000万)+De Jong(巴萨)+Reijnders(6000万) → Simons伤缺·Timber脑震荡缺阵
     '比利时':    7.5,   # De Bruyne(曼城)+Tielemans+Onana → KDB世界级但老化
-    '土耳其':    8.0,   # Guler(9000万皇马)+Calhanoglu(国米) → 惊喜升级
+    '土耳其':    7.2,   # Guler(9000万皇马)+Calhanoglu(国米) → V4.2: 8.0→7.2 (居莱尔FW光环移除)
     '克罗地亚':  7.5,   # Modric(40/AC米兰)+Kovacic(曼城)+P.Sucic(3000万国米)+Baturina(2400万) → 新老结合
 
     # ═══ 强力中场 (6.5-7.5) ═══
