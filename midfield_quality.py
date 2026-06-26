@@ -129,7 +129,11 @@ def get_midfield_rating(team_name: str) -> float:
         blend = db_rating * 0.5 + static_rating * 0.5
         diff = abs(db_raw - static_rating)  # 用原始DB值计算差异(更诚实)
         if diff > 3.0:
-            print(f'⚠️ 中场评级差异: {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
+            # 🆕 V4.2: 高分豁免 — DB和Static都在顶级区间(≥8.5)→降级为仅记录
+            if db_rating >= 8.5 and static_rating >= 8.5:
+                print(f'📝 中场评级(仅记录): {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f}·高分区间)')
+            else:
+                print(f'⚠️ 中场评级差异: {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
         return round(blend, 1)
     elif db_rating > 0:
         return db_rating

@@ -84,12 +84,9 @@ MILESTONE_DB = {
         'Griezmann': {
             'caps': 142, 'goals': 49,
             'next_match_caps': None,
-            'next_match_goals_record': '50th goal',
-            'notable_events': [
-                {'event': 'goal_50', 'boost': 5,
-                 'detail': '格列兹曼冲击国家队50球'},
-            ],
-            'note': '接近150场·冲击50球',
+            'next_match_goals_record': None,
+            'notable_events': [],
+            'note': '姆巴佩冲金靴·全队健康',
         },
     },
     '巴西': {
