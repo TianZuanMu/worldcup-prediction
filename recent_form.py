@@ -365,27 +365,32 @@ RECENT_RESULTS = {
 
 
 
-def weigh_by_recency(matches: List[dict], half_life_days: float = None) -> List[float]:
+def weigh_by_recency(matches: List[dict], half_life_days: float = None,
+                     competition_weights: dict = None) -> List[float]:
     """
     Compute time-decay weights for recent matches.
 
-    Each match gets weight = 2^(-days_ago / half_life), so a match
-    exactly one half-life old contributes half as much as a match today.
+    Each match gets weight = 2^(-days_ago / half_life) × competition_weight,
+    so a match exactly one half-life old contributes half as much as a match today.
 
     The single most recent match receives an additional multiplier
     (CONF.form_recent_weight_boost, default 2x).
 
+    🆕 V4.5: competition_weight — 赛事类型加成 (淘汰赛>小组赛>预选赛>友谊赛).
+    从 match['_source'] 推断: 'worldcup_backtest'→小组赛, 'cache'→预选赛, else→友谊赛.
+
     Args:
-        matches: list of match dicts, each with an optional 'date' key (str YYYY-MM-DD).
+        matches: list of match dicts, each with optional 'date' and 'is_official' keys.
         half_life_days: decay half-life in days. Defaults to CONF.form_decay_half_life_days (30).
+        competition_weights: dict mapping competition type → weight multiplier.
 
     Returns:
         List of floats, one weight per match, same order as input.
-        When no match carries a parseable date every weight is 1.0 (equal weighting,
-        backward compatible).
     """
     if half_life_days is None:
         half_life_days = CONF.form_decay_half_life_days
+    if competition_weights is None:
+        competition_weights = CONF.form_competition_weight
 
     today = date_type.today()
     weights: List[float] = []
@@ -404,6 +409,18 @@ def weigh_by_recency(matches: List[dict], half_life_days: float = None) -> List[
         else:
             weight = 1.0
 
+        # 🆕 V4.5: 赛事类型加权
+        comp_weight = 1.0
+        source = m.get('_source', '')
+        is_official = m.get('is_official', True)
+        if source == 'worldcup_backtest':
+            comp_weight = competition_weights.get('world_cup_group', 1.2)
+        elif source == 'cache' or is_official:
+            comp_weight = competition_weights.get('qualifier', 1.0)
+        else:
+            comp_weight = competition_weights.get('friendly', 0.6)
+
+        weight *= comp_weight
         weights.append(weight)
 
     # Backward compatibility: if no date data at all, equal weights
@@ -485,19 +502,23 @@ def analyze_recent_form(team: str) -> RecentForm:
     )
     form.key_player_participation = weighted_participation / total_weight if total_weight > 0 else 1.0
 
-    # 6. 综合分: 积分(70%) + 含金量(20%) + 主力率(10%)
+    # 6. 综合分: 权重来自config (默认70/20/10·待回测校准)
     # 🆕 V4.2 P0: 删除 quality_bonus (对手质量已由 _adjust_form_for_opponent_quality 独立处理)
-    # 原权重 50/20/15/15 → 重归一化为 70/20/10 (维持0-10范围)
-    pts_score = (form.points_last5 / 15) * 7        # 0-7 (70%)
-    official_score = quality_weight * 2.0             # 0-2 (20%)
-    player_score = form.key_player_participation * 1.0  # 0-1 (10%)
+    # 🆕 V4.5: 权重常量移到config
+    w_pts = CONF.form_weight_points
+    w_qual = CONF.form_weight_quality
+    w_play = CONF.form_weight_players
+    total_w = w_pts + w_qual + w_play
+    pts_score = (form.points_last5 / 15) * (10 * w_pts / total_w)
+    official_score = quality_weight * (10 * w_qual / total_w)
+    player_score = form.key_player_participation * (10 * w_play / total_w)
 
     form.form_score = min(10, pts_score + official_score + player_score)  # 🆕 V3.17: 上限10
 
-    # 🆕 V4.2 P0: 样本量惩罚 — 比赛数<5时每少一场扣0.4分
+    # 🆕 V4.2 P0: 样本量惩罚 — 比赛数<5时每少一场扣0.4分 (config可调)
     n_matches = len(recent5)
     if n_matches < 5:
-        sample_penalty = (5 - n_matches) * 0.4
+        sample_penalty = (5 - n_matches) * CONF.form_sample_penalty_per_missing
         form.form_score = max(0, form.form_score - sample_penalty)
         form.notes.append(f'📉 仅{n_matches}场样本·扣{sample_penalty:.1f}分→{form.form_score:.1f}/10')
 
@@ -545,8 +566,9 @@ def _adjust_form_for_opponent_quality(form_score: float, opponent_quality_avg: f
     Returns:
         (adjusted_form_score, bonus_applied)
     """
-    # V4.2: 加性修正, 范围 -0.6 ~ +0.5
+    # V4.2: 加性修正, 范围 -0.6 ~ +0.6 (V4.5: 显式clamp)
     opponent_bonus = (80 - opponent_quality_avg) * 0.008  # rank50→+0.24, rank20→+0.48, rank80→0
+    opponent_bonus = max(-0.6, min(0.6, opponent_bonus))  # 🆕 V4.5: 防御性边界
 
     adjusted = form_score + opponent_bonus
     return adjusted, opponent_bonus

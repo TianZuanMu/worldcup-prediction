@@ -439,6 +439,9 @@ def generate_report(match_name: str,
             if (hm.scenario == 'draw_enough' and am.scenario == 'draw_enough'):
                 draw_advance_both = True
 
+        # 🆕 V4.4: 写回report供平局升级路径使用
+        r._both_draw_qualified = draw_advance_both
+
         r.trap_odds = detect_trap_odds(
             euro_bookmakers=getattr(r, '_euro_bookmakers', []) or [],
             betfair_snapshots=getattr(r, '_betfair_snapshots', []) or [],
@@ -3266,9 +3269,80 @@ def _build_structured(r: PreMatchReport):
             r.v26_confidence = min(r.v26_confidence, 50)
             r.v26_warnings.insert(1, '🔺 方向分歧·置信度强制≤50%·建议回避')
 
+    # ══════════════════════════════════════════════════════════
+    # 🆕 V4.4: 高信平局二次校验 — 高置信度时平局信号未充分扣分
+    # ══════════════════════════════════════════════════════════
+    if r.v26_confidence >= 70 and '⚠️ 不预测' not in r.v26_prediction:
+        draw_risk = getattr(r, '_draw_risk', 'none')
+        draw_score = getattr(r, '_draw_risk_score', 0)
+        dc_pct = abs(r.draw_collapse.get('avg_change', 0)) if r.draw_collapse else 0
+        if draw_risk in ('critical', 'high') or draw_score >= 30 or dc_pct >= 5:
+            penalty = 10 if draw_risk == 'critical' else 5
+            r.v26_confidence = max(50, r.v26_confidence - penalty)
+            r.v26_warnings.append(
+                f'🔵 高信平局校验: 平局风险{draw_risk}(分{draw_score})→置信度-{penalty}%'
+            )
+
+    # ══════════════════════════════════════════════════════════
+    # 🆕 V4.4: 平局独立升级 — 三触发条件
+    # ══════════════════════════════════════════════════════════
+    _draw_upgraded = False
+    if r.score_prediction and '⚠️ 不预测' not in r.v26_prediction:
+        sp = r.score_prediction
+        draw_prob = getattr(sp, 'draw_prob', 0) or 0
+        home_prob = getattr(sp, 'home_win_prob', 0) or 0
+        away_prob = getattr(sp, 'away_win_prob', 0) or 0
+
+        # 触发A: 泊松平局≥30% + 平赔暴跌critical
+        dc_severity = r.draw_collapse.get('severity', '') if r.draw_collapse else ''
+        trigger_a = draw_prob >= 30 and dc_severity == 'critical'
+
+        # 触发B: 泊松平局同时>主胜+8pp 且 >客胜+8pp (V4.4: +5→+8 收紧防误杀)
+        trigger_b = draw_prob > home_prob + 8 and draw_prob > away_prob + 8
+
+        # EXTREME排除: EXTREME差距过大·平局升级不可靠
+        is_extreme = r.gap_level == 'extreme'
+
+        # 触发C: 双方平局即可出线
+        trigger_c = getattr(r, '_both_draw_qualified', False)
+
+        if (trigger_a or trigger_b or trigger_c) and not is_extreme:
+            old_pred = r.v26_prediction
+            r.v26_prediction = '⚠️ 平局倾向'
+            triggers = []
+            if trigger_b: triggers.append('泊松平局{:.0f}%为最可能'.format(draw_prob))
+            if trigger_a: triggers.append('平赔暴跌critical')
+            if trigger_c: triggers.append('双方平局即出线')
+            r.v26_rule = '平局升级: ' + ' + '.join(triggers)
+
+            # 🆕 V4.4: 分级置信度上限
+            if trigger_b:
+                draw_ceiling = 60  # 概率驱动·信号最强
+            elif trigger_a:
+                draw_ceiling = 55  # 概率+市场双确认
+            else:
+                draw_ceiling = 50  # 赛制驱动
+            r.v26_confidence = min(r.v26_confidence, draw_ceiling)
+            r.v26_warnings.append(
+                f'🔵 平局升级: {r.v26_rule}→置信度上限{draw_ceiling}%'
+            )
+            _draw_upgraded = True
+
+    # ══════════════════════════════════════════════════════════
+    # 🆕 V4.4: 灰色区间标记 (40-50%·准确率仅44%)
+    # ══════════════════════════════════════════════════════════
+    if not _draw_upgraded and 40 <= r.v26_confidence < 50 and '⚠️ 不预测' not in r.v26_prediction:
+        r.v26_warnings.append(
+            f'🟡 灰色区间({r.v26_confidence:.0f}%): 信号矛盾·建议视为平局倾向或弃权'
+        )
+        if '平局' not in r.v26_prediction:
+            r.v26_prediction += ' (平局风险·灰区)'
+
     # Determine winner
     winner = None
-    if '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction and not direction_poisson_divergence:
+    if '⚠️ 平局倾向' in r.v26_prediction:
+        winner = 'draw'
+    elif '热门胜' in r.v26_prediction and '⚠️' not in r.v26_prediction and not direction_poisson_divergence:
         winner = r.betfair_hot_side if r.betfair_hot_side else 'home'
     elif direction_poisson_divergence:
         winner = 'direction_divergence'  # 🆕 V3.17: 方向分歧

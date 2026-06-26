@@ -100,6 +100,19 @@ class Config:
     form_decay_half_life_days: float = 30.0   # 半衰期30天
     form_recent_weight_boost: float = 2.0     # 最近1场权重加倍
 
+    # 🆕 V4.5: 赛事类型权重 (乘在时间衰减后)
+    form_competition_weight: dict = field(default_factory=lambda: {
+        'world_cup_knockout': 1.5,
+        'world_cup_group': 1.2,
+        'qualifier': 1.0,
+        'friendly': 0.6,
+    })
+    # 🆕 V4.5: 状态分综合公式权重 (待回测网格搜索校准)
+    form_weight_points: float = 0.70    # 积分权重
+    form_weight_quality: float = 0.20   # 含金量权重
+    form_weight_players: float = 0.10   # 主力率权重
+    form_sample_penalty_per_missing: float = 0.4  # 每缺1场扣0.4分
+
     # ══════════════════════════════════════════════════════════
     # 天气
     # ══════════════════════════════════════════════════════════

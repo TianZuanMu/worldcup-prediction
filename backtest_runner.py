@@ -96,6 +96,9 @@ def run_backtest(verbose: bool = False) -> Dict:
             br.skipped = True
             br.notes = 'EXTREME skip'
             skipped += 1
+        elif '⚠️ 平局倾向' in pred_text:
+            br.expected = 'draw'
+            br.correct = (actual_result == 'draw')
         elif '⚠️ 热门不胜' in pred_text or '热门可能不胜' in pred_text:
             br.expected = 'not_' + hot if hot else 'not_home'
             br.correct = (br.expected == 'not_home' and actual_result != 'home') or \
