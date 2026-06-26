@@ -1091,26 +1091,27 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
                     depth_factor = 1.0
                 factors.append(depth_factor)
 
-                # 🆕 小盘口强制边缘: 让球<0.75时, 穿盘/不穿盘信号不可靠
-                # 回测验证: 3场小盘判定全部错误 (64% vs 88%)
-                # 原因: 1-0即穿盘·1-1即不穿·单球决定·纯随机
+                # 🆕 V4.3: 小盘口(<0.75)标记为仅供参考·保留数值但不赋予高权重
                 if actual_handicap < 0.75 and not getattr(r, '_cover_depth_forced', False):
                     r._cover_depth_forced = True
                     r.v26_warnings.append(
-                        f'🎲 小盘口({actual_handicap:.1f}球<0.75)·穿盘信号不可靠·强制边缘'
+                        f'🎲 小盘口({actual_handicap:.1f}球<0.75)·穿盘信号仅供参考'
                     )
     except Exception:
         pass
 
     # ── 计算调整后穿盘率 ──
-    adjusted = raw
-    for f in factors:
-        adjusted *= f
+    # 🆕 V4.3: 几何平均替代连乘·40%原始权重锚定
+    import math
+    if factors:
+        geo_mean = math.prod(factors) ** (1.0 / len(factors))
+        adjusted = raw * (0.4 + 0.6 * geo_mean)
+    else:
+        adjusted = raw
 
-    # 上限80% (穿盘总有偶然性)
-    adjusted = min(80, adjusted)
+    # 🆕 V4.3: 取消80%硬截断·下游模块负责使用
 
-    if adjusted != raw:
+    if abs(adjusted - raw) > 0.5:
         r.xls_cover_rate_raw = raw  # 保存原始值
         r.xls_cover_rate = round(adjusted, 1)  # 替换为调整后
         note_str = '·'.join(notes) if notes else ''
