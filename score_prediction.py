@@ -997,7 +997,7 @@ def predict_score(match_name: str,
 
 
 def format_score_output(sp: ScorePrediction) -> str:
-    """格式化比分预测输出"""
+    """格式化比分预测输出 (V4.3: 格局化·分组·移除单点"最可能"误导)"""
     lines = []
     lines.append(f"  📊 模型校准xG: 主 {sp.expected_goals_home} - {sp.expected_goals_away} 客 (总 {sp.total_goals_expected}) ⚠️含方向调整")
     if sp.cover_risk and sp.cover_risk != 'neutral':
@@ -1006,18 +1006,88 @@ def format_score_output(sp: ScorePrediction) -> str:
     lines.append(f"  🎯 胜负概率: 主胜 {sp.home_win_prob}% / 平 {sp.draw_prob}% / 客胜 {sp.away_win_prob}%")
 
     if sp.top_scores:
-        lines.append(f"  ⚽ 最可能比分:")
-        for score, prob in sp.top_scores[:6]:
-            max_p = max(sp.top_scores[0][1] * 100, 1)
-            bar_len = max(1, int(prob * 100 / max_p))
-            bar = '█' * bar_len
-            marker = ' ← 最可能' if score == sp.most_likely else ''
-            lines.append(f"     {score}: {prob*100:4.1f}% {bar}{marker}")
+        # 🆕 V4.3: 按结果类型分组 — 替代单一"最可能比分"
+        home_scores = []; draw_scores = []; away_scores = []
+        for s, p in sp.top_scores[:8]:
+            parts = s.split('-')
+            hg, ag = int(parts[0]), int(parts[1])
+            if hg > ag: home_scores.append((s, p))
+            elif hg == ag: draw_scores.append((s, p))
+            else: away_scores.append((s, p))
+
+        home_total = sum(p for _, p in home_scores)
+        draw_total = sum(p for _, p in draw_scores)
+        away_total = sum(p for _, p in away_scores)
+
+        # ── 格局判定 ──
+        max_group = max(('主胜', home_total), ('平局', draw_total), ('客胜', away_total), key=lambda x: x[1])
+
+        pattern = ''
+        if max_group[0] == '主胜':
+            big_win = sum(p for s, p in home_scores
+                         if int(s.split('-')[0]) - int(s.split('-')[1]) >= 3)
+            big_ratio = big_win / max(home_total, 0.001)
+            if big_ratio >= 0.45:
+                pattern = '主胜·大胜格局（穿盘概率高）'
+            elif big_ratio >= 0.25:
+                pattern = '主胜·中等优势（可穿盘·看临场）'
+            else:
+                pattern = '主胜·小胜格局（大概率不穿盘）'
+        elif max_group[0] == '客胜':
+            big_win = sum(p for s, p in away_scores
+                         if int(s.split('-')[1]) - int(s.split('-')[0]) >= 3)
+            big_ratio = big_win / max(away_total, 0.001)
+            if big_ratio >= 0.45:
+                pattern = '客胜·大胜格局（穿盘概率高）'
+            elif big_ratio >= 0.25:
+                pattern = '客胜·中等优势（可穿盘·看临场）'
+            else:
+                pattern = '客胜·小胜格局（大概率不穿盘）'
+        else:
+            pattern = '平局倾向（出线形势驱动·谨慎参考）'
+
+        lines.append(f'  ⚽ 比分格局: {pattern}')
+
+        # ── 🆕 V4.3: 波胆可靠性声明 ──
+        lines.append(f'     ⚠️ 精确波胆仅供参考 (历史Top-1命中仅15%·Top-3=36%)')
+
+        # ── 大胜格局: 不出虚假具体比分 ──
+        if '大胜格局' in pattern:
+            if '主胜' in pattern:
+                lines.append(f'     主胜 {home_total*100:.0f}%: 预期净胜2球以上·泊松λ不足无法给出精确大比分')
+            else:
+                lines.append(f'     客胜 {away_total*100:.0f}%: 预期净胜2球以上·泊松λ不足无法给出精确大比分')
+            # 仍显示平局组（若显著）以提示风险
+            if draw_total >= 0.10:
+                top3_draw = sorted(draw_scores, key=lambda x: x[1], reverse=True)[:3]
+                draw_strs = [f'{s}({p*100:.0f}%)' for s, p in top3_draw]
+                lines.append(f'     平局 {draw_total*100:.0f}%: {", ".join(draw_strs)}')
+        else:
+            # ── 分组展示: 主导组+平局(若显著) ──
+            show_groups = [(max_group[0], max_group[1], home_scores if max_group[0] == '主胜'
+                            else (draw_scores if max_group[0] == '平局' else away_scores))]
+            # 平局作为第二组（若概率≥15%且非主导组）
+            if max_group[0] != '平局' and draw_total >= 0.15:
+                show_groups.append(('平局', draw_total, draw_scores))
+            elif max_group[0] != '主胜' and home_total >= 0.15:
+                show_groups.append(('主胜', home_total, home_scores))
+            elif max_group[0] != '客胜' and away_total >= 0.15:
+                show_groups.append(('客胜', away_total, away_scores))
+
+            for label, total_p, scores in show_groups:
+                top3 = sorted(scores, key=lambda x: x[1], reverse=True)[:3]
+                score_strs = [f'{s}({p*100:.0f}%)' for s, p in top3]
+                lines.append(f'     {label} {total_p*100:.0f}%: {", ".join(score_strs)}')
+
+        # ── 单点概率提示 ──
+        top_score, top_prob = sp.top_scores[0]
+        if top_prob < 0.15:
+            lines.append(f'     📌 单点最高 {top_score} 仅{top_prob*100:.0f}%·任一笔分概率均低·看格局不押单点')
 
     # 🆕 V3.4: 显示关键调整
     if sp.adjustments:
         for adj in sp.adjustments[:3]:  # 最多显示3条
-            lines.append(f"     ↳ {adj}")
+            lines.append(f'     ↳ {adj}')
 
     return '\n'.join(lines)
 
