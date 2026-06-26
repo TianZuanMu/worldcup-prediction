@@ -436,9 +436,18 @@ def determine_scenario_enhanced(team: str, group: str, matchday: int) -> dict:
                     result['rotation_risk'] = 0.5
                     result['detail'] = f"{team}: 已确保出线·需保排名 ({pos}位·{pts}分·{lock_reason or 'H2H未锁定'})"
             elif pts == 0 and max_other_pts >= 6:
-                result['scenario'] = 'eliminated'
-                result['motivation_base'] = 2
-                result['detail'] = f'{team}: 已淘汰·荣誉之战 ({pos}位·{pts}分)'
+                # 🆕 V4.2: 48队赛制·12组取8个最佳第3名·3分可竞争
+                # 0分赢球→3分→可能以最佳第3名晋级 (非完全淘汰)
+                result['scenario'] = 'must_win_best_third'
+                result['motivation_base'] = 8
+                result['need_goals'] = True
+                result['detail'] = f'{team}: 必须赢球+刷净胜球·争最佳第3名 ({pos}位·{pts}分·3分有机会)'
+            elif pts == 1 and max_other_pts >= 6:
+                # 1分→赢球4分→大概率最佳第3名出线
+                result['scenario'] = 'must_win_best_third'
+                result['motivation_base'] = 9
+                result['need_goals'] = True
+                result['detail'] = f'{team}: 必须赢球·4分稳出线 ({pos}位·{pts}分·赢球=4分)'
             elif pts >= 3 and pts + 3 > max_other_pts:
                 result['scenario'] = 'draw_enough'
                 result['motivation_base'] = 7
