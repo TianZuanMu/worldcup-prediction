@@ -562,10 +562,19 @@ def calculate_motivation(team: str, matchday: int = 2) -> TeamMotivation:
     elif enhanced['alt_path_better'] and pos == 2:
         avoidance_bonus = 1.5   # 小组第一路径更优 → 争胜动力 (alt_path_better=第一比第二容易得多)
 
+    # 🆕 V4.2: 保位激励 — P1路径显著优于P2(≥2)且未锁定→保护当前排名
+    protect_bonus = 0
+    if pos == 1 and enhanced.get('scenario') != 'position_locked':
+        p1_diff = rating[0] if len(rating) > 0 else 5
+        p2_diff = rating[1] if len(rating) > 1 else 5
+        if p1_diff <= p2_diff - 2:  # P1路径比P2好≥2档
+            protect_bonus = 1.5
+            enhanced['detail'] += f' | 🛡️ 保P1:路径优{p2_diff-p1_diff}档·+{protect_bonus}战意'
+
     # 净胜球动力
     gd_bonus = 1.0 if enhanced['need_goals'] else 0
 
-    motivation = min(10, enhanced['motivation_base'] + rank_bonus + avoidance_bonus + gd_bonus)
+    motivation = min(10, enhanced['motivation_base'] + rank_bonus + avoidance_bonus + gd_bonus + protect_bonus)
 
     return TeamMotivation(
         team=team,
