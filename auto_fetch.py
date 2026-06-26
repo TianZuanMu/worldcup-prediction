@@ -580,9 +580,29 @@ def auto_fetch_scheduled(config: dict = None, force: bool = False) -> Dict:
     skipped = []
     errors = []
 
-    # 只关注: 赛前48h内 + 赛后2h内 (用于赛后复盘)
+    # 🆕 V4.2: 加载完赛结果·自动排除已完赛比赛
+    completed_matches = set()
+    completed_filtered = 0
+    try:
+        import json
+        from pathlib import Path
+        backtest_file = Path(__file__).parent / 'backtest' / 'matches.json'
+        if backtest_file.exists():
+            with open(backtest_file, 'r', encoding='utf-8') as f:
+                bm = json.load(f)
+            for m in bm:
+                if m.get('actual', {}).get('result', 'pending') != 'pending':
+                    completed_matches.add(m['match_name'])
+    except Exception:
+        pass
+
+    # 只关注: 赛前48h内 + 赛后2h内 + 未完赛
     active_matches = []
+    completed_filtered = 0
     for name, ko in schedule:
+        if name in completed_matches:
+            completed_filtered += 1
+            continue
         hours_to_ko = (ko - now).total_seconds() / 3600
         if hours_to_ko < 48 and hours_to_ko > -2:  # 赛前48h ~ 赛后2h
             phase = get_phase(hours_to_ko)
@@ -669,7 +689,7 @@ def auto_fetch_scheduled(config: dict = None, force: bool = False) -> Dict:
     # 输出摘要
     print(f'\n{"="*55}')
     print(f'📊 智能调度摘要 [{summary["time"]}]')
-    print(f'   检查: {len(active_matches)}场活跃比赛')
+    print(f'   检查: {len(active_matches)}场活跃比赛 (已排除{completed_filtered}场完赛)')
     if fetched_xls:
         print(f'   XLS刷新: {len(fetched_xls)}场 — {", ".join(fetched_xls)}')
     if fetched_bf:
