@@ -118,7 +118,10 @@ def load_results() -> Dict[str, dict]:
         standings[grp] = {}
         for team, g in TEAM_GROUPS.items():
             if g == grp:
-                standings[grp][team] = {"pts": 0, "gf": 0, "ga": 0, "gd": 0, "played": 0}
+                # 🆕 V4.2: 队名归一化
+                from match_context import normalize_team_name
+                norm = normalize_team_name(team)
+                standings[grp][norm] = {"pts": 0, "gf": 0, "ga": 0, "gd": 0, "played": 0}
 
     if not BACKTEST_FILE.exists():
         return standings
@@ -134,6 +137,10 @@ def load_results() -> Dict[str, dict]:
         if len(parts) != 2:
             continue
         home, away = parts[0].strip(), parts[1].strip()
+        # 🆕 V4.2: 队名归一化 — 统一'刚果(金)'='民主刚果'·'沙特'='沙特阿拉伯'
+        from match_context import normalize_team_name
+        home = normalize_team_name(home)
+        away = normalize_team_name(away)
         score = m["actual"]["score"]
         try:
             hg, ag = map(int, score.split("-"))
@@ -268,7 +275,7 @@ def predict_all() -> dict:
         group_data = {"standings": [], "risk": "low"}
 
         for i, (team, stats) in enumerate(ranking):
-            pos = ["🥇", "🥈", "🥉", "4️⃣"][i]
+            pos = ["🥇", "🥈", "🥉", "4️⃣"][i] if i < 4 else f"{i+1}️⃣"
             adv = " → 32强" if i < 2 else ""
             print(f"  {pos} {team:10s} | {stats['pts']}分 | "
                   f"GD{stats['gd']:+d} | GF{stats['gf']}/GA{stats['ga']}{adv}")
