@@ -2793,8 +2793,16 @@ def _assess_draw_risk(r: PreMatchReport):
         home_ok = '平局即可出线' in str(getattr(home_mot, 'scenario_detail', ''))
         away_ok = '平局即可出线' in str(getattr(away_mot, 'scenario_detail', ''))
         if home_ok and away_ok:
-            hard_triggers.append('双方平局即同时出线')
-            score += 30
+            # 🆕 V4.3: 竞争性传导 — 至少一方战意≥8.5→平局非双方均衡
+            home_mot_score = getattr(home_mot, 'motivation_score', 5)
+            away_mot_score = getattr(away_mot, 'motivation_score', 5)
+            max_mot = max(home_mot_score, away_mot_score)
+            if max_mot >= 8.5:
+                soft_factors.append(f'竞争性传导: max战意={max_mot:.1f}→平局非均衡')
+                score += 15  # moderate (降级·上限70%)
+            else:
+                hard_triggers.append('双方平局即同时出线')
+                score += 30  # critical (上限50%)
     except Exception:
         pass
 
@@ -3088,8 +3096,15 @@ def _build_structured(r: PreMatchReport):
             pass
         # 向下修正: 过热/分歧/信号冲突
         if getattr(r, 'betfair_is_real_hot', False):
-            big_ceiling -= 10
-            r.v26_warnings.append(f'📉 BIG真过热→上限-10')
+            # 🆕 V4.3: d12假过热豁免 — d12高信判假过热时跳过大BIG上限惩罚
+            bs = getattr(r, 'books_structure', {}) or {}
+            d12_hot = abs(bs.get('hot_index', 99) if isinstance(bs, dict) else getattr(bs, 'hot_index', 99))
+            d12_pnl_conf = bs.get('pnl_confidence', 0) if isinstance(bs, dict) else getattr(bs, 'pnl_confidence', 0)
+            if d12_hot < 15 and d12_pnl_conf > 0.8:
+                r.v26_warnings.append(f'📚 d12假过热豁免: 热指{d12_hot:.0f}<15·PnL信{d12_pnl_conf:.1f}>0.8·跳过上限-10')
+            else:
+                big_ceiling -= 10
+                r.v26_warnings.append(f'📉 BIG真过热→上限-10')
         if getattr(r, '_draw_risk', 'none') in ('critical', 'high'):
             big_ceiling -= 10
             r.v26_warnings.append(f'📉 平局风险{r._draw_risk}→上限-10')
