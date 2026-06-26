@@ -682,6 +682,19 @@ def auto_fetch_scheduled(config: dict = None, force: bool = False) -> Dict:
         print(f'   ✅ 所有数据均为最新, 无需拉取')
     print(f'{"="*55}')
 
+    # 🆕 V4.2: 每次数据刷新后自动重载积分榜+小组排名
+    try:
+        from knockout_motivation import refresh_standings
+        refresh_standings()
+        print('📊 积分榜已刷新')
+        from update_group_predictions import predict_all, save_json, generate_html
+        groups = predict_all()
+        save_json(groups)
+        generate_html(groups)
+        print('📊 小组排名已更新')
+    except Exception as e:
+        print(f'⚠️ 积分/排名更新异常: {e}')
+
     return summary
 
 
