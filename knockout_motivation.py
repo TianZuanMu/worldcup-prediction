@@ -168,6 +168,11 @@ def _load_actual_results():
         away = parts[1].strip()
         score = m['actual']['score']
 
+        # 🆕 V4.2: 队名归一化 — 消除"刚果(金)"="民主刚果"等别名重复
+        from match_context import normalize_team_name
+        home = normalize_team_name(home)
+        away = normalize_team_name(away)
+
         try:
             hg, ag = map(int, score.split('-'))
         except (ValueError, AttributeError):
@@ -276,6 +281,10 @@ def _build_h2h_cache():
         if len(parts) != 2:
             continue
         home, away = parts[0].strip(), parts[1].strip()
+        # 🆕 V4.2: 队名归一化
+        from match_context import normalize_team_name
+        home = normalize_team_name(home)
+        away = normalize_team_name(away)
         grp = _find_group(home, away)
         if not grp:
             continue
