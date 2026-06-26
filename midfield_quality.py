@@ -127,13 +127,15 @@ def get_midfield_rating(team_name: str) -> float:
     # Blend (等权)
     if db_rating > 0 and static_rating is not None:
         blend = db_rating * 0.5 + static_rating * 0.5
-        diff = abs(db_raw - static_rating)  # 用原始DB值计算差异(更诚实)
+        diff = abs(db_rating - static_rating)  # 归一化后同量纲比较 (V4.3修复: 原db_raw量纲不一致)
         if diff > 3.0:
             # 🆕 V4.2: 高分豁免 — DB和Static都在顶级区间(≥8.5)→降级为仅记录
             if db_rating >= 8.5 and static_rating >= 8.5:
-                print(f'📝 中场评级(仅记录): {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f}·高分区间)')
+                print(f'📝 中场评级(仅记录): {team_name} DB_raw={db_raw:.1f} DB_norm={db_rating:.1f} static={static_rating:.1f} diff={diff:.1f} (高分区间)')
             else:
-                print(f'⚠️ 中场评级差异: {team_name} DB={db_raw:.1f}(归一化{db_rating:.1f}) vs static={static_rating:.1f} (差{diff:.1f})·需人工复核')
+                print(f'⚠️ 中场评级差异: {team_name} DB_raw={db_raw:.1f} DB_norm={db_rating:.1f} static={static_rating:.1f} diff={diff:.1f}·需人工复核')
+                if db_rating < 5.0 and static_rating > 7.0:
+                    print(f'  ↳ 可能原因: 老将身价/非五大联赛导致DB低估')
         return round(blend, 1)
     elif db_rating > 0:
         return db_rating
