@@ -727,6 +727,13 @@ def auto_fetch_cron_wrapper():
 
     建议频率: 每30分钟 (cron: 7,37 * * * *)
     """
+    # 🆕 V4.5: 每次cron先扫描新比赛ID (淘汰赛对阵小组赛结束后才确定)
+    try:
+        from auto_fetch_xls import discover_match_ids
+        discover_match_ids()
+    except Exception:
+        pass
+
     config = load_config()
     summary = auto_fetch_scheduled(config=config)
 
