@@ -127,6 +127,7 @@ class PreMatchReport:
     _late_surge_early: float = 0.0       # 早期平均冷热
     _late_surge_late: float = 0.0        # 晚期平均冷热
     _betfair_trend: str = ''             # 🆕 V3.6: 冷热趋势(surging/fading/rising/cooling/stable)
+    betfair_trend: any = None            # 🆕 V4.5 P2: BetfairTrendResult 对象
     betfair_pollution: bool = False
     betfair_pollution_gap: float = 0.0
     betfair_big_sell: bool = False
@@ -849,6 +850,14 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                                   'away': bf.get('away_price', 0) or bf.get('away_odds', 0)}
                 r._bf_raw_volumes = {'home': bf.get('home_volume', 0), 'draw': bf.get('draw_volume', 0), 'away': bf.get('away_volume', 0)}
                 r._bf_raw_pnls = {'home': bf.get('home_pnl', 0), 'draw': bf.get('draw_pnl', 0), 'away': bf.get('away_pnl', 0)}
+
+                # 🆕 V4.5 P2: 必发跨版本趋势分析
+                try:
+                    from betfair_trend import analyze_betfair_trend
+                    r.betfair_trend = analyze_betfair_trend(data['snapshots'])
+                except Exception:
+                    r.betfair_trend = None
+
                 return  # JSON成功，跳过文本解析
     except Exception:
         pass
@@ -3670,6 +3679,19 @@ def format_report(r: PreMatchReport) -> str:
         if r.xls_trend.signals:
             for sig in r.xls_trend.signals:
                 lines.append(f"  {sig}")
+
+    # 🆕 V4.5 P2: 必发跨版本趋势
+    bf_trend = getattr(r, 'betfair_trend', None)
+    if bf_trend and bf_trend.versions_analyzed >= 3:
+        lines += [
+            "",
+            f"── 必发趋势 ({bf_trend.versions_analyzed}版) ──",
+            f"  冷热: {bf_trend.cold_early:.0f}→{bf_trend.cold_late:.0f} ({bf_trend.cold_trend}) | "
+            f"PnL: {bf_trend.pnl_trend} | "
+            f"资金方向: {'稳定' if bf_trend.money_side_stable else '⚠️摇摆'} | "
+            f"新增卖单: {bf_trend.big_sell_new}笔",
+            f"  → {bf_trend.summary}",
+        ]
 
     # ── V2.9 新增维度 ──
     if r.venue:
