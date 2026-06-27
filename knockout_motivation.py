@@ -214,9 +214,12 @@ def _get_standings_sorted(group: str) -> List[Tuple[str, dict]]:
     """获取小组排名 (按pts, gd, gf排序)"""
     if group not in GROUP_STANDINGS:
         return []
+    # 🆕 V4.5 P3: 公平竞赛分占位 (第6排序键·数据源待接入)
     return sorted(
         GROUP_STANDINGS[group].items(),
-        key=lambda x: (x[1]['pts'], x[1]['gd'], x[1]['gf']),
+        key=lambda x: (x[1]['pts'], x[1]['gd'], x[1]['gf'],
+                       x[1].get('h2h_pts', 0), x[1].get('h2h_gd', 0),
+                       x[1].get('fair_play', 0)),  # 🆕 占位·当前均为0
         reverse=True
     )
 
@@ -445,33 +448,67 @@ def determine_scenario_enhanced(team: str, group: str, matchday: int) -> dict:
                     result['rotation_risk'] = 0.5
                     result['detail'] = f"{team}: 已确保出线·需保排名 ({pos}位·{pts}分·{lock_reason or 'H2H未锁定'})"
             elif pts == 0 and max_other_pts >= 6:
-                # 🆕 V4.2: 48队赛制·12组取8个最佳第3名·3分可竞争
-                # 0分赢球→3分→可能以最佳第3名晋级 (非完全淘汰)
+                # 🆕 V4.5 P1: 第三名晋级概率替代二值判断
+                third_prob = _estimate_third_place_prob(team, group)
+                mapping = _map_prob_to_motivation(third_prob)
                 result['scenario'] = 'must_win_best_third'
-                result['motivation_base'] = 8
+                result['motivation_base'] = mapping['motivation_base']
                 result['need_goals'] = True
-                result['detail'] = f'{team}: 必须赢球+刷净胜球·争最佳第3名 ({pos}位·{pts}分·3分有机会)'
+                result['detail'] = f'{team}: 必须赢球+刷净胜球·争最佳第3名 ({pos}位·{pts}分·晋级概率{third_prob:.0f}%·{mapping["label"]})'
             elif pts == 1 and max_other_pts >= 6:
-                # 1分→赢球4分→大概率最佳第3名出线
+                third_prob = _estimate_third_place_prob(team, group)
+                mapping = _map_prob_to_motivation(third_prob)
                 result['scenario'] = 'must_win_best_third'
-                result['motivation_base'] = 9
+                result['motivation_base'] = mapping['motivation_base']
                 result['need_goals'] = True
-                result['detail'] = f'{team}: 必须赢球·4分稳出线 ({pos}位·{pts}分·赢球=4分)'
+                result['detail'] = f'{team}: 必须赢球·最佳第3名 ({pos}位·{pts}分·晋级概率{third_prob:.0f}%·{mapping["label"]})'
             elif pts >= 3 and pts + 3 > max_other_pts:
-                result['scenario'] = 'draw_enough'
-                result['motivation_base'] = 7
-                result['detail'] = f'{team}: 平局即可出线 ({pos}位·{pts}分)'
+                # 🆕 V4.5: 检查是否已确保前3 (48队赛制·第3名大概率晋级)
+                # 如果4th名最大可能分数 ≤ 当前分数 → 已锁定前3
+                min_pts_for_top3 = 0
+                if len(standings) >= 4:
+                    fourth = standings[3]
+                    min_pts_for_top3 = fourth[1]['pts'] + 3  # 第4名最多再拿3分
+                already_top3 = (len(standings) >= 4 and pts > min_pts_for_top3)
+
+                if already_top3:
+                    # 已确保前3但排名未锁定·需评估L2 vs L3路径
+                    result['scenario'] = 'top3_locked'
+                    result['motivation_base'] = 5.0  # 高于already_qualified·低于must_win
+                    result['rotation_risk'] = 0.3
+                    result['detail'] = f'{team}: 已确保前3·排名未锁定 ({pos}位·{pts}分·可争L1或L3)'
+                else:
+                    result['scenario'] = 'draw_enough'
+                    result['motivation_base'] = 7
+                    result['detail'] = f'{team}: 平局即可出线 ({pos}位·{pts}分)'
             else:
                 result['scenario'] = 'must_win'
                 result['motivation_base'] = 10
                 result['need_goals'] = True
                 result['detail'] = f'{team}: 必须赢球 ({pos}位·{pts}分·需刷GD)'
 
+    # 🆕 V4.5: 路径倒挂修正 — 低排名反而有更优淘汰赛路径
+    if matchday == 3:
+        path_info = _is_path_inverted(group)
+        if path_info['inverted']:
+            if result['scenario'] == 'draw_enough' and pos == 3:
+                # 平局=L3最优路径·赢了反而落入L2地狱
+                result['motivation_base'] = 4.0
+                result['detail'] += f' | 平局=L3最优路径(难度{path_info["l3"]:.0f})·赢球落入L2(难度{path_info["l2"]:.0f})'
+            elif result['scenario'] == 'must_win' and pos == 3:
+                # 必须赢但赢了可能路径更差·先确保出线再考虑
+                result['motivation_base'] = 8.0
+                result['detail'] += f' | 赢球=L2(难度{path_info["l2"]:.0f}>L3难度{path_info["l3"]:.0f})·路径更差但必须先确保出线'
+
     return result
 
 
 def _get_knockout_opponent(group: str, pos: int) -> str:
     """获取当前排名对应的淘汰赛对手"""
+    if pos == 3:
+        # 🆕 V4.5 P2: 第三名对手取决于8/12晋级组合·用期望难度
+        diff = _estimate_third_path_difficulty(group)
+        return f'最佳第三(期望难度{diff:.0f}/10)'
     key = f'{group}{pos}'
     return KNOCKOUT_PATH.get(key, '未知')
 
@@ -490,6 +527,149 @@ def _check_alt_path_better(group: str, current_pos: int) -> bool:
     alt_difficulty = rating[alt_pos - 1]
 
     return alt_difficulty < current_difficulty - 1  # 至少差2分才算显著
+
+
+# ══════════════════════════════════════════════════════════════
+# 🆕 V4.5: 小组第三晋级概率 + 路径难度
+# ══════════════════════════════════════════════════════════════
+
+def _estimate_third_place_prob(team: str, group: str) -> float:
+    """
+    🆕 V4.5 P1: 估算球队以小组第三晋级的概率 (0-100%).
+
+    方法: 静态快照 — 基于已完赛数据比较该队 vs 其他11组第三名。
+    不模拟剩余比赛，仅做"如果现在是第三·排第几"的排序。
+
+    Returns:
+        0-100 概率值。前两名锁定者返回0。
+    """
+    _load_actual_results()
+
+    pos = _get_position(group, team)
+    # 前两名 → 不参与第三名竞争
+    if pos <= 2:
+        return 0.0
+
+    s = GROUP_STANDINGS.get(group, {}).get(team, {'pts': 0, 'gd': 0, 'gf': 0})
+    pts = s['pts']
+    gd = s['gd']
+    gf = s['gf']
+
+    # 收集全部12组的第三名数据
+    all_thirds = []
+    for grp in 'ABCDEFGHIJKL':
+        standings = _get_standings_sorted(grp)
+        if len(standings) >= 3:
+            third_team, third_st = standings[2]  # index 2 = 第三名
+            all_thirds.append({
+                'team': third_team,
+                'group': grp,
+                'pts': third_st['pts'],
+                'gd': third_st['gd'],
+                'gf': third_st['gf'],
+                'played': third_st['played'],
+            })
+
+    if not all_thirds:
+        return 50.0  # 无数据·中性
+
+    # 按 pts → gd → gf 排序 (第三名虚拟积分榜)
+    all_thirds.sort(key=lambda x: (x['pts'], x['gd'], x['gf']), reverse=True)
+
+    # 找到该队排名
+    rank = 13  # default: last
+    for i, t in enumerate(all_thirds):
+        if t['team'] == team and t['group'] == group:
+            rank = i + 1
+            break
+
+    # 🆕 V4.5: 边界拦截 — 已完赛3场且排名>8 → 0%
+    if s.get('played', 0) >= 3 and rank > 8:
+        return 0.0
+
+    # 静态概率: 排名在前8 → 高概率; 排名在后4 → 低概率
+    if rank <= 6:
+        return 85.0
+    elif rank <= 8:
+        return 65.0
+    elif rank <= 9:
+        return 35.0
+    elif rank <= 10:
+        return 15.0
+    else:
+        return 5.0
+
+
+def _estimate_third_path_difficulty(group: str) -> float:
+    """
+    🆕 V4.5 P2: 估算小组第三晋级后的期望对手难度 (0-10)。
+
+    方法: 12组第三抢8席，对手必是某组第一。
+    取12个头名难度的中位数 — 比算术均值更稳健，不受极端值影响。
+
+    Returns:
+        float 难度评分 (0=极易, 10=极难)
+    """
+    import statistics
+    all_winner_difficulties = []
+    for grp in 'ABCDEFGHIJKL':
+        rating = GROUP_PATH_RATING.get(grp, (5, 5))
+        all_winner_difficulties.append(rating[0])  # pos=1 difficulty
+
+    try:
+        return statistics.median(all_winner_difficulties)
+    except Exception:
+        return 5.0  # fallback
+
+
+def _map_prob_to_motivation(prob: float) -> dict:
+    """
+    🆕 V4.5 P1b: 第三名晋级概率 → 战意非线性映射。
+
+    避免概率小波动导致战意剧烈变化。
+    """
+    if prob >= 60:
+        return {'level': 'high', 'motivation_base': 9, 'label': '高概率晋级'}
+    elif prob >= 30:
+        return {'level': 'medium', 'motivation_base': 7, 'label': '观望·取决于实时比分'}
+    else:
+        return {'level': 'low', 'motivation_base': 5, 'label': '低概率·可能轮换'}
+
+
+# ══════════════════════════════════════════════════════════════
+# 🆕 V4.5: 路径倒挂检测 — 低排名反而有更优淘汰赛路径
+# ══════════════════════════════════════════════════════════════
+
+def _is_path_inverted(group: str) -> dict:
+    """
+    检测淘汰赛路径是否出现倒挂: 低排名反而有更优路径。
+
+    例: L组 pos2(难度9·碰葡萄牙) >> pos3(难度2·碰第三名球队)
+         J组 pos2(难度10·碰西班牙) >> pos3(难度2·碰第三名球队)
+
+    触发条件: l2难度 > l1+4 AND l2难度 > l3+4 (双重条件·仅极端倒挂)
+    """
+    rating = GROUP_PATH_RATING.get(group, (5, 5))
+    l1, l2 = rating[0], rating[1]
+    l3 = _estimate_third_path_difficulty(group)
+
+    inverted = (l2 > l1 + 4) and (l2 > l3 + 4)
+
+    best_path_at = 1
+    worst_path_at = 2
+    if inverted:
+        if l1 <= l3:
+            best_path_at = 1
+        else:
+            best_path_at = 3
+        worst_path_at = 2  # L2永远是最差路径(触发条件保证)
+
+    return {
+        'inverted': inverted,
+        'best_path_at': best_path_at,
+        'worst_path_at': worst_path_at,
+        'l1': l1, 'l2': l2, 'l3': l3,
+    }
 
 
 # ══════════════════════════════════════════════════════════════
@@ -546,7 +726,8 @@ def calculate_motivation(team: str, matchday: int = 2) -> TeamMotivation:
 
     # 淘汰赛路径难度
     rating = GROUP_PATH_RATING.get(grp, (5, 5))
-    path = rating[pos - 1] if pos in (1, 2) else (9 if pos == 3 else 10)
+    # 🆕 V4.5 P2: pos=3 用期望难度替代兜底9
+    path = rating[pos - 1] if pos in (1, 2) else (_estimate_third_path_difficulty(grp) if pos == 3 else 10)
 
     # 排名修正
     rank_bonus = 0
@@ -555,12 +736,31 @@ def calculate_motivation(team: str, matchday: int = 2) -> TeamMotivation:
     elif pos == 3:
         rank_bonus = 0.5
 
+    # 🆕 V4.5: L3路径评估 (pos=2时·第三名可能优于第二名)
+    l3_difficulty = _estimate_third_path_difficulty(grp) if pos == 2 else 10
+    l2_difficulty = rating[1] if len(rating) > 1 else 5
+    l3_better_than_l2 = (pos == 2 and l3_difficulty < l2_difficulty - 2)
+
     # 避强动力: 如果另一条路径更优, 调整动机
     avoidance_bonus = 0
     if enhanced['alt_path_better'] and pos == 1:
         avoidance_bonus = -0.5  # 小组第一反而路径更硬 → 保头名动力稍降
+    elif l3_better_than_l2 and pos == 2:
+        # 🆕 V4.5: L3路径优于L2 → 赢球=L1(最优)·输球=L3(次优)·平局=L2(最差)
+        # 避L2动力极强·比普通alt_path_better更激进
+        avoidance_bonus = 2.0
     elif enhanced['alt_path_better'] and pos == 2:
         avoidance_bonus = 1.5   # 小组第一路径更优 → 争胜动力 (alt_path_better=第一比第二容易得多)
+
+    # 🆕 V4.5: 路径倒挂 — 当前站在最差/最优排名上的动机调整
+    path_info = _is_path_inverted(grp)
+    if path_info['inverted']:
+        if pos == path_info['worst_path_at']:
+            # 站在最差路径上(L2) → 拼命离开·无论向上(L1)还是向下(L3)
+            avoidance_bonus += 1.5
+        elif pos == path_info['best_path_at']:
+            # 已经站在最优路径上 → 守住当前位置
+            avoidance_bonus += 0.5
 
     # 净胜球动力
     gd_bonus = 1.0 if enhanced['need_goals'] else 0

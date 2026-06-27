@@ -1104,5 +1104,173 @@
     "recorded_at": "2026-06-26T19:12:47.649018",
     "prediction": {},
     "correct": null
+  },
+  {
+    "match_name": "西班牙VS乌拉圭",
+    "kickoff": "2026-06-27T08:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "home",
+      "score": "1-0"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "法国VS挪威",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "home",
+      "score": "4-1"
+    },
+    "features": {
+      "strength_gap": "big"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "塞内加尔VS伊拉克",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "home",
+      "score": "5-0"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "佛得角VS沙特阿拉伯",
+    "kickoff": "2026-06-27T08:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "draw",
+      "score": "0-0"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "比利时VS新西兰",
+    "kickoff": "2026-06-27T11:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "home",
+      "score": "5-1"
+    },
+    "features": {
+      "strength_gap": "extreme"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "埃及VS伊朗",
+    "kickoff": "2026-06-27T11:00",
+    "recorded_at": "2026-06-27T14:38:17",
+    "actual": {
+      "result": "draw",
+      "score": "1-1"
+    },
+    "features": {
+      "strength_gap": "close"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "墨西哥VS捷克",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "home",
+      "score": "3-0"
+    },
+    "features": {
+      "strength_gap": "big"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "韩国VS南非",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "away",
+      "score": "0-1"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "瑞士VS加拿大",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "home",
+      "score": "2-1"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "波黑VS卡塔尔",
+    "kickoff": "2026-06-27T03:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "home",
+      "score": "3-1"
+    },
+    "features": {
+      "strength_gap": "moderate"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "巴西VS苏格兰",
+    "kickoff": "2026-06-27T08:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "home",
+      "score": "3-0"
+    },
+    "features": {
+      "strength_gap": "big"
+    },
+    "prediction": {},
+    "correct": null
+  },
+  {
+    "match_name": "摩洛哥VS海地",
+    "kickoff": "2026-06-27T08:00",
+    "recorded_at": "2026-06-27T14:43:12",
+    "actual": {
+      "result": "home",
+      "score": "4-2"
+    },
+    "features": {
+      "strength_gap": "big"
+    },
+    "prediction": {},
+    "correct": null
   }
 ]
