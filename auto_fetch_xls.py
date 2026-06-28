@@ -635,9 +635,19 @@ def download_all_xls(
             if file_type != list(XLS_SUFFIXES.keys())[-1]:
                 time.sleep(delay)
 
-    # 更新最后下载时间
+    # 更新最后下载时间 + 🆕 V4.5: 失败状态追踪
     if match_name in config.get('matches', {}):
-        config['matches'][match_name]['last_fetch'] = datetime.now().strftime('%Y-%m-%d %H:%M')
+        now_str = datetime.now().strftime('%Y-%m-%d %H:%M')
+        ok_count = sum(1 for r in results.values() if r.success)
+        if ok_count >= 3:  # ≥3/4成功视为有效
+            config['matches'][match_name]['last_fetch'] = now_str
+            config['matches'][match_name].pop('last_fetch_fail', None)  # 清除旧失败标记
+        elif ok_count == 0:  # 全部失败·记录失败时间·保留旧last_fetch(缓存时间)
+            config['matches'][match_name]['last_fetch_fail'] = now_str
+        # 1-2个成功 → 部分失败·仍更新last_fetch但不记录fail
+        else:
+            config['matches'][match_name]['last_fetch'] = now_str
+            config['matches'][match_name].pop('last_fetch_fail', None)
         save_config(config)
 
     return results

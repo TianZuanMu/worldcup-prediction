@@ -24,6 +24,12 @@ from dataclasses import dataclass, field
 from typing import Optional, Dict, List, Any
 
 
+# ── 🆕 V4.5 P2: XLS结构异常类 ──
+class XlsStructureError(Exception):
+    """500.com XLS模板变更导致解析失败"""
+    pass
+
+
 # ── 文件路径构建 ──
 XLS_DIR = r"D:"
 
@@ -178,12 +184,21 @@ def parse_european_odds(sheet) -> Dict[str, Any]:
         'row_count': sheet.nrows,
     }
 
-    # ── 先扫描前10行，识别所有汇总标签 ──
+    # ── V4.5 P2: 动态关键词扫描(前20行)·避免硬编码行号 ──
     summary_labels = {}
-    for r in range(min(12, sheet.nrows)):
+    for r in range(min(20, sheet.nrows)):
         label = str(sheet.cell_value(r, 0)).strip()
         if label:
             summary_labels[label] = r
+    # 必要标签缺失→抛异常而非静默返回残缺数据
+    _required_labels = ['最高值', '最低值', '平均值']
+    _missing_labels = [l for l in _required_labels if l not in summary_labels]
+    if _missing_labels:
+        raise XlsStructureError(
+            f'欧赔XLS缺少必要标签: {_missing_labels}·'
+            f'已找到{list(summary_labels.keys())[:8]}·'
+            f'可能500.com模板变更·需更新解析器'
+        )
 
     # 最高值
     if '最高值' in summary_labels:

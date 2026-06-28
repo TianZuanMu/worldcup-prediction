@@ -709,6 +709,24 @@ def _load_xls(r: PreMatchReport, match_name: str, xls_version: int = None):
         r.xls_consensus_confidence = 'low'
         r.xls_bookmakers = 0
 
+    # 🆕 V4.5 P1: XLS数据新鲜度检测 (检测上次下载是否失败)
+    try:
+        import json as _json_fresh
+        _cfg_path = Path(__file__).parent / 'auto_fetch_config.json'
+        if _cfg_path.exists():
+            with open(_cfg_path, 'r', encoding='utf-8') as _f:
+                _cfg = _json_fresh.load(_f)
+            _mcfg = _cfg.get('matches', {}).get(match_name, {})
+            _fail_time = _mcfg.get('last_fetch_fail', '')
+            _last_ok = _mcfg.get('last_fetch', '')
+            if _fail_time and _last_ok:
+                _warn = f'⚠️ XLS数据: 本次({_fail_time})更新失败·展示缓存({_last_ok})'
+                if not hasattr(r, 'v26_warnings'): r.v26_warnings = []
+                r.v26_warnings.insert(0, _warn)  # 置顶保证用户看到
+                r._xls_freshness_stale = True
+    except Exception:
+        pass
+
 
 def _load_odds_trend(r: PreMatchReport, match_name: str):
     """🆕 V3.4: 从XLS历史版本计算赔率趋势 (替代不可靠的API)"""
@@ -1091,6 +1109,9 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
     factors.append(gap_cover_factor)
 
     # ── 8. 🆕 V3.4: 盘口深度因子 ──
+    # ⚠️ V4.5 P0: depth_factor仅用于亚盘穿盘难度文本标签(行1125-1130)
+    # 严禁混入竞彩穿盘率乘法链! 已移除factors.append(depth_factor)
+    # 历史原因: V2.x曾误将亚盘深度因子乘入竞彩穿盘率→跨量纲运算
     # 小盘口(让<0.5球) → 1-0即穿盘 → 大幅提升穿盘率
     # 大盘口(让>2.0球)  → 需大胜 → 降低穿盘率
     # 数据来源: 亚盘.xls 即时盘口 (非让球指数)
@@ -1119,7 +1140,7 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
                     notes.append(f'盘口{actual_handicap:.1f}球·较难穿盘')
                 else:
                     depth_factor = 1.0
-                factors.append(depth_factor)
+                # ⚠️ V4.5 P0: 不加入factors → depth_factor不参与竞彩穿盘率乘法链
 
                 # 🆕 V4.5 P1: 小盘口标记改为亚盘维度·与竞彩穿盘率脱钩
                 if actual_handicap < 0.75 and not getattr(r, '_cover_depth_forced', False):

@@ -187,7 +187,7 @@ def _analyze_euro_consensus(result: XlsTrendResult, versions: list):
         second_half_range = abs(valid[-1][2] - valid[half][2])
         if second_half_range > first_half_range * CONF.xls_trend_consensus_accel and second_half_range > 3:
             result.consensus_accelerating = True
-            result.consensus_trend = 'accelerating'
+            result.consensus_trend = '持续增强'  # 🆕 V4.5 P2: 中文标签
             result.consensus_detail = (
                 f'共识加速: 前{half}版变动{first_half_range:.1f}pp→后{half}版{second_half_range:.1f}pp'
             )
@@ -205,9 +205,9 @@ def _analyze_euro_consensus(result: XlsTrendResult, versions: list):
 
     if not result.consensus_trend:
         if abs(consensus_change) < 3:
-            result.consensus_trend = 'stable'
+            result.consensus_trend = '趋稳'
         else:
-            result.consensus_trend = 'decelerating' if first_half_range > second_half_range * 1.5 else 'stable'
+            result.consensus_trend = '增强放缓' if first_half_range > second_half_range * 1.5 else '趋稳'  # 🆕 V4.5 P2
 
 
 def _analyze_euro_instant(result: XlsTrendResult, versions: list):

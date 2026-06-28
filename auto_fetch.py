@@ -407,7 +407,7 @@ def get_match_schedule() -> List[Tuple[str, datetime]]:
 
         for m in module.MATCH_SCHEDULE:
             month, day, hour, minute, home, away = m
-            if '待更新' in home:
+            if '待更新' in home or '胜者' in home or '败者' in home:
                 continue
             try:
                 ko = datetime(2026, month, day, hour, minute)
