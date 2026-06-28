@@ -389,6 +389,14 @@ def determine_scenario_enhanced(team: str, group: str, matchday: int) -> dict:
         'detail': '',
     }
 
+    # 🆕 V4.5: 淘汰赛阶段 (matchday>=4)
+    if matchday >= 4:
+        result['scenario'] = 'knockout'
+        result['motivation_base'] = 9.5  # 淘汰赛战意极高·单场淘汰制
+        result['rotation_risk'] = 0.0
+        result['detail'] = f'{team}: 1/16决赛·单场淘汰·全力争胜'
+        return result
+
     if matchday == 1:
         result['scenario'] = 'undecided'
         result['motivation_base'] = 6
@@ -799,6 +807,9 @@ def get_match_motivation(match_name: str) -> Optional[MatchMotivation]:
     m = get_group_match(match_name=match_name)
     matchday = m.matchday if m else 2
     grp = m.group if m else _find_group(home, away) or '?'
+    # 🆕 V4.5: 淘汰赛强制matchday=4 (触发淘汰赛战意逻辑)
+    if is_knockout_match(match_name):
+        matchday = 4
 
     home_mot = calculate_motivation(home, matchday)
     away_mot = calculate_motivation(away, matchday)
@@ -958,13 +969,29 @@ def is_knockout_match(match_name: str) -> bool:
     """
     检测是否为淘汰赛阶段比赛。
 
-    通过赛程数据判断: matchday >= 4 即为淘汰赛 (小组赛为1-3)。
+    检测顺序:
+      1. match_context DB (matchday>=4)
+      2. 赛程表 (6/29之后且有真实队名)
     """
     try:
         from match_context import get_match as get_group_match
         m = get_group_match(match_name=match_name)
         if m and hasattr(m, 'matchday'):
             return m.matchday >= 4
+    except Exception:
+        pass
+    # 🆕 V4.5: 回退到赛程表检测 (淘汰赛对阵未录入match_context DB)
+    try:
+        from 赛前高频赔率 import MATCH_SCHEDULE
+        for entry in MATCH_SCHEDULE:
+            month, day, hour, minute, home, away = entry
+            sched_name = f'{home}VS{away}'
+            if sched_name == match_name:
+                # 6/29之后 + 非占位符 = 淘汰赛
+                if (month == 6 and day >= 29) or month >= 7:
+                    if '胜者' not in home and '败者' not in home:
+                        return True
+                return False
     except Exception:
         pass
     return False

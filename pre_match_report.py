@@ -3823,13 +3823,66 @@ def format_report(r: PreMatchReport) -> str:
     if r.match_motivation:
         hm = r.match_motivation.home_motivation
         am = r.match_motivation.away_motivation
-        lines += [
-            "",
-            "── 出线形势 ──",
-            f"  {hm.team}: {hm.scenario_detail} (战意{hm.motivation_score:.0f}/10)",
-            f"  {am.team}: {am.scenario_detail} (战意{am.motivation_score:.0f}/10)",
-            f"  战意差: {r.match_motivation.differential:+.0f} → {r.match_motivation.prediction_bias}",
-        ]
+        # 🆕 V4.5: 淘汰赛特殊显示
+        try:
+            from knockout_motivation import is_knockout_match
+            _is_ko = is_knockout_match(r.match_name)
+        except Exception:
+            _is_ko = False
+        if _is_ko:
+            lines += [
+                "",
+                "── 淘汰赛阶段 ──",
+                f"  🏆 1/16决赛 · 单场淘汰制",
+                f"  {hm.team}: 战意{hm.motivation_score:.0f}/10 · {hm.scenario_detail}",
+                f"  {am.team}: 战意{am.motivation_score:.0f}/10 · {am.scenario_detail}",
+                f"  战意差: {r.match_motivation.differential:+.0f} → {r.match_motivation.prediction_bias}",
+                f"  ⚽ 平局→加时+点球 · 进球倾向衰减{(1-CONF.knockout_score_dampen)*100:.0f}%",
+            ]
+            # 🆕 V4.5: 动态淘汰赛系数双轨输出 (实验性·未启用)
+            try:
+                from knockout_adjuster import apply_knockout_adjustment, get_stage
+                from 赛前高频赔率 import MATCH_SCHEDULE
+                _rank_gap = abs(getattr(r, 'fifa_rank_gap', 30) or 30)
+                _pure_xg = 2.5  # 兜底值
+                try:
+                    from score_prediction import _calc_pure_xg
+                    parts = r.match_name.replace('vs', 'VS').replace('Vs', 'VS').split('VS')
+                    _h_odds = float(getattr(r, '_home_odds', 2.0) or 2.0)
+                    _a_odds = float(getattr(r, '_away_odds', 2.0) or 2.0)
+                    _mkt_h = (1.0/_h_odds) if _h_odds > 0 else 0.33
+                    _mkt_a = (1.0/_a_odds) if _a_odds > 0 else 0.33
+                    _tp = _mkt_h + _mkt_a
+                    if _tp > 0:
+                        _mkt_h /= _tp; _mkt_a /= _tp
+                    _px_h, _px_a = _calc_pure_xg(parts[0].strip(), parts[-1].strip(), _mkt_h, _mkt_a, r.gap_level)
+                    _pure_xg = round(_px_h + _px_a, 2)
+                except Exception:
+                    pass
+                # 从赛程表推断阶段
+                _stage = 1
+                for entry in MATCH_SCHEDULE:
+                    if f'{entry[4]}VS{entry[5]}' == r.match_name:
+                        _stage = get_stage(entry[0], entry[1])
+                        break
+                _dyn_draw, _dyn_goal = apply_knockout_adjustment(
+                    _pure_xg, _rank_gap, _stage, use_dynamic=True
+                )
+                _fix_draw, _fix_goal = 1.15, 0.85
+                lines.append(
+                    f'  🧪 系数对比(未启用): 平局 固定{(_fix_draw-1)*100:+.0f}% vs 动态{(_dyn_draw-1)*100:+.1f}%'
+                    f' | 进球 固定{(_fix_goal-1)*100:+.0f}% vs 动态{(_dyn_goal-1)*100:+.1f}%'
+                )
+            except Exception:
+                pass
+        else:
+            lines += [
+                "",
+                "── 出线形势 ──",
+                f"  {hm.team}: {hm.scenario_detail} (战意{hm.motivation_score:.0f}/10)",
+                f"  {am.team}: {am.scenario_detail} (战意{am.motivation_score:.0f}/10)",
+                f"  战意差: {r.match_motivation.differential:+.0f} → {r.match_motivation.prediction_bias}",
+            ]
         # V2.13 新增字段
         if hm.need_goals:
             lines.append(f"  🎯 {hm.team}需要刷净胜球")
