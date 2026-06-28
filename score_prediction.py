@@ -33,6 +33,9 @@ class ScorePrediction:
     draw_prob: float = 0.0         # 平局总概率
     away_win_prob: float = 0.0     # 客胜总概率
     total_goals_expected: float = 0.0
+    # 🆕 V4.5 P2: 纯净xG (无方向调整·供大小球验证)
+    pure_xg_home: float = 0.0
+    pure_xg_away: float = 0.0
     adjustments: List[str] = field(default_factory=list)  # 🆕 调整日志
     # 🆕 V4.2 P1: 独立穿盘风险评估 (不修改xG)
     cover_risk: str = ''           # 'win_but_lose_spread' | 'cover_likely' | 'neutral'
@@ -999,7 +1002,16 @@ def predict_score(match_name: str,
 def format_score_output(sp: ScorePrediction) -> str:
     """格式化比分预测输出 (V4.3: 格局化·分组·移除单点"最可能"误导)"""
     lines = []
-    lines.append(f"  📊 模型校准xG: 主 {sp.expected_goals_home} - {sp.expected_goals_away} 客 (总 {sp.total_goals_expected}) ⚠️含方向调整")
+    # 🆕 V4.5 P2: xG双列输出 — 纯净xG(供大小球验证) + 校准xG(供胜负参考)
+    if sp.pure_xg_home > 0 or sp.pure_xg_away > 0:
+        pure_total = round(sp.pure_xg_home + sp.pure_xg_away, 2)
+        lines.append(f"  📊 纯净xG: 主 {sp.pure_xg_home} - {sp.pure_xg_away} 客 (总 {pure_total}) [仅实力+赔率·供大小球验证]")
+    lines.append(f"  📊 校准xG: 主 {sp.expected_goals_home} - {sp.expected_goals_away} 客 (总 {sp.total_goals_expected}) ⚠️含方向调整·供胜负参考")
+    # 🆕 V4.5 P2: 大小球判定逻辑优先级
+    if sp.total_goals_expected > 0 and sp.pure_xg_home > 0:
+        pure_total = round(sp.pure_xg_home + sp.pure_xg_away, 2)
+        pure_dir = '看大' if pure_total > sp.total_goals_expected * 0.85 else ('看小' if pure_total < sp.total_goals_expected * 0.55 else '中性')
+        lines.append(f"  🔍 交叉验证: 纯净xG总{pure_total}→{pure_dir} | 逻辑优先级: 盘口趋势 > 纯净xG · 背离时盘口主导")
     if sp.cover_risk and sp.cover_risk != 'neutral':
         risk_label = '⚠️ 赢球输盘风险' if sp.cover_risk == 'win_but_lose_spread' else '🟢 大概率穿盘'
         lines.append(f"  🎲 穿盘风险: {risk_label} ({sp.cover_risk_prob:.0f}%) [独立评估·不修改xG]")
@@ -1238,6 +1250,21 @@ def predict_score_from_report(r) -> ScorePrediction:
         hot_team_rank=hot_rank,
         weak_team_threat=tc.get('threat_level', 0) if tc else 0,  # 🆕 V3.4
     )
+
+    # 🆕 V4.5 P2: 计算纯净xG (旁路方向因子·供大小球交叉验证)
+    try:
+        mkt_home_p = 1.0 / home_odds if home_odds > 0 else 0.33
+        mkt_away_p = 1.0 / away_odds if away_odds > 0 else 0.33
+        total_p = mkt_home_p + mkt_away_p
+        if total_p > 0:
+            mkt_home_p /= total_p
+            mkt_away_p /= total_p
+        pure_h, pure_a = _calc_pure_xg(home_cn, away_cn, mkt_home_p, mkt_away_p, gap_level)
+        sp.pure_xg_home = round(pure_h, 2)
+        sp.pure_xg_away = round(pure_a, 2)
+    except Exception:
+        sp.pure_xg_home = 0.0
+        sp.pure_xg_away = 0.0
 
     # 🆕 V3.3 P2-8: 淘汰赛进球衰减
     try:

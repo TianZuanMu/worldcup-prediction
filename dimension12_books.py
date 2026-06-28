@@ -215,15 +215,21 @@ def analyze_books_structure(
         )
         advice = f"可追正路: {side_label[hot_side]}小胜方向，不追穿盘"
     elif is_false_hot:
+        # 🆕 V4.5 P0: PnL安全格式化
+        _p = hot_pnl
+        _p_str = f'{_p/1e4:.1f}万(⚠️待核实)' if abs(_p) > 1e8 else (f'{_p/1e4:.1f}万' if abs(_p) >= 1e4 else f'{_p:.0f}')
         summary = (
             f"🟢 假过热: {side_label[hot_side]}冷热+{hot_index:.0f} "
-            f"庄家同向盈利{hot_pnl:+.1f}M → 热度可信"
+            f"庄家同向盈利{_p_str} → 热度可信"
         )
         advice = f"可追正路: {side_label[hot_side]}方向"
     elif cold_upset_risk:
+        # 🆕 V4.5 P0: PnL安全格式化
+        _loss = abs(pnl_map[bookmaker_aversion])
+        _l_str = f'{_loss/1e4:.1f}万(⚠️待核实)' if _loss > 1e8 else (f'{_loss/1e4:.1f}万' if _loss >= 1e4 else f'{_loss:.0f}')
         summary = (
             f"🟡 轻度警惕: 热度正常但庄家{side_label[bookmaker_aversion]}"
-            f"亏损{abs(pnl_map[bookmaker_aversion]):.1f}M"
+            f"亏损{_l_str}"
         )
         advice = f"谨慎看好热门方"
     else:

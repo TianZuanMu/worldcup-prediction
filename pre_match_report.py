@@ -781,6 +781,12 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                 r._betfair_snapshots = data['snapshots']
                 snap = data['snapshots'][-1]
                 bf = snap['betfair']
+                # 🆕 V4.5: 检查数据质量标记·降级处理
+                if bf.get('_data_quality') == 'degraded':
+                    _missing = bf.get('_missing_fields', [])
+                    r.v26_warnings.append(f'⚠️ 必发数据不完整: 缺{_missing}·相关信号降级')
+                    if 'home_heat' in _missing or 'away_heat' in _missing:
+                        betfair_weak = True  # 缺冷热→过热判定不可靠
                 # 找出热方: 取最大值 (正=热, 负=冷)
                 colds = [bf.get('home_heat',0), bf.get('draw_heat',0), bf.get('away_heat',0)]
                 max_c = max(colds)  # 最正=最热
@@ -814,9 +820,11 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                         b = s.get('betfair', {})
                         hp = b.get('home_price', 0) or b.get('home_odds', 0) or 0
                         ap = b.get('away_price', 0) or b.get('away_odds', 0) or 0
-                        ch = max(b.get('home_heat', 0) or 0, b.get('away_heat', 0) or 0)
+                        hh = b.get('home_heat', 0) or 0
+                        ah = b.get('away_heat', 0) or 0
+                        ch = max(hh, ah)
                         if hp > 0 and ap > 0:  # 有效数据
-                            valid_snaps.append((s.get('timestamp', ''), ch, hp, ap))
+                            valid_snaps.append((s.get('timestamp', ''), ch, hp, ap, hh, ah))
                     if len(valid_snaps) >= 3:
                         # 分三段: 早期(前1/3) 中期(中1/3) 晚期(后1/3)
                         n = len(valid_snaps)
@@ -829,11 +837,19 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                         mid_avg   = sum(m[1] for m in mid) / len(mid) if mid else early_avg
                         r._late_surge_early = round(early_avg)
                         r._late_surge_late = round(late_avg)
+                        # 🆕 V4.5: 保留方向 — 分别追踪主/客热度变化
+                        early_home_avg = sum(e[4] for e in early) / len(early)
+                        early_away_avg = sum(e[5] for e in early) / len(early)
+                        late_home_avg  = sum(l[4] for l in late) / len(late)
+                        late_away_avg  = sum(l[5] for l in late) / len(late)
+                        surge_home = late_home_avg - early_home_avg
+                        surge_away = late_away_avg - early_away_avg
+                        r._late_surge_direction = 'home' if abs(surge_home) > abs(surge_away) else 'away'
                         # V3.6: 真实飙升 — 早期温和(<25) + 晚期极热(≥40) + 增幅≥20
                         surge = late_avg - early_avg
                         if early_avg < 25 and late_avg >= 40 and surge >= 20:
                             r._late_surge = True
-                        # 也记录趋势方向供参考
+                        # 趋势方向
                         if surge >= 30:
                             r._betfair_trend = ' surging'
                         elif surge <= -20:
@@ -850,6 +866,8 @@ def _load_betfair(r: PreMatchReport, betfair_text: str, match_name: str):
                                   'away': bf.get('away_price', 0) or bf.get('away_odds', 0)}
                 r._bf_raw_volumes = {'home': bf.get('home_volume', 0), 'draw': bf.get('draw_volume', 0), 'away': bf.get('away_volume', 0)}
                 r._bf_raw_pnls = {'home': bf.get('home_pnl', 0), 'draw': bf.get('draw_pnl', 0), 'away': bf.get('away_pnl', 0)}
+                # 🆕 V4.5 P0: 传递PnL可疑标记
+                r._bf_pnl_suspicious = bf.get('_pnl_suspicious', False) or bf.get('_pnl_unit_error', False)
 
                 # 🆕 V4.5 P2: 必发跨版本趋势分析
                 try:
@@ -1103,11 +1121,11 @@ def _adjust_cover_rate(r: PreMatchReport, home_cn: str, away_cn: str):
                     depth_factor = 1.0
                 factors.append(depth_factor)
 
-                # 🆕 V4.3: 小盘口(<0.75)标记为仅供参考·保留数值但不赋予高权重
+                # 🆕 V4.5 P1: 小盘口标记改为亚盘维度·与竞彩穿盘率脱钩
                 if actual_handicap < 0.75 and not getattr(r, '_cover_depth_forced', False):
                     r._cover_depth_forced = True
                     r.v26_warnings.append(
-                        f'🎲 小盘口({actual_handicap:.1f}球<0.75)·穿盘信号仅供参考'
+                        f'🎲 亚盘小盘口(让{actual_handicap:.1f}球<0.75)·亚盘穿盘难度较低(赢1球即赢半)·竞彩穿盘率另计'
                     )
     except Exception:
         pass
@@ -1313,6 +1331,14 @@ def _apply_v26_rules(r: PreMatchReport):
                 # 修复后: d12仅在高置信(热指<15+PnL信>0.8)时覆盖·其余分歧区降权+平局预警
                 if gap == 'big' and not bs.is_real_hot:
                     bf_pnl_loss = abs(min(r._bf_raw_pnls.get('home',0), r._bf_raw_pnls.get('away',0)))
+                    # 🆕 V4.5 P0: PnL安全格式化
+                    _pnl_s = getattr(r, '_bf_pnl_suspicious', False)
+                    if _pnl_s or bf_pnl_loss > 1e8:
+                        pnl_str = f'>10亿(⚠️单位存疑·原始{bf_pnl_loss/1e4:.0f}万)' if bf_pnl_loss > 1e9 else f'{bf_pnl_loss/1e4:.1f}万(⚠️待核实)'
+                    elif bf_pnl_loss >= 1e4:
+                        pnl_str = f'{bf_pnl_loss/1e4:.1f}万'
+                    else:
+                        pnl_str = f'{bf_pnl_loss:.0f}'
                     d12_hot = abs(bs.hot_index)
                     d12_pnl_conf = bs.pnl_confidence if hasattr(bs, 'pnl_confidence') else bs.get('pnl_confidence', 0.5)
 
@@ -1323,6 +1349,7 @@ def _apply_v26_rules(r: PreMatchReport):
                             f'📚 dimension12覆盖: BIG差距·d12高信判假过热'
                             f'(热指{d12_hot:.0f}<15·PnL信{d12_pnl_conf:.1f}>0.8)→热门仍赢'
                         )
+                        _ctrace(r, 'dimension12→假过热·维持热门胜', None)
                     # 条件2+3: betfair判热但d12不确认 → 统一分歧降权
                     # 不翻盘(保持热门胜方向), 仅降权×0.8+平局预警
                     else:
@@ -1330,7 +1357,7 @@ def _apply_v26_rules(r: PreMatchReport):
                         r._big_divergence_weak = True
                         if abs(cold) >= 30 and bf_pnl_loss > 1000000 and d12_hot >= 15:
                             r.v26_warnings.append(
-                                f'📚 BIG三方确认但d12分歧: 冷热{cold:+.0f}·d12热指{d12_hot:.0f}·PnL=-{bf_pnl_loss/1e6:.1f}M'
+                                f'📚 BIG三方确认但d12分歧: 冷热{cold:+.0f}·d12热指{d12_hot:.0f}·PnL=-{pnl_str}'
                                 f'→降权×0.8·平局风险'
                             )
                         else:
@@ -1754,6 +1781,7 @@ def _apply_v26_rules(r: PreMatchReport):
                     multiplier *= pnl_factor
                 if r.books_structure.get('draw_signal'):
                     multiplier *= 0.97  # 平局信号→增加不确定性
+                    _ctrace(r, 'dimension12→平局信号·×0.97', None)
             except Exception:
                 pass
 
@@ -2088,12 +2116,12 @@ def _apply_v26_rules(r: PreMatchReport):
                         r.v26_warnings.append(f'🛡️ 热方防线稳固(def={hot_def:.1f})·升信')
                 except Exception:
                     pass
-                # 穿盘率判断
+                # 🆕 V4.5 P1: 穿盘率判断 — 标注来源(竞彩让球指数)
                 if r.xls_cover_rate > 0 and r.xls_cover_rate < 30:  # V3.4: 35→30
-                    r.v26_prediction += '·不穿盘'
-                    r.v26_warnings.append(f'穿盘率仅{r.xls_cover_rate:.0f}% → 大概率不穿盘')
+                    r.v26_prediction += '·不穿盘(竞彩)'
+                    r.v26_warnings.append(f'竞彩穿盘率仅{r.xls_cover_rate:.0f}%(让1.0球·需赢2球) → 大概率不穿盘')
                 elif r.xls_cover_rate >= 50:
-                    r.v26_prediction += '·可能穿盘'
+                    r.v26_prediction += '·可能穿盘(竞彩)'
         elif is_real_hot:
             r.v26_rule = 'MOD + 真过热(温和) → 热门胜·热度调整'
             r._heat_shift = _apply_heat_probability_shift(r, 'moderate', cold, True)
@@ -2160,6 +2188,7 @@ def _apply_v26_rules(r: PreMatchReport):
                 base_conf = int(base_conf * 0.8)  # 60→48
                 r.v26_prediction = '热门胜 (过热分歧·平局风险)'
                 r.v26_warnings.append('⚠️ BIG过热分歧: 降权至×0.8·平局风险不可忽视')
+                _ctrace(r, 'dimension12分歧→降权×0.8', base_conf)
             else:
                 r.v26_warnings.append('📚 庄家结构: betfair热度虚高·dimension12否定→热门胜')
         elif is_real_hot:
@@ -3617,31 +3646,36 @@ def format_report(r: PreMatchReport) -> str:
         f"── V2.7规则 ──",
         f"  规则: {r.v26_rule}",
         f"  预测: {r.v26_prediction or '(根据额外信号判定)'}",
-        f"  置信度: {r.v26_confidence}% (动态·信号加权)",
+        f"  置信度: {round(r.v26_confidence)}% (动态·信号加权)",
     ]
     # 🆕 V3.2: 弱信号警告
     if r.v26_confidence < 60 and r.v26_confidence > 0:
         lines.append(f"  ⚠️ 低置信度({r.v26_confidence}%)·信号不足·建议回避或小额试探")
     # 🆕 穿盘率展示
     if r.xls_cover_rate > 0:
+        # 🆕 V4.5 P1: 穿盘参照系分离 — 亚盘 vs 竞彩
+        try:
+            hc_str_v17 = getattr(r, 'xls_handicap', '') or ''
+            import re as _re_v17
+            hc_m_v17 = _re_v17.search(r'(\d+\.?\d*)', str(hc_str_v17).replace('让-', '').replace('让', ''))
+            hc_val_v17 = float(hc_m_v17.group(1)) if hc_m_v17 else 0.75
+        except Exception:
+            hc_val_v17 = 0.75
+        # 竞彩穿盘率 (基于让球指数·需赢X球全赢)
+        jc_cover = r.xls_cover_rate
+        adj_note = f' (原始{r.xls_cover_rate_raw:.0f}%→动态{jc_cover:.0f}%)' if r.xls_cover_rate_raw > 0 and abs(r.xls_cover_rate_raw - jc_cover) > 1 else ''
         if getattr(r, '_cover_depth_forced', False):
-            # 🆕 V3.17: 小盘口量化标注
-            try:
-                hc_str_v17 = getattr(r, 'xls_handicap', '') or ''
-                import re as _re_v17
-                hc_m_v17 = _re_v17.search(r'(\d+\.?\d*)', str(hc_str_v17).replace('让-', '').replace('让', ''))
-                hc_val_v17 = float(hc_m_v17.group(1)) if hc_m_v17 else 0.75
-            except Exception:
-                hc_val_v17 = 0.75
-            cover_label = f'🎲 小盘口(让{hc_val_v17:.2f}球<1.0)·穿盘信号不可靠·仅供参考'
-        elif r.xls_cover_rate < 30:
-            cover_label = '🔴 大概率不穿盘'
-        elif r.xls_cover_rate < 50:
-            cover_label = '🟡 可能不穿盘'
+            lines.append(f"  亚盘穿盘: 让{hc_val_v17:.2f}球 → 赢1球赢半·难度较低" + (' (非主盘口)' if hc_val_v17 < 0.75 else ''))
+            lines.append(f"  竞彩穿盘率参考: {jc_cover:.0f}%{adj_note} (让1.0球·需赢2球全赢·非亚盘主盘口)")
         else:
-            cover_label = '🟢 可能穿盘'
-        adj_note = f' (原始{r.xls_cover_rate_raw:.0f}%→动态{r.xls_cover_rate:.0f}%)' if r.xls_cover_rate_raw > 0 and abs(r.xls_cover_rate_raw - r.xls_cover_rate) > 1 else ''
-        lines.append(f"  穿盘率: {r.xls_cover_rate:.0f}%{adj_note} → {cover_label}")
+            # 亚盘为主盘口时的正常输出
+            if jc_cover < 30:
+                cover_label = '🔴 大概率不穿盘'
+            elif jc_cover < 50:
+                cover_label = '🟡 可能不穿盘'
+            else:
+                cover_label = '🟢 可能穿盘'
+            lines.append(f"  亚盘穿盘: 让{hc_val_v17:.2f}球 · 竞彩穿盘率: {jc_cover:.0f}%{adj_note} → {cover_label}")
         # 🆕 V3.34: 竞彩让球赔率
         lines.append(f"    ↳ 基于竞彩让球盘口·与亚盘属不同维度")
         # 🆕 V3.4: 小盘口V2.6方向提示
@@ -3662,6 +3696,45 @@ def format_report(r: PreMatchReport) -> str:
     ]
     for k, v in r.signal_matrix.items():
         lines.append(f"  {k}: {v}")
+
+    # 🆕 V4.5 P3: 剔除测试因子排序 — 从warnings中提取调整量, 估算各因子影响力
+    _factor_impacts = []
+    import re as _re_p3
+    _skip_tags = {'穿盘率', '校准', '置信履历', '三行置信', '交叉验证', '📐', '小盘口', '市场熔断', '📚'}
+    for w in r.v26_warnings:
+        # 跳过内部流程标记和非信号因子
+        if any(t in w for t in _skip_tags):
+            continue
+        # 提取百分比调整: 调整-X% / 净影响-X% / +X% / ×0.X
+        pct_matches = _re_p3.findall(r'(?:调整|净影响|→|差)[^\d]*?([+-]?\d+\.?\d*)\s*%', w)
+        mult_matches = _re_p3.findall(r'[×x]\s*(0?\.\d+)', w)
+        adj_val = 0.0
+        if pct_matches:
+            adj_val = float(pct_matches[-1])
+        elif mult_matches:
+            adj_val = (float(mult_matches[-1]) - 1.0) * 100
+        if abs(adj_val) > 0.5:
+            ablation_delta = abs(r.v26_confidence - r.v26_confidence / (1.0 + adj_val / 100))
+            if ablation_delta > 0.3:
+                # 提取标签: 跳过emoji/符号·取第一个有意义词
+                tag = w.strip()
+                for sep in [': ', '：', ' (']:
+                    if sep in tag:
+                        tag = tag.split(sep, 1)[1] if sep == ': ' or sep == '：' else tag.split(sep, 1)[0]
+                        break
+                # 去掉前缀emoji/符号
+                tag = _re_p3.sub(r'^[^a-zA-Z一-鿿]+', '', tag)
+                tag = tag[:20]
+                _factor_impacts.append((tag, ablation_delta, adj_val, w[:100]))
+    if _factor_impacts:
+        _factor_impacts.sort(key=lambda x: x[1], reverse=True)
+        lines.append("")
+        lines.append("── 信号影响力排序 (剔除测试估算) ──")
+        for i, (tag, delta, adj, desc) in enumerate(_factor_impacts[:6], 1):
+            arrow = '↘' if adj < 0 else '↗'
+            lines.append(f"  {i}. {tag} ({adj:+.1f}%{arrow}) → 剔除后置信度变动 {delta:.0f}pp  |  {desc}")
+        if len(_factor_impacts) > 6:
+            lines.append(f"  ... 共{len(_factor_impacts)}个因子·仅显示前6")
 
     # 🆕 V2.15 XLS跨版本趋势
     if r.xls_trend and r.xls_trend.analyzed:

@@ -424,6 +424,14 @@ def _fill_from_match(result: BetfairMatch, data: Dict[str, List[float]]):
             if abs(volume) < 50:
                 volume, pnl = pnl, volume  # 交换
 
+        # 🆕 V4.5 P0: PnL合理性双重校验
+        # 检测1: 值>1e9 + 已拼接M后缀 → 单位存疑
+        # 检测2: PnL绝对值过大(>1e8) → 可能的API单位异常
+        if abs(pnl) > 1e8:
+            setattr(result, '_pnl_suspicious', True)
+            if abs(pnl) > 1e9:
+                setattr(result, '_pnl_unit_error', True)
+
         if side == 'home':
             result.home_odds = odds
             result.home_prob = prob
@@ -727,6 +735,14 @@ def fetch_betfair_data(
     } for t in bf.big_trades]
 
     notes = bf.data_tip or f'自动抓取 [{source}] {datetime.now(CST).strftime("%H:%M")}'
+
+    # 🆕 V4.5: 字段完整性标记 (不打阻断·仅标记供下游降级)
+    _required = ['home_heat', 'away_heat', 'draw_heat', 'home_pnl', 'away_pnl', 'draw_pnl', 'home_volume']
+    _missing = [f for f in _required if betfair_dict.get(f) is None]
+    if _missing:
+        betfair_dict['_data_quality'] = 'degraded'
+        betfair_dict['_missing_fields'] = _missing
+        print(f'  ⚠️ 数据不完整: 缺{_missing}·已标记degraded')
 
     saved = save_betfair(
         match_name=match_name,

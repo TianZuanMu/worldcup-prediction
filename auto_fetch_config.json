@@ -116,42 +116,6 @@
       "source": "live.500.com",
       "last_fetch": "2026-06-24 21:09"
     },
-    "AC奥卢VS玛丽港": {
-      "match_id": "1363426",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-24 21:09"
-    },
-    "赫尔辛基VS国际图尔库": {
-      "match_id": "1363431",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-20 13:40"
-    },
-    "埃尔维斯VS查路": {
-      "match_id": "1363436",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-23 19:45"
-    },
-    "TPS土尔库VS库普斯": {
-      "match_id": "1363443",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-20 19:06"
-    },
-    "格尼斯坦VS拉赫蒂": {
-      "match_id": "1363449",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-24 21:08"
-    },
-    "塞那乔恩VS瓦萨": {
-      "match_id": "1363455",
-      "discovered_at": "2026-06-17 20:20",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-23 19:45"
-    },
     "德国VS科特迪瓦": {
       "match_id": "1359201",
       "discovered_at": "2026-06-18 22:33",
@@ -320,110 +284,172 @@
       "source": "live.500.com",
       "last_fetch": "2026-06-26 06:37"
     },
-    "库普斯VS埃尔维斯": {
-      "match_id": "1363462",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-24 21:08"
-    },
-    "拉赫蒂VSTPS土尔库": {
-      "match_id": "1363468",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-23 19:47"
-    },
-    "瓦萨VSAC奥卢": {
-      "match_id": "1363475",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-25 00:19"
-    },
-    "国际图尔库VS塞那乔恩": {
-      "match_id": "1363480",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-25 00:19"
-    },
-    "查路VS格尼斯坦": {
-      "match_id": "1363486",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com"
-    },
-    "玛丽港VS赫尔辛基": {
-      "match_id": "1363491",
-      "discovered_at": "2026-06-23 19:24",
-      "source": "live.500.com",
-      "last_fetch": "2026-06-23 19:45"
-    },
     "新西兰VS比利时": {
       "match_id": "1359208",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 23:07"
+      "last_fetch": "2026-06-27 10:37"
     },
     "乌拉圭VS西班牙": {
       "match_id": "1359211",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 22:35"
+      "last_fetch": "2026-06-27 07:37"
     },
     "挪威VS法国": {
       "match_id": "1359214",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 22:21"
+      "last_fetch": "2026-06-27 02:51"
     },
     "埃及VS伊朗": {
       "match_id": "1359244",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 23:07"
+      "last_fetch": "2026-06-27 10:47"
     },
     "佛得角VS沙特": {
       "match_id": "1359247",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 22:34"
+      "last_fetch": "2026-06-27 07:37"
     },
     "塞内加尔VS伊拉克": {
       "match_id": "1359250",
       "discovered_at": "2026-06-24 23:41",
       "source": "live.500.com",
-      "last_fetch": "2026-06-26 22:21"
+      "last_fetch": "2026-06-27 02:53"
     },
     "克罗地亚VS加纳": {
       "match_id": "1359259",
       "discovered_at": "2026-06-26 10:07",
-      "last_fetch": "2026-06-26 19:21"
+      "last_fetch": "2026-06-28 04:07"
     },
     "巴拿马VS英格兰": {
       "match_id": "1359223",
       "discovered_at": "2026-06-26 10:07",
-      "last_fetch": "2026-06-26 19:21"
+      "last_fetch": "2026-06-28 04:37"
     },
     "哥伦比亚VS葡萄牙": {
       "match_id": "1359220",
       "discovered_at": "2026-06-26 10:07",
-      "last_fetch": "2026-06-26 19:21"
+      "last_fetch": "2026-06-28 07:07"
     },
     "民主刚果VS乌兹别克斯坦": {
       "match_id": "1359256",
       "discovered_at": "2026-06-26 10:07",
-      "last_fetch": "2026-06-26 19:22"
+      "last_fetch": "2026-06-28 07:07"
     },
     "阿尔及利亚VS奥地利": {
       "match_id": "1359253",
       "discovered_at": "2026-06-26 10:08",
-      "last_fetch": "2026-06-26 19:22"
+      "last_fetch": "2026-06-28 09:37"
     },
     "约旦VS阿根廷": {
       "match_id": "1359217",
       "discovered_at": "2026-06-26 10:08",
-      "last_fetch": "2026-06-26 19:22"
+      "last_fetch": "2026-06-28 09:37"
     },
     "南非VS加拿大": {
       "match_id": "1359156",
       "discovered_at": "2026-06-26 19:20",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-28 17:08",
+      "kickoff": "2026-06-29 03:00"
+    },
+    "荷兰VS摩洛哥": {
+      "match_id": "1359158",
+      "discovered_at": "2026-06-27 23:12",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-28 17:37",
+      "kickoff": "2026-06-30 09:00"
+    },
+    "巴西VS日本": {
+      "match_id": "1359161",
+      "discovered_at": "2026-06-27 23:12",
+      "source": "live.500.com",
+      "last_fetch": "2026-06-28 17:37",
+      "kickoff": "2026-06-30 01:00"
+    },
+    "德国VS巴拉圭": {
+      "match_id": "1359157",
+      "discovered_at": "2026-06-27 23:18",
+      "source": "live.500.com",
+      "kickoff": "2026-06-30 04:30",
+      "last_fetch": "2026-06-28 17:37"
+    },
+    "科特迪瓦VS挪威": {
+      "match_id": "1359169",
+      "discovered_at": "2026-06-27 23:18",
+      "source": "live.500.com",
+      "kickoff": "2026-07-01 01:00",
+      "last_fetch": "2026-06-27 23:22"
+    },
+    "法国VS瑞典": {
+      "match_id": "1359165",
+      "discovered_at": "2026-06-27 23:18",
+      "source": "live.500.com",
+      "kickoff": "2026-07-01 05:00",
+      "last_fetch": "2026-06-27 23:23"
+    },
+    "墨西哥VS厄瓜多尔": {
+      "match_id": "",
+      "kickoff": "2026-07-01 09:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "英格兰VS民主刚果": {
+      "match_id": "",
+      "kickoff": "2026-07-02 00:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "比利时VS塞内加尔": {
+      "match_id": "",
+      "kickoff": "2026-07-02 04:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "美国VS波黑": {
+      "match_id": "",
+      "kickoff": "2026-07-02 08:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "西班牙VS奥地利": {
+      "match_id": "",
+      "kickoff": "2026-07-03 03:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "葡萄牙VS克罗地亚": {
+      "match_id": "",
+      "kickoff": "2026-07-03 07:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "瑞士VS阿尔及利亚": {
+      "match_id": "",
+      "kickoff": "2026-07-03 11:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "澳大利亚VS埃及": {
+      "match_id": "",
+      "kickoff": "2026-07-04 02:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "阿根廷VS佛得角": {
+      "match_id": "",
+      "kickoff": "2026-07-04 06:00",
+      "discovered_at": "2026-06-28 14:15",
+      "source": "live.500.com"
+    },
+    "哥伦比亚VS加纳": {
+      "match_id": "",
+      "kickoff": "2026-07-04 09:30",
+      "discovered_at": "2026-06-28 14:15",
       "source": "live.500.com"
     }
   },
@@ -431,6 +457,6 @@
   "download_delay": 2.0,
   "timeout": 30,
   "max_retries": 3,
-  "last_discovery": "2026-06-26 15:37:02",
+  "last_discovery": "2026-06-28 13:37:02",
   "preferred_source": "500com"
 }

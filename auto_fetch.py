@@ -571,6 +571,24 @@ def auto_fetch_scheduled(config: dict = None, force: bool = False) -> Dict:
 
     schedule = get_match_schedule()
 
+    # 🆕 V4.5: 兜底 — 从config中补入有kickoff但不在赛程表的比赛 (防漏)
+    schedule_names = {name for name, _ in schedule}
+    try:
+        from datetime import datetime as _dt
+        for cfg_name, cfg_entry in config.get('matches', {}).items():
+            cfg_ko = cfg_entry.get('kickoff', '')
+            if cfg_ko and cfg_name not in schedule_names:
+                try:
+                    # 兼容 "2026-06-29 03:00" 和 "2026-06-29T03:00" 两种格式
+                    ko_dt = _dt.strptime(cfg_ko.replace('T', ' '), '%Y-%m-%d %H:%M')
+                    schedule.append((cfg_name, ko_dt))
+                    schedule_names.add(cfg_name)
+                except ValueError:
+                    pass
+    except Exception:
+        pass
+    schedule.sort(key=lambda x: x[1])  # 重排序
+
     if not schedule:
         return {'checked': 0, 'fetched_xls': [], 'fetched_bf': [], 'skipped': [],
                 'message': '无赛程数据'}
@@ -817,7 +835,7 @@ def check_status(match_name: str = None) -> str:
         mid = ''
         is_configured = '✅' if name in config.get('matches', {}) else '⚠️ 未配置'
         if name in config.get('matches', {}):
-            mid = config['matches'][name].get('match_id', '?')
+            mid = str(config['matches'][name].get('match_id', '?'))
 
         lines.append(f'{name:24s} | {xls_status:6s} | {bf_status:6s} | {odds_status:6s} | {mid:12s} | {is_configured:6s}')
 

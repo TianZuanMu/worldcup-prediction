@@ -163,17 +163,32 @@ INJURY_DB: Dict[str, dict] = {
         'notes': '世界杯首秀·无伤病报告',
         'last_updated': '2026-06-17',
     },
+    # ── R16 停赛+伤病 (6/28) ──
+    '南非': {
+        'confirmed_out': [
+            {'name': 'Themba Zwane', 'position': 'AM', 'status': 'out',
+             'note': '🔴 红牌·3场禁赛(最后一场)·进攻核心缺阵'},
+            {'name': 'Sphephelo Sithole', 'position': 'CM', 'status': 'out',
+             'note': '🔴 红牌·禁赛·中场屏障缺失'},
+        ],
+        'doubtful': [],
+        'notes': '🆕 兹瓦内+西索尔红牌停赛·莫科纳黄牌解禁复出(利好)·进攻端严重削弱·依赖5-4-1防反',
+        'last_updated': '2026-06-28',
+    },
     # ── MD2 伤病 (6/19) ──
     '加拿大': {
-        'confirmed_out': [],
-        'doubtful': [
-            {'name': 'Alphonso Davies', 'position': 'LB', 'status': 'doubtful',
-             'note': '腿筋受伤·缺战MD1·MD2主帅确认可出战(替补)·体能受限'},
-            {'name': 'Moise Bombito', 'position': 'CB', 'status': 'doubtful',
-             'note': '骨折恢复中·MD2可能出战'},
+        'confirmed_out': [
+            {'name': 'Ismael Kone', 'position': 'CM', 'status': 'out',
+             'note': '🆕 腿部骨折·赛季报销·缺席剩余全部比赛'},
         ],
-        'notes': '戴维斯恢复训练·预计替补20-30分钟·队长核心',
-        'last_updated': '2026-06-18',
+        'doubtful': [
+            {'name': 'Moise Bombito', 'position': 'CB', 'status': 'doubtful',
+             'note': '骨折恢复中·状态不明'},
+            {'name': 'Stephen Eustaquio', 'position': 'DM', 'status': 'doubtful',
+             'note': '🆕 肌肉伤势·minor doubt·出战成疑'},
+        ],
+        'notes': '🆕 戴维斯复出(X因素·左路升级)·科内骨折报销·欧斯塔基奥+邦比托伤疑·中场控制力受损',
+        'last_updated': '2026-06-28',
     },
     '英格兰': {
         'confirmed_out': [],
