@@ -3186,6 +3186,13 @@ def _build_structured(r: PreMatchReport):
         bf = r._bf_raw_odds if hasattr(r, '_bf_raw_odds') else {}
         bf_home = bf.get('home', 0) or 0; bf_away = bf.get('away', 0) or 0
         bf_draw = bf.get('draw', 0) or 0
+        # 🆕 V4.5: 兜底 — 500.com临场缺字段时从prob反推(prob始终有值)
+        if (bf_draw <= 1.0 or bf_away <= 1.0) and hasattr(r, '_betfair_snapshots') and r._betfair_snapshots:
+            last = r._betfair_snapshots[-1].get('betfair', {})
+            dp = last.get('draw_prob', 0) or 0
+            ap = last.get('away_prob', 0) or 0
+            if dp > 0 and bf_draw <= 1.0: bf_draw = 1.0 / dp
+            if ap > 0 and bf_away <= 1.0: bf_away = 1.0 / ap
 
         # V3.32fix: 确定预测赢家(按预测方向+赔率), 而非热方
         # 热方≠预测赢家 (西班牙VS沙特: 热方=沙特, 预测=热门胜=西班牙)
@@ -3662,6 +3669,47 @@ def format_report(r: PreMatchReport) -> str:
     elif r.v26_score_predictions:
         lines.append(f"  比分参考: {', '.join(r.v26_score_predictions)}")
 
+    # 🆕 V4.6: 进球数预测 — 基于泊松分布的统一入口
+    try:
+        sp = r.score_prediction
+        if sp and getattr(sp, 'goal_distribution', None):
+            gd = sp.goal_distribution
+            u0 = gd.get(0, 0); u1 = u0 + gd.get(1, 0)
+            u2 = u1 + gd.get(2, 0); u3 = u2 + gd.get(3, 0)
+            u4 = u3 + sum(gd.get(k, 0) for k in range(4, 10))
+            if u2 >= 0.55: rec, conf = '≤2球', round(u2 * 100)
+            elif u3 >= 0.55: rec, conf = '≤3球', round(u3 * 100)
+            elif u2 >= 0.45: rec, conf = '无明确方向', 0
+            elif (1 - u2) >= 0.45: rec, conf = '≥3球倾向', round((1-u2)*100)
+            else: rec, conf = '≥4球', round((1 - u2) * 100)
+            best = '1-2球' if gd.get(2,0) >= gd.get(3,0) else '2-3球'
+            best_p = round((gd.get(1,0) + gd.get(2,0)) * 100) if best == '1-2球' else round((gd.get(2,0) + gd.get(3,0)) * 100)
+            totals_dir = getattr(r, '_totals_prediction', {}) or {}
+            td_raw = totals_dir.get('direction', '') or ''
+            tc = totals_dir.get('confidence', 0) or 0
+            td_cn = {'under': '小球', 'over': '大球', 'neutral': '不推荐'}.get(td_raw, td_raw)
+            if td_raw in ('under', '小'): goal_dir = '≤2'
+            elif td_raw in ('over', '大'): goal_dir = '≥3'
+            else: goal_dir = ''
+            consistent = '✅' if (goal_dir and rec[:2] == goal_dir) else ('⚠️' if goal_dir and rec != '无明确方向' else '—')
+            gap_pp = abs(tc - conf) if (conf > 0 and tc > 0 and goal_dir) else 0
+            gap_str = f' · 强度差{gap_pp}pp' if gap_pp > 10 else ''
+            logic_parts = []
+            if getattr(r, '_totals_line', 0) > 0: logic_parts.append(f'盘口{r._totals_line:.1f}')
+            logic_parts.append(f'纯净xG总{sp.pure_xg_home + sp.pure_xg_away:.2f}')
+            conf_s = f' (信{conf}%)' if conf > 0 else ''
+            lines.append(f'📊 进球数预测: {rec}{conf_s} · 最可能区间: {best} ({best_p}%)')
+            # 逐球概率: 0球 1球 2球 3球 4球 5+
+            g0 = round(gd.get(0,0)*100); g1 = round(gd.get(1,0)*100)
+            g2 = round(gd.get(2,0)*100); g3 = round(gd.get(3,0)*100)
+            g4 = round(gd.get(4,0)*100); g5p = round((1 - u3 - gd.get(4,0))*100)
+            lines.append(f'   | 0球 {g0}% | 1球 {g1}% | 2球 {g2}% | 3球 {g3}% | 4球 {g4}% | 5+球 {g5p}% |')
+            if td_raw:
+                logic_str = '·'.join(logic_parts)
+                lines.append(f'   大小球: {td_cn} {tc}% · 一致性: {consistent}{gap_str} · 逻辑: {logic_str}→{td_cn}倾向')
+    except Exception:
+        pass
+
     lines += [
         "",
         f"── V2.7规则 ──",
@@ -3710,6 +3758,57 @@ def format_report(r: PreMatchReport) -> str:
     if r.v26_warnings:
         for w in r.v26_warnings:
             lines.append(f"  ⚠️ {w}")
+
+    # 🆕 V4.5: 初盘评估 — 判断开盘和后续调整是否合理
+    _opening_note = ''
+    try:
+        from xls_reader_xlrd import _find_all_xls_versions
+        eu_versions = _find_all_xls_versions(r.match_name, '(世界杯)欧洲数据.xls')
+        if len(eu_versions) >= 2:
+            import xlrd as _xlrd_op
+            wb1 = _xlrd_op.open_workbook(eu_versions[0][0])
+            sh1 = wb1.sheet_by_index(0)
+            wb2 = _xlrd_op.open_workbook(eu_versions[-1][0])
+            sh2 = wb2.sheet_by_index(0)
+            first = last = None
+            for wb, sh in [(wb1, sh1), (wb2, sh2)]:
+                for _row in range(min(sh.nrows, 40)):
+                    if str(sh.cell_value(_row, 0) or '').strip() == '平均值' and _row+1 < sh.nrows:
+                        odds = (float(sh.cell_value(_row+1,1)), float(sh.cell_value(_row+1,3)))
+                        if first is None: first = odds
+                        else: last = odds
+                        break
+            if first and last:
+                home_is_fav = first[0] < first[1]  # 开盘时主队是否热门
+                fav_first = first[0] if home_is_fav else first[1]
+                fav_last = last[0] if home_is_fav else last[1]
+                dog_first = first[1] if home_is_fav else first[0]
+                dog_last = last[1] if home_is_fav else last[0]
+                fav_ch = (fav_last - fav_first) / fav_first * 100
+                dog_ch = (dog_last - dog_first) / dog_first * 100
+                rank_gap = abs(getattr(r, 'fifa_rank_gap', 30) or 30)
+                # 热门或冷门赔率未明显变动→跳过比率判定
+                if abs(fav_ch) <= 0.1 or abs(dog_ch) <= 0.1:
+                    _opening_note = (f'📐 初盘评估: 赔率变动不显著 '
+                                    f'(热门{fav_first:.2f}→{fav_last:.2f}·冷门{dog_first:.2f}→{dog_last:.2f}·'
+                                    f'排名差{rank_gap})')
+                else:
+                    ratio = abs(dog_ch / fav_ch)
+                    # 阈值: rank_gap<15→2.5, <30→3.0, ≥30→4.0; 0.7系数为略高线
+                    if rank_gap < 15: threshold = 2.5
+                    elif rank_gap < 30: threshold = 3.0
+                    else: threshold = 4.0
+                    if ratio > threshold:
+                        judgment = '⚠️过度调整'
+                    elif ratio > threshold * 0.7:
+                        judgment = '🟡略高'
+                    else:
+                        judgment = '✅合理'
+                    _opening_note = (f'📐 初盘评估: {judgment} (热门{fav_first:.2f}→{fav_last:.2f}·'
+                                    f'冷门{dog_first:.2f}→{dog_last:.2f}·比率{ratio:.1f}x·排名差{rank_gap})')
+    except Exception:
+        pass
+    if _opening_note: lines.append(_opening_note)
 
     lines += [
         "",

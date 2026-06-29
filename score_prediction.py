@@ -36,6 +36,8 @@ class ScorePrediction:
     # 🆕 V4.5 P2: 纯净xG (无方向调整·供大小球验证)
     pure_xg_home: float = 0.0
     pure_xg_away: float = 0.0
+    # 🆕 V4.6: 泊松总进球分布 (供进球数预测)
+    goal_distribution: dict = field(default_factory=dict)
     adjustments: List[str] = field(default_factory=list)  # 🆕 调整日志
     # 🆕 V4.2 P1: 独立穿盘风险评估 (不修改xG)
     cover_risk: str = ''           # 'win_but_lose_spread' | 'cover_likely' | 'neutral'
@@ -517,6 +519,7 @@ def calculate_score_probs(lam_home: float, lam_away: float,
     home_win = 0.0
     draw = 0.0
     away_win = 0.0
+    goal_dist = {}  # 总进球分布
 
     for h in range(max_goals + 1):
         for a in range(max_goals + 1):
@@ -530,6 +533,9 @@ def calculate_score_probs(lam_home: float, lam_away: float,
                 draw += prob
             else:
                 away_win += prob
+            # 累加总进球分布
+            total_g = h + a
+            goal_dist[total_g] = goal_dist.get(total_g, 0) + prob
 
     # 按概率降序
     scores.sort(key=lambda x: x[1], reverse=True)
@@ -538,6 +544,7 @@ def calculate_score_probs(lam_home: float, lam_away: float,
         'home_win': home_win,
         'draw': draw,
         'away_win': away_win,
+        'goal_distribution': goal_dist,
     }
 
     return scores, summary
@@ -779,6 +786,8 @@ def predict_score(match_name: str,
     # 8. 计算泊松概率 (EXTREME用更大范围+混合模型)
     max_g = 8 if gap_level == 'extreme' else 6
     scores, summary = calculate_score_probs(lam_home, lam_away, max_goals=max_g)
+    # 🆕 V4.6: 存储总进球分布
+    sp.goal_distribution = summary.get('goal_distribution', {})
 
     # 🆕 V3.6: EXTREME双峰分布 — 混合低分意外场景
     if gap_level == 'extreme':

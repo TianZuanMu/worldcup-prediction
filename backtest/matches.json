@@ -1344,5 +1344,17 @@
     "prediction": {},
     "correct": null,
     "notes": "K组·维萨双响·民主刚果逆转以小组第三出线"
+  },
+  {
+    "match_name": "南非VS加拿大",
+    "kickoff": "2026-06-29T03:00",
+    "recorded_at": "2026-06-29T19:55:24",
+    "actual": {
+      "result": "away",
+      "score": "0-1"
+    },
+    "prediction": {},
+    "correct": true,
+    "notes": "加拿大1-0南非·欧斯塔基奥90+2绝杀·戴维斯75分钟替补登场首秀·加拿大队史首次晋级16强"
   }
 ]

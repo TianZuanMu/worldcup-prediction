@@ -172,7 +172,7 @@ INJURY_DB: Dict[str, dict] = {
              'note': '🔴 红牌·禁赛·中场屏障缺失'},
         ],
         'doubtful': [],
-        'notes': '🆕 兹瓦内+西索尔红牌停赛·莫科纳黄牌解禁复出(利好)·进攻端严重削弱·依赖5-4-1防反',
+        'notes': '🆕 兹瓦内+西索尔红牌停赛·莫科纳黄牌解禁复出·中场一出一进·进攻端削弱·防反体系',
         'last_updated': '2026-06-28',
     },
     # ── MD2 伤病 (6/19) ──
@@ -186,9 +186,59 @@ INJURY_DB: Dict[str, dict] = {
              'note': '骨折恢复中·状态不明'},
             {'name': 'Stephen Eustaquio', 'position': 'DM', 'status': 'doubtful',
              'note': '🆕 肌肉伤势·minor doubt·出战成疑'},
+            {'name': 'Alfie Jones', 'position': 'FB', 'status': 'doubtful',
+             'note': '🆕 健康问题·出战成疑'},
         ],
-        'notes': '🆕 戴维斯复出(X因素·左路升级)·科内骨折报销·欧斯塔基奥+邦比托伤疑·中场控制力受损',
+        'notes': '🆕 戴维斯复出(X因素·左路升级)·科内骨折报销·欧斯塔基奥+邦比托+琼斯伤疑·中场+防线双重受损',
         'last_updated': '2026-06-28',
+    },
+    # ── R16 伤病 (6/29) ──
+    '巴西': {
+        'confirmed_out': [
+            {'name': 'Raphinha', 'position': 'WG', 'status': 'out', 'note': '膝伤·缺席本场'},
+        ],
+        'doubtful': [],
+        'notes': '拉菲尼亚伤缺·内马尔伤愈替补待命·边路火力略减',
+        'last_updated': '2026-06-29',
+    },
+    '日本': {
+        'confirmed_out': [],
+        'doubtful': [
+            {'name': 'Takefusa Kubo', 'position': 'AM', 'status': 'doubtful', 'note': '出战成疑'},
+        ],
+        'notes': '久保建英伤疑·板仓滉可登场·南野+三笘薰已无缘大名单',
+        'last_updated': '2026-06-29',
+    },
+    '德国': {
+        'confirmed_out': [
+            {'name': 'Nico Schlotterbeck', 'position': 'CB', 'status': 'out', 'note': '伤缺·缺席剩余比赛'},
+        ],
+        'doubtful': [],
+        'notes': '施洛特贝克伤缺·防线核心-1·布朗已复出',
+        'last_updated': '2026-06-29',
+    },
+    '巴拉圭': {
+        'confirmed_out': [
+            {'name': 'Diego Gomez', 'position': 'MF', 'status': 'out', 'note': '累积黄牌停赛'},
+        ],
+        'doubtful': [
+            {'name': 'Omar Alderete', 'position': 'CB', 'status': 'doubtful', 'note': '上场受伤·出战成疑'},
+            {'name': 'Ramon Sosa', 'position': 'FW', 'status': 'doubtful', 'note': '出战成疑'},
+        ],
+        'notes': '戈麦斯停赛·阿尔米隆解禁复出·阿尔德雷特+索萨伤疑',
+        'last_updated': '2026-06-29',
+    },
+    '荷兰': {
+        'confirmed_out': [],
+        'doubtful': [],
+        'notes': '廷贝尔有望复出·阵容接近完整',
+        'last_updated': '2026-06-29',
+    },
+    '摩洛哥': {
+        'confirmed_out': [],
+        'doubtful': [],
+        'notes': '无伤停影响·全员健康·阿布德+阿格德已无缘大名单',
+        'last_updated': '2026-06-29',
     },
     '英格兰': {
         'confirmed_out': [],
