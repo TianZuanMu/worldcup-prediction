@@ -153,9 +153,9 @@ def discover_match_ids() -> Dict[str, str]:
         match_ids = list(odds_data.keys())
         print(f"🔍 live.500.com: 发现 {len(match_ids)} 个比赛ID")
 
-        # 🆕 V4.5: 扫描未来3天日期分页 (主页仅显示今日比赛)
+        # 🆕 V4.5: 扫描今天+未来3天日期分页 (主页仅显示即时比赛)
         from datetime import datetime as _dt, timedelta as _td
-        for _offset in range(1, 4):
+        for _offset in range(0, 4):  # 0=今天·1-3=未来3天
             _date_str = (_dt.now() + _td(days=_offset)).strftime('%Y-%m-%d')
             try:
                 _resp = session.get(f'https://live.500.com/?e={_date_str}', headers=HEADERS, timeout=15)
@@ -168,7 +168,7 @@ def discover_match_ids() -> Dict[str, str]:
                     if _new:
                         print(f"🔍 live.500.com/?e={_date_str}: 新增 {len(_new)} 个比赛ID")
             except Exception:
-                pass
+                pass  # 日期页无数据或未上线·静默跳过
 
         # Step 2: 对每个ID获取队名
         print("   提取队名...")
