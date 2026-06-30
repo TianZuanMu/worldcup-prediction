@@ -361,14 +361,14 @@
       "match_id": "1359158",
       "discovered_at": "2026-06-27 23:12",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:07",
+      "last_fetch": "2026-06-30 08:37",
       "kickoff": "2026-06-30 09:00"
     },
     "巴西VS日本": {
       "match_id": "1359161",
       "discovered_at": "2026-06-27 23:12",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:07",
+      "last_fetch": "2026-06-30 00:37",
       "kickoff": "2026-06-30 01:00"
     },
     "德国VS巴拉圭": {
@@ -376,49 +376,49 @@
       "discovered_at": "2026-06-27 23:18",
       "source": "live.500.com",
       "kickoff": "2026-06-30 04:30",
-      "last_fetch": "2026-06-30 00:07"
+      "last_fetch": "2026-06-30 04:07"
     },
     "科特迪瓦VS挪威": {
       "match_id": "1359169",
       "discovered_at": "2026-06-27 23:18",
       "source": "live.500.com",
       "kickoff": "2026-07-01 01:00",
-      "last_fetch": "2026-06-29 19:07"
+      "last_fetch": "2026-06-30 21:07"
     },
     "法国VS瑞典": {
       "match_id": "1359165",
       "discovered_at": "2026-06-27 23:18",
       "source": "live.500.com",
       "kickoff": "2026-07-01 05:00",
-      "last_fetch": "2026-06-29 23:07"
+      "last_fetch": "2026-06-30 21:07"
     },
     "墨西哥VS厄瓜多尔": {
       "match_id": "1359174",
       "kickoff": "2026-07-01 09:00",
       "discovered_at": "2026-06-28 14:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:17"
+      "last_fetch": "2026-06-30 21:07"
     },
     "英格兰VS民主刚果": {
       "match_id": "1359178",
       "kickoff": "2026-07-02 00:00",
       "discovered_at": "2026-06-28 14:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:17"
+      "last_fetch": "2026-06-30 18:37"
     },
     "比利时VS塞内加尔": {
       "match_id": "1359184",
       "kickoff": "2026-07-02 04:00",
       "discovered_at": "2026-06-28 14:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:19"
+      "last_fetch": "2026-06-30 18:37"
     },
     "美国VS波黑": {
       "match_id": "1359181",
       "kickoff": "2026-07-02 08:00",
       "discovered_at": "2026-06-28 14:15",
       "source": "live.500.com",
-      "last_fetch": "2026-06-30 00:19"
+      "last_fetch": "2026-06-30 20:07"
     },
     "西班牙VS奥地利": {
       "match_id": "",
@@ -461,6 +461,6 @@
   "download_delay": 2.0,
   "timeout": 30,
   "max_retries": 3,
-  "last_discovery": "2026-06-29 12:37:02",
+  "last_discovery": "2026-06-30 11:37:02",
   "preferred_source": "500com"
 }

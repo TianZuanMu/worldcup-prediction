@@ -87,14 +87,26 @@ INJURY_DB: Dict[str, dict] = {
     },
     '比利时': {
         'confirmed_out': [
-            {'name': 'Jérémy Doku', 'position': 'WG', 'status': 'out',
-             'note': '呼吸道感染·确认缺席'},
             {'name': 'Zeno Debast', 'position': 'CB', 'status': 'out',
              'note': '因伤缺阵'},
+            {'name': 'Nathan Ngoy', 'position': 'CB', 'status': 'out',
+             'note': '停赛'},
         ],
-        'doubtful': [],
-        'notes': '多库+德巴斯特缺阵·卢卡库+特罗萨德+CDK已于6/19恢复全面合练·具备出场条件',
-        'last_updated': '2026-06-21',
+        'doubtful': [
+            {'name': 'Jérémy Doku', 'position': 'WG', 'status': 'doubtful',
+             'note': '出战成疑(此前呼吸道感染·状态待确认)'},
+        ],
+        'notes': '🆕 德巴斯特伤缺+恩戈伊停赛·多库存疑·卢卡库+特罗萨德+CDK已恢复',
+        'last_updated': '2026-06-30',
+    },
+    '波黑': {
+        'confirmed_out': [],
+        'doubtful': [
+            {'name': 'Amar Dedić', 'position': 'FB', 'status': 'doubtful',
+             'note': '出战成疑'},
+        ],
+        'notes': '🆕 德迪奇存疑·穆哈雷莫维奇红牌解禁复出·防线一进一出',
+        'last_updated': '2026-06-30',
     },
     '伊朗': {
         'confirmed_out': [
@@ -154,14 +166,14 @@ INJURY_DB: Dict[str, dict] = {
     '民主刚果': {
         'confirmed_out': [],
         'doubtful': [],
-        'notes': '世界杯首秀·无伤病报告',
-        'last_updated': '2026-06-17',
+        'notes': '无明确伤停信息·阵容预计完整',
+        'last_updated': '2026-06-30',
     },
     '刚果(金)': {  # 别名
         'confirmed_out': [],
         'doubtful': [],
-        'notes': '世界杯首秀·无伤病报告',
-        'last_updated': '2026-06-17',
+        'notes': '无明确伤停信息·阵容预计完整',
+        'last_updated': '2026-06-30',
     },
     # ── R16 停赛+伤病 (6/28) ──
     '南非': {
@@ -240,11 +252,66 @@ INJURY_DB: Dict[str, dict] = {
         'notes': '无伤停影响·全员健康·阿布德+阿格德已无缘大名单',
         'last_updated': '2026-06-29',
     },
-    '英格兰': {
+    # ── R16 伤病 (6/30) ──
+    '科特迪瓦': {
+        'confirmed_out': [
+            {'name': 'Evan Ndicka', 'position': 'CB', 'status': 'out',
+             'note': '主力中卫·确认伤缺'},
+            {'name': 'Akpa', 'position': 'CM', 'status': 'out',
+             'note': '5月30日因伤退出名单·奥佩里入替'},
+        ],
+        'doubtful': [
+            {'name': 'Wilfried Singo', 'position': 'FB', 'status': 'doubtful',
+             'note': '主力右后卫·出战存疑'},
+        ],
+        'notes': '🔴 防线受损: 恩迪卡缺阵·辛戈存疑·阿克帕已退出·中后场三人受影响',
+        'last_updated': '2026-06-30',
+    },
+    '瑞典': {
+        'confirmed_out': [
+            {'name': 'Isak Hien', 'position': 'CB', 'status': 'out',
+             'note': '主力中卫·腿筋伤势·已退出本届世界杯'},
+            {'name': 'Holm', 'position': 'FB', 'status': 'out',
+             'note': '5月30日因伤退出名单·赫尔曼·约翰松入替'},
+        ],
+        'doubtful': [],
+        'notes': '🔴 防线重创: 希恩+霍尔姆双双退出·中卫和边卫各缺一人',
+        'last_updated': '2026-06-30',
+    },
+    '墨西哥': {
         'confirmed_out': [],
         'doubtful': [],
-        'notes': '阵容齐整·凯恩+贝林厄姆双核健康',
-        'last_updated': '2026-06-17',
+        'notes': '阵容齐整·塞萨尔·蒙特斯解禁复出·全员可用',
+        'last_updated': '2026-06-30',
+    },
+    '厄瓜多尔': {
+        'confirmed_out': [],
+        'doubtful': [],
+        'notes': '阵容完整·全员健康·无伤停影响',
+        'last_updated': '2026-06-30',
+    },
+    '塞内加尔': {
+        'confirmed_out': [],
+        'doubtful': [
+            {'name': 'Édouard Mendy', 'position': 'GK', 'status': 'doubtful',
+             'note': '主力门将·小组赛膝盖受伤·大概率缺席'},
+        ],
+        'notes': '🔴 门将危机: 门迪大概率缺阵·防线最后一道屏障受损',
+        'last_updated': '2026-06-30',
+    },
+    '英格兰': {
+        'confirmed_out': [
+            {'name': 'Tino Livramento', 'position': 'FB', 'status': 'out',
+             'note': '小腿伤势·已退出本届世界杯'},
+        ],
+        'doubtful': [
+            {'name': 'Reece James', 'position': 'FB', 'status': 'doubtful',
+             'note': '腿筋伤势·出战存疑'},
+            {'name': 'Jarell Quansah', 'position': 'CB', 'status': 'doubtful',
+             'note': '脚踝扭伤·大概率缺席'},
+        ],
+        'notes': '🆕 利夫拉门托伤退·詹姆斯+宽萨存疑·赖斯回归首发·凯恩可出战',
+        'last_updated': '2026-06-30',
     },
     '克罗地亚': {
         'confirmed_out': [
@@ -294,10 +361,18 @@ INJURY_DB: Dict[str, dict] = {
         'last_updated': '2026-06-17',
     },
     '法国': {
-        'confirmed_out': [],
-        'doubtful': [],
-        'notes': '姆巴佩健康·阵容深度顶级',
-        'last_updated': '2026-06-17',
+        'confirmed_out': [
+            {'name': 'Marcus Thuram', 'position': 'FW', 'status': 'out',
+             'note': '小腿肌肉伤势·确认缺阵'},
+            {'name': 'Aurélien Tchouaméni', 'position': 'DM', 'status': 'out',
+             'note': '累积黄牌停赛'},
+        ],
+        'doubtful': [
+            {'name': 'N\'Golo Kanté', 'position': 'DM', 'status': 'doubtful',
+             'note': '缺席合练·预计不出战'},
+        ],
+        'notes': '🔴 中场受损: 楚阿梅尼停赛+坎特存疑+拉比奥伤愈可出战·图拉姆缺阵·萨利巴复出',
+        'last_updated': '2026-06-30',
     },
     '巴西': {
         'confirmed_out': [],
@@ -327,19 +402,24 @@ INJURY_DB: Dict[str, dict] = {
         'last_updated': '2026-06-17',
     },
     '比利时': {
-        'confirmed_out': [],
-        'doubtful': [
-            {'name': 'De Bruyne', 'position': 'AM', 'status': 'doubtful',
-             'note': '赛季末轻微伤·首轮可能替补'}
+        'confirmed_out': [
+            {'name': 'Zeno Debast', 'position': 'CB', 'status': 'out',
+             'note': '因伤缺阵'},
+            {'name': 'Nathan Ngoy', 'position': 'CB', 'status': 'out',
+             'note': '停赛'},
         ],
-        'notes': '黄金一代老化·德布劳内轻伤',
-        'last_updated': '2026-06-17',
+        'doubtful': [
+            {'name': 'Jérémy Doku', 'position': 'WG', 'status': 'doubtful',
+             'note': '出战成疑'},
+        ],
+        'notes': '德巴斯特伤缺+恩戈伊停赛·多库存疑·卢卡库+特罗萨德+CDK健康',
+        'last_updated': '2026-06-30',
     },
     '挪威': {
         'confirmed_out': [],
         'doubtful': [],
-        'notes': '哈兰德+厄德高双核健康',
-        'last_updated': '2026-06-17',
+        'notes': '无新增伤停·哈兰德+厄德高双核健康·全员可出战',
+        'last_updated': '2026-06-30',
     },
     '摩洛哥': {
         'confirmed_out': [],
@@ -361,9 +441,16 @@ INJURY_DB: Dict[str, dict] = {
     },
     '美国': {
         'confirmed_out': [],
-        'doubtful': [],
-        'notes': '普利西奇+麦肯尼健康·东道主全主力',
-        'last_updated': '2026-06-17',
+        'doubtful': [
+            {'name': 'Christian Roldan', 'position': 'CM', 'status': 'doubtful',
+             'note': '出战成疑'},
+            {'name': 'Mark McKenzie', 'position': 'CB', 'status': 'doubtful',
+             'note': '出战成疑'},
+            {'name': 'Auston Trusty', 'position': 'CB', 'status': 'doubtful',
+             'note': '出战成疑'},
+        ],
+        'notes': '🆕 罗尔丹+麦肯齐+特拉斯蒂存疑·罗宾逊/巴洛贡/理查兹/亚当斯无停赛风险·普利西奇+麦肯尼健康',
+        'last_updated': '2026-06-30',
     },
 }
 
@@ -449,21 +536,52 @@ def check_injuries(team: str) -> InjuryImpact:
     return impact
 
 
-def get_match_injury_impact(home: str, away: str) -> dict:
+def get_match_injury_impact(home: str, away: str,
+                             hot_side: str = 'home',
+                             hot_wins: bool = True) -> dict:
     """
-    双方伤病对比。
+    双方伤病对比 · V4.5.1 双向差分 (替代V3.4·统一入口)
 
-    Returns:
-        {home_impact, away_impact, differential, confidence_adj}
+    热方受损 → 负向惩罚 (复用 check_injuries 阈值分级)
+    弱方受损 → 正向补偿 (仅 hot_wins=True·折半·锦上添花非翻盘)
+
+    Args:
+        home, away: 队伍名
+        hot_side: 资金热方 ('home' or 'away')
+        hot_wins: 模型预测热门获胜 (False→弱方补偿归零·避免方向冲突)
+
+    阈值映射 (与 check_injuries 分级严格对应·单源维护):
+        total_weight_loss → 0→0% | ≤1.5→-3% | ≤3.0→-8% | ≤5.0→-12% | >5.0→-20%
     """
     hi = check_injuries(home)
     ai = check_injuries(away)
 
-    diff = ai.total_weight_loss - hi.total_weight_loss  # positive = away worse
-    # 🆕 V3.29fix: 取双方伤病调整的最小值 (伤病总是降低置信度)
-    adj = min(hi.confidence_adj, ai.confidence_adj)
-    # Cap at -15 to 0
-    adj = max(-15, min(0, adj))
+    # 热方/弱方损失
+    if hot_side == 'home':
+        hot_loss = hi.total_weight_loss
+        weak_loss = ai.total_weight_loss
+    else:
+        hot_loss = ai.total_weight_loss
+        weak_loss = hi.total_weight_loss
+
+    # ── 热方受损 → 负向 (复用 check_injuries 阈值) ──
+    if hot_loss >= 5.0:       hot_penalty = -20
+    elif hot_loss >= 3.0:     hot_penalty = -12
+    elif hot_loss >= 1.5:     hot_penalty = -8
+    elif hot_loss >= 0.5:     hot_penalty = -3
+    else:                      hot_penalty = 0
+
+    # ── 弱方受损 → 正向补偿 (折半·仅热门胜时生效) ──
+    if hot_wins and weak_loss >= 3.0:      weak_bonus = +5
+    elif hot_wins and weak_loss >= 1.5:    weak_bonus = +3
+    elif hot_wins and weak_loss >= 0.5:    weak_bonus = +1
+    else:                                   weak_bonus = 0
+
+    adj = hot_penalty + weak_bonus
+    adj = max(-20, min(+8, adj))
+
+    # 差分 (正=客队更差·保留向后兼容)
+    diff = ai.total_weight_loss - hi.total_weight_loss
 
     return {
         'home': {'loss': hi.total_weight_loss, 'adj': hi.confidence_adj, 'overall': hi.overall},
@@ -471,6 +589,15 @@ def get_match_injury_impact(home: str, away: str) -> dict:
         'differential': diff,
         'confidence_adj': adj,
         'notes': hi.notes + ai.notes,
+        # 🆕 V4.5.1: 伤病trace·可追溯每个子项
+        'trace': {
+            'hot_loss': hot_loss,
+            'weak_loss': weak_loss,
+            'hot_penalty': hot_penalty,
+            'weak_bonus': weak_bonus,
+            'hot_wins': hot_wins,
+            'final_adj': adj,
+        },
     }
 
 

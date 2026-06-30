@@ -342,19 +342,18 @@ def generate_report(match_name: str,
     except Exception:
         pass
 
-    # 4g2. 🆕 V3.30: 伤病影响
+    # 4g2. 🆕 V3.30→V4.5.1: 伤病数据采集 (adj在乘法链中动态计算·方向保护)
     try:
         from injury_tracker import get_match_injury_impact as _gmii, check_injuries as _ci
-        r._injury_impact = _gmii(home_cn, away_cn)
+        r._injury_impact = _gmii(home_cn, away_cn, r.betfair_hot_side, hot_wins=True)
         r._injury_home = _ci(home_cn)
         r._injury_away = _ci(away_cn)
-        if r._injury_impact.get('confidence_adj', 0) != 0:
-            hi = r._injury_impact
+        hi = r._injury_impact
+        if hi['home']['loss'] > 0 or hi['away']['loss'] > 0:
             r.v26_warnings.append(
-                '🏥 伤病: %s(%s) vs %s(%s) → 净影响%+.0f%%' % (
+                '🏥 伤病: %s(%s) vs %s(%s)' % (
                     home_cn, hi['home']['overall'],
-                    away_cn, hi['away']['overall'],
-                    hi['confidence_adj']
+                    away_cn, hi['away']['overall']
                 )
             )
     except Exception:
@@ -1623,9 +1622,49 @@ def _apply_v26_rules(r: PreMatchReport):
             for a in r.lineup_impact.home_adjustments + r.lineup_impact.away_adjustments:
                 r.v26_warnings.append(f'👥 {a}')
 
-        # 3b. 🆕 V3.30: 伤病影响
-        if r._injury_impact and r._injury_impact.get('confidence_adj', 0) != 0:
-            multiplier *= (1.0 + r._injury_impact['confidence_adj'] / 100)
+        # 3b. 🆕 V3.30→V4.5.1: 伤病影响 (双向差分·方向保护·复用检查阈值)
+        if r._injury_impact:
+            _inj = r._injury_impact
+            _hl = _inj['home']['loss']; _al = _inj['away']['loss']
+            if r.betfair_hot_side == 'home':
+                _hot_loss, _weak_loss = _hl, _al
+            else:
+                _hot_loss, _weak_loss = _al, _hl
+
+            _hot_wins = '热门不胜' not in (r.v26_prediction or '')
+
+            # 热方受损→负向 (阈值与 check_injuries() 严格对应)
+            if _hot_loss >= 5.0:       _hp = -20
+            elif _hot_loss >= 3.0:     _hp = -12
+            elif _hot_loss >= 1.5:     _hp = -8
+            elif _hot_loss >= 0.5:     _hp = -3
+            else:                       _hp = 0
+
+            # 弱方受损→正向补偿 (热门不胜时归零)
+            _wb = 0
+            if _hot_wins:
+                if _weak_loss >= 3.0:      _wb = +5
+                elif _weak_loss >= 1.5:    _wb = +3
+                elif _weak_loss >= 0.5:    _wb = +1
+
+            _adj = max(-20, min(+8, _hp + _wb))
+            # 同步 trace (覆盖 step1 旧值·反映实际 hot_wins)
+            _inj['trace'] = {
+                'hot_loss': _hot_loss, 'weak_loss': _weak_loss,
+                'hot_penalty': _hp, 'weak_bonus': _wb,
+                'hot_wins': _hot_wins, 'final_adj': _adj,
+            }
+            if _adj != 0:
+                multiplier *= (1.0 + _adj / 100)
+                _ps = f'{_hp:+d}%' if _hp != 0 else '—'
+                if _hot_wins:
+                    _bs = f'{_wb:+d}%' if _wb != 0 else '—'
+                else:
+                    _bs = '归零(热门不胜)' if _weak_loss >= 0.5 else '—'
+                r.v26_warnings.append(
+                    f'🏥 伤病: 热方损{_hot_loss:.1f}({_ps}) + '
+                    f'弱方损{_weak_loss:.1f}({_bs}) → 净{_adj:+d}%'
+                )
 
         # 4. 战术优势 (±5%) → ×(0.95~1.05)
         if r.tactical_edge != 0:
@@ -1728,44 +1767,6 @@ def _apply_v26_rules(r: PreMatchReport):
                         r.v26_warnings.append(f'⭐ {p}')
             except Exception:
                 pass
-
-        # 15. 🆕 V3.4 伤病影响 (来自opponent_db·检查关键球员缺阵)
-        try:
-            from opponent_db import opponent_quality
-            home_inj = opponent_quality(home_team)
-            away_inj = opponent_quality(away_team)
-            injury_adj = 0
-            injury_notes = []
-            for team_name, data, is_hot in [(home_team, home_inj, r.betfair_hot_side == 'home'),
-                                             (away_team, away_inj, r.betfair_hot_side == 'away')]:
-                for p in data.get('players', []):
-                    inj = p.get('injury', '')
-                    if not inj: continue
-                    pos = p.get('pos', '')
-                    # 后卫/GK缺阵 → 防线削弱 → 对手更易进球 → 热门胜概率提升
-                    if pos in ('CB', 'RB', 'LB', 'GK', 'DF'):
-                        if is_hot:
-                            injury_adj -= 4  # 热方防线削弱 → 热门不胜风险↑
-                            injury_notes.append(f'{team_name}防线{p['name']}({pos})缺阵: {inj}')
-                        else:
-                            injury_adj += 4  # 弱方防线削弱 → 热门更易胜
-                            injury_notes.append(f'{team_name}防线{p['name']}({pos})缺阵→热门利好: {inj}')
-                    # FW缺阵 → 进攻削弱
-                    elif pos in ('FW', 'ST', 'CF', 'LW', 'RW', 'WG'):
-                        if is_hot:
-                            injury_adj -= 3  # 热方进攻削弱
-                            injury_notes.append(f'{team_name}射手{p['name']}({pos})缺阵: {inj}')
-                        else:
-                            injury_adj += 3  # 弱方进攻削弱
-                            injury_notes.append(f'{team_name}射手{p['name']}({pos})缺阵: {inj}')
-            if injury_adj != 0:
-                # 转置信度: 每adj点≈1.5% (限制±15%)
-                injury_adj = max(-15, min(15, injury_adj * 1.5))
-                multiplier *= (1.0 + injury_adj / 100)
-                for n in injury_notes[:3]:
-                    r.v26_warnings.append(f'🏥 {n}')
-        except Exception:
-            pass
 
         # 16. 🆕 V3.2→V3.3 中场实力对比 (CLOSE±5%·MOD±3%·BIG±1.5%)
         if gap in ('close', 'moderate', 'big'):
@@ -3333,7 +3334,7 @@ def _build_structured(r: PreMatchReport):
                     f'⚠️⚠️ 方向-泊松冲突: 预测热门胜但泊松主胜{sp.home_win_prob:.0f}%>客胜{sp.away_win_prob:.0f}%→降级处理')
         if direction_poisson_divergence:
             r.v26_confidence = min(r.v26_confidence, 50)
-            r.v26_warnings.insert(1, '🔺 方向分歧·置信度强制≤50%·建议回避')
+            r.v26_warnings.insert(1, '🔺 方向分歧·置信度强制≤50%·建议观望')
 
     # ══════════════════════════════════════════════════════════
     # 🆕 V4.4: 高信平局二次校验 — 高置信度时平局信号未充分扣分
@@ -3399,7 +3400,7 @@ def _build_structured(r: PreMatchReport):
     # ══════════════════════════════════════════════════════════
     if not _draw_upgraded and 40 <= r.v26_confidence < 50 and '⚠️ 不预测' not in r.v26_prediction:
         r.v26_warnings.append(
-            f'🟡 灰色区间({r.v26_confidence:.0f}%): 信号矛盾·建议视为平局倾向或弃权'
+            f'🟡 灰色区间({r.v26_confidence:.0f}%): 信号矛盾·建议视为平局倾向或观望'
         )
         if '平局' not in r.v26_prediction:
             r.v26_prediction += ' (平局风险·灰区)'
@@ -3639,9 +3640,8 @@ def format_report(r: PreMatchReport) -> str:
     # 🆕 V3.2 大小球预测
     tp = r._totals_prediction
     if tp:
-        # 🆕 V3.14: 置信度<50%标注"不推荐"·抑制方向输出
         if tp['confidence'] < 50:
-            dir_label = '⚠️ 不推荐投注大小球'
+            dir_label = '⚠️ 信号不足'
             flip_mark = ''
             _tc = tp['confidence']
             low_conf_mark = f' (信{_tc}%<50%)'
@@ -3669,7 +3669,7 @@ def format_report(r: PreMatchReport) -> str:
     elif r.v26_score_predictions:
         lines.append(f"  比分参考: {', '.join(r.v26_score_predictions)}")
 
-    # 🆕 V4.6: 进球数预测 — 基于泊松分布的统一入口
+    # 🆕 V4.6: 进球分布 — 泊松模型 (V4.5.1 输出重构·弃用二值建议·展示覆盖场景)
     try:
         sp = r.score_prediction
         if sp and getattr(sp, 'goal_distribution', None):
@@ -3677,36 +3677,41 @@ def format_report(r: PreMatchReport) -> str:
             u0 = gd.get(0, 0); u1 = u0 + gd.get(1, 0)
             u2 = u1 + gd.get(2, 0); u3 = u2 + gd.get(3, 0)
             u4 = u3 + sum(gd.get(k, 0) for k in range(4, 10))
-            if u2 >= 0.55: rec, conf = '≤2球', round(u2 * 100)
-            elif u3 >= 0.55: rec, conf = '≤3球', round(u3 * 100)
-            elif u2 >= 0.45: rec, conf = '无明确方向', 0
-            elif (1 - u2) >= 0.45: rec, conf = '≥3球倾向', round((1-u2)*100)
-            else: rec, conf = '≥4球', round((1 - u2) * 100)
-            best = '1-2球' if gd.get(2,0) >= gd.get(3,0) else '2-3球'
-            best_p = round((gd.get(1,0) + gd.get(2,0)) * 100) if best == '1-2球' else round((gd.get(2,0) + gd.get(3,0)) * 100)
-            totals_dir = getattr(r, '_totals_prediction', {}) or {}
-            td_raw = totals_dir.get('direction', '') or ''
-            tc = totals_dir.get('confidence', 0) or 0
-            td_cn = {'under': '小球', 'over': '大球', 'neutral': '不推荐'}.get(td_raw, td_raw)
-            if td_raw in ('under', '小'): goal_dir = '≤2'
-            elif td_raw in ('over', '大'): goal_dir = '≥3'
-            else: goal_dir = ''
-            consistent = '✅' if (goal_dir and rec[:2] == goal_dir) else ('⚠️' if goal_dir and rec != '无明确方向' else '—')
-            gap_pp = abs(tc - conf) if (conf > 0 and tc > 0 and goal_dir) else 0
-            gap_str = f' · 强度差{gap_pp}pp' if gap_pp > 10 else ''
-            logic_parts = []
-            if getattr(r, '_totals_line', 0) > 0: logic_parts.append(f'盘口{r._totals_line:.1f}')
-            logic_parts.append(f'纯净xG总{sp.pure_xg_home + sp.pure_xg_away:.2f}')
-            conf_s = f' (信{conf}%)' if conf > 0 else ''
-            lines.append(f'📊 进球数预测: {rec}{conf_s} · 最可能区间: {best} ({best_p}%)')
-            # 逐球概率: 0球 1球 2球 3球 4球 5+
+            # 逐球概率
             g0 = round(gd.get(0,0)*100); g1 = round(gd.get(1,0)*100)
             g2 = round(gd.get(2,0)*100); g3 = round(gd.get(3,0)*100)
             g4 = round(gd.get(4,0)*100); g5p = round((1 - u3 - gd.get(4,0))*100)
+            # 最可能区间
+            if gd.get(2,0) >= gd.get(3,0):
+                best = '1-2球'; best_p = round((gd.get(1,0) + gd.get(2,0)) * 100)
+            else:
+                best = '2-3球'; best_p = round((gd.get(2,0) + gd.get(3,0)) * 100)
+            # 覆盖场景概率
+            cov_1_3 = round((gd.get(1,0) + gd.get(2,0) + gd.get(3,0)) * 100)
+            cov_1_4 = round(cov_1_3 + g4)
+            cov_2_3 = round((gd.get(2,0) + gd.get(3,0)) * 100)
+            cov_u3 = round(u3 * 100)
+            # 大小球参照
+            totals_dir = getattr(r, '_totals_prediction', {}) or {}
+            td_raw = totals_dir.get('direction', '') or ''
+            tc = totals_dir.get('confidence', 0) or 0
+            td_cn = {'under': '小球', 'over': '大球', 'neutral': '信号不足'}.get(td_raw, td_raw)
+            logic_parts = []
+            if getattr(r, '_totals_line', 0) > 0: logic_parts.append(f'盘口{r._totals_line:.1f}')
+            logic_parts.append(f'纯净xG总{sp.pure_xg_home + sp.pure_xg_away:.2f}')
+            # ── 输出 ──
+            lines.append(f'📊 进球分布 (泊松模型·基于赔率隐含λ)')
+            lines.append(f'  最可能区间: {best} ({best_p}%)')
             lines.append(f'   | 0球 {g0}% | 1球 {g1}% | 2球 {g2}% | 3球 {g3}% | 4球 {g4}% | 5+球 {g5p}% |')
+            lines.append(f'  ⚠️ 泊松模型倾向低估极端值·回测59场准确率55.9%')
+            lines.append(f'')
+            lines.append(f'📐 覆盖场景 (模型概率·赔率请自行对照)')
+            lines.append(f'  覆盖1-3球: {cov_1_3}%  |  覆盖1-4球: {cov_1_4}%  |  覆盖2-3球: {cov_2_3}%  |  ≤3球: {cov_u3}%')
             if td_raw:
                 logic_str = '·'.join(logic_parts)
-                lines.append(f'   大小球: {td_cn} {tc}% · 一致性: {consistent}{gap_str} · 逻辑: {logic_str}→{td_cn}倾向')
+                lines.append(f'  大小球参照: {td_cn} {tc}% · 逻辑: {logic_str}')
+            lines.append(f'')
+            lines.append(f'💡 模型在进球数维度校准低于赛果维度(75.5% vs 55.9%)·不做二值建议')
     except Exception:
         pass
 
@@ -3719,7 +3724,7 @@ def format_report(r: PreMatchReport) -> str:
     ]
     # 🆕 V3.2: 弱信号警告
     if r.v26_confidence < 60 and r.v26_confidence > 0:
-        lines.append(f"  ⚠️ 低置信度({r.v26_confidence}%)·信号不足·建议回避或小额试探")
+        lines.append(f"  ⚠️ 低置信度({r.v26_confidence}%)·信号不足·谨慎参考")
     # 🆕 穿盘率展示
     if r.xls_cover_rate > 0:
         # 🆕 V4.5 P1: 穿盘参照系分离 — 亚盘 vs 竞彩

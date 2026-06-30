@@ -1356,5 +1356,41 @@
     "prediction": {},
     "correct": true,
     "notes": "加拿大1-0南非·欧斯塔基奥90+2绝杀·戴维斯75分钟替补登场首秀·加拿大队史首次晋级16强"
+  },
+  {
+    "match_name": "巴西VS日本",
+    "kickoff": "",
+    "recorded_at": "2026-06-30T18:43:48",
+    "actual": {
+      "result": "home",
+      "score": "2-1"
+    },
+    "prediction": {},
+    "correct": true,
+    "notes": "巴西2-1日本·佐野海舟29分世界波·卡塞米罗56分扳平·马丁内利90+5绝杀·巴西惊险晋级"
+  },
+  {
+    "match_name": "德国VS巴拉圭",
+    "kickoff": "",
+    "recorded_at": "2026-06-30T18:43:48",
+    "actual": {
+      "result": "draw",
+      "score": "1-1"
+    },
+    "prediction": {},
+    "correct": false,
+    "notes": "德国1-1巴拉圭(点球3-4)·恩西索42分头球·哈弗茨54分扳平·点球大战德国3人罚失·巴拉圭晋级"
+  },
+  {
+    "match_name": "荷兰VS摩洛哥",
+    "kickoff": "",
+    "recorded_at": "2026-06-30T18:43:48",
+    "actual": {
+      "result": "draw",
+      "score": "1-1"
+    },
+    "prediction": {},
+    "correct": true,
+    "notes": "荷兰1-1摩洛哥(点球2-3)·摩洛哥点球胜出晋级16强"
   }
 ]

@@ -466,10 +466,12 @@ def parse_asian_handicap(sheet) -> Dict[str, Any]:
         il_str = str(comp.get('init_line', ''))
         cl_str = str(comp.get('instant_line', ''))
         # 升/降基于绝对值: |盘口|变大=升盘(热方让更多球), |盘口|变小=降盘
-        if '升' in cl_str or abs(cl) > abs(il):
-            direction_tags.append('up')
-        elif '降' in cl_str or abs(cl) < abs(il):
-            direction_tags.append('down')
+        # 优先用数值比较·文字"升/降"仅兜底(parse_line返回0时)
+        if cl != 0 and il != 0:
+            if abs(cl) > abs(il): direction_tags.append('up')
+            elif abs(cl) < abs(il): direction_tags.append('down')
+        elif '升' in cl_str: direction_tags.append('up')
+        elif '降' in cl_str: direction_tags.append('down')
 
     # 取众数作为盘口
     from collections import Counter
